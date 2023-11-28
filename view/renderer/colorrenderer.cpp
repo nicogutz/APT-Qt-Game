@@ -5,4 +5,3 @@ ColorRenderer::ColorRenderer()
 {
 
 }
-QPixmap ColorRenderer::renderGameObject(const std::shared_ptr<GameObject> object) {}

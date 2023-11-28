@@ -10,11 +10,11 @@ public:
     ~ColorRenderer(){};
 
 private:
-    QPixmap renderTile(const QSharedPointer<GameObject> object) override;
-    QPixmap renderDoorway(const QSharedPointer<GameObject> object) override;
-    QPixmap renderHealthPack(const QSharedPointer<GameObject> object) override;
-    QPixmap renderProtagonist(const QSharedPointer<GameObject> object) override;
-    QPixmap renderEnemy(const QSharedPointer<GameObject> object) override;
+    QPixmap renderTile(const GameObject &object) override;
+    QPixmap renderDoorway(const GameObject &object) override;
+    QPixmap renderHealthPack(const GameObject &object) override;
+    QPixmap renderProtagonist(const GameObject &object) override;
+    QPixmap renderEnemy(const GameObject &object) override;
 };
 
 

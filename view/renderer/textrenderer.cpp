@@ -1,6 +1,8 @@
-#include "overlayrenderer.h"
+#include "textrenderer.h"
 
-OverlayRenderer::OverlayRenderer()
+
+
+TextRenderer::TextRenderer()
 {
 
 }
