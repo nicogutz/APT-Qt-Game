@@ -11,6 +11,16 @@ int GameObjectModel::getRowCount() const {
 int GameObjectModel::getColumnCount() const {
 }
 
+void GameObjectModel::objectChanged(QSharedPointer<GameObject> object, GameObject::DataRole role)
+{
+
+}
+
+void GameObjectModel::childMoved(QSharedPointer<GameObject> from, QSharedPointer<GameObject> to, GameObject::DataRole role)
+{
+
+}
+
 bool GameObjectModel::setData(int row, int column, GameObject::ObjectType type, GameObject::DataRole role, QVariant data) {
 }
 
