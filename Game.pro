@@ -24,7 +24,7 @@ SOURCES += \
     view/gameview.cpp \
     view/gamewindow.cpp \
     view/renderer/colorrenderer.cpp \
-    view/renderer/overlayrenderer.cpp \
+    view/renderer/textrenderer.cpp \
     view/renderer/renderer.cpp \
     view/renderer/spriterenderer.cpp
 
@@ -43,7 +43,7 @@ HEADERS += \
     view/gameview.h \
     view/gamewindow.h \
     view/renderer/colorrenderer.h \
-    view/renderer/overlayrenderer.h \
+    view/renderer/textrenderer.h \
     view/renderer/renderer.h \
     view/renderer/spriterenderer.h
 
