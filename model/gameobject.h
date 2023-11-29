@@ -50,9 +50,10 @@ public:
     ~GameObject();
 
     // Virtual neighbors getters and setters.
-    virtual QSharedPointer<GameObject>& getNeighbor(Direction direction) const = 0;
-    virtual QSharedPointer<GameObject>& getAllNeighbors() const = 0;
-    virtual void actionTriggered(QSharedPointer<GameObject>& object, Behavior action) const = 0;
+    virtual QSharedPointer<GameObject>& getNeighbor(Direction direction, int offset = 0) const = 0;
+    virtual QList<QSharedPointer<GameObject>>& getAllNeighbors(int offset = 0) const = 0;
+    virtual void
+    actionTriggered(QSharedPointer<GameObject>& object, QSharedPointer<Behavior> action) const = 0;
 
     // Data getters and setters
     QVector<const QMap<DataRole, const QVariant>>& getAllData() const;
@@ -64,11 +65,11 @@ public:
 
     // Behavior getters and setters
     template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    bool setBehavior(QSharedPointer<Behavior> behavior);
+    bool setBehavior(QSharedPointer<Behavior> behavior) {};
     template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QSharedPointer<T>& getBehavior();
+    QSharedPointer<T>& getBehavior() {};
     template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QVector<QSharedPointer<T>>& getAllBehaviors();
+    QVector<QSharedPointer<T>>& getAllBehaviors() {};
 
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;

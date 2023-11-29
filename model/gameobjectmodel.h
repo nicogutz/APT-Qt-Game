@@ -7,7 +7,7 @@
 class GameObjectModel : public QObject {
     Q_OBJECT
 public:
-    GameObjectModel();
+    GameObjectModel() {};
     template<typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     QSharedPointer<T>& getBehavior(int row, int column, GameObject::ObjectType type) const;
 
@@ -33,7 +33,7 @@ private:
     QVector<QVector<QSharedPointer<GameObject>>> m_world;
 
 signals:
-    void actionExecuted(QSharedPointer<GameObject>& object, Behavior action);
+    void actionExecuted(QSharedPointer<GameObject>& object, const QSharedPointer<Behavior>& action);
 };
 
 #endif // GAMEOBJECTMODEL_H

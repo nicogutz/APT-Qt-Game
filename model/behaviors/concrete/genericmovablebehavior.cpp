@@ -3,7 +3,7 @@
 #include <model/leafobject.h>
 #include <model/nodeobject.h>
 
-bool GenericMoveBehavior::stepOn(const QSharedPointer<GameObject>& target) {
+bool GenericMoveBehavior::stepOn(QSharedPointer<GameObject> target) {
     auto behaviors = target->getAllBehaviors<Movement>();
     bool steppable = true;
     for (auto bh : behaviors) {

@@ -18,7 +18,7 @@ public:
      * @param target
      * @return
      */
-    virtual bool stepOn(const QSharedPointer<GameObject>& target) = 0;
+    virtual bool stepOn(const QSharedPointer<GameObject> target) = 0;
     /**
      * @brief stepOn
      * @param direction

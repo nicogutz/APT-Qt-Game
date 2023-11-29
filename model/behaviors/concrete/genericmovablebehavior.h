@@ -13,7 +13,7 @@ private:
 
     // Movement interface
 public:
-    bool stepOn(const QSharedPointer<GameObject>& target) override;
+    bool stepOn(QSharedPointer<GameObject> target) override;
     bool stepOn(GameObject::Direction direction) override;
     bool getSeppedOn(const QSharedPointer<GameObject>& source) override;
     bool isSteppable() override;

@@ -15,16 +15,22 @@ public:
     int getChildrenCount() const;
 
     template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QSharedPointer<T>& getBehavior(ObjectType child);
+    QSharedPointer<T>& getBehavior(ObjectType child) {
+
+    };
     template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QVector<QSharedPointer<T>>& getAllBehaviors(ObjectType child) const;
+    QVector<QSharedPointer<T>>& getAllBehaviors(ObjectType child) const {
+
+    };
     template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QVector<QSharedPointer<T>>& getAllBehaviors() const;
+    QVector<QSharedPointer<T>>& getAllBehaviors() const {
+
+    };
 
     // GameObject interface
-    QSharedPointer<GameObject>& getNeighbor(Direction direction) const override;
-    QSharedPointer<GameObject>& getAllNeighbors() const override;
-    void actionTriggered(QSharedPointer<GameObject>& object, Behavior action) const;
+    QSharedPointer<GameObject>& getNeighbor(Direction direction, int offset = 0) const;
+    QList<QSharedPointer<GameObject>>& getAllNeighbors(int offset = 0) const;
+    void actionTriggered(QSharedPointer<GameObject>& object, QSharedPointer<Behavior> action) const;
 
 private:
     QMap<Direction, QSharedPointer<GameObject>> m_neighbors;
