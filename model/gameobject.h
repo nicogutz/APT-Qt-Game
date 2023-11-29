@@ -6,7 +6,6 @@
 #include <typeindex>
 
 #include <model/behaviors/behavior.h>
-class GameObjectModel;
 
 class GameObject {
 public:
@@ -21,43 +20,59 @@ public:
         MovingEnemy = 103,
     };
     enum DataRole {
+        Type,
+
         Health,
+        Energy,
+        Strength,
+
         PoisonLevel,
         FireLevel,
-        Energy,
+
+        Visibility,
+
         X_Position,
         Y_Position,
-        Visibility,
+        Orientation,
+    };
+    enum Direction {
+        TopLeft,
+        Up,
+        TopRight,
+        Left,
+        Right,
+        BottomLeft,
+        Bottom,
+        BottomRight,
     };
 
     explicit GameObject();
     ~GameObject();
-    QSharedPointer<GameObject> getParent();
-    QSharedPointer<GameObject> setParent(QSharedPointer<GameObject> newParent);
-    QSharedPointer<GameObjectModel> getModel();
 
-    // Children getters and setters
-    QSharedPointer<GameObject> getChild(ObjectType type);
-    int getChildrenCount() const;
-    bool insertChild(GameObject object);
-    bool removeChild(ObjectType type);
+    // Virtual neighbors getters and setters.
+    virtual QSharedPointer<GameObject>& getNeighbor(Direction direction) const = 0;
+    virtual QSharedPointer<GameObject>& getAllNeighbors() const = 0;
+    virtual void actionTriggered(QSharedPointer<GameObject>& object, Behavior action) const = 0;
 
     // Data getters and setters
-    QSharedPointer<QVariant> getData(DataRole role) const;
+    QVector<const QMap<DataRole, const QVariant>>& getAllData() const;
+
+    QVariant getData(DataRole role) const;
+
     bool setData(DataRole role, const QVariant& value);
-    int dataCount() const;
+    int dataCount();
 
     // Behavior getters and setters
-    template<typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type> QSharedPointer<T> setBehavior();
-    template<typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type> QSharedPointer<T> getBehavior();
-    template<typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type> QSharedPointer<T> getBehavior(ObjectType child);
+    template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    bool setBehavior(QSharedPointer<Behavior> behavior);
+    template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    QSharedPointer<T>& getBehavior();
+    template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    QVector<QSharedPointer<T>>& getAllBehaviors();
 
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;
-    QList<QSharedPointer<GameObject>> m_childObjects;
-    QList<QVariant> m_objectData;
-    QSharedPointer<GameObject> m_parentObject;
-    QSharedPointer<GameObjectModel> m_model;
+    QMap<DataRole, QVariant> m_objectData;
 };
 
 #endif // GAMEOBJECT_H

@@ -5,15 +5,30 @@
 
 #include <model/gameobject.h>
 
-class Attack {
+class Attack : public Behavior {
 public:
     virtual ~Attack() = 0;
     Attack& operator=(const Attack&) {
         return *this;
     };
-
-    virtual int attack(QSharedPointer<GameObject> target, int strength) = 0;
-    virtual int getAttacked(QSharedPointer<GameObject> source, int strength) = 0;
+    /**
+     * @brief attack
+     * @param target
+     * @return
+     */
+    virtual int attack(const QSharedPointer<GameObject>& target) = 0;
+    /**
+     * @brief attack
+     * @param target
+     * @return
+     */
+    virtual int attack(GameObject::Direction direction) = 0;
+    /**
+     * @brief getAttacked
+     * @param strength
+     * @return
+     */
+    virtual int getAttacked(const QSharedPointer<GameObject>& by, int strength) = 0;
 };
 
 #endif // ATTACK_H

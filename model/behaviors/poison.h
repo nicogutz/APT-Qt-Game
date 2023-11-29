@@ -13,8 +13,17 @@ public:
     Poison& operator=(const Poison&) {
         return *this;
     };
-
-    virtual int poison(QSharedPointer<GameObject> target) = 0;
+    /**
+     * @brief poison
+     * @param target
+     * @return
+     */
+    virtual int poison(const QSharedPointer<GameObject>& target) = 0;
+    /**
+     * @brief getPoisoned
+     * @param level
+     * @return
+     */
     virtual int getPoisoned(int level) = 0;
 };
 

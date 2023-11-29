@@ -13,14 +13,24 @@ SOURCES += \
     main.cpp \
     model/behaviors/attack.cpp \
     model/behaviors/behavior.cpp \
-    model/behaviors/concrete/obstaclebehavior.cpp \
+    model/behaviors/concrete/counterattackbehavior.cpp \
+    model/behaviors/concrete/genericattackbehavior.cpp \
+    model/behaviors/concrete/generichealthbehavior.cpp \
+    model/behaviors/concrete/genericmovablebehavior.cpp \
+    model/behaviors/concrete/healingbehavior.cpp \
+    model/behaviors/concrete/poisonablebehavior.cpp \
+    model/behaviors/concrete/poisoningbehavior.cpp \
+    model/behaviors/concrete/poisononkilledbehavior.cpp \
+    model/behaviors/concrete/walkablebehavior.cpp \
     model/behaviors/fire.cpp \
     model/behaviors/health.cpp \
     model/behaviors/movement.cpp \
     model/behaviors/poison.cpp \
     model/gameobject.cpp \
     model/gameobjectmodel.cpp \
+    model/leafobject.cpp \
     model/modelfactory.cpp \
+    model/nodeobject.cpp \
     view/gameview.cpp \
     view/gamewindow.cpp \
     view/renderer/colorrenderer.cpp \
@@ -32,14 +42,24 @@ HEADERS += \
     controller/gamecontroller.h \
     model/behaviors/attack.h \
     model/behaviors/behavior.h \
-    model/behaviors/concrete/obstaclebehavior.h \
+    model/behaviors/concrete/counterattackbehavior.h \
+    model/behaviors/concrete/genericattackbehavior.h \
+    model/behaviors/concrete/generichealthbehavior.h \
+    model/behaviors/concrete/genericmovablebehavior.h \
+    model/behaviors/concrete/healingbehavior.h \
+    model/behaviors/concrete/poisonablebehavior.h \
+    model/behaviors/concrete/poisoningbehavior.h \
+    model/behaviors/concrete/poisononkilledbehavior.h \
+    model/behaviors/concrete/walkablebehavior.h \
     model/behaviors/fire.h \
     model/behaviors/health.h \
     model/behaviors/movement.h \
     model/behaviors/poison.h \
     model/gameobject.h \
     model/gameobjectmodel.h \
+    model/leafobject.h \
     model/modelfactory.h \
+    model/nodeobject.h \
     view/gameview.h \
     view/gamewindow.h \
     view/renderer/colorrenderer.h \
