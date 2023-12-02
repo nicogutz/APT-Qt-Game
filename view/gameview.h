@@ -14,21 +14,18 @@ class GameView : public QGraphicsScene
 public:
     explicit GameView(int rows, int columns, QObject *parent = nullptr);
 
-    // Method to create scene with list of list of GameObjects
-    void createScene(const QList<QList<GameObject*>>& gameObjects, Renderer* renderer = nullptr);
+    void createScene(const QList<QList<QSharedPointer<GameObject>>>& gameObjects, QSharedPointer<Renderer> renderer = nullptr);
 
-    // Method to update a specific tile
-    void updateTile(const GameObject& gameObject, int x, int y);
+    void updateTile(const QSharedPointer<GameObject>& gameObject, int x, int y);
 
-    // Method to change the renderer
-    void setRenderer(Renderer* newRenderer);
+    void setRenderer(QSharedPointer<Renderer> newRenderer);
 
 private:
     int m_rows, m_columns;
-    Renderer* m_renderer; // Renderer instance to generate QPixmap from GameObjects
+    QSharedPointer<Renderer> m_renderer;
 
     // Store the graphical representation of each GameObject
-    QList<QList<QGraphicsPixmapItem*>> m_tiles;
+    QList<QList<QSharedPointer<QGraphicsPixmapItem>>> m_tiles;
 };
 
 #endif // GAMEVIEW_H
