@@ -5,6 +5,10 @@
 #include <QMainWindow>
 #include <QSharedPointer>
 
+#include <controller/gamecontroller.h>
+
+#include <QKeyEvent>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class GameWindow;
@@ -22,6 +26,15 @@ public:
     QSharedPointer<QGraphicsView> view;
 
 private:
+
     Ui::GameWindow* ui;
+
+    Ui::GameWindow *ui;
+    GameController *controller;
+
+    // QWidget interface
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+
 };
 #endif // GAMEWINDOW_H

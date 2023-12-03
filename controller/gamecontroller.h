@@ -1,6 +1,7 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
+
 #include <QGraphicsView>
 
 #include <model/gameobjectmodel.h>
@@ -28,8 +29,11 @@ public:
      * @brief GameController
      */
     GameController();
+    QSharedPointer<GameView> getView();
+
 
 public slots:
+
     /**
      * @brief characterMove
      * @param to
@@ -78,6 +82,7 @@ signals:
      */
     void stateChanged(State state);
 
+
 private:
     /**
      * @brief m_model
@@ -87,10 +92,20 @@ private:
      * @brief m_view
      */
     QSharedPointer<GameView> m_view;
+
     /**
      * @brief m_character
      */
     QSharedPointer<GameObject> m_character;
+
 };
 
 #endif // GAMECONTROLLER_H
+
+
+
+
+
+
+
+

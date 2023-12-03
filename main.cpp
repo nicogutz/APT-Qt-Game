@@ -1,3 +1,8 @@
+
+#include "view/gamewindow.h"
+#include "world.h"
+
+
 #include <QApplication>
 #include <QLabel>
 #include <QMainWindow>
@@ -12,5 +17,11 @@ int main(int argc, char* argv[]) {
     QLabel* bs = new QLabel();
     bs->setText("hello");
     w.show();
+
+    //connect.keyPressEvent();
+
+    //connect(w, &w::key, receiver, &ReceiverClass::slotName);
+
+
     return a.exec();
 }
