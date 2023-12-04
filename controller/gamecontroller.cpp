@@ -5,43 +5,42 @@
 
 GameController::GameController()
     : QGraphicsView()
-    //, m_model(new GameObjectModel())
-    //, m_view(new GameView())
+    , m_model()
+
+    , m_view (QSharedPointer<GameView>::create(10,10))
+
 {
-    
+    this->setScene(m_view.data());
+    m_model.append(QSharedPointer<GameObjectModel>(new GameObjectModel()));
 }
+
 
 
 void GameController::characterMove(GameObject::Direction to)
 {
-    
-}
-/*
-void GameController::characterMove(int dir)
-{
     QString message = "hello";
-    switch (dir) {
-    case 0:
-        message = "moving up";
+    switch (to) {
+    case GameObject::Direction::Up:
+        message = "Character moved up";
         break;
-    case 1:
-        message = "moving down";
+    case GameObject::Direction::Bottom:
+        message = "Character moved down";
         break;
-    case 2:
-        message = "moving left";
+    case GameObject::Direction::Left:
+        message = "Character moved left";
         break;
-    case 3:
-        message = "moving right";
-        break;
+    case GameObject::Direction::Right:
+        message = "Character moved right";
+
 
     }
+
+
     QGraphicsTextItem* textItem = new QGraphicsTextItem(message);
+    textItem->setPos(0, 0);
 
-    textItem->setPos(this->sceneRect().center().x() - textItem->boundingRect().width() / 2, 10);
-    this->scene()->addItem(textItem);
     m_view->addItem(textItem);
-
-*/
+}
 
 void GameController::characterAtttack(GameObject::Direction to)
 {
