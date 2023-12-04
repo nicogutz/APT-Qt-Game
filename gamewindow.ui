@@ -51,16 +51,6 @@ background-color: rgb(255, 255, 255);
      <string>%p%</string>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>621</width>
-      <height>331</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -301,6 +291,16 @@ background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>Zoom in/out</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>50</y>
+      <width>521</width>
+      <height>271</height>
+     </rect>
     </property>
    </widget>
   </widget>

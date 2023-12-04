@@ -7,6 +7,7 @@
 
 #include <controller/gamecontroller.h>
 
+#include <QElapsedTimer>
 #include <QKeyEvent>
 
 QT_BEGIN_NAMESPACE
@@ -23,16 +24,19 @@ public:
     ~GameWindow();
     QSharedPointer<QWidget> a;
     std::shared_ptr<QWidget> b;
-    QSharedPointer<QGraphicsView> view;
+
+    QSharedPointer<GameController> getController();
+
 
 private:
 
     Ui::GameWindow* ui;
+    QSharedPointer<GameController> controller;
+    //QElapsedTimer timer;
 
-    Ui::GameWindow *ui;
-    GameController *controller;
+public slots:
+    void updateTime();
 
-    // QWidget interface
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
