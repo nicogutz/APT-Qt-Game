@@ -58,9 +58,9 @@ public:
         QSharedPointer<Behavior> action) const = 0;
 
     // Data getters and setters
-    QVector<const QMap<DataRole, const QVariant>>& getAllData() const;
+    QVector<QMap<DataRole, QVariant>> getAllData();
 
-    QVariant getData(DataRole role) const;
+    QVariant getData(DataRole role);
 
     bool setData(DataRole role, const QVariant& value);
     int dataCount();

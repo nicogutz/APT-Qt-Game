@@ -9,15 +9,18 @@ public:
     SpriteRenderer();
 
 private:
-
-
     // Renderer interface
 private:
-    QPixmap renderTile(const QMap<GameObject::DataRole, const QVariant> &object) override;
-    QPixmap renderDoorway(const QMap<GameObject::DataRole, const QVariant> &object) override;
-    QPixmap renderHealthPack(const QMap<GameObject::DataRole, const QVariant> &object) override;
-    QPixmap renderProtagonist(const QMap<GameObject::DataRole, const QVariant> &object) override;
-    QPixmap renderEnemy(const QMap<GameObject::DataRole, const QVariant> &object) override;
+    QPixmap
+    renderTile(QMap<GameObject::DataRole, QVariant> object) override;
+    QPixmap renderDoorway(
+        QMap<GameObject::DataRole, QVariant> object) override;
+    QPixmap renderHealthPack(
+        QMap<GameObject::DataRole, QVariant> object) override;
+    QPixmap renderProtagonist(
+        QMap<GameObject::DataRole, QVariant> object) override;
+    QPixmap
+    renderEnemy(QMap<GameObject::DataRole, QVariant> object) override;
 };
 
 #endif // SPRITERENDERER_H
