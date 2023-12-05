@@ -12,9 +12,24 @@ public:
     Health& operator=(const Health&) {
         return *this;
     };
+    const struct SETTINGS {
+        const int MAX_HEALTH = 100;
+        const int MIN_HEALTH = 0;
+        const int HEALTH_PACK_HEALING = 10;
+    } Settings;
 
-    virtual int heal(QSharedPointer<GameObject> target, int amount) = 0;
-    virtual int getHealed(int amount) = 0;
+    /**
+     * @brief heal
+     * @param target
+     * @return
+     */
+    virtual int heal(const QSharedPointer<GameObject>& target) = 0;
+    /**
+     * @brief getHealthChange
+     * @param amount
+     * @return
+     */
+    virtual int getHealthChanged(int amount) = 0;
 };
 
 #endif // HEALTH_H

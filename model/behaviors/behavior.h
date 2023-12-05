@@ -1,5 +1,6 @@
 #ifndef BEHAVIOR_H
 #define BEHAVIOR_H
+
 class Behavior {
 public:
     virtual ~Behavior() = 0;

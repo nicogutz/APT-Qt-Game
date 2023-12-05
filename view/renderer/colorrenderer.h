@@ -7,7 +7,7 @@ class ColorRenderer : public Renderer
 {
 public:
     ColorRenderer();
-    ~ColorRenderer(){};
+    ~ColorRenderer();;
 
 private:
     QPixmap renderTile(const QSharedPointer<GameObject> &object) override;

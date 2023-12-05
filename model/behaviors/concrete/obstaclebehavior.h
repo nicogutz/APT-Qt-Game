@@ -8,10 +8,10 @@ public:
     ObstacleBehavior();
 
     // Movement interface
-    bool stepOn(QSharedPointer<GameObject> target) override {
+    bool stepOn(const QSharedPointer<GameObject>& target) override {
         return false;
     };
-    bool getSeppedOn(QSharedPointer<GameObject> source) override {
+    bool getSeppedOn(const QSharedPointer<GameObject>& source) override {
         return false;
     };
 };

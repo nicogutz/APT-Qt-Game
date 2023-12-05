@@ -6,32 +6,24 @@ GameObject::GameObject() {
 GameObject::~GameObject() {
 }
 
-QSharedPointer<GameObject> GameObject::getParent() {
+QSharedPointer<GameObject>& GameObject::getNeighbor(Direction direction, int offset) const {
 }
 
-QSharedPointer<GameObject> GameObject::getChild(ObjectType type) {
+QList<QSharedPointer<GameObject>>& GameObject::getAllNeighbors(int offset) const {
 }
 
-int GameObject::getChildrenCount() const {
+void GameObject::actionTriggered(
+    QSharedPointer<GameObject>& object, QSharedPointer<Behavior> action) const {
 }
 
-bool GameObject::insertChild(GameObject object) {
+QVector<const QMap<GameObject::DataRole, const QVariant>>& GameObject::getAllData() const {
 }
 
-bool GameObject::removeChild(ObjectType type) {
-}
-
-QSharedPointer<QVariant> GameObject::getData(DataRole role) const {
+QVariant GameObject::getData(DataRole role) const {
 }
 
 bool GameObject::setData(DataRole role, const QVariant& value) {
 }
 
-int GameObject::dataCount() const {
-}
-
-template<typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type> QSharedPointer<T> GameObject::getBehavior() {
-}
-
-template<typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type> QSharedPointer<T> GameObject::getBehavior(ObjectType child) {
+int GameObject::dataCount() {
 }
