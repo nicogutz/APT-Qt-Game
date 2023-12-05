@@ -32,8 +32,8 @@ private:
 
     Ui::GameWindow* ui;
     QSharedPointer<GameController> controller;
-    int startTime;
-    int elapsedSeconds;
+    int start_time;
+    int elapsed_seconds;
     QTimer *timer;
     int paused;
 

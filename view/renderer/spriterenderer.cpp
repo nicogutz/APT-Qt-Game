@@ -1,5 +1,6 @@
 #include "spriterenderer.h"
 
+
 SpriteRenderer::SpriteRenderer() {
 }
 
@@ -17,3 +18,4 @@ QPixmap SpriteRenderer::renderProtagonist(const GameObject& object) {
 
 QPixmap SpriteRenderer::renderEnemy(const GameObject& object) {
 }
+

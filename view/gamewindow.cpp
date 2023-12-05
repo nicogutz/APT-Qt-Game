@@ -10,8 +10,8 @@ GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
     , controller(QSharedPointer<GameController>::create())
-    , startTime(QTime::currentTime().second())
-    , elapsedSeconds(0)
+    , start_time(QTime::currentTime().second())
+    , elapsed_seconds(0)
     , timer (new QTimer(this))
     , paused (0)
 {
@@ -40,35 +40,38 @@ GameWindow::GameWindow(QWidget *parent)
 
 
 void GameWindow::updateTime(bool active) {
+
     if (active) { // RESTARTING GAME
         if (paused == 0){ // first game never paused
             ui->pause->setText("Pause game");
             int currentTime = QTime::currentTime().second();
-            elapsedSeconds = (currentTime - startTime);
-            ui->time_label->setText("Elapsed time: " + QString::number(elapsedSeconds) + " s");
+            elapsed_seconds = currentTime - start_time;
+            ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
+
         }
         else{  // game restarting
+            elapsed_seconds ++;
             timer->start(1000);
             ui->pause->setText("Pause game");
-            int currentTime = QTime::currentTime().second();
-            elapsedSeconds = (currentTime - startTime) + elapsedSeconds;
-            ui->time_label->setText("Elapsed time: " + QString::number(elapsedSeconds) + " s");
+            ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
+
         }
+
 
 
     } else { // PAUSING GAME
               paused ++;
-        if (paused == 0){ // first game never paused
+        if (paused == 0){ // pausing for the first time
             ui->pause->setText("Restart game");
             timer->stop();
 
         } else if (paused%2 == 0){
-            ui->pause->setText("Pause game");
+            elapsed_seconds ++;
             timer->start(1000);
-            startTime = QTime::currentTime().second();
-            int currentTime = QTime::currentTime().second();
-            elapsedSeconds = (currentTime - startTime) + elapsedSeconds;
-            ui->time_label->setText("Elapsed time: " + QString::number(elapsedSeconds) + " s");
+            ui->pause->setText("Pause game");
+            ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
+
+
         } else {
             ui->pause->setText("Restart game");
             timer->stop();

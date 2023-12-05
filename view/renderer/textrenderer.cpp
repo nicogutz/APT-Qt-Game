@@ -31,3 +31,4 @@ QPixmap TextRenderer::renderEnemy(const GameObject &object)
 {
 
 }
+

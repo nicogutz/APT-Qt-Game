@@ -21,3 +21,4 @@ QPixmap ColorRenderer::renderProtagonist(const GameObject& object) {
 
 QPixmap ColorRenderer::renderEnemy(const GameObject& object) {
 }
+
