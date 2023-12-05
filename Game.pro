@@ -17,7 +17,7 @@ SOURCES += \
     model/behaviors/concrete/genericattackbehavior.cpp \
     model/behaviors/concrete/generichealthbehavior.cpp \
     model/behaviors/concrete/genericmovablebehavior.cpp \
-    model/behaviors/concrete/healingbehavior.cpp \
+    model/behaviors/concrete/healthpackbehavior.cpp \
     model/behaviors/concrete/poisonablebehavior.cpp \
     model/behaviors/concrete/poisoningbehavior.cpp \
     model/behaviors/concrete/poisononkilledbehavior.cpp \
@@ -46,7 +46,7 @@ HEADERS += \
     model/behaviors/concrete/genericattackbehavior.h \
     model/behaviors/concrete/generichealthbehavior.h \
     model/behaviors/concrete/genericmovablebehavior.h \
-    model/behaviors/concrete/healingbehavior.h \
+    model/behaviors/concrete/healthpackbehavior.h \
     model/behaviors/concrete/poisonablebehavior.h \
     model/behaviors/concrete/poisoningbehavior.h \
     model/behaviors/concrete/poisononkilledbehavior.h \

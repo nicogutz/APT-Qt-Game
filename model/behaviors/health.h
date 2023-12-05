@@ -23,13 +23,17 @@ public:
      * @param target
      * @return
      */
-    virtual int heal(const QSharedPointer<GameObject>& target) = 0;
+    virtual int heal(const QSharedPointer<GameObject>& target) {
+        return 0;
+    };
     /**
      * @brief getHealthChange
      * @param amount
      * @return
      */
-    virtual int getHealthChanged(int amount) = 0;
+    virtual int getHealthChanged(int amount) {
+        return 0;
+    };
 };
 
 #endif // HEALTH_H

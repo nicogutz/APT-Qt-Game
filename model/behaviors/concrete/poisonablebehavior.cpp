@@ -1,6 +1,7 @@
 #include "poisonablebehavior.h"
 
-PoisonableBehavior::PoisonableBehavior()
-{
+PoisonableBehavior::PoisonableBehavior() {
+}
 
+int PoisonableBehavior::getPoisoned(int level) {
 }

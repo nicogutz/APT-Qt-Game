@@ -9,7 +9,7 @@
 
 class GameObject {
 public:
-    enum ObjectType {
+    enum class ObjectType {
         Tile = 0,
         Doorway = 1,
         HealthPack = 2,
@@ -17,9 +17,8 @@ public:
         Enemy = 100,
         PoisonEnemy = 101,
         FireEnemy = 102,
-        MovingEnemy = 103,
     };
-    enum DataRole {
+    enum class DataRole {
         Type,
 
         Health,
@@ -35,7 +34,7 @@ public:
         Y_Position,
         Orientation,
     };
-    enum Direction {
+    enum class Direction {
         TopLeft,
         Up,
         TopRight,
@@ -50,10 +49,13 @@ public:
     ~GameObject();
 
     // Virtual neighbors getters and setters.
-    virtual QSharedPointer<GameObject>& getNeighbor(Direction direction, int offset = 0) const = 0;
-    virtual QList<QSharedPointer<GameObject>>& getAllNeighbors(int offset = 0) const = 0;
-    virtual void
-    actionTriggered(QSharedPointer<GameObject>& object, QSharedPointer<Behavior> action) const = 0;
+    virtual QSharedPointer<GameObject>&
+    getNeighbor(Direction direction, int offset = 0) const = 0;
+    virtual QList<QSharedPointer<GameObject>>&
+    getAllNeighbors(int offset = 0) const = 0;
+    virtual void actionTriggered(
+        QSharedPointer<GameObject>& object,
+        QSharedPointer<Behavior> action) const = 0;
 
     // Data getters and setters
     QVector<const QMap<DataRole, const QVariant>>& getAllData() const;
@@ -64,11 +66,20 @@ public:
     int dataCount();
 
     // Behavior getters and setters
-    template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    template<
+        typename T,
+        typename
+        = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     bool setBehavior(QSharedPointer<Behavior> behavior) {};
-    template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    template<
+        typename T,
+        typename
+        = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     QSharedPointer<T>& getBehavior() {};
-    template<typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    template<
+        typename T,
+        typename
+        = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     QVector<QSharedPointer<T>>& getAllBehaviors() {};
 
 private:

@@ -18,24 +18,33 @@ public:
      * @param target
      * @return
      */
-    virtual bool stepOn(const QSharedPointer<GameObject> target) = 0;
+    virtual bool stepOn(const QSharedPointer<GameObject> target) {
+        return 0;
+    };
     /**
      * @brief stepOn
      * @param direction
      * @return
      */
-    virtual bool stepOn(GameObject::Direction direction) = 0;
+    virtual bool stepOn(GameObject::Direction direction) {
+        return 0;
+    };
     /**
      * @brief isStepable
      * @return
      */
-    virtual bool isSteppable() = 0;
+    virtual bool isSteppable() {
+        return false;
+    };
     /**
      * @brief getSeppedOn
      * @param source
      * @return
      */
-    virtual bool getSeppedOn(const QSharedPointer<GameObject>& source) = 0;
+    virtual bool
+    getSeppedOn(const QSharedPointer<GameObject>& source) {
+        return 0;
+    };
 };
 
 #endif // MOVEMENT_H

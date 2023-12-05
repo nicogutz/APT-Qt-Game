@@ -9,8 +9,10 @@ public:
     GenericHealthBehavior(QSharedPointer<GameObject> owner)
         : m_owner(owner) {};
 
-    int heal(const QSharedPointer<GameObject>& target) override;
     int getHealthChanged(int amount) override;
+    bool getIsHealable() const;
+    void setIsHealable(bool newIsHealable);
+
 signals:
     void objectKilled(const QSharedPointer<GameObject>& object);
 

@@ -18,7 +18,9 @@ public:
      * @param target
      * @return
      */
-    virtual int poison(const QSharedPointer<GameObject>& target) = 0;
+    virtual int poison(const QSharedPointer<GameObject>& target) {
+        return 0;
+    };
     /**
      * @brief getPoisoned
      * @param level

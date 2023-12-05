@@ -6,6 +6,10 @@
 class PoisonableBehavior : public Poison {
 public:
     PoisonableBehavior();
+
+    // Poison interface
+public:
+    int getPoisoned(int level) override;
 };
 
 #endif // POISONABLEBEHAVIOR_H
