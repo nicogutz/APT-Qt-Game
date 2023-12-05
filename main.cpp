@@ -1,6 +1,5 @@
 
 #include "view/gamewindow.h"
-#include "world.h"
 
 
 #include <QApplication>

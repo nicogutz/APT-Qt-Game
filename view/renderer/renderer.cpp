@@ -4,21 +4,25 @@ Renderer::Renderer(){}
 
 QPixmap Renderer::renderGameObject(const QSharedPointer<GameObject>& object) {
 
-//    switch (object->getType()) {
-//        case GameObject::Tile:
-//            return renderTile(object);
-//        case GameObject::Doorway:
-//            return renderDoorway(object);
-//        case GameObject::HealthPack:
-//            return renderHealthPack(object);
-//        case GameObject::Protagonist:
-//            return renderProtagonist(object);
-//        case GameObject::Enemy:
-//            return renderEnemy(object);
-//        default:
-//            // Handle default case or unknown types
-//            QPixmap defaultPixmap;
-//            // ... create a default QPixmap
-//            return defaultPixmap;
-//    }
+    for (auto data: object->getAllData()){
+        switch (data[GameObject::DataRole::Type].toInt()) {
+        case GameObject::ObjectType::Tile:
+            return renderTile(data);
+        case GameObject::ObjectType::Doorway:
+            return renderDoorway(data);
+        case GameObject::ObjectType::HealthPack:
+            return renderHealthPack(data);
+        case GameObject::ObjectType::Protagonist:
+            return renderProtagonist(data);
+//        case GameObject::ObjectType::Enemy:
+//            return renderEnemy(data);
+//        case GameObject::ObjectType::PoisonEnemy:
+//            return renderEnemy(data);
+//        case GameObject::ObjectType::MovingEnemy:
+//            return renderMovingEnemy(data);
+        default:
+            // Handle default case or unknown types
+            return renderEnemy(data);
+        }
+    }
 }

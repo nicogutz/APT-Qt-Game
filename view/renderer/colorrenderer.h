@@ -7,14 +7,17 @@ class ColorRenderer : public Renderer
 {
 public:
     ColorRenderer();
-    ~ColorRenderer();;
 
 private:
-    QPixmap renderTile(const QSharedPointer<GameObject> &object) override;
-    QPixmap renderDoorway(const QSharedPointer<GameObject> &object) override;
-    QPixmap renderHealthPack(const QSharedPointer<GameObject> &object) override;
-    QPixmap renderProtagonist(const QSharedPointer<GameObject> &object) override;
-    QPixmap renderEnemy(const QSharedPointer<GameObject> &object) override;
+
+    // Renderer interface
+private:
+    QPixmap renderTile(const QMap<GameObject::DataRole, const QVariant> &object) override;
+    QPixmap renderDoorway(const QMap<GameObject::DataRole, const QVariant> &object) override;
+    QPixmap renderHealthPack(const QMap<GameObject::DataRole, const QVariant> &object) override;
+    QPixmap renderProtagonist(const QMap<GameObject::DataRole, const QVariant> &object) override;
+    QPixmap renderEnemy(const QMap<GameObject::DataRole, const QVariant> &object) override;
+
 };
 
 

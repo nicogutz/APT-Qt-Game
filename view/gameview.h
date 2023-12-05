@@ -16,7 +16,7 @@ public:
 
     void createScene(const QList<QList<QSharedPointer<GameObject>>>& gameObjects, QSharedPointer<Renderer> renderer = nullptr);
 
-    void updateTile(const QSharedPointer<GameObject>& gameObject, int x, int y);
+    void updateTile(const QSharedPointer<GameObject>& gameObject);
 
     void setRenderer(QSharedPointer<Renderer> newRenderer);
 

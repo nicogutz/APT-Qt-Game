@@ -1,19 +1,32 @@
 #include "spriterenderer.h"
 
-SpriteRenderer::SpriteRenderer() {
+
+SpriteRenderer::SpriteRenderer()
+{
+
 }
 
-QPixmap SpriteRenderer::renderTile(const GameObject& object) {
+QPixmap SpriteRenderer::renderTile(const QMap<GameObject::DataRole, const QVariant> &object)
+{
+
 }
 
-QPixmap SpriteRenderer::renderDoorway(const GameObject& object) {
+QPixmap SpriteRenderer::renderDoorway(const QMap<GameObject::DataRole, const QVariant> &object)
+{
+
 }
 
-QPixmap SpriteRenderer::renderHealthPack(const GameObject& object) {
+QPixmap SpriteRenderer::renderHealthPack(const QMap<GameObject::DataRole, const QVariant> &object)
+{
+
 }
 
-QPixmap SpriteRenderer::renderProtagonist(const GameObject& object) {
+QPixmap SpriteRenderer::renderProtagonist(const QMap<GameObject::DataRole, const QVariant> &object)
+{
+
 }
 
-QPixmap SpriteRenderer::renderEnemy(const GameObject& object) {
+QPixmap SpriteRenderer::renderEnemy(const QMap<GameObject::DataRole, const QVariant> &object)
+{
+
 }

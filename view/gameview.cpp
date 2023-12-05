@@ -22,31 +22,22 @@ void GameView::createScene(const QList<QList<QSharedPointer<GameObject>>>& gameO
     for (int x = 0; x < m_rows; ++x) {
         for (int y = 0; y < m_columns; ++y) {
             if (x < gameObjects.size() && y < gameObjects[x].size() && !gameObjects[x][y].isNull()) {
-                QPixmap pixmap = m_renderer->renderGameObject(gameObjects[x][y]);
-                QSharedPointer<QGraphicsPixmapItem> item(new QGraphicsPixmapItem(pixmap));
+                auto pixmap = m_renderer->renderGameObject(gameObjects[x][y]);
+                auto item = QSharedPointer<QGraphicsPixmapItem>::create(addPixmap(pixmap));
                 item->setPos(x * pixmap.width(), y * pixmap.height());
-                addItem(item.data());  // Add the QGraphicsPixmapItem to the scene
                 m_tiles[x][y] = item;  // Store the shared pointer in m_tiles
             }
         }
     }
 }
 
-void GameView::updateTile(const QSharedPointer<GameObject>& gameObject, int x, int y) {
-    if (m_renderer.isNull() || x >= m_rows || y >= m_columns || gameObject.isNull()) {
-        // Renderer not set, invalid position, or null GameObject
-        return;
-    }
-
-    QPixmap pixmap = m_renderer->renderGameObject(gameObject);
-    if (!m_tiles[x][y].isNull()) {
-        m_tiles[x][y]->setPixmap(pixmap);
-    } else {
-        QSharedPointer<QGraphicsPixmapItem> item(new QGraphicsPixmapItem(pixmap));
-        item->setPos(x * pixmap.width(), y * pixmap.height());
-        addItem(item.data());  // Add the QGraphicsPixmapItem to the scene
-        m_tiles[x][y] = item;  // Store the shared pointer in m_tiles
-    }
+void GameView::updateTile(const QSharedPointer<GameObject>& gameObject) {
+    int x = gameObject->getData(GameObject::DataRole::X_Position).toInt();
+    int y= gameObject->getData(GameObject::DataRole::Y_Position).toInt();
+    auto pixmap = m_renderer->renderGameObject(gameObject);
+    auto item = QSharedPointer<QGraphicsPixmapItem>::create(addPixmap(pixmap));
+    item->setPos(x * pixmap.width(), y * pixmap.height());
+    m_tiles[x][y] = item;
 }
 
 void GameView::setRenderer(QSharedPointer<Renderer> newRenderer) {
