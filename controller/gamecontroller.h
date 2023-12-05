@@ -98,6 +98,8 @@ private:
      */
     QSharedPointer<GameObject> m_character;
 
+
+
 };
 
 #endif // GAMECONTROLLER_H
