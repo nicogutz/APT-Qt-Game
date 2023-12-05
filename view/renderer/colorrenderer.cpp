@@ -36,3 +36,4 @@ QPixmap ColorRenderer::renderEnemy(const QMap<GameObject::DataRole, const QVaria
 {
 
 }
+

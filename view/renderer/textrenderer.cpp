@@ -32,3 +32,4 @@ QPixmap TextRenderer::renderEnemy(const QMap<GameObject::DataRole, const QVarian
 {
 
 }
+

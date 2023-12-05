@@ -18,7 +18,6 @@ private:
     QPixmap renderHealthPack(const QMap<GameObject::DataRole, const QVariant> &object) override;
     QPixmap renderProtagonist(const QMap<GameObject::DataRole, const QVariant> &object) override;
     QPixmap renderEnemy(const QMap<GameObject::DataRole, const QVariant> &object) override;
-    QPixmap renderPoisonEnemy(const QMap<GameObject::DataRole, const QVariant> &object) override;
 };
 
 #endif // TEXTRENDERER_H

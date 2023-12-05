@@ -125,115 +125,13 @@ color: rgb(0, 0, 0);</string>
      <string>Health</string>
     </property>
    </widget>
-   <widget class="QLabel" name="mode_label">
+   <widget class="QPushButton" name="pause">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>90</y>
-      <width>121</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 127);
-font:1pt &quot;8514oem&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Mode:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="level_label">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>120</y>
-      <width>121</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 127);
-font:1pt &quot;8514oem&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Level:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="enemies_label">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>160</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 127);
-
-</string>
-    </property>
-    <property name="text">
-     <string>Number of 
-enemies</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="health_">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>200</y>
-      <width>121</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 127);
-</string>
-    </property>
-    <property name="text">
-     <string>Number of 
-health packs</string>
-    </property>
-   </widget>
-   <widget class="QTimeEdit" name="time">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>40</y>
-      <width>118</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="time_label">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>20</y>
-      <width>49</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 127);
-font:1pt &quot;8514oem&quot;;
-</string>
-    </property>
-    <property name="text">
-     <string>Time</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>280</y>
-      <width>101</width>
-      <height>51</height>
+      <x>620</x>
+      <y>220</y>
+      <width>81</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -241,7 +139,7 @@ font:1pt &quot;8514oem&quot;;
 background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Stop Game</string>
+     <string>Pause Game</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
@@ -296,12 +194,83 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>50</y>
+      <x>20</x>
+      <y>10</y>
       <width>521</width>
-      <height>271</height>
+      <height>351</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>20</y>
+      <width>241</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="time_label">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 127);
+font: 9pt &quot;8514oem&quot;;
+</string>
+       </property>
+       <property name="text">
+        <string>Time</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="mode_label">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 127);
+font: 9pt &quot;8514oem&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Mode:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="level_label">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 127);
+font: 9pt &quot;8514oem&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Level:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="enemies_label">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 127);
+font: 9pt &quot;8514oem&quot;;
+
+
+</string>
+       </property>
+       <property name="text">
+        <string>Enemies:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="health_">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 127);
+font: 9pt &quot;8514oem&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Health:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

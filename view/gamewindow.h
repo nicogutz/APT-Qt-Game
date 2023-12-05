@@ -16,7 +16,7 @@ class GameWindow;
 }
 QT_END_NAMESPACE
 
-class GameWindow : public QMainWindow {
+class GameWindow : public QMainWindow{
     Q_OBJECT
 
 public:
@@ -32,10 +32,15 @@ private:
 
     Ui::GameWindow* ui;
     QSharedPointer<GameController> controller;
-    //QElapsedTimer timer;
+    int start_time;
+    int elapsed_seconds;
+    QTimer *timer;
+    int paused;
+
 
 public slots:
-    void updateTime();
+    void updateTime(bool active);
+
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
