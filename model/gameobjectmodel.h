@@ -8,22 +8,22 @@ class GameObjectModel : public QObject {
     Q_OBJECT
 public:
     GameObjectModel() {};
-    template<typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QSharedPointer<T>& getBehavior(int row, int column, GameObject::ObjectType type) const;
+    template <typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    QSharedPointer<T> &getBehavior(int row, int column, GameObject::ObjectType type) const;
 
-    template<typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    template <typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     bool setBehavior(int row, int column, GameObject::ObjectType type);
 
     int getRowCount() const;
     int getColumnCount() const;
 
 private:
-    QSharedPointer<GameObject>& getObject(int row, int column, GameObject::ObjectType type) const;
+    QSharedPointer<GameObject> &getObject(int row, int column, GameObject::ObjectType type) const;
 
     QVariant
     getData(int row, int column, GameObject::ObjectType type, GameObject::DataRole role) const;
     bool setData(
-        int row, int column, GameObject::ObjectType type, GameObject::DataRole role, QVariant data);
+      int row, int column, GameObject::ObjectType type, GameObject::DataRole role, QVariant data);
     bool setItem(int row, int column, QSharedPointer<GameObject> type);
 
     bool insertColumns(int position, int columns);
@@ -33,7 +33,7 @@ private:
     QVector<QVector<QSharedPointer<GameObject>>> m_world;
 
 signals:
-    void actionExecuted(QSharedPointer<GameObject>& object, const QSharedPointer<Behavior>& action);
+    void actionExecuted(QSharedPointer<GameObject> &object, const QSharedPointer<Behavior> &action);
 };
 
 #endif // GAMEOBJECTMODEL_H

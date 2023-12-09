@@ -8,8 +8,11 @@
 
 class Health : public Behavior {
 public:
+    Health(QSharedPointer<GameObject> owner)
+        : Behavior(owner) {};
+
     virtual ~Health() = 0;
-    Health& operator=(const Health&) {
+    Health &operator=(const Health &) {
         return *this;
     };
     const struct SETTINGS {
@@ -23,7 +26,7 @@ public:
      * @param target
      * @return
      */
-    virtual int heal(const QSharedPointer<GameObject>& target) {
+    virtual int heal(const QSharedPointer<GameObject> &target) {
         return 0;
     };
     /**
@@ -33,6 +36,15 @@ public:
      */
     virtual int getHealthChanged(int amount) {
         return 0;
+    };
+
+    /**
+     * @brief getHealthChange
+     * @param amount
+     * @return
+     */
+    virtual void die() {
+        return;
     };
 };
 

@@ -9,8 +9,11 @@
 
 class Movement : public Behavior {
 public:
+    Movement(QSharedPointer<GameObject> owner)
+        : Behavior(owner) {};
+
     virtual ~Movement() = 0;
-    Movement& operator=(const Movement&) {
+    Movement &operator=(const Movement &) {
         return *this;
     };
     /**
@@ -42,7 +45,7 @@ public:
      * @return
      */
     virtual bool
-    getSeppedOn(const QSharedPointer<GameObject>& source) {
+    getSeppedOn(const QSharedPointer<GameObject> &source) {
         return 0;
     };
 };

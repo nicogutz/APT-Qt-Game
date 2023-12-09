@@ -7,17 +7,12 @@ class GenericHealthBehavior : public QObject, Health {
     Q_OBJECT
 public:
     GenericHealthBehavior(QSharedPointer<GameObject> owner)
-        : m_owner(owner) {};
+        : Health(owner) {};
 
     int getHealthChanged(int amount) override;
-    bool getIsHealable() const;
-    void setIsHealable(bool newIsHealable);
-
+    void die() override;
 signals:
-    void objectKilled(const QSharedPointer<GameObject>& object);
-
-private:
-    QSharedPointer<GameObject> m_owner;
+    void objectKilled(const QSharedPointer<GameObject> &object);
 };
 
 #endif // GENERICHEALTHBEHAVIOR_H

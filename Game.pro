@@ -13,15 +13,18 @@ SOURCES += \
     main.cpp \
     model/behaviors/attack.cpp \
     model/behaviors/behavior.cpp \
-    model/behaviors/concrete/counterattackbehavior.cpp \
-    model/behaviors/concrete/genericattackbehavior.cpp \
-    model/behaviors/concrete/generichealthbehavior.cpp \
-    model/behaviors/concrete/genericmovablebehavior.cpp \
-    model/behaviors/concrete/healthpackbehavior.cpp \
-    model/behaviors/concrete/poisonablebehavior.cpp \
-    model/behaviors/concrete/poisoningbehavior.cpp \
-    model/behaviors/concrete/poisononkilledbehavior.cpp \
-    model/behaviors/concrete/walkablebehavior.cpp \
+    model/behaviors/concrete/attack/counterattackbehavior.cpp \
+    model/behaviors/concrete/attack/genericattackbehavior.cpp \
+    model/behaviors/concrete/health/generichealingbehavior.cpp \
+    model/behaviors/concrete/health/generichealthbehavior.cpp \
+    model/behaviors/concrete/movement/genericmovebehavior.cpp \
+    model/behaviors/concrete/movement/genericwalkablebehavior.cpp \
+    model/behaviors/concrete/movement/healonstepbehavior.cpp \
+    model/behaviors/concrete/movement/newlevelonstep.cpp \
+    model/behaviors/concrete/movement/poisononstepbehavior.cpp \
+    model/behaviors/concrete/poison/genericpoisonablebehavior.cpp \
+    model/behaviors/concrete/health/poisononkilledbehavior.cpp \
+    model/behaviors/concrete/poison/genericpoisoningbehavior.cpp \
     model/behaviors/fire.cpp \
     model/behaviors/health.cpp \
     model/behaviors/movement.cpp \
@@ -42,15 +45,18 @@ HEADERS += \
     controller/gamecontroller.h \
     model/behaviors/attack.h \
     model/behaviors/behavior.h \
-    model/behaviors/concrete/counterattackbehavior.h \
-    model/behaviors/concrete/genericattackbehavior.h \
-    model/behaviors/concrete/generichealthbehavior.h \
-    model/behaviors/concrete/genericmovablebehavior.h \
-    model/behaviors/concrete/healthpackbehavior.h \
-    model/behaviors/concrete/poisonablebehavior.h \
-    model/behaviors/concrete/poisoningbehavior.h \
-    model/behaviors/concrete/poisononkilledbehavior.h \
-    model/behaviors/concrete/walkablebehavior.h \
+    model/behaviors/concrete/attack/counterattackbehavior.h \
+    model/behaviors/concrete/attack/genericattackbehavior.h \
+    model/behaviors/concrete/health/generichealingbehavior.h \
+    model/behaviors/concrete/health/generichealthbehavior.h \
+    model/behaviors/concrete/movement/genericmovebehavior.h \
+    model/behaviors/concrete/movement/genericwalkablebehavior.h \
+    model/behaviors/concrete/movement/healonstepbehavior.h \
+    model/behaviors/concrete/movement/newlevelonstep.h \
+    model/behaviors/concrete/movement/poisononstepbehavior.h \
+    model/behaviors/concrete/poison/genericpoisonablebehavior.h \
+    model/behaviors/concrete/health/poisononkilledbehavior.h \
+    model/behaviors/concrete/poison/genericpoisoningbehavior.h \
     model/behaviors/fire.h \
     model/behaviors/health.h \
     model/behaviors/movement.h \
