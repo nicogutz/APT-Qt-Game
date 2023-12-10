@@ -162,7 +162,7 @@ background-color: rgb(255, 255, 255);</string>
      </rect>
     </property>
     <property name="text">
-     <string>Type commad </string>
+     <string>Type command </string>
     </property>
    </widget>
    <widget class="QSlider" name="horizontalSlider">
@@ -266,7 +266,7 @@ font: 9pt &quot;8514oem&quot;;
 font: 9pt &quot;8514oem&quot;;</string>
        </property>
        <property name="text">
-        <string>Health:</string>
+        <string>Health packs:</string>
        </property>
       </widget>
      </item>

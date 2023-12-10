@@ -32,3 +32,4 @@ QPixmap ColorRenderer::renderProtagonist(
 QPixmap ColorRenderer::renderEnemy(
     QMap<GameObject::DataRole, QVariant> object) {
 }
+

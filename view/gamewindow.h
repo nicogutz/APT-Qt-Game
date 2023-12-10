@@ -27,6 +27,8 @@ public:
 
     QSharedPointer<GameController> getController();
 
+    Ui::GameWindow* getUI();
+    QTimer* getTimer();
 
 private:
 
@@ -40,9 +42,10 @@ private:
 
 public slots:
     void updateTime(bool active);
+    void updateLevel(unsigned int level);
 
 
-protected:
+signals:
     void keyPressEvent(QKeyEvent *event) override;
 
 };

@@ -22,3 +22,4 @@ QPixmap SpriteRenderer::renderProtagonist(
 QPixmap SpriteRenderer::renderEnemy(
     QMap<GameObject::DataRole, QVariant> object) {
 }
+

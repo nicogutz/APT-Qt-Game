@@ -25,14 +25,14 @@ GameWindow::GameWindow(QWidget *parent)
     controller->show();
 
 
-    QObject::connect(timer, &QTimer::timeout, this, [this]{
-        updateTime(true);
-    });
+//    QObject::connect(timer, &QTimer::timeout, this, [this]{
+//        updateTime(true);
+//    });
+
+//    QObject::connect(ui->pause, &QPushButton::clicked, this, [this]{updateTime(false);});
+
     timer->start(1000);
-
-
-
-    QObject::connect(ui->pause, &QPushButton::clicked, this, [this]{updateTime(false);});
+    ui->level_label->setText("Level: 1");
 
 
 
@@ -40,6 +40,7 @@ GameWindow::GameWindow(QWidget *parent)
 
 
 void GameWindow::updateTime(bool active) {
+
 
     if (active) { // RESTARTING GAME
         if (paused == 0){ // first game never paused
@@ -81,6 +82,9 @@ void GameWindow::updateTime(bool active) {
     }
 }
 
+void GameWindow::updateLevel(unsigned int level){
+    ui->level_label->setText("Level: " + QString::number(level));
+}
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
@@ -110,9 +114,18 @@ QSharedPointer<GameController> GameWindow::getController(){
     return controller;
 }
 
+Ui::GameWindow* GameWindow::getUI(){
+    return ui;
+}
+
+QTimer* GameWindow::getTimer(){
+    return timer;
+}
+
 GameWindow::~GameWindow()
 {
     delete ui;
+    delete timer;
 }
 
 

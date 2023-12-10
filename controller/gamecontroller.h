@@ -1,11 +1,15 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
+
 #include <QGraphicsView>
 
 #include <model/gameobjectmodel.h>
 
 #include <view/gameview.h>
+
+
+class GameWindow;
 
 /**
  * @brief The GameController class
@@ -30,6 +34,9 @@ public:
     GameController();
     QSharedPointer<GameView> getView();
 
+    void levelChanged(unsigned int level);
+
+
 public slots:
 
     /**
@@ -42,6 +49,15 @@ public slots:
      * @param to
      */
     void characterAtttack(GameObject::Direction to);
+
+
+    //    void updateMode();
+
+    //    void updateLevel();
+
+    //    void updateHealthPacks();
+
+    //    void updateEnemies();
 
 signals:
     /**
@@ -57,7 +73,7 @@ signals:
      * @brief levelChanged This is emitted when the level changes.
      * @param level The new level
      */
-    void levelChanged(unsigned int level);
+    void levelChangedSig(unsigned int level);
 
     /**
      * @brief scoreChanged This is emitted when the source changes
@@ -80,7 +96,9 @@ signals:
      */
     void stateChanged(State state);
 
+
 private:
+
     /**
      * @brief m_model
      */
@@ -94,6 +112,20 @@ private:
      * @brief m_character
      */
     QSharedPointer<GameObject> m_character;
+
+
+    unsigned int game_level, enemies, health_packs, energy, health;
+    QString game_mode;
+
+
 };
 
 #endif // GAMECONTROLLER_H
+
+
+
+
+
+
+
+
