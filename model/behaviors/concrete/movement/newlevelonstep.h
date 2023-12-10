@@ -3,7 +3,7 @@
 
 #include "genericwalkablebehavior.h"
 
-class NewLevelOnStep : public QObject, GenericWalkableBehavior {
+class NewLevelOnStep : public QObject, public GenericWalkableBehavior {
     Q_OBJECT
 
 public:

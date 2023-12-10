@@ -6,16 +6,17 @@
 class PoisonOnKilledBehavior : public GenericHealthBehavior {
 public:
     PoisonOnKilledBehavior(QSharedPointer<GameObject> owner)
-        : GenericHealthBehavior(owner) { }
+        : GenericHealthBehavior(owner) {};
 
     // Health interface
     void die() override;
 
 public slots:
-    void tick(unsigned long int clock);
+    void spreadPoison();
 
 private:
-    int m_poison_rate;
+    unsigned int m_ticksToPoison, m_poisonCount = 0;
+    unsigned long m_tickCount = 0;
 };
 
 #endif // POISONONKILLEDBEHAVIOR_H

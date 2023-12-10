@@ -9,7 +9,7 @@ int GenericHealthBehavior::getHealthChanged(int amount) {
 
     int newHealth = currentHealth.toInt() + amount;
 
-    if(newHealth < 0) {
+    if(newHealth <= 0) {
         die();
     } else if(newHealth > Settings.MAX_HEALTH) {
         newHealth = Settings.MAX_HEALTH;
@@ -24,5 +24,3 @@ int GenericHealthBehavior::getHealthChanged(int amount) {
 void GenericHealthBehavior::die() {
     emit objectKilled(m_owner);
 }
-
-

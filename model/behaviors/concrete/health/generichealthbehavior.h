@@ -3,7 +3,7 @@
 
 #include <model/behaviors/health.h>
 
-class GenericHealthBehavior : public QObject, Health {
+class GenericHealthBehavior : public QObject, public Health {
     Q_OBJECT
 public:
     GenericHealthBehavior(QSharedPointer<GameObject> owner)
