@@ -24,15 +24,10 @@ GameWindow::GameWindow(QWidget *parent)
     ui->graphicsView->show();
     controller->show();
 
-
-//    QObject::connect(timer, &QTimer::timeout, this, [this]{
-//        updateTime(true);
-//    });
-
-//    QObject::connect(ui->pause, &QPushButton::clicked, this, [this]{updateTime(false);});
-
     timer->start(1000);
     ui->level_label->setText("Level: 1");
+
+    setFocusPolicy(Qt::StrongFocus);
 
 
 
@@ -48,7 +43,7 @@ void GameWindow::updateTime(bool active) {
             int currentTime = QTime::currentTime().second();
             elapsed_seconds = currentTime - start_time;
             ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
-
+            controller->updateGameState(GameController::State::Running);
         }
         else{  // game restarting
             elapsed_seconds ++;
@@ -56,6 +51,7 @@ void GameWindow::updateTime(bool active) {
             ui->pause->setText("Pause game");
             ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
 
+            controller->updateGameState(GameController::State::Running);
         }
 
 
@@ -65,17 +61,19 @@ void GameWindow::updateTime(bool active) {
         if (paused == 0){ // pausing for the first time
             ui->pause->setText("Restart game");
             timer->stop();
+            controller->updateGameState(GameController::State::Paused);
 
         } else if (paused%2 == 0){
             elapsed_seconds ++;
             timer->start(1000);
             ui->pause->setText("Pause game");
             ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
-
+            controller->updateGameState(GameController::State::Running);
 
         } else {
             ui->pause->setText("Restart game");
             timer->stop();
+            controller->updateGameState(GameController::State::Paused);
         }
 
 
@@ -88,24 +86,27 @@ void GameWindow::updateLevel(unsigned int level){
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
-    qDebug() << "Key Pressed";
+    if (paused%2 == 0){
+        qDebug() << "Key Pressed";
 
-    switch (event->key()) {
-    case Qt::Key_Up:
-        controller->characterMove(GameObject::Direction::Up);
-        break;
-    case Qt::Key_Down:
-        controller->characterMove(GameObject::Direction::Bottom);
-        break;
-    case Qt::Key_Left:
-        controller->characterMove(GameObject::Direction::Left);
-        break;
-    case Qt::Key_Right:
-        controller->characterMove(GameObject::Direction::Right);
-        break;
-    default:
-        QMainWindow::keyPressEvent(event);  // Handle other key events
+        switch (event->key()) {
+        case Qt::Key_Up:
+            controller->characterMove(GameObject::Direction::Up);
+            break;
+        case Qt::Key_Down:
+            controller->characterMove(GameObject::Direction::Bottom);
+            break;
+        case Qt::Key_Left:
+            controller->characterMove(GameObject::Direction::Left);
+            break;
+        case Qt::Key_Right:
+            controller->characterMove(GameObject::Direction::Right);
+            break;
+        default:
+            QMainWindow::keyPressEvent(event);  // Handle other key events
+        }
     }
+
 }
 
 

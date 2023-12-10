@@ -15,6 +15,7 @@ GameController::GameController()
     , energy (100)
     , health(100)
     , game_mode("Manual")
+    , game_state(State::Running)
 
 {
     this->setScene(m_view.data());
@@ -23,8 +24,16 @@ GameController::GameController()
 
 }
 
+void GameController::updateGameState(State new_state) {
+    if (game_state != new_state) {
+        game_state = new_state;
+        //emit stateChanged(new_state);
+    }
+}
 
-void GameController::levelChanged(unsigned int level){
+
+
+void GameController::updateLevel(unsigned int level){
     game_level = level;
     //emit levelChangedSig(level);
 
@@ -34,6 +43,8 @@ void GameController::levelChanged(unsigned int level){
 
 void GameController::characterMove(GameObject::Direction to)
 {
+    if (game_state != State::Paused) {
+
     QString message = "hello";
     switch (to) {
     case GameObject::Direction::Up:
@@ -56,11 +67,14 @@ void GameController::characterMove(GameObject::Direction to)
     textItem->setPos(0, 0);
 
     m_view->addItem(textItem);
+    }
 }
 
 void GameController::characterAtttack(GameObject::Direction to)
 {
-    
+    if (game_state != State::Paused) {
+
+    }
 }
 
 QSharedPointer<GameView> GameController::getView() {

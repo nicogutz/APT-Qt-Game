@@ -45,7 +45,7 @@ public slots:
     void updateLevel(unsigned int level);
 
 
-signals:
+protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 };

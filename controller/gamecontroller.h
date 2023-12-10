@@ -34,7 +34,8 @@ public:
     GameController();
     QSharedPointer<GameView> getView();
 
-    void levelChanged(unsigned int level);
+
+
 
 
 public slots:
@@ -51,13 +52,12 @@ public slots:
     void characterAtttack(GameObject::Direction to);
 
 
-    //    void updateMode();
+        //void updateMode();
+        void updateLevel(unsigned int level);
+        //void updateHealthPacks();
+        //void updateEnemies();
+        void updateGameState(State new_state);
 
-    //    void updateLevel();
-
-    //    void updateHealthPacks();
-
-    //    void updateEnemies();
 
 signals:
     /**
@@ -73,7 +73,7 @@ signals:
      * @brief levelChanged This is emitted when the level changes.
      * @param level The new level
      */
-    void levelChangedSig(unsigned int level);
+    void levelChanged(unsigned int level);
 
     /**
      * @brief scoreChanged This is emitted when the source changes
@@ -116,6 +116,7 @@ private:
 
     unsigned int game_level, enemies, health_packs, energy, health;
     QString game_mode;
+    State game_state;
 
 
 };

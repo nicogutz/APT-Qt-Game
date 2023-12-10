@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
 
 
   // Connect Signals and slots
-    QObject::connect(gameController.data(), &GameController::levelChangedSig, &w, &GameWindow::updateLevel);
+    QObject::connect(gameController.data(), &GameController::levelChanged, &w, &GameWindow::updateLevel);
 
     QObject::connect(timer, &QTimer::timeout, &w, [&w]{
         w.updateTime(true);
