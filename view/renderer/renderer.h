@@ -4,6 +4,7 @@
 #include "model/gameobject.h"
 #include "qpixmap.h"
 #include <bits/shared_ptr.h>
+#include <QGraphicsPixmapItem>
 
 class Renderer {
 public:
@@ -11,8 +12,8 @@ public:
     virtual ~Renderer() {
     }
 
-    QPixmap
-    renderGameObject(const QSharedPointer<GameObject>& object);
+    QGraphicsPixmapItem*
+    renderGameObject(QList<QMap<GameObject::DataRole, QVariant>>& dt_ls);
 
 private:
     virtual QPixmap

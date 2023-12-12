@@ -8,8 +8,6 @@ public:
     ColorRenderer();
 
 private:
-    // Renderer interface
-private:
     QPixmap
     renderTile(QMap<GameObject::DataRole, QVariant> object) override;
     QPixmap renderDoorway(

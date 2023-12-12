@@ -28,12 +28,12 @@ void GameView::createScene(
         for (int y = 0; y < m_columns; ++y) {
             if (x < gameObjects.size() && y < gameObjects[x].size()
                 && !gameObjects[x][y].isNull()) {
-                auto pixmap
-                    = m_renderer->renderGameObject(gameObjects[x][y]);
+                QList<QMap<GameObject::DataRole, QVariant>> gameObjectData = gameObjects[x][y]->getAllData();
+
                 auto item
-                    = QSharedPointer<QGraphicsPixmapItem>::create(
-                        addPixmap(pixmap));
-                item->setPos(x * pixmap.width(), y * pixmap.height());
+                    = QSharedPointer<QGraphicsPixmapItem>(m_renderer->renderGameObject(gameObjectData));
+
+                item->setPos(x * item->pixmap().width(), y * item->pixmap().height());
                 m_tiles[x][y]
                     = item; // Store the shared pointer in m_tiles
             }
@@ -47,10 +47,13 @@ void GameView::updateTile(
                 .toInt();
     int y = gameObject->getData(GameObject::DataRole::Y_Position)
                 .toInt();
-    auto pixmap = m_renderer->renderGameObject(gameObject);
-    auto item = QSharedPointer<QGraphicsPixmapItem>::create(
-        addPixmap(pixmap));
-    item->setPos(x * pixmap.width(), y * pixmap.height());
+    QList<QMap<GameObject::DataRole, QVariant>> gameObjectData = gameObject->getAllData();
+
+    auto item
+        = QSharedPointer<QGraphicsPixmapItem>(m_renderer->renderGameObject(gameObjectData));
+
+    item->setPos(x * item->pixmap().width(), y * item->pixmap().height());
+
     m_tiles[x][y] = item;
 }
 
