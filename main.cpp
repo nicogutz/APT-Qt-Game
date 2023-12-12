@@ -8,6 +8,13 @@
 #include <model/gameobject.h>
 
 #include "view/gameview.h"
+#include <QApplication>
+#include <QLabel>
+#include <QMainWindow>
+#include <QTimer>
+#include <QWidget>
+#include <iostream>
+#include <QProcess>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -15,9 +22,7 @@ int main(int argc, char *argv[]) {
     GameView scene(gridSize, gridSize);
     QGraphicsView view(&scene);
     ColorRenderer renderer;
-
-    const int cellSize = 50; // Assuming cell size defined in ColorRenderer
-
+    const int cellSize = 50;
     // Create grid of game objects
     for (int x = 0; x < gridSize; ++x) {
         for (int y = 0; y < gridSize; ++y) {
@@ -68,3 +73,6 @@ int main(int argc, char *argv[]) {
     view.show();
     return app.exec();
 }
+
+
+

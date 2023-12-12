@@ -3,10 +3,11 @@
 
 
 #include <QGraphicsView>
+#include <QGraphicsTextItem>
+#include <iostream>
 
-#include <model/gameobjectmodel.h>
-
-#include <view/gameview.h>
+#include "model/gameobjectmodel.h"
+#include "view/gameview.h"
 
 
 class GameWindow;
@@ -33,8 +34,6 @@ public:
      */
     GameController();
     QSharedPointer<GameView> getView();
-
-
 
 
 

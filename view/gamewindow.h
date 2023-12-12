@@ -9,6 +9,12 @@
 
 #include <QElapsedTimer>
 #include <QKeyEvent>
+#include <QProcess>
+#include <QTimer>
+#include <iostream>
+#include <QTime>
+#include <qgraphicsitem.h>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,6 +39,7 @@ public:
     void showInvalidCommandMessage();
     void showHelp();
 
+
 private:
 
     Ui::GameWindow* ui;
@@ -47,6 +54,7 @@ public slots:
     void updateTime(bool active);
     void updateLevel(unsigned int level);
     void processCommand();
+
 
 
 protected:

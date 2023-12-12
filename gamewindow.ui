@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>400</y>
+      <y>430</y>
       <width>371</width>
       <height>31</height>
      </rect>
@@ -51,11 +51,11 @@ background-color: rgb(255, 255, 255);
      <string>%p%</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="energy_label">
     <property name="geometry">
      <rect>
       <x>180</x>
-      <y>370</y>
+      <y>400</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -73,7 +73,7 @@ color: rgb(0,0,0)</string>
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>400</y>
+      <y>430</y>
       <width>371</width>
       <height>31</height>
      </rect>
@@ -110,7 +110,7 @@ background-color: rgb(255, 255, 255);
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>370</y>
+      <y>400</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -128,8 +128,8 @@ color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="pause">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>220</y>
+      <x>650</x>
+      <y>230</y>
       <width>81</width>
       <height>41</height>
      </rect>
@@ -146,7 +146,7 @@ background-color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>500</y>
+      <y>510</y>
       <width>191</width>
       <height>31</height>
      </rect>
@@ -155,11 +155,11 @@ background-color: rgb(255, 255, 255);</string>
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="zoom_label">
     <property name="geometry">
      <rect>
       <x>510</x>
-      <y>480</y>
+      <y>490</y>
       <width>111</width>
       <height>16</height>
      </rect>
@@ -173,16 +173,16 @@ background-color: rgb(255, 255, 255);</string>
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>521</width>
-      <height>351</height>
+      <width>551</width>
+      <height>371</height>
      </rect>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>20</y>
+      <x>580</x>
+      <y>30</y>
       <width>241</width>
       <height>181</height>
      </rect>
@@ -252,9 +252,9 @@ font: 9pt &quot;8514oem&quot;;</string>
    <widget class="QLineEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>630</y>
-      <width>391</width>
+      <x>50</x>
+      <y>510</y>
+      <width>431</width>
       <height>31</height>
      </rect>
     </property>
@@ -262,24 +262,58 @@ font: 9pt &quot;8514oem&quot;;</string>
    <widget class="QPlainTextEdit" name="plainTextEdit">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>490</y>
-      <width>391</width>
-      <height>91</height>
+      <x>50</x>
+      <y>560</y>
+      <width>711</width>
+      <height>131</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="type_command">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>600</y>
+      <x>50</x>
+      <y>490</y>
       <width>231</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
      <string>Type command</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="rerun_game_2">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>290</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(208, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Rerun Game</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="quit_game">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>290</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(208, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Quit Game</string>
     </property>
    </widget>
   </widget>
@@ -292,15 +326,6 @@ font: 9pt &quot;8514oem&quot;;</string>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="game_menu">
-    <property name="title">
-     <string>Game</string>
-    </property>
-    <addaction name="end_game"/>
-    <addaction name="start_game"/>
-    <addaction name="rerun_game"/>
-    <addaction name="save_game"/>
-   </widget>
    <widget class="QMenu" name="mode_menu">
     <property name="title">
      <string>Mode</string>
@@ -316,7 +341,6 @@ font: 9pt &quot;8514oem&quot;;</string>
     <addaction name="graphical_mode"/>
     <addaction name="colour_mode"/>
    </widget>
-   <addaction name="game_menu"/>
    <addaction name="mode_menu"/>
    <addaction name="view_menu"/>
   </widget>
