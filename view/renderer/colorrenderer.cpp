@@ -3,7 +3,6 @@
 #include "qpixmap.h"
 #include <iostream>
 
-int cellSize = 50;
 ColorRenderer::ColorRenderer() {
 }
 

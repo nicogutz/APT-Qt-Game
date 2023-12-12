@@ -14,6 +14,7 @@ public:
 
     QGraphicsPixmapItem*
     renderGameObject(QList<QMap<GameObject::DataRole, QVariant>>& dt_ls);
+    inline static constexpr int cellSize = 50;
 
 private:
     virtual QPixmap

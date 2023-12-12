@@ -15,13 +15,14 @@
 #include <QWidget>
 #include <iostream>
 #include <QProcess>
+#include <view/renderer/textrenderer.h>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     const int gridSize = 11;
     GameView scene(gridSize, gridSize);
     QGraphicsView view(&scene);
-    ColorRenderer renderer;
+    TextRenderer renderer;
     const int cellSize = 50;
     // Create grid of game objects
     for (int x = 0; x < gridSize; ++x) {
@@ -53,8 +54,8 @@ int main(int argc, char *argv[]) {
                     specialData[GameObject::DataRole::PoisonLevel] = 100;
                 }
                 if (specialType == GameObject::ObjectType::Protagonist) {
-                    specialData[GameObject::DataRole::Health] = 100;
-                    specialData[GameObject::DataRole::Energy] = 90;
+                    specialData[GameObject::DataRole::Health] = 10;
+                    specialData[GameObject::DataRole::Energy] = 20;
                 }
                 if (specialType == GameObject::ObjectType::HealthPack) {
                     specialData[GameObject::DataRole::Health] = 75;
