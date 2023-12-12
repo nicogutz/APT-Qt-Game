@@ -30,6 +30,9 @@ public:
     Ui::GameWindow* getUI();
     QTimer* getTimer();
 
+    void showInvalidCommandMessage();
+    void showHelp();
+
 private:
 
     Ui::GameWindow* ui;
@@ -43,6 +46,7 @@ private:
 public slots:
     void updateTime(bool active);
     void updateLevel(unsigned int level);
+    void processCommand();
 
 
 protected:

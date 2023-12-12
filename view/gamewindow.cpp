@@ -3,6 +3,7 @@
 #include <QTimer>
 #include <iostream>
 #include <QTime>
+#include <qgraphicsitem.h>
 
 
 
@@ -20,6 +21,13 @@ GameWindow::GameWindow(QWidget *parent)
     ui->graphicsView->setViewport(controller.data());
     ui->graphicsView->setScene(controller->getView().data());
 
+    // SIGNALS AND SLOTS
+    QObject::connect(timer, &QTimer::timeout, this, [this]{
+        GameWindow::updateTime(true);
+    });
+
+    QObject::connect(ui->pause, &QPushButton::clicked, this, [this]{GameWindow::updateTime(false);});
+
 
     ui->graphicsView->show();
     controller->show();
@@ -27,7 +35,7 @@ GameWindow::GameWindow(QWidget *parent)
     timer->start(1000);
     ui->level_label->setText("Level: 1");
 
-    setFocusPolicy(Qt::StrongFocus);
+    //setFocusPolicy(Qt::StrongFocus);
 
 
 
@@ -109,7 +117,43 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 
 }
 
+void GameWindow::processCommand() {
+    qDebug() << "processCommand() called";
+    QString command = ui->textEdit->text().trimmed().toLower(); // Normalize input
+    if (command == "move left") {
+        controller->characterMove(GameObject::Direction::Left);
+    } else if (command == "take health pack") {
+        QGraphicsTextItem* textItem = new QGraphicsTextItem("taking health pack");
+        controller->getView()->addItem(textItem);
+    } else if (command == "pause game") {
+        updateTime(false);
+    } else if (command == "help") {
+        showHelp();
+    } else {
+        showInvalidCommandMessage();
+    }
+    ui->textEdit->clear();
+}
 
+void GameWindow::showHelp() {
+    QString helpMessage = "Available commands:\n"
+                          "- move left: Move the protagonist to the left\n"
+                          "- take health pack: Take a health pack\n"
+                          "- pause game: Pause the game\n"
+                          "- switch view: Toggle between graphical and text view\n"
+                          "- attack enemy: Attack the nearest enemy\n"
+                          "Type 'help' to show this message again.";
+}
+
+void GameWindow::showInvalidCommandMessage() {
+    qDebug() << "showinvalidmes() called";
+    QString errorMessage = "Invalid command. Type 'help' for a list of possible commands.";
+    ui->plainTextEdit->setPlainText(errorMessage);
+
+}
+
+
+// GETTERS
 
 QSharedPointer<GameController> GameWindow::getController(){
     return controller;
@@ -123,6 +167,9 @@ QTimer* GameWindow::getTimer(){
     return timer;
 }
 
+
+// DESTRUCTOR
+
 GameWindow::~GameWindow()
 {
     delete ui;
@@ -130,3 +177,13 @@ GameWindow::~GameWindow()
 }
 
 
+/**TODO
+* view & menu options only one checked at a time
+* implement game menus
+* implement command type
+* convert timer to min/h
+* connect controller variables (enemies, mode, health, energy etc)
+* mode signal from window to controller and to label
+* pathefinder?
+* zoom
+*/
