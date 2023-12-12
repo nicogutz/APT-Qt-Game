@@ -53,12 +53,6 @@ QPixmap TextRenderer::renderCharacter(char character, int weight, int size=100) 
     pen.setWidth(weight / 10);  // Adjust pen width based on weight
     painter.setPen(pen);
 
-//    if (inclination > 0) {
-//        QTransform transform;
-//        transform.shear(0.3, 0);  // Apply shear transformation for inclination
-//        painter.setWorldTransform(transform, true);
-//    }
-
     painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(character));
     return pixmap;
 }
