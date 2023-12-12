@@ -1,9 +1,5 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
-#include <QTimer>
-#include <iostream>
-#include <QTime>
-#include <qgraphicsitem.h>
 
 
 
@@ -16,10 +12,24 @@ GameWindow::GameWindow(QWidget *parent)
     , timer (new QTimer(this))
     , paused (0)
 {
-
+    // SETUP UI CONTROLLER AND VIEW
     ui->setupUi(this);
     ui->graphicsView->setViewport(controller.data());
     ui->graphicsView->setScene(controller->getView().data());
+
+    ui->graphicsView->show();
+    controller->show();
+
+    // START TIMER
+    timer->start(1000);
+
+    setFocusPolicy(Qt::StrongFocus);
+
+    // DEFAULT OPTIONS
+    ui->level_label->setText("Level: 1");
+    ui->graphical_mode->setChecked(true);
+    ui->mode_label->setText("Mode: Manual");
+    ui->manual->setChecked(true);
 
     // SIGNALS AND SLOTS
     QObject::connect(timer, &QTimer::timeout, this, [this]{
@@ -27,18 +37,8 @@ GameWindow::GameWindow(QWidget *parent)
     });
 
     QObject::connect(ui->pause, &QPushButton::clicked, this, [this]{GameWindow::updateTime(false);});
-
-
-    ui->graphicsView->show();
-    controller->show();
-
-    timer->start(1000);
-    ui->level_label->setText("Level: 1");
-
-    //setFocusPolicy(Qt::StrongFocus);
-
-
-
+    QObject::connect(ui->automatic, &QAction::changed, ui->manual, &QAction::toggle);
+    QObject::connect(ui->manual, &QAction::changed, ui->automatic, &QAction::toggle);
 }
 
 
@@ -67,7 +67,7 @@ void GameWindow::updateTime(bool active) {
     } else { // PAUSING GAME
               paused ++;
         if (paused == 0){ // pausing for the first time
-            ui->pause->setText("Restart game");
+            ui->pause->setText("Resume game");
             timer->stop();
             controller->updateGameState(GameController::State::Paused);
 
@@ -79,7 +79,7 @@ void GameWindow::updateTime(bool active) {
             controller->updateGameState(GameController::State::Running);
 
         } else {
-            ui->pause->setText("Restart game");
+            ui->pause->setText("Resume game");
             timer->stop();
             controller->updateGameState(GameController::State::Paused);
         }
@@ -118,16 +118,49 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 }
 
 void GameWindow::processCommand() {
-    qDebug() << "processCommand() called";
+    ui->plainTextEdit->clear();
     QString command = ui->textEdit->text().trimmed().toLower(); // Normalize input
     if (command == "move left") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
         controller->characterMove(GameObject::Direction::Left);
-    } else if (command == "take health pack") {
+    }else if (command == "move right") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
+        controller->characterMove(GameObject::Direction::Right);
+    }
+    else if (command == "move up") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
+        controller->characterMove(GameObject::Direction::Up);
+    }
+    else if (command == "move down") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
+        controller->characterMove(GameObject::Direction::Bottom);
+    }
+    else if (command == "health pack") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
         QGraphicsTextItem* textItem = new QGraphicsTextItem("taking health pack");
         controller->getView()->addItem(textItem);
-    } else if (command == "pause game") {
+    }  else if (command == "attack") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
+        QGraphicsTextItem* textItem = new QGraphicsTextItem("attacking enemy");
+        controller->getView()->addItem(textItem);
+    }
+    else if (command == "pause/resume") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
         updateTime(false);
-    } else if (command == "help") {
+    }
+    else if (command == "quit") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
+    }
+    else if (command == "restart") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
+    }
+    else if (command == "view") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
+    }
+    else if (command == "mode") {
+        ui->plainTextEdit->setPlainText("command executed: "+command);
+    }
+    else if (command == "help") {
         showHelp();
     } else {
         showInvalidCommandMessage();
@@ -137,20 +170,24 @@ void GameWindow::processCommand() {
 
 void GameWindow::showHelp() {
     QString helpMessage = "Available commands:\n"
-                          "- move left: Move the protagonist to the left\n"
-                          "- take health pack: Take a health pack\n"
-                          "- pause game: Pause the game\n"
-                          "- switch view: Toggle between graphical and text view\n"
-                          "- attack enemy: Attack the nearest enemy\n"
+                          "- move [direction]: Move the protagonist to the left/right/up/down\n"
+                          "- pause/resume: Pause or resume the game\n"
+                          "- mode: Toggle between manual and automatic mode\n"
+                          "- view: Toggle between graphical and text view\n"
+                          "- attack: Attack the nearest enemy\n"
+                          "- health pack: Take a health pack\n"
+                          "- quit: Quit the game\n"
+                          "- restart= Restart game from scratch\n"
                           "Type 'help' to show this message again.";
+    ui->plainTextEdit->setPlainText(helpMessage);
 }
 
 void GameWindow::showInvalidCommandMessage() {
-    qDebug() << "showinvalidmes() called";
     QString errorMessage = "Invalid command. Type 'help' for a list of possible commands.";
     ui->plainTextEdit->setPlainText(errorMessage);
 
 }
+
 
 
 // GETTERS
@@ -179,8 +216,6 @@ GameWindow::~GameWindow()
 
 /**TODO
 * view & menu options only one checked at a time
-* implement game menus
-* implement command type
 * convert timer to min/h
 * connect controller variables (enemies, mode, health, energy etc)
 * mode signal from window to controller and to label

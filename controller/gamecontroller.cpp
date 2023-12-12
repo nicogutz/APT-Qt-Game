@@ -1,6 +1,4 @@
 #include "gamecontroller.h"
-#include <QGraphicsTextItem>
-#include <iostream>
 
 
 

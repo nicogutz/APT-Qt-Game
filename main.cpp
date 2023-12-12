@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <QWidget>
 #include <iostream>
+#include <QProcess>
 
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
@@ -20,7 +21,6 @@ int main(int argc, char* argv[]) {
     auto gameController = w.getController();
 
   // Get classes' variables
-    QTimer* timer = w.getTimer();
     Ui::GameWindow* ui = w.getUI();
 
 
@@ -29,10 +29,12 @@ int main(int argc, char* argv[]) {
 
     QObject::connect(ui->textEdit, &QLineEdit::returnPressed, &w, &GameWindow::processCommand);
 
+    QObject::connect(ui->quit_game, &QPushButton::clicked, &a, &QApplication::quit);
+    QObject::connect(ui->rerun_game_2, &QPushButton::clicked, []
+             {  QProcess::startDetached(qApp->arguments()[0], qApp->arguments());  }
+    );
 
     w.show();
-
-
 
 
   // Calling different signals and methods for testing
@@ -42,4 +44,10 @@ int main(int argc, char* argv[]) {
     return a.exec();
 
 
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+
+
 }
+
+
+
