@@ -11,18 +11,18 @@ QPixmap ColorRenderer::renderTile(
     int energyLevel = object[GameObject::DataRole::Energy].toInt();
     int brightness = 255 - (energyLevel * 255 / 100);
     QColor color(brightness, brightness, brightness);
-
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(color);
 
     return pixmap;
 }
 
-QPixmap ColorRenderer::renderDoorway(
-    QMap<GameObject::DataRole, QVariant> object) {
 
+QPixmap ColorRenderer::renderDoorway(QMap<GameObject::DataRole, QVariant> object)
+{
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(Qt::transparent);
+
 
     QColor color(123, 63, 0);
 
@@ -142,4 +142,3 @@ QPixmap ColorRenderer::renderProtagonist(
 QPixmap ColorRenderer::renderEnemy(
     QMap<GameObject::DataRole, QVariant> object) {
 }
-
