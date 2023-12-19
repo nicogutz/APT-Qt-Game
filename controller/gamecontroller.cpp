@@ -18,6 +18,7 @@ GameController::GameController()
 {
     this->setScene(m_view.data());
 
+
     m_model.append(QSharedPointer<GameObjectModel>(new GameObjectModel()));
 
 }
