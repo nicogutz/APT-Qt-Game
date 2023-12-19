@@ -44,8 +44,7 @@ public:
         Bottom,
         BottomRight,
     };
-
-    explicit GameObject();
+    GameObject();
     ~GameObject();
 
     // Virtual neighbors getters and setters.
@@ -59,28 +58,30 @@ public:
 
     // Data getters and setters
     QVector<QMap<DataRole, QVariant>> getAllData();
-
     QVariant getData(DataRole role);
 
     bool setData(DataRole role, const QVariant &value);
     int dataCount();
 
     // Behavior getters and setters
-    template <
-      typename T,
-      typename
-      = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    bool setBehavior(QSharedPointer<Behavior> behavior) {};
-    template <
-      typename T,
-      typename
-      = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QSharedPointer<T> &getBehavior() {};
-    template <
-      typename T,
-      typename
-      = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QVector<QSharedPointer<T>> &getAllBehaviors() {};
+    template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    bool setBehavior(QSharedPointer<Behavior> behavior) {
+        if(qSharedPointerDynamicCast<T>(behavior)) {
+            throw "Not correct behavior";
+        }
+        m_behaviors[typeid(T)] = behavior;
+        return true;
+    };
+
+    template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    const QSharedPointer<T> &getBehavior() {
+        return qSharedPointerDynamicCast<T>(m_behaviors[typeid(T)]);
+    };
+
+    template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    const QVector<QSharedPointer<T>> &getAllBehaviors() {
+      //        return QVector<T>(getBehavior<T>());
+    };
 
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;

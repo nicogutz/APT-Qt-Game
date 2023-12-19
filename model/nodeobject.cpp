@@ -1,7 +1,6 @@
 #include "nodeobject.h"
 
-NodeObject::NodeObject() {
-}
+
 
 QSharedPointer<GameObject>& NodeObject::getChild(ObjectType type) const {
 }

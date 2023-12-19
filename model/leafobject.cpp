@@ -1,7 +1,6 @@
 #include "leafobject.h"
 
-LeafObject::LeafObject() {
-}
+
 
 QSharedPointer<GameObject>& LeafObject::getParent() const {
 }
