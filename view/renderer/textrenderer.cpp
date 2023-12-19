@@ -13,32 +13,36 @@ QPixmap TextRenderer::renderTile(QMap<GameObject::DataRole, QVariant> object) {
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(QPen(Qt::black));
-    painter.drawRect(0, 0, cellSize - 1, cellSize - 1);
+    painter.drawRect(5, 5, cellSize - 6, cellSize - 6);
     return pixmap;
 }
 
 QPixmap TextRenderer::renderDoorway(QMap<GameObject::DataRole, QVariant> object ) {
-    return renderCharacter('D', 100, 100);  // No special conditions for Doorway
+    return renderCharacter("|_|", 100, 100);  // No special conditions for Doorway
 }
 
 QPixmap TextRenderer::renderHealthPack(QMap<GameObject::DataRole, QVariant> object) {
     int healthLevel = object[GameObject::DataRole::Health].toInt();
-    return renderCharacter('H', 100, healthLevel);
+    return renderCharacter("c[_]", 100, healthLevel);
 }
 
 QPixmap TextRenderer::renderProtagonist(QMap<GameObject::DataRole, QVariant> object) {
     int healthLevel = object[GameObject::DataRole::Health].toInt();
     int energyLevel = object[GameObject::DataRole::Energy].toInt();
-    return renderCharacter('P',  energyLevel, healthLevel);
+    int direction = object[GameObject::DataRole::Direction].toInt();
+    QPixmap pixmap = Renderer::rotatePixmap(renderCharacter("ʕ·͡ᴥ·ʔ",  energyLevel, healthLevel), direction);
+    return pixmap;
 }
 
 QPixmap TextRenderer::renderEnemy(QMap<GameObject::DataRole, QVariant> object) {
     int healthLevel = object[GameObject::DataRole::Health].toInt();
     int poisonLevel = object[GameObject::DataRole::PoisonLevel].toInt();
-    return renderCharacter('E', poisonLevel, healthLevel);
+    int direction = object[GameObject::DataRole::Direction].toInt();
+    QPixmap pixmap = Renderer::rotatePixmap(renderCharacter("[¬º.°]¬", poisonLevel, healthLevel), direction);
+    return pixmap;
 }
 
-QPixmap TextRenderer::renderCharacter(char character, int weight, int size=100) {
+QPixmap TextRenderer::renderCharacter(QString str, int weight, int size=100) {
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -46,13 +50,15 @@ QPixmap TextRenderer::renderCharacter(char character, int weight, int size=100) 
 
     QFont font = painter.font();
     font.setBold(weight > 50);  // If weight is above 50, make the font bold
-    font.setPointSize((cellSize / 2 - 10) + (size/10) );  // Set the font size relative to cell size
+    font.setPointSize((cellSize / 2 - 20) + (size/20) );  // Set the font size relative to cell size
     painter.setFont(font);
 
     QPen pen = painter.pen();
     pen.setWidth(weight / 10);  // Adjust pen width based on weight
     painter.setPen(pen);
 
-    painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(character));
+    painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(str));
+
     return pixmap;
 }
+

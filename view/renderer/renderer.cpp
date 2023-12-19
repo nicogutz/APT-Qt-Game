@@ -37,3 +37,12 @@ Renderer::renderGameObject(const QVector<QMap<GameObject::DataRole, QVariant>> &
 
     return tile;
 }
+
+QPixmap Renderer::rotatePixmap(const QPixmap &originalPixmap, int direction) {
+
+    QTransform transformation;
+    transformation.rotate(direction);
+
+    return originalPixmap.transformed(transformation);
+}
+

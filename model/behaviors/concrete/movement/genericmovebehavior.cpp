@@ -34,7 +34,7 @@ bool GenericMoveBehavior::stepOn(GameObject::Direction direction) {
     auto neighbor = m_owner->getNeighbor(direction);
 
     m_owner->setData(
-      GameObject::DataRole::Orientation,
+      GameObject::DataRole::Direction,
       QVariant(static_cast<int>(direction)));
 
     if(neighbor.isNull()) {

@@ -21,7 +21,7 @@ private:
         QMap<GameObject::DataRole, QVariant> object) override;
     QPixmap
     renderEnemy(QMap<GameObject::DataRole, QVariant> object) override;
-    QPixmap renderCharacter(char, int, int);
+    QPixmap renderCharacter(QString, int, int);
 };
 
 #endif // TEXTRENDERER_H

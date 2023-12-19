@@ -11,7 +11,7 @@ public:
           // clang-format off
           = (  owner->getData(GameObject::DataRole::X_Position).isNull() ||
                owner->getData(GameObject::DataRole::Y_Position).isNull() ||
-               owner->getData(GameObject::DataRole::Orientation).isNull()
+               owner->getData(GameObject::DataRole::Direction).isNull()
              );
         if(data_missing) {
             // clang-format on

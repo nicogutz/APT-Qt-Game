@@ -27,7 +27,7 @@ int GenericAttackBehavior::attack(GameObject::Direction direction) {
 }
 int GenericAttackBehavior::attack() {
     return attack(static_cast<GameObject::Direction>(
-      m_owner->getData(GameObject ::DataRole::Orientation)
+      m_owner->getData(GameObject ::DataRole::Direction)
         .toInt()));
 }
 

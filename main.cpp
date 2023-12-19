@@ -52,10 +52,12 @@ int main(int argc, char *argv[]) {
                 if (specialType == GameObject::ObjectType::Enemy) {
                     specialData[GameObject::DataRole::Health] = 50;
                     specialData[GameObject::DataRole::PoisonLevel] = 100;
+                    specialData[GameObject::DataRole::Direction] = QVariant(int (GameObject::Direction::Up));
                 }
                 if (specialType == GameObject::ObjectType::Protagonist) {
                     specialData[GameObject::DataRole::Health] = 10;
                     specialData[GameObject::DataRole::Energy] = 20;
+                    specialData[GameObject::DataRole::Direction] = QVariant(int (GameObject::Direction::Left));
                 }
                 if (specialType == GameObject::ObjectType::HealthPack) {
                     specialData[GameObject::DataRole::Health] = 75;
