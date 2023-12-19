@@ -2,6 +2,6 @@
 
 #include <model/behaviors/health.h>
 
-bool HealOnStepBehavior::getSeppedOn(const QSharedPointer<GameObject> &source) {
+bool HealOnStepBehavior::getSteppedOn(const QSharedPointer<GameObject> &source) {
     return m_owner->getBehavior<Health>()->heal(source);
 }

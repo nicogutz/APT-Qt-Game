@@ -16,7 +16,7 @@ bool GenericMoveBehavior::stepOn(QSharedPointer<GameObject> target) {
         return false;
 
     for(auto bh : behaviors) {
-        bh->getSeppedOn(m_owner);
+        bh->getSteppedOn(m_owner);
     }
     auto owner = qSharedPointerDynamicCast<LeafObject>(m_owner);
 

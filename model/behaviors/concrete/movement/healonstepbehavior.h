@@ -10,7 +10,7 @@ public:
 
     // Movement interface
 public:
-    bool getSeppedOn(const QSharedPointer<GameObject> &source) override;
+    bool getSteppedOn(const QSharedPointer<GameObject> &source) override;
 };
 
 #endif // HEALONSTEPBEHAVIOR_H

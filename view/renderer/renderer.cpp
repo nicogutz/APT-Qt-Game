@@ -3,15 +3,14 @@
 Renderer::Renderer() {
 }
 
-QGraphicsPixmapItem*
-Renderer::renderGameObject(QList<QMap<GameObject::DataRole, QVariant>>& dt_ls) {
-    QGraphicsPixmapItem* tile;
+QGraphicsPixmapItem *
+Renderer::renderGameObject(const QVector<QMap<GameObject::DataRole, QVariant>> &dt_ls) {
+    QGraphicsPixmapItem *tile;
     tile = new QGraphicsPixmapItem(renderTile(dt_ls[0]));
     QGraphicsPixmapItem *item;
-    dt_ls.pop_front();
 
-    for (auto data : dt_ls) {
-        switch (data[GameObject::DataRole::Type].toInt()) {
+    for(auto data : dt_ls.mid(1, -1)) {
+        switch(data[GameObject::DataRole::Type].toInt()) {
         case static_cast<int>(GameObject::ObjectType::Tile):
             item = new QGraphicsPixmapItem(renderTile(data));
             item->setParentItem(tile);

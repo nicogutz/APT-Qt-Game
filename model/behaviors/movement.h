@@ -45,7 +45,7 @@ public:
      * @return
      */
     virtual bool
-    getSeppedOn(const QSharedPointer<GameObject> &source) {
+    getSteppedOn(const QSharedPointer<GameObject> &source) {
         return 0;
     };
 };
