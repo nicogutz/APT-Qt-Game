@@ -15,7 +15,7 @@ GameWindow::GameWindow(QWidget *parent)
     // SETUP UI CONTROLLER AND VIEW
     ui->setupUi(this);
     ui->graphicsView->setViewport(controller.data());
-    ui->graphicsView->setScene(controller->getView().data());
+    //ui->graphicsView->setScene(controller->getView().data());
 
     ui->graphicsView->show();
     controller->show();

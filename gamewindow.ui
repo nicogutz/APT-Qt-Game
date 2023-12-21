@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>828</width>
-    <height>747</height>
+    <width>1071</width>
+    <height>809</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <widget class="QProgressBar" name="energy">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>430</y>
-      <width>371</width>
+      <x>780</x>
+      <y>450</y>
+      <width>231</width>
       <height>31</height>
      </rect>
     </property>
@@ -54,8 +54,8 @@ background-color: rgb(255, 255, 255);
    <widget class="QLabel" name="energy_label">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>400</y>
+      <x>800</x>
+      <y>370</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -72,9 +72,9 @@ color: rgb(0,0,0)</string>
    <widget class="QProgressBar" name="health">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>430</y>
-      <width>371</width>
+      <x>780</x>
+      <y>390</y>
+      <width>231</width>
       <height>31</height>
      </rect>
     </property>
@@ -109,8 +109,8 @@ background-color: rgb(255, 255, 255);
    <widget class="QLabel" name="health_label">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>400</y>
+      <x>820</x>
+      <y>430</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -128,7 +128,7 @@ color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="pause">
     <property name="geometry">
      <rect>
-      <x>650</x>
+      <x>860</x>
       <y>230</y>
       <width>81</width>
       <height>41</height>
@@ -145,8 +145,8 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QSlider" name="horizontalSlider">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>510</y>
+      <x>541</x>
+      <y>602</y>
       <width>191</width>
       <height>31</height>
      </rect>
@@ -158,8 +158,8 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="zoom_label">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>490</y>
+      <x>541</x>
+      <y>590</y>
       <width>111</width>
       <height>16</height>
      </rect>
@@ -173,15 +173,15 @@ background-color: rgb(255, 255, 255);</string>
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>551</width>
-      <height>371</height>
+      <width>701</width>
+      <height>561</height>
      </rect>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>770</x>
       <y>30</y>
       <width>241</width>
       <height>181</height>
@@ -252,8 +252,8 @@ font: 9pt &quot;8514oem&quot;;</string>
    <widget class="QLineEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>510</y>
+      <x>30</x>
+      <y>600</y>
       <width>431</width>
       <height>31</height>
      </rect>
@@ -262,9 +262,9 @@ font: 9pt &quot;8514oem&quot;;</string>
    <widget class="QPlainTextEdit" name="plainTextEdit">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>560</y>
-      <width>711</width>
+      <x>30</x>
+      <y>650</y>
+      <width>701</width>
       <height>131</height>
      </rect>
     </property>
@@ -272,8 +272,8 @@ font: 9pt &quot;8514oem&quot;;</string>
    <widget class="QLabel" name="type_command">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>490</y>
+      <x>30</x>
+      <y>580</y>
       <width>231</width>
       <height>16</height>
      </rect>
@@ -285,7 +285,7 @@ font: 9pt &quot;8514oem&quot;;</string>
    <widget class="QPushButton" name="rerun_game_2">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>810</x>
       <y>290</y>
       <width>81</width>
       <height>41</height>
@@ -302,7 +302,7 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QPushButton" name="quit_game">
     <property name="geometry">
      <rect>
-      <x>710</x>
+      <x>930</x>
       <y>290</y>
       <width>81</width>
       <height>41</height>
@@ -322,7 +322,7 @@ background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>828</width>
+     <width>1071</width>
      <height>21</height>
     </rect>
    </property>

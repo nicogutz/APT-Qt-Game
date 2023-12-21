@@ -34,6 +34,7 @@ public:
      */
     GameController();
     QSharedPointer<GameView> getView();
+    void setView(QSharedPointer<GameView> view);
 
 
 

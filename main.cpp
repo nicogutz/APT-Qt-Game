@@ -7,6 +7,10 @@
 
 #include <model/gameobject.h>
 
+#include "ui_gamewindow.h"
+#include "view/gamewindow.h"
+#include "controller/gamecontroller.h"
+
 #include "view/gameview.h"
 #include <QApplication>
 #include <QLabel>
@@ -19,9 +23,21 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+
+    // Create the main classes of the gzme: GameWindow, GameView, GameController
+    GameWindow w;
+    auto widget = QSharedPointer<QWidget>(new QWidget(&w));
+    auto gameController = w.getController();
+    Ui::GameWindow* ui = w.getUI();
+    QSharedPointer<GameView> view = gameController->getView();
+
+
     const int gridSize = 11;
-    GameView scene(gridSize, gridSize);
-    QGraphicsView view(&scene);
+
+    ui->graphicsView->setScene(view.data());
+
+
+    //QGraphicsView view(&scene);
     TextRenderer renderer;
     const int cellSize = 50;
     // Create grid of game objects
@@ -68,13 +84,29 @@ int main(int argc, char *argv[]) {
             // Render the game object and add it to the scene
             QGraphicsPixmapItem* item = renderer.renderGameObject(objectDataList);
             item->setPos(x * cellSize, y * cellSize);
-            scene.addItem(item);
+            view->addItem(item);
             objectDataList.empty();
         }
     }
 
-    view.show();
+    gameController->show();
+
+    // Connect Signals and slots
+    QObject::connect(gameController.data(), &GameController::levelChanged, &w, &GameWindow::updateLevel);
+
+    QObject::connect(ui->textEdit, &QLineEdit::returnPressed, &w, &GameWindow::processCommand);
+
+    QObject::connect(ui->quit_game, &QPushButton::clicked, &app, &QApplication::quit);
+    QObject::connect(ui->rerun_game_2, &QPushButton::clicked, []
+                     {  QProcess::startDetached(qApp->arguments()[0], qApp->arguments());  }
+                     );
+
+
+    w.show();
     return app.exec();
+
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+
 }
 
 

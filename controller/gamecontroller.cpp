@@ -6,7 +6,7 @@ GameController::GameController()
     : QGraphicsView()
 
     , m_model()
-    , m_view (QSharedPointer<GameView>::create(10,10))
+    , m_view (QSharedPointer<GameView>::create(11,11))
     , game_level(1)
     , enemies(0)
     , health_packs(0)
@@ -16,9 +16,6 @@ GameController::GameController()
     , game_state(State::Running)
 
 {
-    this->setScene(m_view.data());
-
-
     m_model.append(QSharedPointer<GameObjectModel>(new GameObjectModel()));
 
 }
@@ -80,3 +77,6 @@ QSharedPointer<GameView> GameController::getView() {
     return m_view;
 }
 
+void GameController::setView(QSharedPointer<GameView> view){
+    m_view = view;
+}
