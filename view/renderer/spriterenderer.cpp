@@ -24,3 +24,6 @@ QPixmap SpriteRenderer::renderEnemy(
     QMap<GameObject::DataRole, QVariant> object) {
 }
 
+
+
+

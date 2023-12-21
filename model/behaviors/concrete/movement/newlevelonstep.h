@@ -9,7 +9,7 @@ class NewLevelOnStep : public QObject, public GenericWalkableBehavior {
 public:
     NewLevelOnStep(QSharedPointer<GameObject> owner)
         : GenericWalkableBehavior(owner) {};
-    bool getSeppedOn(const QSharedPointer<GameObject> &source) override;
+    bool getSteppedOn(const QSharedPointer<GameObject> &source) override;
 signals:
     void newLevel(const QSharedPointer<GameObject> &source);
 };

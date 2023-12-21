@@ -32,17 +32,20 @@ public:
 
         X_Position,
         Y_Position,
-        Orientation,
+        Direction,
+
+        LatestChange,
+        ChangeDirection,
     };
     enum class Direction {
-        TopLeft,
-        Up,
-        TopRight,
-        Left,
-        Right,
-        BottomLeft,
-        Bottom,
-        BottomRight,
+        TopLeft = 45,
+        Up = 90,
+        TopRight = 135,
+        Left = 180,
+        Right = 0,
+        BottomLeft = 225,
+        Bottom = 270,
+        BottomRight = 315,
     };
     GameObject();
     ~GameObject();

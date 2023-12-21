@@ -7,16 +7,16 @@
 #include "model/gameobject.h"
 #include "view/renderer/renderer.h"
 
-class GameView : public QGraphicsScene
-{
+class GameView : public QGraphicsScene {
     Q_OBJECT
 
 public:
     explicit GameView(int rows, int columns, QObject *parent = nullptr);
 
-    void createScene(const QList<QList<QSharedPointer<GameObject>>>& gameObjects, QSharedPointer<Renderer> renderer = nullptr);
+    void createScene(const QVector<QVector<QVector<QMap<GameObject::DataRole, QVariant>>>> &gameObjects,
+                     QSharedPointer<Renderer> renderer = nullptr);
 
-    void updateTile(const QSharedPointer<GameObject>& gameObject);
+    void updateTile(const QVector<QMap<GameObject::DataRole, QVariant>> &gameObject);
 
     void setRenderer(QSharedPointer<Renderer> newRenderer);
 

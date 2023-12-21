@@ -16,7 +16,7 @@ bool GenericMoveBehavior::stepOn(QSharedPointer<GameObject> target) {
         return false;
 
     for(auto bh : behaviors) {
-        bh->getSeppedOn(m_owner);
+        bh->getSteppedOn(m_owner);
     }
     auto owner = qSharedPointerDynamicCast<LeafObject>(m_owner);
 
@@ -34,7 +34,7 @@ bool GenericMoveBehavior::stepOn(GameObject::Direction direction) {
     auto neighbor = m_owner->getNeighbor(direction);
 
     m_owner->setData(
-      GameObject::DataRole::Orientation,
+      GameObject::DataRole::Direction,
       QVariant(static_cast<int>(direction)));
 
     if(neighbor.isNull()) {
