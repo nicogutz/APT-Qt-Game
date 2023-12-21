@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 
     const int gridSize = 11;
 
-    ui->graphicsView->setScene(view.data());
+    //ui->graphicsView->setScene(view.data());
 
 
     //QGraphicsView view(&scene);
