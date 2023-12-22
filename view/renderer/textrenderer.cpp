@@ -1,7 +1,7 @@
-#include "textrenderer.h"
-#include "qpainter.h"
-#include "qpixmap.h"
 #include <QFont>
+#include <QPainter>
+#include <QPen>
+#include "textrenderer.h"
 
 TextRenderer::TextRenderer() {
 }

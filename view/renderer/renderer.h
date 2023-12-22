@@ -3,7 +3,6 @@
 
 #include "publicenums.h"
 #include "qpixmap.h"
-#include <bits/shared_ptr.h>
 #include <QGraphicsPixmapItem>
 
 class Renderer {

@@ -12,6 +12,7 @@ public:
     void die() override;
 
 public slots:
+    void extracted();
     void spreadPoison();
 
 private:

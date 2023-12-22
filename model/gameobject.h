@@ -13,13 +13,8 @@ public:
     ~GameObject();
 
     // Virtual neighbors getters and setters.
-    virtual QSharedPointer<GameObject> &
-    getNeighbor(Direction direction, int offset = 0) const = 0;
-    virtual QList<QSharedPointer<GameObject>> &
-    getAllNeighbors(int offset = 0) const = 0;
-    virtual void actionTriggered(
-      QSharedPointer<GameObject> &object,
-      QSharedPointer<Behavior> action) const = 0;
+    virtual QSharedPointer<GameObject> &getNeighbor(Direction direction, int offset = 0) const = 0;
+    virtual QList<QSharedPointer<GameObject>> &getAllNeighbors(int offset = 0) const = 0;
 
     // Data getters and setters
     QVector<QMap<DataRole, QVariant>> getAllData();

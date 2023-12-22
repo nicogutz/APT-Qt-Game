@@ -1,7 +1,7 @@
-#include "colorrenderer.h"
-#include "qpainter.h"
-#include "qpixmap.h"
+#include <QBrush>
+#include <QPainter>
 #include <iostream>
+#include "colorrenderer.h"
 
 ColorRenderer::ColorRenderer() {
 }

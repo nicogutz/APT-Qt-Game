@@ -25,7 +25,7 @@ void PoisonOnKilledBehavior::spreadPoison() {
                             ->bounded(0, Poison::SETTINGS::POISON_SPREAD_MAX_TICKS);
         m_tickCount = 0;
 
-        for(auto n : m_owner->getAllNeighbors(Poison::SETTINGS::POISON_SPREAD_TIMES - m_poisonCount)) {
+        for(const auto &n : m_owner->getAllNeighbors(Poison::SETTINGS::POISON_SPREAD_TIMES - m_poisonCount)) {
             m_owner->getBehavior<Poison>()->poison(n);
         }
 
