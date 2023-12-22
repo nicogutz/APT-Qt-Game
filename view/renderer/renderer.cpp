@@ -4,7 +4,7 @@ Renderer::Renderer() {
 }
 
 QGraphicsPixmapItem *
-Renderer::renderGameObject(const QVector<QMap<DataRole, QVariant>> &dt_ls) {
+Renderer::renderGameObject(const QList<QMap<DataRole, QVariant>> &dt_ls) {
     QGraphicsPixmapItem *tile;
     tile = new QGraphicsPixmapItem(renderTile(dt_ls[0]));
     QGraphicsPixmapItem *item;

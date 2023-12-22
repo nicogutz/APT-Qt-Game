@@ -14,7 +14,7 @@ GameView::GameView(int rows, int columns, QObject *parent)
 }
 
 void GameView::createScene(
-  const QVector<QVector<QVector<QMap<DataRole, QVariant>>>> &gameObjects,
+  const QList<QList<QList<QMap<DataRole, QVariant>>>> &gameObjects,
   QSharedPointer<Renderer> renderer) {
     if(!renderer.isNull()) {
         setRenderer(renderer);

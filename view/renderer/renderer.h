@@ -12,7 +12,7 @@ public:
     }
 
     QGraphicsPixmapItem *
-    renderGameObject(const QVector<QMap<DataRole, QVariant>> &dt_ls);
+    renderGameObject(const QList<QMap<DataRole, QVariant>> &dt_ls);
     inline static constexpr int cellSize = 50;
 
 protected:

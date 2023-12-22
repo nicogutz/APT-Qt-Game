@@ -39,7 +39,7 @@ QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
     QPoint bottomleft(cellSize / 5, cellSize - (cellSize / 5));
     QPoint bottomright(cellSize - (cellSize / 5), cellSize - (cellSize / 5));
 
-    QVector<QPoint> points = {topleft, topright, bottomright, bottomleft};
+    QList<QPoint> points = {topleft, topright, bottomright, bottomleft};
 
     // Draw the rhombus
     painter.drawPolygon(points.data(), points.size());
@@ -75,7 +75,7 @@ QPixmap ColorRenderer::renderHealthPack(
     QPoint bottom(cellSize / 2, cellSize - (cellSize / 5));
     QPoint left(cellSize / 5, cellSize / 2);
 
-    QVector<QPoint> points = {top, right, bottom, left};
+    QList<QPoint> points = {top, right, bottom, left};
 
     // Draw the rhombus
     painter.drawPolygon(points.data(), points.size());
@@ -93,7 +93,7 @@ QPixmap ColorRenderer::renderProtagonist(
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    QVector<QPoint> starPoints = {
+    QList<QPoint> starPoints = {
       QPoint(cellSize / 2, 0), // Top point
       QPoint(cellSize, cellSize / 2), // Right point
       QPoint(cellSize / 2, cellSize), // Bottom point
@@ -138,7 +138,7 @@ QPixmap ColorRenderer::renderEnemy(
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    QVector<QPoint> trianglePoints = {
+    QList<QPoint> trianglePoints = {
       QPoint(cellSize / 2, cellSize / 5), // Top
       QPoint(cellSize - (cellSize / 5), cellSize - (cellSize / 5)), // Right bottom
       QPoint(cellSize / 2, cellSize - (cellSize / 5)), // Bottom centre

@@ -6,11 +6,13 @@ class GameObjectModel;
 
 class NodeObject : public GameObject {
 public:
-    NodeObject()
-        : GameObject() {};
+    NodeObject(QMap<std::type_index, QSharedPointer<Behavior>> behaviors,
+               QMap<DataRole, QVariant> data)
+        : GameObject(behaviors, data) {};
+
     // Children getters and setters
     QSharedPointer<GameObject> &getChild(ObjectType type) const;
-    QVector<QSharedPointer<const GameObject>> &getChildren() const;
+    QList<QSharedPointer<const GameObject>> &getChildren() const;
     QSharedPointer<GameObject> popChild(ObjectType type);
     bool insertChild(QSharedPointer<GameObject> object);
     int getChildrenCount() const;
@@ -20,17 +22,17 @@ public:
 
     };
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QVector<QSharedPointer<T>> &getAllBehaviors(ObjectType child) const {
+    QList<QSharedPointer<T>> &getAllBehaviors(ObjectType child) const {
 
     };
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QVector<QSharedPointer<T>> &getAllBehaviors() const {
+    QList<QSharedPointer<T>> &getAllBehaviors() const {
 
     };
 
     // GameObject interface
-    QSharedPointer<GameObject> &getNeighbor(Direction direction, int offset = 0) const;
-    QList<QSharedPointer<GameObject>> &getAllNeighbors(int offset = 0) const;
+    QSharedPointer<GameObject> &getNeighbor(Direction direction, int offset = 0) const override;
+    QList<QSharedPointer<GameObject>> &getAllNeighbors(int offset = 0) const override;
     void actionTriggered(QSharedPointer<GameObject> &object, QSharedPointer<Behavior> action) const;
 
 private:

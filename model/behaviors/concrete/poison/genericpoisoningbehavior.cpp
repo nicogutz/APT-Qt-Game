@@ -4,7 +4,7 @@ int GenericPoisoningBehavior::poison(const QSharedPointer<GameObject> &target) {
     auto behaviors = target->getAllBehaviors<Poison>();
     int poisonAdminisered = 0;
 
-    for(auto &behavior : behaviors) {
+    for(const auto &behavior : behaviors) {
         if(!behavior.isNull()) {
             int currentLevel = m_owner->getData(DataRole::PoisonLevel).toInt();
 
