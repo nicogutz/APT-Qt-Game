@@ -4,26 +4,26 @@ Renderer::Renderer() {
 }
 
 QGraphicsPixmapItem *
-Renderer::renderGameObject(const QVector<QMap<GameObject::DataRole, QVariant>> &dt_ls) {
+Renderer::renderGameObject(const QVector<QMap<DataRole, QVariant>> &dt_ls) {
     QGraphicsPixmapItem *tile;
     tile = new QGraphicsPixmapItem(renderTile(dt_ls[0]));
     QGraphicsPixmapItem *item;
 
     for(auto data : dt_ls.mid(1, -1)) {
-        switch(data[GameObject::DataRole::Type].toInt()) {
-        case static_cast<int>(GameObject::ObjectType::Tile):
+        switch(data[DataRole::Type].toInt()) {
+        case static_cast<int>(ObjectType::Tile):
             item = new QGraphicsPixmapItem(renderTile(data));
             item->setParentItem(tile);
             break;
-        case static_cast<int>(GameObject::ObjectType::Doorway):
+        case static_cast<int>(ObjectType::Doorway):
             item = new QGraphicsPixmapItem(renderDoorway(data));
             item->setParentItem(tile);
             break;
-        case static_cast<int>(GameObject::ObjectType::HealthPack):
+        case static_cast<int>(ObjectType::HealthPack):
             item = new QGraphicsPixmapItem(renderHealthPack(data));
             item->setParentItem(tile);
             break;
-        case static_cast<int>(GameObject::ObjectType::Protagonist):
+        case static_cast<int>(ObjectType::Protagonist):
             item = new QGraphicsPixmapItem(renderProtagonist(data));
             item->setParentItem(tile);
             break;
@@ -39,10 +39,8 @@ Renderer::renderGameObject(const QVector<QMap<GameObject::DataRole, QVariant>> &
 }
 
 QPixmap Renderer::rotatePixmap(const QPixmap &originalPixmap, int direction) {
-
     QTransform transformation;
     transformation.rotate(direction);
 
     return originalPixmap.transformed(transformation);
 }
-

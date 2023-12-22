@@ -24,7 +24,7 @@ public:
      * @param target
      * @return
      */
-    virtual int attack(GameObject::Direction direction) = 0;
+    virtual int attack(Direction direction) = 0;
     /**
      * @brief attack
      * @return

@@ -2,7 +2,6 @@
 #define BEHAVIOR_H
 
 #include <QSharedPointer>
-
 class GameObject;
 
 class Behavior {

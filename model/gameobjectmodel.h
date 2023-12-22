@@ -9,21 +9,21 @@ class GameObjectModel : public QObject {
 public:
     GameObjectModel() {};
     template <typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QSharedPointer<T> &getBehavior(int row, int column, GameObject::ObjectType type) const;
+    QSharedPointer<T> &getBehavior(int row, int column, ObjectType type) const;
 
     template <typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    bool setBehavior(int row, int column, GameObject::ObjectType type);
+    bool setBehavior(int row, int column, ObjectType type);
 
     int getRowCount() const;
     int getColumnCount() const;
 
 private:
-    QSharedPointer<GameObject> &getObject(int row, int column, GameObject::ObjectType type) const;
+    QSharedPointer<GameObject> &getObject(int row, int column, ObjectType type) const;
 
     QVariant
-    getData(int row, int column, GameObject::ObjectType type, GameObject::DataRole role) const;
+    getData(int row, int column, ObjectType type, DataRole role) const;
     bool setData(
-      int row, int column, GameObject::ObjectType type, GameObject::DataRole role, QVariant data);
+      int row, int column, ObjectType type, DataRole role, QVariant data);
     bool setItem(int row, int column, QSharedPointer<GameObject> type);
 
     bool insertColumns(int position, int columns);

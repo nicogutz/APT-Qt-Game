@@ -29,7 +29,7 @@ public:
      * @param direction
      * @return
      */
-    virtual bool stepOn(GameObject::Direction direction) {
+    virtual bool stepOn(Direction direction) {
         return 0;
     };
     /**
@@ -37,7 +37,7 @@ public:
      * @return
      */
     virtual bool isSteppable() {
-        return false;
+        return 0;
     };
     /**
      * @brief getSeppedOn

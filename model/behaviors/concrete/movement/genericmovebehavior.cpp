@@ -20,8 +20,8 @@ bool GenericMoveBehavior::stepOn(QSharedPointer<GameObject> target) {
     }
     auto owner = qSharedPointerDynamicCast<LeafObject>(m_owner);
 
-    auto owner_type = static_cast<GameObject::ObjectType>(
-      m_owner->getData(GameObject::DataRole::Type).toInt());
+    auto owner_type = static_cast<ObjectType>(
+      m_owner->getData(DataRole::Type).toInt());
 
     qSharedPointerDynamicCast<NodeObject>(owner->getParent())
       ->popChild(owner_type);
@@ -30,11 +30,11 @@ bool GenericMoveBehavior::stepOn(QSharedPointer<GameObject> target) {
     return steppable;
 }
 
-bool GenericMoveBehavior::stepOn(GameObject::Direction direction) {
+bool GenericMoveBehavior::stepOn(Direction direction) {
     auto neighbor = m_owner->getNeighbor(direction);
 
     m_owner->setData(
-      GameObject::DataRole::Direction,
+      DataRole::Direction,
       QVariant(static_cast<int>(direction)));
 
     if(neighbor.isNull()) {

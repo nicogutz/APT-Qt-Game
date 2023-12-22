@@ -1,11 +1,12 @@
-#include "genericattackbehavior.h"
 #include <QRandomGenerator>
-#include <model/behaviors/health.h>
+#include "genericattackbehavior.h"
+#include "model/behaviors/health.h"
+#include "publicenums.h"
 
 int GenericAttackBehavior::attack(const QSharedPointer<GameObject> &target) {
     // Get the strength of the object and calculate the attack
     // strength randomly.
-    int strenght = m_owner->getData(GameObject::DataRole::Strength).toInt();
+    int strenght = m_owner->getData(DataRole::Strength).toInt();
     int attackStrength = QRandomGenerator::global()->bounded(strenght);
 
     int count = 0;
@@ -18,7 +19,7 @@ int GenericAttackBehavior::attack(const QSharedPointer<GameObject> &target) {
     return count;
 }
 
-int GenericAttackBehavior::attack(GameObject::Direction direction) {
+int GenericAttackBehavior::attack(Direction direction) {
     auto neighbor = m_owner->getNeighbor(direction);
     if(neighbor.isNull()) {
         return 0;
@@ -26,9 +27,8 @@ int GenericAttackBehavior::attack(GameObject::Direction direction) {
     return attack(neighbor);
 }
 int GenericAttackBehavior::attack() {
-    return attack(static_cast<GameObject::Direction>(
-      m_owner->getData(GameObject ::DataRole::Direction)
-        .toInt()));
+    return attack(static_cast<Direction>(
+      m_owner->getData(DataRole::Direction).toInt()));
 }
 
 int GenericAttackBehavior::getAttacked(const QSharedPointer<GameObject> &by,

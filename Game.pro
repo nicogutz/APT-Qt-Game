@@ -66,6 +66,7 @@ HEADERS += \
     model/leafobject.h \
     model/modelfactory.h \
     model/nodeobject.h \
+    publicenums.h \
     view/gameview.h \
     view/gamewindow.h \
     view/renderer/colorrenderer.h \

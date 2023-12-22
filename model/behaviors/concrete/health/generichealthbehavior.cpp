@@ -2,7 +2,7 @@
 
 int GenericHealthBehavior::getHealthChanged(int amount) {
     QVariant currentHealth
-      = m_owner->getData(GameObject::DataRole::Health);
+      = m_owner->getData(DataRole::Health);
     if(currentHealth.isNull()) {
         throw("Cannot change health of object without health");
     }
@@ -16,7 +16,7 @@ int GenericHealthBehavior::getHealthChanged(int amount) {
     }
 
     m_owner->setData(
-      GameObject::DataRole::Health, QVariant(newHealth));
+      DataRole::Health, QVariant(newHealth));
 
     return newHealth;
 }

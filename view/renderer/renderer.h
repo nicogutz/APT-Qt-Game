@@ -1,7 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "model/gameobject.h"
+#include "publicenums.h"
 #include "qpixmap.h"
 #include <bits/shared_ptr.h>
 #include <QGraphicsPixmapItem>
@@ -13,17 +13,18 @@ public:
     }
 
     QGraphicsPixmapItem *
-    renderGameObject(const QVector<QMap<GameObject::DataRole, QVariant>> &dt_ls);
+    renderGameObject(const QVector<QMap<DataRole, QVariant>> &dt_ls);
     inline static constexpr int cellSize = 50;
+
 protected:
     QPixmap rotatePixmap(const QPixmap &originalPixmap, int direction);
 
 private:
-    virtual QPixmap renderTile(QMap<GameObject::DataRole, QVariant> object) = 0;
-    virtual QPixmap renderDoorway(QMap<GameObject::DataRole, QVariant> object) = 0;
-    virtual QPixmap renderHealthPack(QMap<GameObject::DataRole, QVariant> object) = 0;
-    virtual QPixmap renderProtagonist(QMap<GameObject::DataRole, QVariant> object) = 0;
-    virtual QPixmap renderEnemy(QMap<GameObject::DataRole, QVariant> object) = 0;
+    virtual QPixmap renderTile(QMap<DataRole, QVariant> object) = 0;
+    virtual QPixmap renderDoorway(QMap<DataRole, QVariant> object) = 0;
+    virtual QPixmap renderHealthPack(QMap<DataRole, QVariant> object) = 0;
+    virtual QPixmap renderProtagonist(QMap<DataRole, QVariant> object) = 0;
+    virtual QPixmap renderEnemy(QMap<DataRole, QVariant> object) = 0;
 };
 
 #endif // RENDERER_H

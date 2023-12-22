@@ -4,7 +4,6 @@
 #include "renderer.h"
 
 class TextRenderer : public Renderer {
-
 public:
     TextRenderer();
 
@@ -12,15 +11,15 @@ private:
     // Renderer interface
 private:
     QPixmap
-    renderTile(QMap<GameObject::DataRole, QVariant> object) override;
+    renderTile(QMap<DataRole, QVariant> object) override;
     QPixmap renderDoorway(
-        QMap<GameObject::DataRole, QVariant> object) override;
+      QMap<DataRole, QVariant> object) override;
     QPixmap renderHealthPack(
-        QMap<GameObject::DataRole, QVariant> object) override;
+      QMap<DataRole, QVariant> object) override;
     QPixmap renderProtagonist(
-        QMap<GameObject::DataRole, QVariant> object) override;
+      QMap<DataRole, QVariant> object) override;
     QPixmap
-    renderEnemy(QMap<GameObject::DataRole, QVariant> object) override;
+    renderEnemy(QMap<DataRole, QVariant> object) override;
     QPixmap renderCharacter(QString, int, int);
 };
 

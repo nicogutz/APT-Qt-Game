@@ -4,7 +4,6 @@
 #include <QGraphicsScene>
 #include <QObject>
 #include <QList>
-#include "model/gameobject.h"
 #include "view/renderer/renderer.h"
 
 class GameView : public QGraphicsScene {
@@ -13,10 +12,10 @@ class GameView : public QGraphicsScene {
 public:
     explicit GameView(int rows, int columns, QObject *parent = nullptr);
 
-    void createScene(const QVector<QVector<QVector<QMap<GameObject::DataRole, QVariant>>>> &gameObjects,
+    void createScene(const QVector<QVector<QVector<QMap<DataRole, QVariant>>>> &gameObjects,
                      QSharedPointer<Renderer> renderer = nullptr);
 
-    void updateTile(const QVector<QMap<GameObject::DataRole, QVariant>> &gameObject);
+    void updateTile(const QVector<QMap<DataRole, QVariant>> &gameObject);
 
     void setRenderer(QSharedPointer<Renderer> newRenderer);
 

@@ -14,7 +14,7 @@ GameView::GameView(int rows, int columns, QObject *parent)
 }
 
 void GameView::createScene(
-  const QVector<QVector<QVector<QMap<GameObject::DataRole, QVariant>>>> &gameObjects,
+  const QVector<QVector<QVector<QMap<DataRole, QVariant>>>> &gameObjects,
   QSharedPointer<Renderer> renderer) {
     if(!renderer.isNull()) {
         setRenderer(renderer);
@@ -37,9 +37,9 @@ void GameView::createScene(
     }
 }
 
-void GameView::updateTile(const QVector<QMap<GameObject::DataRole, QVariant>> &gameObject) {
-    int x = gameObject[0][GameObject::DataRole::X_Position].toInt();
-    int y = gameObject[0][GameObject::DataRole::Y_Position].toInt();
+void GameView::updateTile(const QVector<QMap<DataRole, QVariant>> &gameObject) {
+    int x = gameObject[0][DataRole::X_Position].toInt();
+    int y = gameObject[0][DataRole::Y_Position].toInt();
 
     auto item = QSharedPointer<QGraphicsPixmapItem>(m_renderer->renderGameObject(gameObject));
 

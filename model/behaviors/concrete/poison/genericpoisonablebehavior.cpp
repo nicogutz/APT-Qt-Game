@@ -3,7 +3,7 @@
 
 int GenericPoisonableBehavior::getPoisoned(int level) {
     QVariant poisonLevel
-      = m_owner->getData(GameObject::DataRole::PoisonLevel);
+      = m_owner->getData(DataRole::PoisonLevel);
     if(poisonLevel.isNull()) {
         throw("Cannot change poison level of object.");
     }
@@ -14,14 +14,14 @@ int GenericPoisonableBehavior::getPoisoned(int level) {
     }
 
     m_owner->setData(
-      GameObject::DataRole::PoisonLevel, QVariant(newPoison));
+      DataRole::PoisonLevel, QVariant(newPoison));
 
     return newPoison;
 }
 
 void GenericPoisonableBehavior::poisonEffect() {
     QVariant poisonLevel
-      = m_owner->getData(GameObject::DataRole::PoisonLevel);
+      = m_owner->getData(DataRole::PoisonLevel);
     auto behavior = m_owner->getBehavior<Health>();
 
     if(poisonLevel.isNull() || behavior.isNull()
@@ -34,8 +34,6 @@ void GenericPoisonableBehavior::poisonEffect() {
     if(newPoison > Settings.MIN_POISON) {
         behavior->getHealthChanged(-Settings.DAMAGE_PER_TICK);
     } else {
-        m_owner->setData(GameObject::DataRole::PoisonLevel, 0);
+        m_owner->setData(DataRole::PoisonLevel, 0);
     }
 }
-
-

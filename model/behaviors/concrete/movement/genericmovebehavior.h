@@ -9,9 +9,9 @@ public:
         : Movement(owner) {
         bool data_missing
           // clang-format off
-          = (  owner->getData(GameObject::DataRole::X_Position).isNull() ||
-               owner->getData(GameObject::DataRole::Y_Position).isNull() ||
-               owner->getData(GameObject::DataRole::Direction).isNull()
+          = (  owner->getData(DataRole::X_Position).isNull() ||
+               owner->getData(DataRole::Y_Position).isNull() ||
+               owner->getData(DataRole::Direction).isNull()
              );
         if(data_missing) {
             // clang-format on
@@ -19,7 +19,7 @@ public:
         }
     };
     bool stepOn(QSharedPointer<GameObject> target) override;
-    bool stepOn(GameObject::Direction direction) override;
+    bool stepOn(Direction direction) override;
 };
 
 #endif // GENERICMOVEBEHAVIOR_H

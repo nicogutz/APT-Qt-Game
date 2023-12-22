@@ -6,7 +6,7 @@ int GenericPoisoningBehavior::poison(const QSharedPointer<GameObject> &target) {
 
     for(auto &behavior : behaviors) {
         if(!behavior.isNull()) {
-            int currentLevel = m_owner->getData(GameObject::DataRole::PoisonLevel).toInt();
+            int currentLevel = m_owner->getData(DataRole::PoisonLevel).toInt();
 
             if(currentLevel <= 0)
                 continue;
@@ -18,7 +18,7 @@ int GenericPoisoningBehavior::poison(const QSharedPointer<GameObject> &target) {
             poisonAdminisered += poisonedAmount;
 
             m_owner->setData(
-              GameObject::DataRole::PoisonLevel,
+              DataRole::PoisonLevel,
               QVariant(currentLevel - poisonedAmount));
         }
     }

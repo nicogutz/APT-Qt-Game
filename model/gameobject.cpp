@@ -3,7 +3,7 @@
 GameObject::~GameObject() {
 }
 
-QVector<QMap<GameObject::DataRole, QVariant>> GameObject::getAllData() {
+QVector<QMap<DataRole, QVariant>> GameObject::getAllData() {
 }
 
 QVariant GameObject::getData(DataRole role) {

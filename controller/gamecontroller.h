@@ -1,14 +1,12 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
-
 #include <QGraphicsView>
 #include <QGraphicsTextItem>
 #include <iostream>
 
 #include "model/gameobjectmodel.h"
 #include "view/gameview.h"
-
 
 class GameWindow;
 
@@ -36,28 +34,24 @@ public:
     QSharedPointer<GameView> getView();
     void setView(QSharedPointer<GameView> view);
 
-
-
 public slots:
 
     /**
      * @brief characterMove
      * @param to
      */
-    void characterMove(GameObject::Direction to);
+    void characterMove(Direction to);
     /**
      * @brief characterAtttack
      * @param to
      */
-    void characterAtttack(GameObject::Direction to);
+    void characterAtttack(Direction to);
 
-
-        //void updateMode();
-        void updateLevel(unsigned int level);
-        //void updateHealthPacks();
-        //void updateEnemies();
-        void updateGameState(State new_state);
-
+    // void updateMode();
+    void updateLevel(unsigned int level);
+    // void updateHealthPacks();
+    // void updateEnemies();
+    void updateGameState(State new_state);
 
 signals:
     /**
@@ -96,9 +90,7 @@ signals:
      */
     void stateChanged(State state);
 
-
 private:
-
     /**
      * @brief m_model
      */
@@ -113,20 +105,9 @@ private:
      */
     QSharedPointer<GameObject> m_character;
 
-
     unsigned int game_level, enemies, health_packs, energy, health;
     QString game_mode;
     State game_state;
-
-
 };
 
 #endif // GAMECONTROLLER_H
-
-
-
-
-
-
-
-

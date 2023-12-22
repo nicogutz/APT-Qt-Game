@@ -10,7 +10,7 @@ public:
     // Attack interface
 
     int attack(const QSharedPointer<GameObject> &target) override;
-    int attack(GameObject::Direction direction) override;
+    int attack(Direction direction) override;
     int attack() override;
 
     int getAttacked(

@@ -7,8 +7,8 @@ ColorRenderer::ColorRenderer() {
 }
 
 QPixmap ColorRenderer::renderTile(
-    QMap<GameObject::DataRole, QVariant> object) {
-    int energyLevel = object[GameObject::DataRole::Energy].toInt();
+  QMap<DataRole, QVariant> object) {
+    int energyLevel = object[DataRole::Energy].toInt();
     int brightness = 255 - (energyLevel * 255 / 100);
     std::cout << brightness << " ";
     QColor color(brightness, brightness, brightness);
@@ -18,15 +18,11 @@ QPixmap ColorRenderer::renderTile(
     return pixmap;
 }
 
-
-QPixmap ColorRenderer::renderDoorway(QMap<GameObject::DataRole, QVariant> object)
-{
+QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(Qt::transparent);
 
-
     QColor color(123, 63, 0);
-
 
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing); // For smoother edges
@@ -39,7 +35,7 @@ QPixmap ColorRenderer::renderDoorway(QMap<GameObject::DataRole, QVariant> object
 
     // Define points for the rhombus
     QPoint topleft(cellSize / 5, cellSize / 5);
-    QPoint topright(cellSize - (cellSize/5),  cellSize / 5);
+    QPoint topright(cellSize - (cellSize / 5), cellSize / 5);
     QPoint bottomleft(cellSize / 5, cellSize - (cellSize / 5));
     QPoint bottomright(cellSize - (cellSize / 5), cellSize - (cellSize / 5));
 
@@ -53,11 +49,9 @@ QPixmap ColorRenderer::renderDoorway(QMap<GameObject::DataRole, QVariant> object
     return pixmap;
 }
 
-
 QPixmap ColorRenderer::renderHealthPack(
-    QMap<GameObject::DataRole, QVariant> object) {
-
-    int healthLevel = object[GameObject::DataRole::Health].toInt();
+  QMap<DataRole, QVariant> object) {
+    int healthLevel = object[DataRole::Health].toInt();
     int minIntensity = 50;
     int maxIntensity = 255;
     int final_color = minIntensity + (maxIntensity - minIntensity) * healthLevel / 100;
@@ -77,7 +71,7 @@ QPixmap ColorRenderer::renderHealthPack(
 
     // Define points for the rhombus
     QPoint top(cellSize / 2, cellSize / 5);
-    QPoint right(cellSize - (cellSize/5),  cellSize / 2);
+    QPoint right(cellSize - (cellSize / 5), cellSize / 2);
     QPoint bottom(cellSize / 2, cellSize - (cellSize / 5));
     QPoint left(cellSize / 5, cellSize / 2);
 
@@ -92,8 +86,7 @@ QPixmap ColorRenderer::renderHealthPack(
 }
 
 QPixmap ColorRenderer::renderProtagonist(
-    QMap<GameObject::DataRole, QVariant> object) {
-
+  QMap<DataRole, QVariant> object) {
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(Qt::transparent); // Transparent background
 
@@ -101,18 +94,18 @@ QPixmap ColorRenderer::renderProtagonist(
     painter.setRenderHint(QPainter::Antialiasing);
 
     QVector<QPoint> starPoints = {
-        QPoint(cellSize / 2, 0),                          // Top point
-        QPoint(cellSize, cellSize / 2),                    // Right point
-        QPoint(cellSize / 2, cellSize),                    // Bottom point
-        QPoint(0, cellSize / 2),                           // Left point
-        QPoint(cellSize / 2, 0)                            // Back to Top point
+      QPoint(cellSize / 2, 0), // Top point
+      QPoint(cellSize, cellSize / 2), // Right point
+      QPoint(cellSize / 2, cellSize), // Bottom point
+      QPoint(0, cellSize / 2), // Left point
+      QPoint(cellSize / 2, 0) // Back to Top point
     };
 
     QPolygon rightHalf(starPoints.mid(0, 3));
     QPolygon leftHalf(starPoints.mid(2));
 
     // Draw and fill left half with health - green
-    int healthLevel = object[GameObject::DataRole::Health].toInt();
+    int healthLevel = object[DataRole::Health].toInt();
     int minIntensity = 50;
     int maxIntensity = 255;
     int final_color = minIntensity + (maxIntensity - minIntensity) * healthLevel / 100;
@@ -121,7 +114,7 @@ QPixmap ColorRenderer::renderProtagonist(
     painter.drawPolygon(leftHalf);
 
     // Draw and fill right half with energy - yellow
-    int energyLevel = object[GameObject::DataRole::Energy].toInt();
+    int energyLevel = object[DataRole::Energy].toInt();
     minIntensity = 50;
     maxIntensity = 255;
     final_color = minIntensity + (maxIntensity - minIntensity) * energyLevel / 100;
@@ -131,15 +124,14 @@ QPixmap ColorRenderer::renderProtagonist(
 
     painter.end();
 
-    int direction = object[GameObject::DataRole::Direction].toInt();
+    int direction = object[DataRole::Direction].toInt();
     pixmap = Renderer::rotatePixmap(pixmap, direction);
 
     return pixmap;
 }
 
 QPixmap ColorRenderer::renderEnemy(
-    QMap<GameObject::DataRole, QVariant> object) {
-
+  QMap<DataRole, QVariant> object) {
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(Qt::transparent); // Transparent background
 
@@ -147,18 +139,18 @@ QPixmap ColorRenderer::renderEnemy(
     painter.setRenderHint(QPainter::Antialiasing);
 
     QVector<QPoint> trianglePoints = {
-        QPoint(cellSize / 2, cellSize / 5),                          // Top
-        QPoint(cellSize - (cellSize / 5), cellSize - (cellSize / 5)),                    // Right bottom
-        QPoint(cellSize / 2, cellSize - (cellSize / 5)),                    // Bottom centre
-        QPoint(cellSize / 5, cellSize - (cellSize / 5)),                           // Left bott0m
-        QPoint(cellSize / 2, cellSize / 5)                            // Back to Top point
+      QPoint(cellSize / 2, cellSize / 5), // Top
+      QPoint(cellSize - (cellSize / 5), cellSize - (cellSize / 5)), // Right bottom
+      QPoint(cellSize / 2, cellSize - (cellSize / 5)), // Bottom centre
+      QPoint(cellSize / 5, cellSize - (cellSize / 5)), // Left bott0m
+      QPoint(cellSize / 2, cellSize / 5) // Back to Top point
     };
 
     QPolygon rightHalf(trianglePoints.mid(0, 3));
     QPolygon leftHalf(trianglePoints.mid(2));
 
     // Draw and fill left half with health - green
-    int healthLevel = object[GameObject::DataRole::Health].toInt();
+    int healthLevel = object[DataRole::Health].toInt();
     int minIntensity = 50;
     int maxIntensity = 255;
     int final_color = minIntensity + (maxIntensity - minIntensity) * healthLevel / 100;
@@ -167,7 +159,7 @@ QPixmap ColorRenderer::renderEnemy(
     painter.drawPolygon(leftHalf);
 
     // Draw and fill right half with energy - yellow
-    int energyLevel = object[GameObject::DataRole::PoisonLevel].toInt();
+    int energyLevel = object[DataRole::PoisonLevel].toInt();
     minIntensity = 50;
     maxIntensity = 200;
     final_color = minIntensity + (maxIntensity - minIntensity) * energyLevel / 100;
@@ -177,10 +169,8 @@ QPixmap ColorRenderer::renderEnemy(
 
     painter.end();
 
-    int direction = object[GameObject::DataRole::Direction].toInt();
+    int direction = object[DataRole::Direction].toInt();
     pixmap = Renderer::rotatePixmap(pixmap, direction);
 
     return pixmap;
 }
-
-
