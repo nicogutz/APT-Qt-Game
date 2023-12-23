@@ -12,13 +12,12 @@ public:
         , m_parentObject(parent) {};
 
     // Parent getters and setters
-    QSharedPointer<GameObject> &getParent() const;
-    bool setParent(const QSharedPointer<GameObject> &newParent);
+    const QSharedPointer<GameObject> getParent() const;
+    bool setParent(QSharedPointer<GameObject> newParent);
 
     // Virtual neighbors getters and setters.
-    QSharedPointer<GameObject> &getNeighbor(Direction direction, int offset = 0) const override;
-    QList<QSharedPointer<GameObject>> &getAllNeighbors(int offset = 0) const override;
-    void actionTriggered(QSharedPointer<GameObject> &object, QSharedPointer<Behavior> action) const;
+    const QSharedPointer<GameObject> getNeighbor(Direction direction, int offset = 0) const override;
+    const QList<QSharedPointer<GameObject>> getAllNeighbors(int offset = 0) const override;
 
 private:
     QSharedPointer<GameObject> m_parentObject;

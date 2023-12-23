@@ -12,10 +12,10 @@ class GameView : public QGraphicsScene {
 public:
     explicit GameView(int rows, int columns, QObject *parent = nullptr);
 
-    void createScene(const QVector<QVector<QVector<QMap<DataRole, QVariant>>>> &gameObjects,
+    void createScene(const QList<QList<QList<QMap<DataRole, QVariant>>>> &gameObjects,
                      QSharedPointer<Renderer> renderer = nullptr);
 
-    void updateTile(const QVector<QMap<DataRole, QVariant>> &gameObject);
+    void updateObject(const QMap<DataRole, QVariant> gameObject);
 
     void setRenderer(QSharedPointer<Renderer> newRenderer);
 

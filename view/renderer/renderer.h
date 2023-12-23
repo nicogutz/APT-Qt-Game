@@ -11,8 +11,9 @@ public:
     virtual ~Renderer() {
     }
 
-    QGraphicsPixmapItem *
-    renderGameObject(const QList<QMap<DataRole, QVariant>> &dt_ls);
+    QGraphicsPixmapItem *renderGameObjects(QList<QMap<DataRole, QVariant>> objectData);
+    QGraphicsPixmapItem *renderGameObject(QMap<DataRole, QVariant> objectData);
+
     inline static constexpr int cellSize = 50;
 
 protected:

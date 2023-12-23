@@ -1,19 +1,23 @@
 #include "leafobject.h"
 
-
-
-QSharedPointer<GameObject>& LeafObject::getParent() const {
+const QSharedPointer<GameObject> LeafObject::getParent() const {
+    return m_parentObject;
 }
 
-bool LeafObject::setParent(const QSharedPointer<GameObject>& newParent) {
+bool LeafObject::setParent(QSharedPointer<GameObject> newParent) {
+    m_parentObject = newParent;
+    auto data = getAllData();
+    data[DataRole::Position] = QVariant(m_parentObject->getData(DataRole::Position));
+    data[DataRole::LatestChange] = QVariant(static_cast<int>(DataRole::Position));
+    data[DataRole::ChangeDirection] = getData(DataRole::Direction);
+    emit dataChanged(data);
+    return true;
 }
 
-QSharedPointer<GameObject>& LeafObject::getNeighbor(Direction direction, int offset) const {
+const QSharedPointer<GameObject> LeafObject::getNeighbor(Direction direction, int offset) const {
+    return m_parentObject->getNeighbor(direction, offset);
 }
 
-QList<QSharedPointer<GameObject>>& LeafObject::getAllNeighbors(int offset) const {
-}
-
-void LeafObject::actionTriggered(
-    QSharedPointer<GameObject>& object, QSharedPointer<Behavior> action) const {
+const QList<QSharedPointer<GameObject>> LeafObject::getAllNeighbors(int offset) const {
+    return m_parentObject->getAllNeighbors(offset);
 }

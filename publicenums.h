@@ -1,6 +1,8 @@
 #ifndef PUBLICENUMS_H
 #define PUBLICENUMS_H
-enum class ObjectType {
+#include <cstdint>
+
+enum class ObjectType : int {
     Tile = 0,
     Doorway = 1,
     HealthPack = 2,
@@ -9,7 +11,7 @@ enum class ObjectType {
     PoisonEnemy = 101,
     FireEnemy = 102,
 };
-enum class DataRole {
+enum class DataRole : int {
     Type,
 
     Health,
@@ -21,14 +23,13 @@ enum class DataRole {
 
     Visibility,
 
-    X_Position,
-    Y_Position,
+    Position,
     Direction,
 
     LatestChange,
     ChangeDirection,
 };
-enum class Direction {
+enum class Direction : int {
     TopLeft = 45,
     Up = 90,
     TopRight = 135,
@@ -38,4 +39,16 @@ enum class Direction {
     Bottom = 270,
     BottomRight = 315,
 };
+
+const Direction EnumDirectionVector[] = {
+  Direction::TopLeft,
+  Direction::Up,
+  Direction::TopRight,
+  Direction::Left,
+  Direction::Right,
+  Direction::BottomLeft,
+  Direction::Bottom,
+  Direction::BottomRight,
+};
+
 #endif // PUBLICENUMS_H

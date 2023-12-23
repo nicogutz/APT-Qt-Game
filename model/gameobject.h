@@ -8,7 +8,8 @@
 #include "publicenums.h"
 #include "model/behaviors/behavior.h"
 
-class GameObject {
+class GameObject : public QObject {
+    Q_OBJECT
 public:
     GameObject(QMap<std::type_index, QSharedPointer<Behavior>> behaviors,
                QMap<DataRole, QVariant> data)
@@ -18,41 +19,52 @@ public:
     ~GameObject() {};
 
     // Virtual neighbors getters and setters.
-    virtual const QSharedPointer<GameObject> &getNeighbor(Direction direction, int offset = 0) const = 0;
-    virtual const QList<QSharedPointer<GameObject>> &getAllNeighbors(int offset = 0) const = 0;
+    virtual const QSharedPointer<GameObject> getNeighbor(Direction direction, int offset = 0) const = 0;
+    virtual const QList<QSharedPointer<GameObject>> getAllNeighbors(int offset = 0) const = 0;
 
     // Data getters and setters
-    const QList<QMap<DataRole, QVariant>> getAllData() const;
+    QMap<DataRole, QVariant> getAllData() const;
     const QVariant getData(DataRole role) const;
 
-    bool setData(DataRole role, const QVariant &value);
+    bool setData(DataRole role, QVariant value);
     int dataCount() const;
 
     // Behavior getters and setters
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     bool setBehavior(QSharedPointer<Behavior> behavior) {
-        if(qSharedPointerDynamicCast<T>(behavior)) {
-            throw "Not correct behavior";
+        if(qSharedPointerDynamicCast<T>(behavior).isNull()) {
+            throw "Incorrect behavior";
         }
         m_behaviors[typeid(T)] = behavior;
         return true;
     }
 
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    const QSharedPointer<T> &getBehavior() const {
-        return qSharedPointerDynamicCast<T>(m_behaviors[typeid(T)]);
+    const QSharedPointer<T> getBehavior() const {
+        return qSharedPointerDynamicCast<T>(getBehavior(typeid(T)));
     }
+    const QSharedPointer<Behavior> getBehavior(std::type_index idx) const {
+        return m_behaviors[idx];
+    };
 
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     const QList<QSharedPointer<T>> getAllBehaviors() const {
-        auto v = QList<QSharedPointer<T>>(1);
-        v.append(getBehavior<T>());
-        return v;
+        auto list = getAllBehaviors(typeid(T));
+        auto newList = QList<QSharedPointer<T>>();
+        for(const auto &behavior : list) {
+            newList.append(qSharedPointerDynamicCast<T>(behavior));
+        }
+        return newList;
     };
+
+    virtual QList<QSharedPointer<Behavior>> getAllBehaviors(std::type_index idx) const;
 
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;
     QMap<DataRole, QVariant> m_objectData;
+
+signals:
+    void dataChanged(QMap<DataRole, QVariant> objectData);
 };
 
 #endif // GAMEOBJECT_H

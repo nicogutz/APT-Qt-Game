@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
             }
 
             // Render the game object and add it to the scene
-            QGraphicsPixmapItem *item = renderer.renderGameObject(objectDataList);
+            QGraphicsPixmapItem *item = renderer.renderGameObjects(objectDataList);
             item->setPos(x * cellSize, y * cellSize);
             view->addItem(item);
             objectDataList.empty();

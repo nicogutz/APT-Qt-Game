@@ -12,8 +12,9 @@ int GenericAttackBehavior::attack(const QSharedPointer<GameObject> &target) {
     int count = 0;
     // TODO: Add emit signal to animate attack.
     for(auto bh : target->getAllBehaviors<Attack>()) {
+        auto at = qSharedPointerDynamicCast<Attack>(bh);
         if(!bh.isNull()) {
-            count += bh->getAttacked(m_owner, attackStrength);
+            count += at->getAttacked(m_owner, attackStrength);
         }
     };
     return count;
