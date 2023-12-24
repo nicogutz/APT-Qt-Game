@@ -45,7 +45,7 @@ public slots:
      * @brief characterAtttack
      * @param to
      */
-    void characterAtttack(Direction to);
+    void characterAtttack();
 
     // void updateMode();
     void updateLevel(unsigned int level);

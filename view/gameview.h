@@ -25,6 +25,9 @@ private:
 
     // Store the graphical representation of each GameObject
     QList<QList<QSharedPointer<QGraphicsPixmapItem>>> m_tiles;
+
+public slots:
+    void dataChanged(QMap<DataRole, QVariant> objectData);
 };
 
 #endif // GAMEVIEW_H

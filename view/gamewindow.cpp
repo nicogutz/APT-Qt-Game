@@ -97,6 +97,9 @@ void GameWindow::keyPressEvent(QKeyEvent *event) {
         case Qt::Key_Right:
             controller->characterMove(Direction::Right);
             break;
+        case Qt::Key_Space:
+            controller->characterAtttack();
+            break;
         default:
             QMainWindow::keyPressEvent(event); // Handle other key events
         }

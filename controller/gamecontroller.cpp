@@ -13,6 +13,7 @@ GameController::GameController()
     , m_gameState(State::Running)
 
 {
+    // TODO: This is very much temporary
     QList<QList<QPointer<GameObject>>> world(10);
     QMap<DataRole, QVariant> tileData({{DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Tile)}});
     for(int i = 0; i < 10; ++i) {
@@ -39,11 +40,14 @@ GameController::GameController()
     obj->setParent(world[0][0]);
     auto *model = new GameObjectModel(world);
     model->setParent(this);
+
     m_character = obj;
     m_model = QList<QPointer<GameObjectModel>>({model});
-    m_view = QSharedPointer<GameView>::create(10, 10);
+    m_view = QSharedPointer<GameView>::create(10, 10, this);
 
     m_view->createScene(model->getAllData(), QSharedPointer<TextRenderer>::create());
+
+    connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
 
     this->show();
 }
@@ -66,12 +70,11 @@ void GameController::characterMove(Direction to) {
     }
 }
 
-void GameController::characterAtttack(Direction to) {
+void GameController::characterAtttack() {
     if(m_gameState != State::Paused) {
-        if(m_character) {
-            m_character->getBehavior<Attack>()->attack(to);
-        } else {
-            std::cout << "No Char" << std::endl;
+        auto attack = m_character->getBehavior<Attack>();
+        if(attack) {
+            attack->attack();
         }
     }
 }

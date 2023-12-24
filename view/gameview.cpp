@@ -49,3 +49,23 @@ void GameView::updateObject(const QMap<DataRole, QVariant> gameObject) {
 void GameView::setRenderer(QSharedPointer<Renderer> newRenderer) {
     m_renderer = newRenderer;
 }
+
+void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
+    if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Position) {
+        auto position = objectData[DataRole::Position].toPoint();
+        auto direction = objectData[DataRole::Direction].toInt();
+        double angleRad = (direction)*M_PI / 180;
+        int x = position.x() - round(cos(angleRad));
+        int y = position.y() + round(sin(angleRad));
+        auto changedObject = m_tiles[x][y]->childItems()[0];
+
+        changedObject->setParentItem(m_tiles[position.x()][position.y()].get());
+    } else if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Direction) {
+        auto position = objectData[DataRole::Position].toPoint();
+        auto changedObject = m_tiles[position.x()][position.y()]->childItems()[0];
+
+        changedObject->setTransformOriginPoint(changedObject->boundingRect().width() / 2,
+                                               changedObject->boundingRect().height() / 2);
+        changedObject->setRotation(objectData[DataRole::Direction].toInt() - 90);
+    }
+}

@@ -14,6 +14,9 @@ public:
             for(const auto &tile : row) {
                 tile->setParent(this);
                 connect(tile, &GameObject::dataChanged, this, &GameObjectModel::dataChanged);
+                for(const auto &obj : tile->children()) {
+                    connect(qobject_cast<GameObject *>(obj), &GameObject::dataChanged, this, &GameObjectModel::dataChanged);
+                }
             }
         }
     };
