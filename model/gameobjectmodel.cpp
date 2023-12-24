@@ -10,23 +10,37 @@ int GameObjectModel::getColumnCount() const {
 
 const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, Direction direction, int offset) const {
     double angleRad = ((int)direction) * M_PI / 180;
-    int offsetNew = offset + 1;
-    return m_world[location.x() + (offsetNew * round(cos(angleRad)))][location.y() + (offsetNew * round(sin(angleRad)))];
+    int x = location.x() + (offset + 1 * round(cos(angleRad)));
+    int y = location.y() + (offset + 1 * round(sin(angleRad)));
+    if(x > getRowCount() || y > getColumnCount()) {
+        return QPointer<GameObject>(nullptr);
+    }
+    return m_world[x][y];
 }
 
 QPointer<GameObject> GameObjectModel::getObject(int row, int column, ObjectType type) const {
+    if(row > getRowCount() || column > getColumnCount()) {
+        return QPointer<GameObject>(nullptr);
+    }
+
     auto tile = m_world[row][column];
     if(type == ObjectType::Tile) {
         return tile;
     }
+
     return tile->findChild(type);
 }
 
 void GameObjectModel::setItem(int row, int column, QPointer<GameObject> object) {
-    if(object->getData(DataRole::Type).toInt() == static_cast<int>(ObjectType::Tile)) {
+    if(row > getRowCount() || column > getColumnCount()) {
+        throw "Cannot set outside range";
+    }
+
+    if(object->getData(DataRole::Type).value<ObjectType>() == ObjectType::Tile) {
         delete m_world[row][column];
         m_world[row][column] = object;
         return;
     }
+
     object->setParent(m_world[row][column]);
 }

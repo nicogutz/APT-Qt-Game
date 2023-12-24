@@ -1,9 +1,8 @@
 #include "newlevelonstep.h"
-
 bool NewLevelOnStep::getSteppedOn(const QPointer<GameObject> &source) {
-    int srcType = source->getData(DataRole::Type).toInt();
+    ObjectType srcType = source->getData(DataRole::Type).value<ObjectType>();
 
-    if(srcType == static_cast<int>(ObjectType::Protagonist))
+    if(srcType == ObjectType::Protagonist)
         emit newLevel(source);
 
     return true;

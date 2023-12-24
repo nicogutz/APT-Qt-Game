@@ -10,8 +10,6 @@
 #include "publicenums.h"
 #include "model/behaviors/behavior.h"
 
-Q_DECLARE_METATYPE(DataRole)
-
 class GameObject : public QObject {
     Q_OBJECT
 public:

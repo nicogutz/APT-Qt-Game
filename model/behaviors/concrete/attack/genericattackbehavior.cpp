@@ -22,14 +22,13 @@ int GenericAttackBehavior::attack(const QPointer<GameObject> &target) {
 
 int GenericAttackBehavior::attack(Direction direction) {
     auto neighbor = m_owner->getNeighbor(direction);
-    if(neighbor.isNull()) {
+    if(neighbor) {
         return 0;
     }
     return attack(neighbor);
 }
 int GenericAttackBehavior::attack() {
-    return attack(static_cast<Direction>(
-      m_owner->getData(DataRole::Direction).toInt()));
+    return attack(m_owner->getData(DataRole::Direction).value<Direction>());
 }
 
 int GenericAttackBehavior::getAttacked(const QPointer<GameObject> &by, int strength) {

@@ -23,9 +23,9 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-
     // Create the main classes of the gzme: GameWindow, GameView, GameController
     GameWindow w;
+    w.setStyleSheet("background-color: white");
     auto widget = QSharedPointer<QWidget>(new QWidget(&w));
     auto gameController = w.getController();
     Ui::GameWindow *ui = w.getUI();
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     // ui->graphicsView->setScene(view.data());
 
     // QGraphicsView view(&scene);
-    TextRenderer renderer;
+    ColorRenderer renderer;
     const int cellSize = 50;
     // Create grid of game objects
     for(int x = 0; x < gridSize; ++x) {

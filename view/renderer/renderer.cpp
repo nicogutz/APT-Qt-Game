@@ -9,20 +9,20 @@ QGraphicsPixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>>
     QGraphicsPixmapItem *item;
 
     for(auto data : objectDataList.mid(1, -1)) {
-        switch(data[DataRole::Type].toInt()) {
-        case static_cast<int>(ObjectType::Tile):
+        switch(data[DataRole::Type].value<ObjectType>()) {
+        case ObjectType::Tile:
             item = new QGraphicsPixmapItem(renderTile(data));
             item->setParentItem(tile);
             break;
-        case static_cast<int>(ObjectType::Doorway):
+        case ObjectType::Doorway:
             item = new QGraphicsPixmapItem(renderDoorway(data));
             item->setParentItem(tile);
             break;
-        case static_cast<int>(ObjectType::HealthPack):
+        case ObjectType::HealthPack:
             item = new QGraphicsPixmapItem(renderHealthPack(data));
             item->setParentItem(tile);
             break;
-        case static_cast<int>(ObjectType::Protagonist):
+        case ObjectType::Protagonist:
             item = new QGraphicsPixmapItem(renderProtagonist(data));
             item->setParentItem(tile);
             break;
@@ -42,20 +42,20 @@ QGraphicsPixmapItem *Renderer::renderGameObject(QMap<DataRole, QVariant> objectD
     tile = new QGraphicsPixmapItem(renderTile(objectData));
     QGraphicsPixmapItem *item;
 
-    switch(objectData[DataRole::Type].toInt()) {
-    case static_cast<int>(ObjectType::Tile):
+    switch(objectData[DataRole::Type].value<ObjectType>()) {
+    case ObjectType::Tile:
         item = new QGraphicsPixmapItem(renderTile(objectData));
         item->setParentItem(tile);
         break;
-    case static_cast<int>(ObjectType::Doorway):
+    case ObjectType::Doorway:
         item = new QGraphicsPixmapItem(renderDoorway(objectData));
         item->setParentItem(tile);
         break;
-    case static_cast<int>(ObjectType::HealthPack):
+    case ObjectType::HealthPack:
         item = new QGraphicsPixmapItem(renderHealthPack(objectData));
         item->setParentItem(tile);
         break;
-    case static_cast<int>(ObjectType::Protagonist):
+    case ObjectType::Protagonist:
         item = new QGraphicsPixmapItem(renderProtagonist(objectData));
         item->setParentItem(tile);
         break;

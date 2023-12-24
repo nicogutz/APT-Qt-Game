@@ -22,11 +22,15 @@ bool GenericMoveBehavior::stepOn(QPointer<GameObject> target) {
 
 bool GenericMoveBehavior::stepOn(Direction direction) {
     auto neighbor = m_owner->getNeighbor(direction);
-
-    m_owner->setData(DataRole::Direction, QVariant(static_cast<int>(direction)));
-
-    if(neighbor.isNull()) {
+    auto currentDirection = m_owner->getData(DataRole::Direction).value<Direction>();
+    if(direction != currentDirection) {
+        m_owner->setData(DataRole::Direction, QVariant::fromValue<Direction>(direction));
         return false;
     }
+
+    if(neighbor) {
+        return false;
+    }
+
     return stepOn(neighbor);
 }

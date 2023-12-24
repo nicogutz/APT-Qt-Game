@@ -1,8 +1,7 @@
 #include "generichealingbehavior.h"
 
 int GenericHealingBehavior::heal(const QPointer<GameObject> &target) {
-    int availableHealing
-      = m_owner->getData(DataRole::Health).toInt();
+    int availableHealing = m_owner->getData(DataRole::Health).toInt();
 
     auto h_behavior = target->getBehavior<Health>();
 
