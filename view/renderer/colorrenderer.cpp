@@ -10,7 +10,6 @@ QPixmap ColorRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     int energyLevel = object[DataRole::Energy].toInt();
     int brightness = 255 - (energyLevel * 255 / 100);
-    std::cout << brightness << " ";
     QColor color(brightness, brightness, brightness);
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(color);

@@ -30,8 +30,8 @@ void GameObject::setData(DataRole role, QVariant value) {
     Direction dir = value.toInt() > data[role].toInt() ? Direction::Up : Direction::Down;
 
     data[role] = value;
-    data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(role);
-    data[DataRole::ChangeDirection] = QVariant::fromValue<Direction>(dir);
+    data[DataRole::LatestChange] = QVariant::fromValue(role);
+    data[DataRole::ChangeDirection] = QVariant::fromValue(dir);
 
     emit dataChanged(data);
 }
@@ -46,4 +46,13 @@ QVariant GameObject::getData(DataRole role) const {
 
 QMap<DataRole, QVariant> GameObject::getData() const {
     return m_objectData;
+}
+
+QList<QMap<DataRole, QVariant>> GameObject::getAllData() const {
+    QList<QMap<DataRole, QVariant>> list;
+    list.append(getData());
+    for(auto child : children()) {
+        list.append(qobject_cast<GameObject *>(child)->getData());
+    }
+    return list;
 }

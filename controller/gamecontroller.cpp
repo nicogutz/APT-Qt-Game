@@ -1,63 +1,64 @@
 #include "gamecontroller.h"
+#include "model/behaviors/concrete/movement/poisononstepbehavior.h"
+
+#include "model/behaviors/attack.h"
+#include "view/renderer/textrenderer.h"
 
 GameController::GameController()
     : QGraphicsView()
-
-    , m_model()
-    , m_view(QSharedPointer<GameView>::create(100, 100))
-    , game_level(1)
-    , enemies(0)
-    , health_packs(0)
-    , energy(100)
-    , health(100)
-    , game_mode("Manual")
-    , game_state(State::Running)
+    , m_gameMode("Manual")
+    , m_gameState(State::Running)
 
 {
-    // m_model.append(QSharedPointer<GameObjectModel>(new GameObjectModel()));
+    QList<QList<QPointer<GameObject>>> world(100);
+    QMap<DataRole, QVariant> tileData({{DataRole::Type, QVariant::fromValue(ObjectType::Tile)}});
+    for(int i = 0; i < 100; ++i) {
+        world[i] = QList<QPointer<GameObject>>(100);
+        for(int j = 0; j < 100; ++j) {
+            auto *obj = new GameObject(tileData);
+            obj->setData(DataRole::Energy, (i + 1) * (50 / 100) + (j + 1) * (50 / 100));
+
+            obj->setData(DataRole::Position, QPoint(i, j));
+            obj->setBehavior<Movement>(QSharedPointer<PoisonOnStepBehavior>(new PoisonOnStepBehavior(obj)));
+            world[i][j] = obj;
+        }
+    }
+    auto *obj = new GameObject(QMap<DataRole, QVariant>({
+      {DataRole::Type, QVariant::fromValue(ObjectType::Tile)},
+    }));
+
+    obj->setParent(world[0][0]);
+    auto *model = new GameObjectModel(world);
+    model->setParent(this);
+    m_model = QList<QPointer<GameObjectModel>>({model});
+    m_view = QSharedPointer<GameView>::create(100, 100);
+
+    m_view->createScene(model->getAllData(), QSharedPointer<TextRenderer>::create());
+
+    this->show();
 }
 
 void GameController::updateGameState(State new_state) {
-    if(game_state != new_state) {
-        game_state = new_state;
+    if(m_gameState != new_state) {
+        m_gameState = new_state;
         // emit stateChanged(new_state);
     }
 }
 
 void GameController::updateLevel(unsigned int level) {
-    game_level = level;
+    m_gameLevel = level;
     // emit levelChangedSig(level);
 }
 
 void GameController::characterMove(Direction to) {
-    if(game_state != State::Paused) {
-        QString message = "hello";
-        switch(to) {
-        case Direction::Up:
-            message = "Character moved up";
-            break;
-        case Direction::Down:
-            message = "Character moved down";
-            break;
-        case Direction::Left:
-            message = "Character moved left";
-            break;
-        case Direction::Right:
-            message = "Character moved right";
-            break;
-        default:
-            message = "Other";
-        }
-
-        QGraphicsTextItem *textItem = new QGraphicsTextItem(message);
-        textItem->setPos(0, 0);
-
-        m_view->addItem(textItem);
+    if(m_gameState != State::Paused) {
+        m_character->getBehavior<Movement>()->stepOn(to);
     }
 }
 
 void GameController::characterAtttack(Direction to) {
-    if(game_state != State::Paused) {
+    if(m_gameState != State::Paused) {
+        m_character->getBehavior<Attack>()->attack(to);
     }
 }
 

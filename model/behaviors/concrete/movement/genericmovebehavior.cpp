@@ -24,7 +24,7 @@ bool GenericMoveBehavior::stepOn(Direction direction) {
     auto neighbor = m_owner->getNeighbor(direction);
     auto currentDirection = m_owner->getData(DataRole::Direction).value<Direction>();
     if(direction != currentDirection) {
-        m_owner->setData(DataRole::Direction, QVariant::fromValue<Direction>(direction));
+        m_owner->setData(DataRole::Direction, QVariant::fromValue(direction));
         return false;
     }
 

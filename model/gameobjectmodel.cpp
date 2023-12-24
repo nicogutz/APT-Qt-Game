@@ -18,6 +18,17 @@ const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, Directi
     return m_world[x][y];
 }
 
+QList<QList<QList<QMap<DataRole, QVariant>>>> GameObjectModel::getAllData() const {
+    QList<QList<QList<QMap<DataRole, QVariant>>>> list;
+    for(int i = 0; i < getRowCount(); ++i) {
+        list.append(QList<QList<QMap<DataRole, QVariant>>>());
+        for(int j = 0; j < getColumnCount(); ++j) {
+            list[i].append(m_world[i][j]->getAllData());
+        }
+    }
+    return list;
+}
+
 QPointer<GameObject> GameObjectModel::getObject(int row, int column, ObjectType type) const {
     if(row > getRowCount() || column > getColumnCount()) {
         return QPointer<GameObject>(nullptr);

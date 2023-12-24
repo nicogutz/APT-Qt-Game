@@ -13,8 +13,8 @@
 class GameObject : public QObject {
     Q_OBJECT
 public:
-    GameObject(QMap<std::type_index, QSharedPointer<Behavior>> behaviors)
-        : m_behaviors(behaviors) {};
+    GameObject(QMap<DataRole, QVariant> objectData)
+        : m_objectData(objectData) {};
 
     ~GameObject() {};
     // Extra child getter
@@ -23,6 +23,8 @@ public:
     // Data getters and setters.
     QVariant getData(DataRole role) const;
     QMap<DataRole, QVariant> getData() const;
+    QList<QMap<DataRole, QVariant>> getAllData() const;
+
     void setData(DataRole role, QVariant value);
 
     // Neighbors getters and setters.
