@@ -2,6 +2,7 @@
 #include "gameobjectmodel.h"
 
 #include <QChar>
+#include <iostream>
 
 const QPointer<GameObject> GameObject::getNeighbor(Direction direction, int offset) const {
     if(auto prt = qobject_cast<GameObject *>(parent())) {
@@ -19,20 +20,29 @@ const QList<QPointer<GameObject>> GameObject::getAllNeighbors(int offset) const 
     return list;
 }
 
-bool GameObject::eventFilter(QObject *watched, QEvent *event) {
+bool GameObject::event(QEvent *event) {
     if(event->type() == QEvent::ParentChange) {
+        auto data = getData();
+        data[DataRole::Position] = qobject_cast<GameObject *>(parent())->getData(DataRole::Position);
+        data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(DataRole::Position);
+        data[DataRole::ChangeDirection] = getData(DataRole::Direction);
+        qDebug() << "Moved To: (" << data[DataRole::Position].toPoint().x() << ", " << data[DataRole::Position].toPoint().y() << ")";
+        qDebug() << "Direction: " << data[DataRole::ChangeDirection].toInt();
+
+        emit dataChanged(data);
+        return true;
     }
-    return QObject::eventFilter(watched, event);
+
+    return QObject::event(event);
 }
 
 void GameObject::setData(DataRole role, QVariant value) {
+    m_objectData[role] = value;
+
     auto data = getData();
     Direction dir = value.toInt() > data[role].toInt() ? Direction::Up : Direction::Down;
-
-    data[role] = value;
-    data[DataRole::LatestChange] = QVariant::fromValue(role);
-    data[DataRole::ChangeDirection] = QVariant::fromValue(dir);
-
+    data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(role);
+    data[DataRole::ChangeDirection] = QVariant::fromValue<Direction>(dir);
     emit dataChanged(data);
 }
 

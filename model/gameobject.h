@@ -38,23 +38,24 @@ public:
     }
 
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    const QSharedPointer<T> &getBehavior() const {
-        return qSharedPointerCast<T>(m_behaviors[(typeid(T))]);
+    QSharedPointer<T> getBehavior() const {
+        auto behavior = m_behaviors[typeid(T)];
+        return qSharedPointerDynamicCast<T>(behavior);
     }
 
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     const QList<QSharedPointer<T>> getAllBehaviors() const {
         auto list = QList<QSharedPointer<T>>();
-        list.append(qSharedPointerCast<T>(m_behaviors[typeid(T)]));
+        list.append(qSharedPointerDynamicCast<T>(m_behaviors[typeid(T)]));
 
         for(auto *child : findChildren<GameObject *>()) {
-            list.append(qSharedPointerCast<T>(child->getBehavior<T>()));
+            list.append(qSharedPointerDynamicCast<T>(child->getBehavior<T>()));
         }
         return list;
     };
 
     // QObject interface
-    bool eventFilter(QObject *watched, QEvent *event) override;
+    bool event(QEvent *event) override;
 
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;

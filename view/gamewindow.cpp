@@ -83,8 +83,6 @@ void GameWindow::updateLevel(unsigned int level) {
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
     if(paused % 2 == 0) {
-        qDebug() << "Key Pressed";
-
         switch(event->key()) {
         case Qt::Key_Up:
             controller->characterMove(Direction::Up);
