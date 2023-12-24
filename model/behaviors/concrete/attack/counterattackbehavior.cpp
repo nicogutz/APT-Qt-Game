@@ -1,6 +1,6 @@
 #include "counterattackbehavior.h"
 
-int CounterAttackBehavior::getAttacked(const QSharedPointer<GameObject> &target, int strength) {
+int CounterAttackBehavior::getAttacked(const QPointer<GameObject> &target, int strength) {
     GenericAttackBehavior::attack(target);
     return GenericAttackBehavior::getAttacked(target, strength);
 }

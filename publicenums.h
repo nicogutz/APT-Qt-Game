@@ -1,8 +1,9 @@
 #ifndef PUBLICENUMS_H
 #define PUBLICENUMS_H
 #include <cstdint>
+#include <QMetaType>
 
-enum class ObjectType : int {
+enum class ObjectType : char {
     Tile = 0,
     Doorway = 1,
     HealthPack = 2,
@@ -30,13 +31,13 @@ enum class DataRole : int {
     ChangeDirection,
 };
 enum class Direction : int {
-    TopLeft = 45,
-    Up = 90,
-    TopRight = 135,
-    Left = 180,
     Right = 0,
+    TopRight = 45,
+    Up = 90,
+    TopLeft = 135,
+    Left = 180,
     BottomLeft = 225,
-    Bottom = 270,
+    Down = 270,
     BottomRight = 315,
 };
 
@@ -47,8 +48,12 @@ const Direction EnumDirectionVector[] = {
   Direction::Left,
   Direction::Right,
   Direction::BottomLeft,
-  Direction::Bottom,
+  Direction::Down,
   Direction::BottomRight,
 };
+
+Q_DECLARE_METATYPE(ObjectType);
+Q_DECLARE_METATYPE(DataRole);
+Q_DECLARE_METATYPE(Direction);
 
 #endif // PUBLICENUMS_H

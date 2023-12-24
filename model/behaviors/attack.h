@@ -7,18 +7,18 @@
 
 class Attack : public Behavior {
 public:
-    Attack(QSharedPointer<GameObject> owner)
+    Attack(QPointer<GameObject> owner)
         : Behavior(owner) {};
     virtual ~Attack() = 0;
-    Attack &operator=(const Attack &) {
-        return *this;
-    };
+
+    Attack &operator=(const Attack &) { return *this; };
+
     /**
      * @brief attack
      * @param target
      * @return
      */
-    virtual int attack(const QSharedPointer<GameObject> &target) = 0;
+    virtual int attack(const QPointer<GameObject> &target) = 0;
     /**
      * @brief attack
      * @param target
@@ -36,9 +36,7 @@ public:
      * @param strength
      * @return
      */
-    virtual int
-    getAttacked(const QSharedPointer<GameObject> &by, int strength)
-      = 0;
+    virtual int getAttacked(const QPointer<GameObject> &by, int strength) = 0;
 };
 
 #endif // ATTACK_H

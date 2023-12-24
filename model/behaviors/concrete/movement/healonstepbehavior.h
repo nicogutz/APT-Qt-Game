@@ -5,12 +5,12 @@
 
 class HealOnStepBehavior : public GenericWalkableBehavior {
 public:
-    HealOnStepBehavior(QSharedPointer<GameObject> owner)
+    HealOnStepBehavior(QPointer<GameObject> owner)
         : GenericWalkableBehavior(owner) {};
 
     // Movement interface
 public:
-    bool getSteppedOn(const QSharedPointer<GameObject> &source) override;
+    bool getSteppedOn(const QPointer<GameObject> &source) override;
 };
 
 #endif // HEALONSTEPBEHAVIOR_H

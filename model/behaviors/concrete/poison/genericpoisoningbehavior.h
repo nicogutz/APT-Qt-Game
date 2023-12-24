@@ -5,10 +5,10 @@
 
 class GenericPoisoningBehavior : public Poison {
 public:
-    GenericPoisoningBehavior(QSharedPointer<GameObject> owner)
+    GenericPoisoningBehavior(QPointer<GameObject> owner)
         : Poison(owner) {};
 
-    int poison(const QSharedPointer<GameObject> &target) override;
+    int poison(const QPointer<GameObject> &target) override;
 };
 
 #endif // GENERICPOISONINGBEHAVIOR_H

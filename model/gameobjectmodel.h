@@ -3,37 +3,42 @@
 #define GAMEOBJECTMODEL_H
 
 #include "gameobject.h"
+#include <QPoint>
 
 class GameObjectModel : public QObject {
     Q_OBJECT
 public:
-    GameObjectModel() {};
+    GameObjectModel(QList<QList<QPointer<GameObject>>> world) {
+        m_world = world;
+        for(const auto &row : m_world) {
+            for(const auto &tile : row) {
+                tile->setParent(this);
+                connect(tile, &GameObject::dataChanged, this, &GameObjectModel::dataChanged);
+            }
+        }
+    };
     template <typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    QSharedPointer<T> &getBehavior(int row, int column, ObjectType type) const;
+    const QSharedPointer<T> &getBehavior(int row, int column, ObjectType type) const {
+        return m_world[row][column]->getBehavior<T>(type);
+    };
 
     template <typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    bool setBehavior(int row, int column, ObjectType type);
+    bool setBehavior(int row, int column, ObjectType type, QSharedPointer<T> behavior) {
+        return m_world[row][column]->setBehavior<T>(type, behavior);
+    };
 
+    QPointer<GameObject> getObject(int row, int column, ObjectType type) const;
+    void setItem(int row, int column, QPointer<GameObject> object);
     int getRowCount() const;
     int getColumnCount() const;
+    const QPointer<GameObject> getNeighbor(QPoint location, Direction direction, int offset) const;
+    QList<QList<QList<QMap<DataRole, QVariant>>>> getAllData() const;
 
 private:
-    QSharedPointer<GameObject> &getObject(int row, int column, ObjectType type) const;
-
-    QVariant
-    getData(int row, int column, ObjectType type, DataRole role) const;
-    bool setData(
-      int row, int column, ObjectType type, DataRole role, QVariant data);
-    bool setItem(int row, int column, QSharedPointer<GameObject> type);
-
-    bool insertColumns(int position, int columns);
-    bool removeColumns(int position, int columns);
-    bool insertRows(int position, int rows);
-    bool removeRows(int position, int rows);
-    QVector<QVector<QSharedPointer<GameObject>>> m_world;
+    QList<QList<QPointer<GameObject>>> m_world;
 
 signals:
-    void actionExecuted(QSharedPointer<GameObject> &object, const QSharedPointer<Behavior> &action);
+    void dataChanged(QMap<DataRole, QVariant> objectData);
 };
 
 #endif // GAMEOBJECTMODEL_H

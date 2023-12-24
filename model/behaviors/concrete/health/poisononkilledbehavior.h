@@ -5,7 +5,7 @@
 
 class PoisonOnKilledBehavior : public GenericHealthBehavior {
 public:
-    PoisonOnKilledBehavior(QSharedPointer<GameObject> owner)
+    PoisonOnKilledBehavior(QPointer<GameObject> owner)
         : GenericHealthBehavior(owner) {};
 
     // Health interface

@@ -94,7 +94,7 @@ private:
     /**
      * @brief m_model
      */
-    QList<QSharedPointer<GameObjectModel>> m_model;
+    QList<QPointer<GameObjectModel>> m_model;
     /**
      * @brief m_view
      */
@@ -103,11 +103,11 @@ private:
     /**
      * @brief m_character
      */
-    QSharedPointer<GameObject> m_character;
+    QPointer<GameObject> m_character;
 
-    unsigned int game_level, enemies, health_packs, energy, health;
-    QString game_mode;
-    State game_state;
+    unsigned int m_gameLevel;
+    QString m_gameMode;
+    State m_gameState;
 };
 
 #endif // GAMECONTROLLER_H

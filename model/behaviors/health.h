@@ -8,7 +8,7 @@
 
 class Health : public Behavior {
 public:
-    Health(QSharedPointer<GameObject> owner)
+    Health(QPointer<GameObject> owner)
         : Behavior(owner) {};
 
     virtual ~Health() = 0;
@@ -26,7 +26,7 @@ public:
      * @param target
      * @return
      */
-    virtual int heal(const QSharedPointer<GameObject> &target) {
+    virtual int heal(const QPointer<GameObject> &target) {
         return 0;
     };
     /**

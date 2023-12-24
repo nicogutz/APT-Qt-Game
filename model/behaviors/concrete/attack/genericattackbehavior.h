@@ -5,16 +5,15 @@
 
 class GenericAttackBehavior : public Attack {
 public:
-    GenericAttackBehavior(QSharedPointer<GameObject> owner)
+    GenericAttackBehavior(QPointer<GameObject> owner)
         : Attack(owner) {};
     // Attack interface
 
-    int attack(const QSharedPointer<GameObject> &target) override;
+    int attack(const QPointer<GameObject> &target) override;
     int attack(Direction direction) override;
     int attack() override;
 
-    int getAttacked(
-      const QSharedPointer<GameObject> &by, int strength) override;
+    int getAttacked(const QPointer<GameObject> &by, int strength) override;
 };
 
 #endif // GENERICATTACKBEHAVIOR_H

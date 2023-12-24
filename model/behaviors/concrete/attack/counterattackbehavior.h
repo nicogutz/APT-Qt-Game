@@ -5,12 +5,12 @@
 
 class CounterAttackBehavior : public GenericAttackBehavior {
 public:
-    CounterAttackBehavior(QSharedPointer<GameObject> owner)
+    CounterAttackBehavior(QPointer<GameObject> owner)
         : GenericAttackBehavior(owner) {};
 
     // Attack interface
 public:
-    int getAttacked(const QSharedPointer<GameObject> &by, int strength) override;
+    int getAttacked(const QPointer<GameObject> &by, int strength) override;
 };
 
 #endif // COUNTERATTACKBEHAVIOR_H

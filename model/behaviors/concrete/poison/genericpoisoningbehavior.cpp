@@ -1,6 +1,6 @@
 #include "genericpoisoningbehavior.h"
 
-int GenericPoisoningBehavior::poison(const QSharedPointer<GameObject> &target) {
+int GenericPoisoningBehavior::poison(const QPointer<GameObject> &target) {
     auto behaviors = target->getAllBehaviors<Poison>();
     int poisonAdminisered = 0;
 

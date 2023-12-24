@@ -7,8 +7,7 @@ GameView::GameView(int rows, int columns, QObject *parent)
     , m_columns(columns) {
     // Initialize the m_tiles with empty shared pointers
     for(int i = 0; i < m_rows; ++i) {
-        QList<QSharedPointer<QGraphicsPixmapItem>> rowItems(
-          m_columns);
+        QList<QSharedPointer<QGraphicsPixmapItem>> rowItems(m_columns);
         m_tiles.append(rowItems);
     }
 }
@@ -32,6 +31,7 @@ void GameView::createScene(
 
                 item->setPos(x * item->pixmap().width(), y * item->pixmap().height());
                 m_tiles[x][y] = item; // Store the shared pointer in m_tiles
+                addItem(item.get());
             }
         }
     }

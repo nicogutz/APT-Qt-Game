@@ -20,12 +20,10 @@ int GenericPoisonableBehavior::getPoisoned(int level) {
 }
 
 void GenericPoisonableBehavior::poisonEffect() {
-    QVariant poisonLevel
-      = m_owner->getData(DataRole::PoisonLevel);
+    QVariant poisonLevel = m_owner->getData(DataRole::PoisonLevel);
     auto behavior = m_owner->getBehavior<Health>();
 
-    if(poisonLevel.isNull() || behavior.isNull()
-       || poisonLevel.toInt() == 0) {
+    if(poisonLevel.isNull() || behavior.isNull() || poisonLevel.toInt() == 0) {
         return;
     }
 

@@ -6,8 +6,8 @@
 class GenericPoisonableBehavior : public QObject, public Poison {
     Q_OBJECT
 public:
-    GenericPoisonableBehavior(QSharedPointer<GameObject> owner)
-        : Poison(std::move(owner)) {};
+    GenericPoisonableBehavior(QPointer<GameObject> owner)
+        : Poison(owner) {};
 
     // Poison interface
     int getPoisoned(int level) override;
