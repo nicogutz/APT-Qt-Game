@@ -31,16 +31,13 @@ public:
 
     // Behavior getters and setters
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    bool setBehavior(QSharedPointer<Behavior> behavior) {
-        if(qSharedPointerDynamicCast<T>(behavior).isNull()) {
-            throw "Incorrect behavior";
-        }
+    bool setBehavior(QSharedPointer<T> behavior) {
         m_behaviors[typeid(T)] = behavior;
         return true;
     }
 
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
-    const QSharedPointer<T> getBehavior() const {
+    const QSharedPointer<T> &getBehavior() const {
         return qSharedPointerDynamicCast<T>(getBehavior(typeid(T)));
     }
     const QSharedPointer<Behavior> getBehavior(std::type_index idx) const {

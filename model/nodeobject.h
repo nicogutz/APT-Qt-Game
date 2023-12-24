@@ -2,9 +2,9 @@
 #define NODEOBJECT_H
 
 #include "gameobject.h"
-class GameObjectModel;
 
 class NodeObject : public GameObject {
+    Q_OBJECT
 public:
     NodeObject(QMap<std::type_index, QSharedPointer<Behavior>> behaviors,
                QMap<DataRole, QVariant> data)
@@ -17,6 +17,15 @@ public:
     bool insertChild(QSharedPointer<GameObject> object);
     int childrenCount() const;
 
+    template <typename T, typename std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    const QSharedPointer<T> getBehavior(ObjectType type) const {
+        return m_childObjects[type]->getBehavior<T>();
+    };
+    template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    bool setBehavior(ObjectType type, QSharedPointer<T> behavior) {
+        return m_childObjects[type]->setBehavior<T>(behavior);
+    }
+
     // GameObject interface
     const QSharedPointer<GameObject> getNeighbor(Direction direction, int offset = 0) const override;
     const QList<QSharedPointer<GameObject>> getAllNeighbors(int offset = 0) const override;
@@ -25,7 +34,6 @@ public:
 private:
     QMap<Direction, QSharedPointer<GameObject>> m_neighbors;
     QMap<ObjectType, QSharedPointer<GameObject>> m_childObjects;
-    QSharedPointer<GameObjectModel> m_parentObject;
 };
 
 #endif // NODEOBJECT_H

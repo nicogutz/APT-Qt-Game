@@ -90,7 +90,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event) {
             controller->characterMove(Direction::Up);
             break;
         case Qt::Key_Down:
-            controller->characterMove(Direction::Bottom);
+            controller->characterMove(Direction::Down);
             break;
         case Qt::Key_Left:
             controller->characterMove(Direction::Left);
@@ -118,7 +118,7 @@ void GameWindow::processCommand() {
         controller->characterMove(Direction::Up);
     } else if(command == "move down") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
-        controller->characterMove(Direction::Bottom);
+        controller->characterMove(Direction::Down);
     } else if(command == "health pack") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         QGraphicsTextItem *textItem = new QGraphicsTextItem("taking health pack");

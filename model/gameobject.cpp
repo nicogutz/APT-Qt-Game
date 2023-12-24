@@ -10,7 +10,7 @@ const QVariant GameObject::getData(DataRole role) const {
 
 bool GameObject::setData(DataRole role, QVariant value) {
     auto data = getAllData();
-    Direction dir = value.toInt() > data[role].toInt() ? Direction::Up : Direction::Bottom;
+    Direction dir = value.toInt() > data[role].toInt() ? Direction::Up : Direction::Down;
 
     m_objectData[role] = value;
     m_objectData[DataRole::LatestChange] = QVariant(static_cast<int>(role));

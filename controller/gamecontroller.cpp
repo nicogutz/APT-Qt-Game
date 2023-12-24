@@ -36,7 +36,7 @@ void GameController::characterMove(Direction to) {
         case Direction::Up:
             message = "Character moved up";
             break;
-        case Direction::Bottom:
+        case Direction::Down:
             message = "Character moved down";
             break;
         case Direction::Left:

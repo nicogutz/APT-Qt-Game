@@ -18,6 +18,7 @@ bool NodeObject::insertChild(QSharedPointer<GameObject> object) {
         return false;
     }
     m_childObjects[objType] = object;
+
     return true;
 }
 

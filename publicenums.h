@@ -36,7 +36,7 @@ enum class Direction : int {
     Left = 180,
     Right = 0,
     BottomLeft = 225,
-    Bottom = 270,
+    Down = 270,
     BottomRight = 315,
 };
 
@@ -47,7 +47,7 @@ const Direction EnumDirectionVector[] = {
   Direction::Left,
   Direction::Right,
   Direction::BottomLeft,
-  Direction::Bottom,
+    Direction::Down,
   Direction::BottomRight,
 };
 
