@@ -1,5 +1,5 @@
 #include "gameobjectmodel.h"
-
+#include <math.h>
 int GameObjectModel::getRowCount() const {
     return m_world.size();
 }
@@ -8,26 +8,25 @@ int GameObjectModel::getColumnCount() const {
     return m_world[0].size();
 }
 
-QSharedPointer<GameObject> GameObjectModel::getObject(int row, int column, ObjectType type) const {
+const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, Direction direction, int offset) const {
+    double angleRad = ((int)direction) * M_PI / 180;
+    int offsetNew = offset + 1;
+    return m_world[location.x() + (offsetNew * round(cos(angleRad)))][location.y() + (offsetNew * round(sin(angleRad)))];
+}
+
+QPointer<GameObject> GameObjectModel::getObject(int row, int column, ObjectType type) const {
     auto tile = m_world[row][column];
     if(type == ObjectType::Tile) {
         return tile;
     }
-    return tile->getChild(type);
+    return tile->findChild(type);
 }
 
-QSharedPointer<GameObject> GameObjectModel::popObject(int row, int column, ObjectType type) {
-    auto tile = m_world[row][column];
-    if(type == ObjectType::Tile) {
-        return m_world[row].takeAt(column);
-    }
-    return tile->popChild(type);
-}
-
-void GameObjectModel::setItem(int row, int column, QSharedPointer<GameObject> object) {
+void GameObjectModel::setItem(int row, int column, QPointer<GameObject> object) {
     if(object->getData(DataRole::Type).toInt() == static_cast<int>(ObjectType::Tile)) {
-        m_world[row][column] = qSharedPointerObjectCast<NodeObject>(object);
+        delete m_world[row][column];
+        m_world[row][column] = object;
         return;
     }
-    m_world[row][column]->insertChild(object);
+    object->setParent(m_world[row][column]);
 }

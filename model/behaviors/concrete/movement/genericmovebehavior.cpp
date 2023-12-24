@@ -1,9 +1,6 @@
 #include "genericmovebehavior.h"
 
-#include <model/leafobject.h>
-#include <model/nodeobject.h>
-
-bool GenericMoveBehavior::stepOn(QSharedPointer<GameObject> target) {
+bool GenericMoveBehavior::stepOn(QPointer<GameObject> target) {
     auto behaviors = target->getAllBehaviors<Movement>();
     bool steppable = true;
     for(const auto &bh : behaviors) {
@@ -18,13 +15,8 @@ bool GenericMoveBehavior::stepOn(QSharedPointer<GameObject> target) {
     for(const auto &bh : behaviors) {
         bh->getSteppedOn(m_owner);
     }
-    auto owner = qSharedPointerDynamicCast<LeafObject>(m_owner);
 
-    auto owner_type = static_cast<ObjectType>(m_owner->getData(DataRole::Type).toInt());
-
-    qSharedPointerDynamicCast<NodeObject>(owner->getParent())->popChild(owner_type);
-    owner->setParent(target);
-
+    m_owner->setParent(target);
     return steppable;
 }
 

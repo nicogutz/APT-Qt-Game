@@ -5,9 +5,9 @@
 
 class GenericMoveBehavior : public Movement {
 public:
-    GenericMoveBehavior(QSharedPointer<GameObject> owner)
+    GenericMoveBehavior(QPointer<GameObject> owner)
         : Movement(owner) {};
-    bool stepOn(QSharedPointer<GameObject> target) override;
+    bool stepOn(QPointer<GameObject> target) override;
     bool stepOn(Direction direction) override;
 };
 

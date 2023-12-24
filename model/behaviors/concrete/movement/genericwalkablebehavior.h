@@ -5,7 +5,7 @@
 
 class GenericWalkableBehavior : public Movement {
 public:
-    GenericWalkableBehavior(QSharedPointer<GameObject> owner)
+    GenericWalkableBehavior(QPointer<GameObject> owner)
         : Movement(owner) {};
 
     // Movement interface

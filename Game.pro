@@ -31,9 +31,7 @@ SOURCES += \
     model/behaviors/poison.cpp \
     model/gameobject.cpp \
     model/gameobjectmodel.cpp \
-    model/leafobject.cpp \
     model/modelfactory.cpp \
-    model/nodeobject.cpp \
     view/gameview.cpp \
     view/gamewindow.cpp \
     view/renderer/colorrenderer.cpp \
@@ -63,9 +61,7 @@ HEADERS += \
     model/behaviors/poison.h \
     model/gameobject.h \
     model/gameobjectmodel.h \
-    model/leafobject.h \
     model/modelfactory.h \
-    model/nodeobject.h \
     publicenums.h \
     view/gameview.h \
     view/gamewindow.h \

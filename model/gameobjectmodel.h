@@ -2,7 +2,8 @@
 #ifndef GAMEOBJECTMODEL_H
 #define GAMEOBJECTMODEL_H
 
-#include "nodeobject.h"
+#include "gameobject.h"
+#include <QPoint>
 
 class GameObjectModel : public QObject {
     Q_OBJECT
@@ -18,15 +19,15 @@ public:
         return m_world[row][column]->setBehavior<T>(type, behavior);
     };
 
-    QSharedPointer<GameObject> getObject(int row, int column, ObjectType type) const;
-    QSharedPointer<GameObject> popObject(int row, int column, ObjectType type);
-    void setItem(int row, int column, QSharedPointer<GameObject> object);
+    QPointer<GameObject> getObject(int row, int column, ObjectType type) const;
+    void setItem(int row, int column, QPointer<GameObject> object);
 
     int getRowCount() const;
     int getColumnCount() const;
+    const QPointer<GameObject> getNeighbor(QPoint location, Direction direction, int offset) const;
 
 private:
-    QList<QList<QSharedPointer<NodeObject>>> m_world;
+    QList<QList<QPointer<GameObject>>> m_world;
 
 signals:
     void dataChanged(QMap<DataRole, QVariant> objectData);

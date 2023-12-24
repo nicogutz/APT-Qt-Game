@@ -9,7 +9,7 @@
 
 class Poison : public Behavior {
 public:
-    Poison(QSharedPointer<GameObject> owner)
+    Poison(QPointer<GameObject> owner)
         : Behavior(owner) {};
 
     virtual ~Poison() = 0;
@@ -36,7 +36,7 @@ public:
      * @param target
      * @return
      */
-    virtual int poison(const QSharedPointer<GameObject> &target) {
+    virtual int poison(const QPointer<GameObject> &target) {
         return 0;
     };
     /**

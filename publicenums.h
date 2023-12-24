@@ -2,7 +2,7 @@
 #define PUBLICENUMS_H
 #include <cstdint>
 
-enum class ObjectType : int {
+enum class ObjectType : char {
     Tile = 0,
     Doorway = 1,
     HealthPack = 2,
@@ -47,7 +47,7 @@ const Direction EnumDirectionVector[] = {
   Direction::Left,
   Direction::Right,
   Direction::BottomLeft,
-    Direction::Down,
+  Direction::Down,
   Direction::BottomRight,
 };
 

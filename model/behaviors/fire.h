@@ -8,7 +8,7 @@
 
 class Fire : public Behavior {
 public:
-    Fire(QSharedPointer<GameObject> owner)
+    Fire(QPointer<GameObject> owner)
         : Behavior(owner) {};
 
     virtual ~Fire() = 0;
@@ -20,13 +20,13 @@ public:
      * @param target
      * @return
      */
-    virtual int setOnFire(const QSharedPointer<GameObject> &target) = 0;
+    virtual int setOnFire(const QPointer<GameObject> &target) = 0;
     /**
      * @brief extinguish
      * @param target
      * @return
      */
-    virtual int extinguish(const QSharedPointer<GameObject> &target) = 0;
+    virtual int extinguish(const QPointer<GameObject> &target) = 0;
     /**
      * @brief getSetOnFire
      * @return

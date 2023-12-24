@@ -5,12 +5,12 @@
 
 class PoisonOnStepBehavior : public GenericWalkableBehavior {
 public:
-    PoisonOnStepBehavior(QSharedPointer<GameObject> owner)
+    PoisonOnStepBehavior(QPointer<GameObject> owner)
         : GenericWalkableBehavior(owner) {};
 
     // Movement interface
 public:
-    bool getSteppedOn(const QSharedPointer<GameObject> &source) override;
+    bool getSteppedOn(const QPointer<GameObject> &source) override;
 };
 
 #endif // POISONONSTEPBEHAVIOR_H

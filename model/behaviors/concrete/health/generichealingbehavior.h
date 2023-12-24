@@ -6,12 +6,12 @@
 
 class GenericHealingBehavior : public Health {
 public:
-    GenericHealingBehavior(QSharedPointer<GameObject> owner)
+    GenericHealingBehavior(QPointer<GameObject> owner)
         : Health(owner) {};
 
     // Health interface
 public:
-    int heal(const QSharedPointer<GameObject> &target) override;
+    int heal(const QPointer<GameObject> &target) override;
 };
 
 #endif // GENERICHEALINGBEHAVIOR_H

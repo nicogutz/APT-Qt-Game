@@ -9,7 +9,7 @@
 
 class Movement : public Behavior {
 public:
-    Movement(QSharedPointer<GameObject> owner)
+    Movement(QPointer<GameObject> owner)
         : Behavior(owner) {};
 
     virtual ~Movement() = 0;
@@ -21,7 +21,7 @@ public:
      * @param target
      * @return
      */
-    virtual bool stepOn(const QSharedPointer<GameObject> target) {
+    virtual bool stepOn(const QPointer<GameObject> target) {
         return 0;
     };
     /**
@@ -45,7 +45,7 @@ public:
      * @return
      */
     virtual bool
-    getSteppedOn(const QSharedPointer<GameObject> &source) {
+    getSteppedOn(const QPointer<GameObject> &source) {
         return 0;
     };
 };

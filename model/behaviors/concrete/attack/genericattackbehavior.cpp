@@ -3,7 +3,7 @@
 #include "model/behaviors/health.h"
 #include "publicenums.h"
 
-int GenericAttackBehavior::attack(const QSharedPointer<GameObject> &target) {
+int GenericAttackBehavior::attack(const QPointer<GameObject> &target) {
     // Get the strength of the object and calculate the attack
     // strength randomly.
     int strenght = m_owner->getData(DataRole::Strength).toInt();
@@ -32,8 +32,7 @@ int GenericAttackBehavior::attack() {
       m_owner->getData(DataRole::Direction).toInt()));
 }
 
-int GenericAttackBehavior::getAttacked(const QSharedPointer<GameObject> &by,
-                                       int strength) {
+int GenericAttackBehavior::getAttacked(const QPointer<GameObject> &by, int strength) {
     auto behavior = m_owner->getBehavior<Health>();
     return behavior.isNull() ? 0 : behavior->getHealthChanged(-strength);
 }
