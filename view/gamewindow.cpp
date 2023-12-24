@@ -5,7 +5,7 @@ GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
     , controller(QSharedPointer<GameController>::create())
-    , start_time(QTime::currentTime().second())
+    , start_time(QDateTime::currentDateTime().toSecsSinceEpoch())
     , elapsed_seconds(0)
     , timer(new QTimer(this))
     , paused(0) {
@@ -43,7 +43,7 @@ void GameWindow::updateTime(bool active) {
     if(active) { // RESTARTING GAME
         if(paused == 0) { // first game never paused
             ui->pause->setText("Pause game");
-            int currentTime = QTime::currentTime().second();
+            int currentTime = QDateTime::currentDateTime().toSecsSinceEpoch();
             elapsed_seconds = currentTime - start_time;
             ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
             controller->updateGameState(GameController::State::Running);
@@ -164,19 +164,6 @@ void GameWindow::showInvalidCommandMessage() {
     ui->plainTextEdit->setPlainText(errorMessage);
 }
 
-// GETTERS
-
-QSharedPointer<GameController> GameWindow::getController() {
-    return controller;
-}
-
-Ui::GameWindow *GameWindow::getUI() {
-    return ui;
-}
-
-QTimer *GameWindow::getTimer() {
-    return timer;
-}
 
 // DESTRUCTOR
 
@@ -186,10 +173,10 @@ GameWindow::~GameWindow() {
 }
 
 /**TODO
- * view & menu options only one checked at a time
- * convert timer to min/h
+ * view & mode menus
+ * convert timer to min/h?
  * connect controller variables (enemies, mode, health, energy etc)
  * mode signal from window to controller and to label
- * pathefinder?
+ * pathefinder
  * zoom
  */

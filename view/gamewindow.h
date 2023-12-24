@@ -31,10 +31,9 @@ public:
     QSharedPointer<QWidget> a;
     std::shared_ptr<QWidget> b;
 
-    QSharedPointer<GameController> getController();
-
-    Ui::GameWindow* getUI();
-    QTimer* getTimer();
+    QSharedPointer<GameController> getController(){return controller;}
+    Ui::GameWindow* getUI(){return ui;}
+    QTimer* getTimer(){return timer;}
 
     void showInvalidCommandMessage();
     void showHelp();
