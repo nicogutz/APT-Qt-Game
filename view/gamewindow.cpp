@@ -9,6 +9,7 @@ GameWindow::GameWindow(QWidget *parent)
     , elapsed_seconds(0)
     , timer(new QTimer(this))
     , paused(0) {
+    controller->setParent(this);
     // SETUP UI CONTROLLER AND VIEW
     ui->setupUi(this);
     // ui->graphicsView->setViewport(controller.data());
