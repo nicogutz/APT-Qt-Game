@@ -22,6 +22,7 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+    qSetMessagePattern("%{function}(%{line}): %{message}");
     // Create the main classes of the gzme: GameWindow, GameView, GameController
     GameWindow w;
     w.setStyleSheet("background-color: white");

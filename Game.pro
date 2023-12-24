@@ -43,6 +43,7 @@ HEADERS += \
     controller/gamecontroller.h \
     model/behaviors/attack.h \
     model/behaviors/behavior.h \
+    model/behaviors/behaviors.h \
     model/behaviors/concrete/attack/counterattackbehavior.h \
     model/behaviors/concrete/attack/genericattackbehavior.h \
     model/behaviors/concrete/health/generichealingbehavior.h \

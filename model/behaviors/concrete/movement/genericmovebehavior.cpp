@@ -17,18 +17,19 @@ bool GenericMoveBehavior::stepOn(QPointer<GameObject> target) {
     }
 
     m_owner->setParent(target);
+    m_owner->event(new QEvent(QEvent::ParentChange));
     return steppable;
 }
 
 bool GenericMoveBehavior::stepOn(Direction direction) {
-    auto neighbor = m_owner->getNeighbor(direction);
     auto currentDirection = m_owner->getData(DataRole::Direction).value<Direction>();
     if(direction != currentDirection) {
-        m_owner->setData(DataRole::Direction, QVariant::fromValue(direction));
+        m_owner->setData(DataRole::Direction, QVariant::fromValue<Direction>(direction));
         return false;
     }
 
-    if(neighbor) {
+    auto neighbor = m_owner->getNeighbor(direction);
+    if(!neighbor) {
         return false;
     }
 

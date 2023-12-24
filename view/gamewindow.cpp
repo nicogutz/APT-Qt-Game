@@ -9,6 +9,7 @@ GameWindow::GameWindow(QWidget *parent)
     , elapsed_seconds(0)
     , timer(new QTimer(this))
     , paused(0) {
+    controller->setParent(this);
     // SETUP UI CONTROLLER AND VIEW
     ui->setupUi(this);
     // ui->graphicsView->setViewport(controller.data());
@@ -83,8 +84,6 @@ void GameWindow::updateLevel(unsigned int level) {
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
     if(paused % 2 == 0) {
-        qDebug() << "Key Pressed";
-
         switch(event->key()) {
         case Qt::Key_Up:
             controller->characterMove(Direction::Up);
