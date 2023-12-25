@@ -12,9 +12,7 @@ GameWindow::GameWindow(QWidget *parent)
     controller->setParent(this);
     // SETUP UI CONTROLLER AND VIEW
     ui->setupUi(this);
-    // ui->graphicsView->setViewport(controller.data());
     ui->graphicsView->setScene(controller->getView().data());
-
     ui->graphicsView->show();
     controller->show();
 
@@ -24,11 +22,16 @@ GameWindow::GameWindow(QWidget *parent)
     setFocusPolicy(Qt::StrongFocus);
 
     // DEFAULT OPTIONS
+    setStyleSheet("background-color: #F4C2C2;");
+
     ui->level_label->setText("Level: 1");
     ui->graphical_mode->setChecked(true);
     ui->mode_label->setText("Mode: Manual");
     ui->manual->setChecked(true);
 
+    ui->horizontalSlider->setMinimum(-30);
+    ui->horizontalSlider->setMaximum(30);
+    ui->horizontalSlider->setValue(-30);
     // SIGNALS AND SLOTS
     QObject::connect(timer, &QTimer::timeout, this, [this] {
         GameWindow::updateTime(true);
@@ -37,6 +40,9 @@ GameWindow::GameWindow(QWidget *parent)
     QObject::connect(ui->pause, &QPushButton::clicked, this, [this] { GameWindow::updateTime(false); });
     QObject::connect(ui->automatic, &QAction::changed, ui->manual, &QAction::toggle);
     QObject::connect(ui->manual, &QAction::changed, ui->automatic, &QAction::toggle);
+
+    QObject::connect(ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
+
 }
 
 void GameWindow::updateTime(bool active) {
@@ -167,6 +173,16 @@ void GameWindow::showInvalidCommandMessage() {
     ui->plainTextEdit->setPlainText(errorMessage);
 }
 
+void GameWindow::zoomBySlider(int value) {
+    // Assuming the slider's minimum value is 0 and the maximum is 100
+    // You can map these to a reasonable zoom range
+    qreal scaleFactor = 1.0 + (value / 50.0); // e.g., slider at middle (value 50) => scale factor of 1.0 (no zoom)
+
+    // Reset the view scale to 1:1
+    ui->graphicsView->resetTransform();
+    // Apply the new scale transformation
+    ui->graphicsView->scale(scaleFactor, scaleFactor);
+}
 
 // DESTRUCTOR
 
@@ -181,10 +197,8 @@ GameWindow::~GameWindow() {
  * connect controller variables (enemies, mode, health, energy etc)
  * mode signal from window to controller and to label
  * pathefinder
- * zoom
  *
  *
  * energy health
- * colours
  * path
  */

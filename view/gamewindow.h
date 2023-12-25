@@ -53,6 +53,8 @@ public slots:
     void updateTime(bool active);
     void updateLevel(unsigned int level);
     void processCommand();
+    void zoomBySlider(int value);
+
 
 
 

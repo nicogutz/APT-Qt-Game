@@ -6,147 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1071</width>
-    <height>809</height>
+    <width>1004</width>
+    <height>755</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GameWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QProgressBar" name="energy">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>450</y>
-      <width>231</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="whatsThis">
-     <string/>
-    </property>
-    <property name="accessibleName">
-     <string>Energy </string>
-    </property>
-    <property name="accessibleDescription">
-     <string/>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-font: 12pt &quot;8514oem&quot;;
-background-color: rgb(255, 255, 255);
-</string>
-    </property>
-    <property name="value">
-     <number>24</number>
-    </property>
-    <property name="invertedAppearance">
-     <bool>false</bool>
-    </property>
-    <property name="format">
-     <string>%p%</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="energy_label">
-    <property name="geometry">
-     <rect>
-      <x>800</x>
-      <y>370</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 14, 90);
-font: 700 40pt &quot;8514oem&quot;;
-color: rgb(0,0,0)</string>
-    </property>
-    <property name="text">
-     <string>Energy</string>
-    </property>
-   </widget>
-   <widget class="QProgressBar" name="health">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>390</y>
-      <width>231</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="whatsThis">
-     <string/>
-    </property>
-    <property name="accessibleName">
-     <string>Energy </string>
-    </property>
-    <property name="accessibleDescription">
-     <string/>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-font: 12pt &quot;8514oem&quot;;
-background-color: rgb(255, 255, 255);
-</string>
-    </property>
-    <property name="value">
-     <number>24</number>
-    </property>
-    <property name="invertedAppearance">
-     <bool>false</bool>
-    </property>
-    <property name="format">
-     <string>%p%</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="health_label">
-    <property name="geometry">
-     <rect>
-      <x>820</x>
-      <y>430</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-font: 700 40pt &quot;8514oem&quot;;
-color: rgb(85, 255, 0);
-color: rgb(0, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string>Health</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pause">
-    <property name="geometry">
-     <rect>
-      <x>860</x>
-      <y>230</y>
-      <width>81</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(208, 0, 0);
-background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Pause Game</string>
-    </property>
-   </widget>
    <widget class="QSlider" name="horizontalSlider">
     <property name="geometry">
      <rect>
-      <x>541</x>
-      <y>602</y>
+      <x>450</x>
+      <y>30</y>
       <width>191</width>
       <height>31</height>
      </rect>
@@ -158,11 +30,15 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="zoom_label">
     <property name="geometry">
      <rect>
-      <x>541</x>
-      <y>590</y>
+      <x>470</x>
+      <y>10</y>
       <width>111</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0,0,0);
+font: 700 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
      <string>Zoom in/out</string>
@@ -172,28 +48,28 @@ background-color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
-      <width>701</width>
-      <height>561</height>
+      <y>80</y>
+      <width>631</width>
+      <height>631</height>
      </rect>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>30</y>
-      <width>241</width>
-      <height>181</height>
+      <x>690</x>
+      <y>20</y>
+      <width>281</width>
+      <height>191</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="time_label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 127);
-font: 9pt &quot;8514oem&quot;;
-</string>
+        <string notr="true">color: rgb(255, 14, 90);
+font: 700 16pt &quot;Segoe UI&quot;;
+color: rgb(0,0,0)</string>
        </property>
        <property name="text">
         <string>Time</string>
@@ -203,8 +79,9 @@ font: 9pt &quot;8514oem&quot;;
      <item>
       <widget class="QLabel" name="mode_label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 127);
-font: 9pt &quot;8514oem&quot;;</string>
+        <string notr="true">color: rgb(255, 14, 90);
+font: 700 15pt &quot;Segoe UI&quot;;
+color: rgb(0,0,0)</string>
        </property>
        <property name="text">
         <string>Mode:</string>
@@ -214,8 +91,9 @@ font: 9pt &quot;8514oem&quot;;</string>
      <item>
       <widget class="QLabel" name="level_label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 127);
-font: 9pt &quot;8514oem&quot;;</string>
+        <string notr="true">color: rgb(255, 14, 90);
+font: 700 16pt &quot;Segoe UI&quot;;
+color: rgb(0,0,0)</string>
        </property>
        <property name="text">
         <string>Level:</string>
@@ -225,11 +103,9 @@ font: 9pt &quot;8514oem&quot;;</string>
      <item>
       <widget class="QLabel" name="enemies_label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 127);
-font: 9pt &quot;8514oem&quot;;
-
-
-</string>
+        <string notr="true">color: rgb(255, 14, 90);
+font: 700 16pt &quot;Segoe UI&quot;;
+color: rgb(0,0,0)</string>
        </property>
        <property name="text">
         <string>Enemies:</string>
@@ -239,8 +115,9 @@ font: 9pt &quot;8514oem&quot;;
      <item>
       <widget class="QLabel" name="health_">
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 127);
-font: 9pt &quot;8514oem&quot;;</string>
+        <string notr="true">color: rgb(255, 14, 90);
+font: 700 16pt &quot;Segoe UI&quot;;
+color: rgb(0,0,0)</string>
        </property>
        <property name="text">
         <string>Health packs:</string>
@@ -252,69 +129,191 @@ font: 9pt &quot;8514oem&quot;;</string>
    <widget class="QLineEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>600</y>
-      <width>431</width>
+      <x>690</x>
+      <y>410</y>
+      <width>281</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(237, 240, 255);</string>
     </property>
    </widget>
    <widget class="QPlainTextEdit" name="plainTextEdit">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>650</y>
-      <width>701</width>
-      <height>131</height>
+      <x>690</x>
+      <y>450</y>
+      <width>281</width>
+      <height>241</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(237, 240, 255);</string>
     </property>
    </widget>
    <widget class="QLabel" name="type_command">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>580</y>
-      <width>231</width>
+      <x>690</x>
+      <y>390</y>
+      <width>151</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0,0,0);
+font: 700 11pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
      <string>Type command</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="rerun_game_2">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>290</y>
-      <width>81</width>
-      <height>41</height>
+      <x>690</x>
+      <y>220</y>
+      <width>281</width>
+      <height>132</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(208, 0, 0);
-background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Rerun Game</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="energy_label">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 14, 90);
+font: 700 16pt &quot;Segoe UI&quot;;
+color: rgb(0,0,0)</string>
+       </property>
+       <property name="text">
+        <string>Energy</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="health">
+       <property name="whatsThis">
+        <string/>
+       </property>
+       <property name="accessibleName">
+        <string>Energy </string>
+       </property>
+       <property name="accessibleDescription">
+        <string/>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);
+font: 12pt &quot;8514oem&quot;;
+background-color: rgb(255, 255, 255);
+</string>
+       </property>
+       <property name="value">
+        <number>24</number>
+       </property>
+       <property name="invertedAppearance">
+        <bool>false</bool>
+       </property>
+       <property name="format">
+        <string>%p%</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="health_label">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 14, 90);
+font: 700 16pt &quot;Segoe UI&quot;;
+color: rgb(0,0,0)</string>
+       </property>
+       <property name="text">
+        <string>Health</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="energy">
+       <property name="whatsThis">
+        <string/>
+       </property>
+       <property name="accessibleName">
+        <string>Energy </string>
+       </property>
+       <property name="accessibleDescription">
+        <string/>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);
+font: 12pt &quot;8514oem&quot;;
+background-color: rgb(255, 255, 255);
+</string>
+       </property>
+       <property name="value">
+        <number>24</number>
+       </property>
+       <property name="invertedAppearance">
+        <bool>false</bool>
+       </property>
+       <property name="format">
+        <string>%p%</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QPushButton" name="quit_game">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>930</x>
-      <y>290</y>
-      <width>81</width>
-      <height>41</height>
+      <x>30</x>
+      <y>20</y>
+      <width>381</width>
+      <height>51</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(208, 0, 0);
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="quit_game">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(208, 0, 0);
+font: 700 9pt &quot;Segoe UI&quot;;
 background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Quit Game</string>
-    </property>
+       </property>
+       <property name="text">
+        <string>Quit Game</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="rerun_game_2">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(208, 0, 0);
+font: 700 9pt &quot;Segoe UI&quot;;
+background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Rerun Game</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="pause">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(208, 0, 0);
+font: 700 9pt &quot;Segoe UI&quot;;
+background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Pause Game</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -322,7 +321,7 @@ background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1071</width>
+     <width>1004</width>
      <height>21</height>
     </rect>
    </property>
