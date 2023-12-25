@@ -5,8 +5,17 @@
 #include <QGraphicsTextItem>
 #include <iostream>
 
+#include "model/modelfactory.h"
 #include "model/gameobjectmodel.h"
 #include "view/gameview.h"
+#include "model/behaviors/concrete/movement/poisononstepbehavior.h"
+#include "model/behaviors/concrete/movement/genericmovebehavior.h"
+#include "model/behaviors/behaviors.h"
+#include "view/renderer/textrenderer.h"
+#include <view/renderer/colorrenderer.h>
+#include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
+#include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
+
 
 class GameWindow;
 

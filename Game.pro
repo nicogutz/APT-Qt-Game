@@ -81,8 +81,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 
-#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../lib/ -lworl
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../lib/ -lworld
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../lib/ -lworl
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../lib/ -lworld
 
 INCLUDEPATH += $$PWD/../worldsource
 DEPENDPATH += $$PWD/../worldsource
+
+RESOURCES += \
+    Resources.qrc
