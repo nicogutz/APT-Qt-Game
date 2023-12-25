@@ -43,7 +43,7 @@ QList<QList<QPointer<GameObject>>> ObjectModelFactory::createModel() {
     return worldGrid;
 }
 
-/*
+
 void ObjectModelFactory::pathFinder()
 {
 
@@ -57,21 +57,18 @@ void ObjectModelFactory::pathFinder()
     };
 
 
-    std::unique_ptr<Tile> startTile = world.getTiles().front();
-    std::unique_ptr<Tile> destinationTile = world.getTiles().back();
+    Node* startNode = &nodes.front();
+    Node* destinationNode = &nodes.back();
 
-    int cols = world.getCols();
-    PathFinder<Node, Tile> pathFinder(nodes, startTile, destinationTile, comp, world.getCols(), 1.0f);
+    PathFinder<Node, Tile> pathFinder(nodes, startNode, destinationNode, comp, world.getCols(), 1.0f);
 
-    // Find the path
     auto path = pathFinder.A_star();
 
-    // Output the path for debugging purposes
     for (auto p : path) {
         qDebug() << "Move: " << p;
     }
 
 }
 
-*/
+
 

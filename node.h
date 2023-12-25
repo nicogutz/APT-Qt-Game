@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "world.h" // Ensure this is the correct path
+#include <world.h>
 
 struct Node : public Tile {
     float f = 0.0f, g = 0.0f, h = 0.0f;
