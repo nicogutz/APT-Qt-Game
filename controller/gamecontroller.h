@@ -15,7 +15,7 @@
 #include <view/renderer/colorrenderer.h>
 #include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
 #include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
-
+#include <pathfinder_class.h>>
 
 class GameWindow;
 
@@ -42,6 +42,8 @@ public:
     GameController();
     QSharedPointer<GameView> getView();
     void setView(QSharedPointer<GameView> view);
+    void setupPathFinding();
+    void findAndMoveTo(int x, int y);
 
 public slots:
 

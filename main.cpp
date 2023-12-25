@@ -31,8 +31,6 @@ int main(int argc, char *argv[]) {
     auto gameController = w.getController();
     Ui::GameWindow *ui = w.getUI();
 
-    ObjectModelFactory factory;
-    auto world = factory.createModel(":/images/worldmap.png", 1, 1, 0.25f);
 
     // Connect Signals and slots
     QObject::connect(gameController.data(), &GameController::levelChanged, &w, &GameWindow::updateLevel);

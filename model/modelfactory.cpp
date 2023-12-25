@@ -1,15 +1,18 @@
 #include "modelfactory.h"
 
-ObjectModelFactory::ObjectModelFactory()
+ObjectModelFactory::ObjectModelFactory(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio)
+    :world (World())
 {
+
+    world.createWorld(filename, nrOfEnemies, nrOfHealthpacks, pRatio);
+
 
 }
 
 
 
-QList<QList<QPointer<GameObject>>> ObjectModelFactory::createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio) {
-    World world;
-    world.createWorld(filename, nrOfEnemies, nrOfHealthpacks, pRatio);
+QList<QList<QPointer<GameObject>>> ObjectModelFactory::createModel() {
+
     int rows = world.getRows(), cols = world.getCols();
 
     QList<QList<QPointer<GameObject>>> worldGrid(rows); // instantiate gameObjectModel aka the worldgrid
@@ -37,9 +40,38 @@ QList<QList<QPointer<GameObject>>> ObjectModelFactory::createModel(QString filen
         }
     }
 
-
-
     return worldGrid;
 }
 
+/*
+void ObjectModelFactory::pathFinder()
+{
+
+    // Convert World Tiles to Nodes
+    std::vector<Node> nodes;
+    for (const auto& tilePtr : world.getTiles()) {
+        nodes.emplace_back(tilePtr->getXPos(), tilePtr->getYPos(), tilePtr->getValue());
+    }
+    Comparator<Node> comp = [](const Node& a, const Node& b) {
+        return a.h > b.h;
+    };
+
+
+    std::unique_ptr<Tile> startTile = world.getTiles().front();
+    std::unique_ptr<Tile> destinationTile = world.getTiles().back();
+
+    int cols = world.getCols();
+    PathFinder<Node, Tile> pathFinder(nodes, startTile, destinationTile, comp, world.getCols(), 1.0f);
+
+    // Find the path
+    auto path = pathFinder.A_star();
+
+    // Output the path for debugging purposes
+    for (auto p : path) {
+        qDebug() << "Move: " << p;
+    }
+
+}
+
+*/
 

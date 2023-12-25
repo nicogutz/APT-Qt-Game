@@ -6,11 +6,11 @@ GameController::GameController()
     , m_gameState(State::Running)
 
 {
-    // TODO: This is very much temporary
+
 
 // create world grid
-    ObjectModelFactory factory;
-    auto world = factory.createModel(":/images/worldmap.png", 0, 0, 0.0f);
+    ObjectModelFactory factory(":/images/worldmap.png", 0, 0, 0.0f);
+    auto world = factory.createModel();
 // make protagonist
     auto *obj = new GameObject(QMap<DataRole, QVariant>({
                                                          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
@@ -31,6 +31,7 @@ GameController::GameController()
 
     connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
 
+    //factory.pathFinder();
     this->show();
 }
 

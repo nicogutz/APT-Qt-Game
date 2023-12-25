@@ -61,6 +61,9 @@ private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;
     QMap<DataRole, QVariant> m_objectData;
 
+
+
+
 signals:
     void dataChanged(QMap<DataRole, QVariant> objectData);
 };

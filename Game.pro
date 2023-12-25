@@ -63,6 +63,7 @@ HEADERS += \
     model/gameobject.h \
     model/gameobjectmodel.h \
     model/modelfactory.h \
+    node.h \
     publicenums.h \
     view/gameview.h \
     view/gamewindow.h \

@@ -10,13 +10,17 @@
 #include "model/behaviors/behaviors.h"
 #include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
 #include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
+#include <pathfinder_class.h>>
+#include "node.h"
 
 class ObjectModelFactory
 {
 public:
-    ObjectModelFactory();
-    QList<QList<QPointer<GameObject>>> createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio);
-
+    ObjectModelFactory(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio);
+    QList<QList<QPointer<GameObject>>> createModel();
+    void pathFinder();
+private:
+    World world;
 };
 
 #endif // MODELFACTORY_H

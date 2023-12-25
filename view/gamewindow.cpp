@@ -198,7 +198,5 @@ GameWindow::~GameWindow() {
  * mode signal from window to controller and to label
  * pathefinder
  *
- *
  * energy health
- * path
  */
