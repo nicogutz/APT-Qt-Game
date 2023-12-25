@@ -20,7 +20,7 @@ public:
     QList<QList<QPointer<GameObject>>> createModel();
     void pathFinder();
 private:
-    World world;
+    World m_world;
 };
 
 #endif // MODELFACTORY_H

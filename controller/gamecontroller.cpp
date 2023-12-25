@@ -6,23 +6,23 @@ GameController::GameController()
     , m_gameState(State::Running)
 
 {
-
-
-// create world grid
+    // create world grid
     ObjectModelFactory factory(":/images/worldmap.png", 0, 0, 0.0f);
     auto world = factory.createModel();
-// make protagonist
+    // make protagonist
     auto *obj = new GameObject(QMap<DataRole, QVariant>({
-                                                         {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
-                                                         {DataRole::Health, 89},
-                                                         {DataRole::Energy, 20},
-                                                         {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Right)},
-                                                         }));
+      {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
+      {DataRole::Health, 100},
+      {DataRole::Energy, 100.0f},
+      {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Right)},
+    }));
+    //    obj->setObjectName("Game_Protagonist");
     obj->setBehavior<Movement>(QSharedPointer<GenericMoveBehavior>::create(obj));
     obj->setBehavior<Poison>(QSharedPointer<GenericPoisonableBehavior>::create(obj));
     obj->setParent(world[0][0]);
     auto *model = new GameObjectModel(world);
     model->setParent(this);
+    //    model->findChildren("Game_Protagonist");
 
     m_character = obj;
     m_model = QList<QPointer<GameObjectModel>>({model});
@@ -31,7 +31,7 @@ GameController::GameController()
 
     connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
 
-    //factory.pathFinder();
+    // factory.pathFinder();
     this->show();
 }
 

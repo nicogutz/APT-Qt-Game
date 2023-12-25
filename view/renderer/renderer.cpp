@@ -4,69 +4,34 @@ Renderer::Renderer() {
 }
 
 QGraphicsPixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> objectDataList) {
-    QGraphicsPixmapItem *tile;
-    tile = new QGraphicsPixmapItem(renderTile(objectDataList[0]));
-    QGraphicsPixmapItem *item;
+    QGraphicsPixmapItem *tile = new QGraphicsPixmapItem(renderGameObject(objectDataList[0]));
 
     for(auto data : objectDataList.mid(1, -1)) {
-        switch(data[DataRole::Type].value<ObjectType>()) {
-        case ObjectType::Tile:
-            item = new QGraphicsPixmapItem(renderTile(data));
-            item->setParentItem(tile);
-            break;
-        case ObjectType::Doorway:
-            item = new QGraphicsPixmapItem(renderDoorway(data));
-            item->setParentItem(tile);
-            break;
-        case ObjectType::HealthPack:
-            item = new QGraphicsPixmapItem(renderHealthPack(data));
-            item->setParentItem(tile);
-            break;
-        case ObjectType::Protagonist:
-            item = new QGraphicsPixmapItem(renderProtagonist(data));
-            item->setParentItem(tile);
-            break;
-        default:
-            // Handle default case or unknown types
-            item = new QGraphicsPixmapItem(renderEnemy(data));
-            item->setParentItem(tile);
-            break;
-        }
+        auto *obj = new QGraphicsPixmapItem(renderGameObject(data));
+        obj->setParentItem(tile);
     }
-
     return tile;
 }
 
-QGraphicsPixmapItem *Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) {
-    QGraphicsPixmapItem *tile;
-    tile = new QGraphicsPixmapItem(renderTile(objectData));
-    QGraphicsPixmapItem *item;
-
+QPixmap Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) {
     switch(objectData[DataRole::Type].value<ObjectType>()) {
     case ObjectType::Tile:
-        item = new QGraphicsPixmapItem(renderTile(objectData));
-        item->setParentItem(tile);
+        return renderTile(objectData);
         break;
     case ObjectType::Doorway:
-        item = new QGraphicsPixmapItem(renderDoorway(objectData));
-        item->setParentItem(tile);
+        return renderDoorway(objectData);
         break;
     case ObjectType::HealthPack:
-        item = new QGraphicsPixmapItem(renderHealthPack(objectData));
-        item->setParentItem(tile);
+        return renderHealthPack(objectData);
         break;
     case ObjectType::Protagonist:
-        item = new QGraphicsPixmapItem(renderProtagonist(objectData));
-        item->setParentItem(tile);
+        return renderProtagonist(objectData);
         break;
     default:
         // Handle default case or unknown types
-        item = new QGraphicsPixmapItem(renderEnemy(objectData));
-        item->setParentItem(tile);
+        return renderEnemy(objectData);
         break;
     }
-
-    return tile;
 }
 
 QPixmap Renderer::rotatePixmap(const QPixmap &originalPixmap, int direction) {

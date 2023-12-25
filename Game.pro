@@ -90,3 +90,8 @@ DEPENDPATH += $$PWD/../worldsource
 
 RESOURCES += \
     Resources.qrc
+
+unix:!macx: LIBS += -L$$PWD/../worldlib/ -lworld
+
+#INCLUDEPATH += $$PWD/../worldlib
+#DEPENDPATH += $$PWD/../worldlib

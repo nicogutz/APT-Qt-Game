@@ -37,22 +37,14 @@ void GameView::createScene(
     }
 }
 
-void GameView::updateObject(const QMap<DataRole, QVariant> gameObject) {
-    QPoint point = gameObject[DataRole::Position].toPoint();
-
-    auto item = QSharedPointer<QGraphicsPixmapItem>(m_renderer->renderGameObject(gameObject));
-
-    item->setPos(point.x() * item->pixmap().width(), point.y() * item->pixmap().height());
-    m_tiles[point.x()][point.y()] = item;
-}
-
 void GameView::setRenderer(QSharedPointer<Renderer> newRenderer) {
     m_renderer = newRenderer;
 }
 
 void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
+    auto position = objectData[DataRole::Position].toPoint();
+
     if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Position) {
-        auto position = objectData[DataRole::Position].toPoint();
         auto direction = objectData[DataRole::Direction].toInt();
         double angleRad = (direction)*M_PI / 180;
         int x = position.x() - round(cos(angleRad));
@@ -61,11 +53,13 @@ void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
 
         changedObject->setParentItem(m_tiles[position.x()][position.y()].get());
     } else if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Direction) {
-        auto position = objectData[DataRole::Position].toPoint();
         auto changedObject = m_tiles[position.x()][position.y()]->childItems()[0];
 
         changedObject->setTransformOriginPoint(changedObject->boundingRect().width() / 2,
                                                changedObject->boundingRect().height() / 2);
         changedObject->setRotation(objectData[DataRole::Direction].toInt() - 90);
+    } else {
+        auto *obj = m_tiles[position.x()][position.y()]->childItems()[0];
+        dynamic_cast<QGraphicsPixmapItem *>(obj)->setPixmap(m_renderer->renderGameObject(objectData));
     }
 }

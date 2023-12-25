@@ -36,13 +36,14 @@ GameWindow::GameWindow(QWidget *parent)
     QObject::connect(timer, &QTimer::timeout, this, [this] {
         GameWindow::updateTime(true);
     });
+    ui->graphicsView->resetTransform();
+    ui->graphicsView->scale(1.0, 1.0);
 
     QObject::connect(ui->pause, &QPushButton::clicked, this, [this] { GameWindow::updateTime(false); });
     QObject::connect(ui->automatic, &QAction::changed, ui->manual, &QAction::toggle);
     QObject::connect(ui->manual, &QAction::changed, ui->automatic, &QAction::toggle);
 
     QObject::connect(ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
-
 }
 
 void GameWindow::updateTime(bool active) {

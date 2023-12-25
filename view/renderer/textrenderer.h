@@ -6,20 +6,11 @@
 class TextRenderer : public Renderer {
 public:
     TextRenderer();
-
-private:
-    // Renderer interface
-private:
-    QPixmap
-    renderTile(QMap<DataRole, QVariant> object) override;
-    QPixmap renderDoorway(
-      QMap<DataRole, QVariant> object) override;
-    QPixmap renderHealthPack(
-      QMap<DataRole, QVariant> object) override;
-    QPixmap renderProtagonist(
-      QMap<DataRole, QVariant> object) override;
-    QPixmap
-    renderEnemy(QMap<DataRole, QVariant> object) override;
+    QPixmap renderTile(QMap<DataRole, QVariant> object) override;
+    QPixmap renderDoorway(QMap<DataRole, QVariant> object) override;
+    QPixmap renderHealthPack(QMap<DataRole, QVariant> object) override;
+    QPixmap renderProtagonist(QMap<DataRole, QVariant> object) override;
+    QPixmap renderEnemy(QMap<DataRole, QVariant> object) override;
     QPixmap renderCharacter(QString, int, int);
 };
 

@@ -12,14 +12,13 @@ public:
     }
 
     QGraphicsPixmapItem *renderGameObjects(QList<QMap<DataRole, QVariant>> objectData);
-    QGraphicsPixmapItem *renderGameObject(QMap<DataRole, QVariant> objectData);
+    QPixmap renderGameObject(QMap<DataRole, QVariant> objectData);
 
     inline static constexpr int cellSize = 50;
 
 protected:
     QPixmap rotatePixmap(const QPixmap &originalPixmap, int direction);
 
-private:
     virtual QPixmap renderTile(QMap<DataRole, QVariant> object) = 0;
     virtual QPixmap renderDoorway(QMap<DataRole, QVariant> object) = 0;
     virtual QPixmap renderHealthPack(QMap<DataRole, QVariant> object) = 0;

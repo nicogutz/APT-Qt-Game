@@ -3,6 +3,7 @@
 bool GenericMoveBehavior::stepOn(QPointer<GameObject> target) {
     auto behaviors = target->getAllBehaviors<Movement>();
     bool steppable = true;
+
     for(const auto &bh : behaviors) {
         if(bh.isNull())
             return false;
@@ -12,12 +13,21 @@ bool GenericMoveBehavior::stepOn(QPointer<GameObject> target) {
     if(!steppable)
         return false;
 
+    float energy = m_owner->getData(DataRole::Energy).toFloat();
+    float targetEnergy = target->getData(DataRole::Energy).toFloat();
+
+    if(energy - targetEnergy < 0) {
+        return false;
+    }
+
     for(const auto &bh : behaviors) {
         bh->getSteppedOn(m_owner);
     }
 
     m_owner->setParent(target);
     m_owner->event(new QEvent(QEvent::ParentChange));
+    m_owner->setData(DataRole::Energy, energy - targetEnergy);
+
     return steppable;
 }
 

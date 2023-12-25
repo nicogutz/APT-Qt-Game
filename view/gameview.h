@@ -15,8 +15,6 @@ public:
     void createScene(const QList<QList<QList<QMap<DataRole, QVariant>>>> &gameObjects,
                      QSharedPointer<Renderer> renderer = nullptr);
 
-    void updateObject(const QMap<DataRole, QVariant> gameObject);
-
     void setRenderer(QSharedPointer<Renderer> newRenderer);
 
 private:

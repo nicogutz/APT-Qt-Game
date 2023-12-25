@@ -10,8 +10,8 @@ int GameObjectModel::getColumnCount() const {
 
 const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, Direction direction, int offset) const {
     double angleRad = ((int)direction) * M_PI / 180;
-    int x = location.x() + (offset + 1 * round(cos(angleRad)));
-    int y = location.y() - (offset + 1 * round(sin(angleRad)));
+    int x = location.x() + ((offset + 1) * round(cos(angleRad)));
+    int y = location.y() - ((offset + 1) * round(sin(angleRad)));
     if(0 > x || 0 > y || x >= getRowCount() || y >= getColumnCount()) {
         return QPointer<GameObject>(nullptr);
     }
