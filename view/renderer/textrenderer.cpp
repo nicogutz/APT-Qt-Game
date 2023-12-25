@@ -37,7 +37,7 @@ QPixmap TextRenderer::renderEnemy(QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
     int poisonLevel = object[DataRole::PoisonLevel].toInt();
     int direction = object[DataRole::Direction].toInt();
-    QPixmap pixmap = Renderer::rotatePixmap(renderCharacter("[¬º.°]¬", poisonLevel, healthLevel), direction);
+    QPixmap pixmap = Renderer::rotatePixmap(renderCharacter("[º.°]", poisonLevel, healthLevel), direction);
     return pixmap;
 }
 
