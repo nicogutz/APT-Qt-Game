@@ -8,9 +8,10 @@ GameController::GameController()
 {
     // TODO: This is very much temporary
 
+// create world grid
     ObjectModelFactory factory;
     auto world = factory.createModel(":/images/worldmap.png", 0, 0, 0.0f);
-
+// make protagonist
     auto *obj = new GameObject(QMap<DataRole, QVariant>({
                                                          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
                                                          {DataRole::Health, 89},
@@ -19,7 +20,6 @@ GameController::GameController()
                                                          }));
     obj->setBehavior<Movement>(QSharedPointer<GenericMoveBehavior>::create(obj));
     obj->setBehavior<Poison>(QSharedPointer<GenericPoisonableBehavior>::create(obj));
-
     obj->setParent(world[0][0]);
     auto *model = new GameObjectModel(world);
     model->setParent(this);
@@ -27,8 +27,7 @@ GameController::GameController()
     m_character = obj;
     m_model = QList<QPointer<GameObjectModel>>({model});
     m_view = QSharedPointer<GameView>::create(30, 30, this);
-
-    m_view->createScene(model->getAllData(), QSharedPointer<TextRenderer>::create());
+    m_view->createScene(model->getAllData(), QSharedPointer<ColorRenderer>::create());
 
     connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
 

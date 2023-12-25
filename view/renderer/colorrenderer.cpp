@@ -1,6 +1,4 @@
-#include <QBrush>
-#include <QPainter>
-#include <iostream>
+
 #include "colorrenderer.h"
 
 ColorRenderer::ColorRenderer() {
@@ -8,9 +6,11 @@ ColorRenderer::ColorRenderer() {
 
 QPixmap ColorRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
-    int energyLevel = object[DataRole::Energy].toInt();
-    int brightness = 255 - (energyLevel * 255 / 100);
-    QColor color(brightness, brightness, brightness);
+    float energyLevel = object[DataRole::Energy].toFloat();
+    int brightness = 255 - (energyLevel * 255 / 1);
+
+
+    QColor color(0, 0, brightness);
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(color);
 

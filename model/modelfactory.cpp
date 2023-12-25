@@ -24,7 +24,7 @@ QList<QList<QPointer<GameObject>>> ObjectModelFactory::createModel(QString filen
     int j = 0;
     for (const auto& tile : tiles) {
         auto *obj = new GameObject(tileData);
-        obj->setData(DataRole::Visibility, tile->getValue());
+        obj->setData(DataRole::Energy, tile->getValue());
         std::cout << tile->getValue();
         obj->setData(DataRole::Position, QPoint(i, j));
         obj->setBehavior<Movement>(QSharedPointer<PoisonOnStepBehavior>::create(obj));

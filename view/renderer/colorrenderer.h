@@ -2,6 +2,11 @@
 #define COLORRENDERER_H
 
 #include "renderer.h"
+#include <algorithm>
+#include <QBrush>
+#include <QPainter>
+#include <iostream>
+#include <QtGlobal>
 
 class ColorRenderer : public Renderer {
 public:
