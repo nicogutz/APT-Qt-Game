@@ -124,7 +124,7 @@ QPixmap ColorRenderer::renderProtagonist(
     painter.end();
 
     int direction = object[DataRole::Direction].toInt();
-    pixmap = Renderer::rotatePixmap(pixmap, direction);
+    pixmap = rotatePixmap(pixmap, direction);
 
     return pixmap;
 }
@@ -169,7 +169,7 @@ QPixmap ColorRenderer::renderEnemy(
     painter.end();
 
     int direction = object[DataRole::Direction].toInt();
-    pixmap = Renderer::rotatePixmap(pixmap, direction);
+    pixmap = rotatePixmap(pixmap, direction);
 
     return pixmap;
 }

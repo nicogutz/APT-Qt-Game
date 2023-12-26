@@ -11,8 +11,18 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setPen(QPen(Qt::black));
-    painter.drawRect(5, 5, cellSize - 6, cellSize - 6);
+
+    QPen pen = painter.pen();
+    pen.setWidth(5);
+    painter.setPen(pen);
+
+    painter.drawLine(9, 0, cellSize / 2 - 3, 0);
+    painter.drawLine(cellSize / 2 + 7, 0, cellSize - 6, 0);
+
+
+    painter.drawLine(0, 9, 0, cellSize / 2 - 3);
+    painter.drawLine(0, cellSize / 2 + 7, 0, cellSize - 6);
+
     return pixmap;
 }
 
@@ -38,7 +48,7 @@ QPixmap TextRenderer::renderEnemy(QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
     int poisonLevel = object[DataRole::PoisonLevel].toInt();
     int direction = object[DataRole::Direction].toInt();
-    QPixmap pixmap = Renderer::rotatePixmap(renderCharacter("[º.°]", poisonLevel, healthLevel), direction);
+    QPixmap pixmap = rotatePixmap(renderCharacter("[º.°]", poisonLevel, healthLevel), direction);
     return pixmap;
 }
 
