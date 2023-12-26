@@ -6,28 +6,28 @@ GameController::GameController()
     , m_gameState(State::Running)
 
 {
-    // create world grid
-    ObjectModelFactory factory(":/images/worldmap.png", 0, 0, 0.0f);
-    auto world = factory.createModel();
-    // make protagonist
-    auto *obj = new GameObject(QMap<DataRole, QVariant>({
-      {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
-      {DataRole::Health, 100},
-      {DataRole::Energy, 100.0f},
-      {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Right)},
-    }));
-    //    obj->setObjectName("Game_Protagonist");
-    obj->setBehavior<Movement>(QSharedPointer<GenericMoveBehavior>::create(obj));
-    obj->setBehavior<Poison>(QSharedPointer<GenericPoisonableBehavior>::create(obj));
-    obj->setParent(world[0][0]);
-    auto *model = new GameObjectModel(world);
-    model->setParent(this);
-    //    model->findChildren("Game_Protagonist");
+    ObjectModelFactory factory;
+    auto model = factory.createModel(":/images/worldmap.png", 6, 5, 0.5f);
 
-    m_character = obj;
+//    // make protagonist
+//    auto *obj = new GameObject(QMap<DataRole, QVariant>({
+//      {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
+//      {DataRole::Health, 100},
+//      {DataRole::Energy, 100.0f},
+//      {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Right)},
+//    }));
+//    //    obj->setObjectName("Game_Protagonist");
+//    obj->setBehavior<Movement>(QSharedPointer<GenericMoveBehavior>::create(obj));
+//    obj->setBehavior<Poison>(QSharedPointer<GenericPoisonableBehavior>::create(obj));
+//    obj->setParent(world[0][0]);
+//    auto *model = new GameObjectModel(world);
+//    model->setParent(this);
+//    //    model->findChildren("Game_Protagonist");
+    model->setParent(this);
+    m_character = factory.getPro(); // this is temporary, could probably be done in a better ways
     m_model = QList<QPointer<GameObjectModel>>({model});
     m_view = QSharedPointer<GameView>::create(this);
-    m_view->createScene(model->getAllData(), QSharedPointer<TextRenderer>::create());
+    m_view->createScene(model->getAllData(), QSharedPointer<ColorRenderer>::create());
 
     connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
 
@@ -63,6 +63,30 @@ void GameController::characterAtttack() {
     }
 }
 
+/*
+void GameController::executePathFinder() {
+    auto path = factory.pathFinder();
+    for (int move : path) {
+        Direction direction;
+        switch (move) {
+        case 0: direction = Direction::Up; break;
+        case 1: direction = Direction::TopRight; break;
+        case 2: direction = Direction::Right; break;
+        case 3: direction = Direction::BottomRight; break;
+        case 4: direction = Direction::Down; break;
+        case 5: direction = Direction::BottomLeft; break;
+        case 6: direction = Direction::Left; break;
+        case 7: direction = Direction::TopLeft; break;
+        default:
+            // Handle invalid move
+            qDebug() << "Invalid move in path: " << move;
+            continue;
+        }
+        characterMove(direction);
+    }
+}
+
+*/
 QSharedPointer<GameView> GameController::getView() {
     return m_view;
 }
