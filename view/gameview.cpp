@@ -1,15 +1,9 @@
 #include "gameview.h"
 #include <QGraphicsPixmapItem>
 
-GameView::GameView(int rows, int columns, QObject *parent)
-    : QGraphicsScene(parent)
-    , m_rows(rows)
-    , m_columns(columns) {
+GameView::GameView(QObject *parent)
+    : QGraphicsScene(parent) {
     // Initialize the m_tiles with empty shared pointers
-    for(int i = 0; i < m_rows; ++i) {
-        QList<QSharedPointer<QGraphicsPixmapItem>> rowItems(m_columns);
-        m_tiles.append(rowItems);
-    }
 }
 
 void GameView::createScene(
@@ -23,8 +17,11 @@ void GameView::createScene(
         return;
     }
 
-    for(int x = 0; x < m_rows; ++x) {
-        for(int y = 0; y < m_columns; ++y) {
+    for(int x = 0; x < gameObjects.size(); ++x) {
+        QList<QSharedPointer<QGraphicsPixmapItem>> rowItems(gameObjects.size());
+        m_tiles.append(rowItems);
+
+        for(int y = 0; y < gameObjects[0].size(); ++y) {
             if(x < gameObjects.size() && y < gameObjects[x].size()
                && !gameObjects[x][y].empty()) {
                 auto item = QSharedPointer<QGraphicsPixmapItem>(m_renderer->renderGameObjects(gameObjects[x][y]));
@@ -38,7 +35,7 @@ void GameView::createScene(
 }
 
 void GameView::setRenderer(QSharedPointer<Renderer> newRenderer) {
-    m_renderer = newRenderer;
+    m_renderer = std::move(newRenderer);
 }
 
 void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
@@ -50,14 +47,7 @@ void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
         int x = position.x() - round(cos(angleRad));
         int y = position.y() + round(sin(angleRad));
         auto changedObject = m_tiles[x][y]->childItems()[0];
-
         changedObject->setParentItem(m_tiles[position.x()][position.y()].get());
-    } else if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Direction) {
-        auto changedObject = m_tiles[position.x()][position.y()]->childItems()[0];
-
-        changedObject->setTransformOriginPoint(changedObject->boundingRect().width() / 2,
-                                               changedObject->boundingRect().height() / 2);
-        changedObject->setRotation(objectData[DataRole::Direction].toInt() - 90);
     } else {
         auto *obj = m_tiles[position.x()][position.y()]->childItems()[0];
         dynamic_cast<QGraphicsPixmapItem *>(obj)->setPixmap(m_renderer->renderGameObject(objectData));

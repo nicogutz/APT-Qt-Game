@@ -29,7 +29,8 @@ QPixmap TextRenderer::renderProtagonist(QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
     int energyLevel = object[DataRole::Energy].toInt();
     int direction = object[DataRole::Direction].toInt();
-    QPixmap pixmap = Renderer::rotatePixmap(renderCharacter("ʕ·͡ᴥ·ʔ", energyLevel, healthLevel), direction);
+
+    QPixmap pixmap = rotatePixmap(renderCharacter("ʕ·͡ᴥ·ʔ", energyLevel, healthLevel), direction);
     return pixmap;
 }
 

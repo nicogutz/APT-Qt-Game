@@ -36,7 +36,6 @@ QPixmap Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) {
 
 QPixmap Renderer::rotatePixmap(const QPixmap &originalPixmap, int direction) {
     QTransform transformation;
-    transformation.rotate(direction);
-
+    transformation.rotate(-direction + 90);
     return originalPixmap.transformed(transformation);
 }

@@ -26,8 +26,8 @@ GameController::GameController()
 
     m_character = obj;
     m_model = QList<QPointer<GameObjectModel>>({model});
-    m_view = QSharedPointer<GameView>::create(30, 30, this);
-    m_view->createScene(model->getAllData(), QSharedPointer<ColorRenderer>::create());
+    m_view = QSharedPointer<GameView>::create(this);
+    m_view->createScene(model->getAllData(), QSharedPointer<TextRenderer>::create());
 
     connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
 
@@ -50,6 +50,7 @@ void GameController::updateLevel(unsigned int level) {
 void GameController::characterMove(Direction to) {
     if(m_gameState != State::Paused) {
         m_character->getBehavior<Movement>()->stepOn(to);
+        emit tick(0);
     }
 }
 

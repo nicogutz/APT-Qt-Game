@@ -10,7 +10,7 @@ class GameView : public QGraphicsScene {
     Q_OBJECT
 
 public:
-    explicit GameView(int rows, int columns, QObject *parent = nullptr);
+    explicit GameView(QObject *parent = nullptr);
 
     void createScene(const QList<QList<QList<QMap<DataRole, QVariant>>>> &gameObjects,
                      QSharedPointer<Renderer> renderer = nullptr);
@@ -18,7 +18,6 @@ public:
     void setRenderer(QSharedPointer<Renderer> newRenderer);
 
 private:
-    int m_rows, m_columns;
     QSharedPointer<Renderer> m_renderer;
 
     // Store the graphical representation of each GameObject
