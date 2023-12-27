@@ -1,8 +1,7 @@
 #include "generichealthbehavior.h"
 
 int GenericHealthBehavior::getHealthChanged(int amount) {
-    QVariant currentHealth
-      = m_owner->getData(DataRole::Health);
+    QVariant currentHealth = m_owner->getData(DataRole::Health);
     if(currentHealth.isNull()) {
         throw("Cannot change health of object without health");
     }

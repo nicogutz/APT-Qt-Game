@@ -22,7 +22,7 @@ int GenericAttackBehavior::attack(const QPointer<GameObject> &target) {
 
 int GenericAttackBehavior::attack(Direction direction) {
     auto neighbor = m_owner->getNeighbor(direction);
-    if(neighbor) {
+    if(!neighbor) {
         return 0;
     }
     return attack(neighbor);

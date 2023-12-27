@@ -9,6 +9,7 @@
 #include <model/behaviors/concrete/movement/newlevelonstep.h>
 #include <model/behaviors/concrete/movement/poisononstepbehavior.h>
 
+#include <model/behaviors/concrete/health/generichealingbehavior.h>
 #include <model/behaviors/concrete/health/generichealthbehavior.h>
 #include <model/behaviors/concrete/health/poisononkilledbehavior.h>
 
@@ -69,6 +70,7 @@ class GameObjectSettings {
         static void setObject(GameObject *obj) {
             obj->setData(defaultData);
             obj->setBehavior<Movement>(QSharedPointer<HealOnStepBehavior>::create(obj));
+            obj->setBehavior<Health>(QSharedPointer<GenericHealingBehavior>::create(obj));
         };
     };
     struct EnemySettings {

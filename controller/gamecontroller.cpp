@@ -29,9 +29,9 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
     if(m_gameMode == Mode::Automatic) {
         auto path = factory.pathFinder();
 
-        for (int move : path) {
+        for(int move : path) {
             Direction direction;
-            switch (move) {
+            switch(move) {
             case 0: direction = Direction::Up; break;
             case 1: direction = Direction::TopLeft; break;
             case 2: direction = Direction::Left; break;
