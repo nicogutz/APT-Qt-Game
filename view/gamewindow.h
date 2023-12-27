@@ -14,7 +14,7 @@
 #include <iostream>
 #include <QTime>
 #include <qgraphicsitem.h>
-
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -55,6 +55,9 @@ public slots:
     void processCommand();
     void zoomBySlider(int value);
 
+    void setGraphicalView();
+    void setTextualView();
+    void setColorView();
 
 
 

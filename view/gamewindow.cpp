@@ -1,6 +1,8 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 
+
+
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
@@ -9,9 +11,40 @@ GameWindow::GameWindow(QWidget *parent)
     , elapsed_seconds(0)
     , timer(new QTimer(this))
     , paused(0) {
-    controller->setParent(this);
+
     // SETUP UI CONTROLLER AND VIEW
+    controller->setParent(this);
     ui->setupUi(this);
+
+
+    // DEFAULT OPTIONS
+    setStyleSheet("background-color: #F4C2C2;");
+    ui->level_label->setText("Level: 1");
+    ui->colour_mode->setChecked(true);
+    ui->text_mode->setChecked(false);
+    ui->graphical_mode->setChecked(false);
+
+    // CHOOSE MODE: MANUAL OR AUTOMATIC
+    QMessageBox modeBox;
+    modeBox.setWindowTitle("Select Game Mode");
+    modeBox.setText("Please select the game mode:");
+    QPushButton *manualButton = modeBox.addButton("Manual", QMessageBox::AcceptRole);
+    QPushButton *autoButton = modeBox.addButton("Automatic", QMessageBox::AcceptRole);
+    modeBox.exec();
+    if (modeBox.clickedButton() == manualButton) {
+        controller->updateGameMode(GameController::Mode::Manual);
+        ui->mode_label->setText("Mode: Manual");
+        ui->manual->setChecked(true);
+        ui->automatic->setChecked(false);
+    } else if (modeBox.clickedButton() == autoButton) {
+        controller->updateGameMode(GameController::Mode::Automatic);
+        ui->mode_label->setText("Mode: Automatic");
+        ui->automatic->setChecked(true);
+        ui->manual->setChecked(false);
+    }
+
+    // START GAME
+    controller->startGame();
     ui->graphicsView->setScene(controller->getView().data());
     ui->graphicsView->show();
     controller->show();
@@ -21,29 +54,28 @@ GameWindow::GameWindow(QWidget *parent)
 
     setFocusPolicy(Qt::StrongFocus);
 
-    // DEFAULT OPTIONS
-    setStyleSheet("background-color: #F4C2C2;");
 
-    ui->level_label->setText("Level: 1");
-    ui->graphical_mode->setChecked(true);
-    ui->mode_label->setText("Mode: Manual");
-    ui->manual->setChecked(true);
-
+    // ZOOM
     ui->horizontalSlider->setMinimum(-30);
     ui->horizontalSlider->setMaximum(30);
-    ui->horizontalSlider->setValue(-30);
+    ui->horizontalSlider->setValue(0);
+    ui->graphicsView->resetTransform();
+    ui->graphicsView->scale(1.0, 1.0);
+
     // SIGNALS AND SLOTS
     QObject::connect(timer, &QTimer::timeout, this, [this] {
         GameWindow::updateTime(true);
     });
-    ui->graphicsView->resetTransform();
-    ui->graphicsView->scale(1.0, 1.0);
-
     QObject::connect(ui->pause, &QPushButton::clicked, this, [this] { GameWindow::updateTime(false); });
     QObject::connect(ui->automatic, &QAction::changed, ui->manual, &QAction::toggle);
     QObject::connect(ui->manual, &QAction::changed, ui->automatic, &QAction::toggle);
-
     QObject::connect(ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
+
+
+    connect(ui->graphical_mode, &QAction::triggered, this, &GameWindow::setGraphicalView);
+    connect(ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
+    connect(ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
+
 }
 
 void GameWindow::updateTime(bool active) {
@@ -85,9 +117,7 @@ void GameWindow::updateTime(bool active) {
     }
 }
 
-void GameWindow::updateLevel(unsigned int level) {
-    ui->level_label->setText("Level: " + QString::number(level));
-}
+
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
     if(paused % 2 == 0) {
@@ -130,22 +160,21 @@ void GameWindow::processCommand() {
         controller->characterMove(Direction::Down);
     } else if(command == "health pack") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
-        QGraphicsTextItem *textItem = new QGraphicsTextItem("taking health pack");
-        controller->getView()->addItem(textItem);
+        controller->characterAtttack();
     } else if(command == "attack") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
-        QGraphicsTextItem *textItem = new QGraphicsTextItem("attacking enemy");
-        controller->getView()->addItem(textItem);
+        controller->characterAtttack();
     } else if(command == "pause/resume") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         updateTime(false);
     } else if(command == "quit") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
+        QApplication::quit();
     } else if(command == "restart") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
+        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+        QApplication::quit();
     } else if(command == "view") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-    } else if(command == "mode") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
     } else if(command == "help") {
         showHelp();
@@ -159,7 +188,7 @@ void GameWindow::showHelp() {
     QString helpMessage = "Available commands:\n"
                           "- move [direction]: Move the protagonist to the left/right/up/down\n"
                           "- pause/resume: Pause or resume the game\n"
-                          "- mode: Toggle between manual and automatic mode\n"
+
                           "- view: Toggle between graphical and text view\n"
                           "- attack: Attack the nearest enemy\n"
                           "- health pack: Take a health pack\n"
@@ -175,15 +204,37 @@ void GameWindow::showInvalidCommandMessage() {
 }
 
 void GameWindow::zoomBySlider(int value) {
-    // Assuming the slider's minimum value is 0 and the maximum is 100
-    // You can map these to a reasonable zoom range
-    qreal scaleFactor = 1.0 + (value / 50.0); // e.g., slider at middle (value 50) => scale factor of 1.0 (no zoom)
+    qreal scaleFactor = 1.0 + (value / 50.0);
 
-    // Reset the view scale to 1:1
     ui->graphicsView->resetTransform();
-    // Apply the new scale transformation
     ui->graphicsView->scale(scaleFactor, scaleFactor);
 }
+
+
+void GameWindow::updateLevel(unsigned int level) {
+    ui->level_label->setText("Level: " + QString::number(level));
+}
+
+
+void GameWindow::setGraphicalView() {
+    controller->updateGameView(GameController::View::Graphical);
+    ui->colour_mode->setChecked(false);
+    ui->text_mode->setChecked(false);
+    ui->graphical_mode->setChecked(true);
+}
+void GameWindow::setTextualView() {
+    controller->updateGameView(GameController::View::Text);
+    ui->colour_mode->setChecked(false);
+    ui->text_mode->setChecked(true);
+    ui->graphical_mode->setChecked(false);
+}
+void GameWindow::setColorView() {
+    controller->updateGameView(GameController::View::Color);
+    ui->colour_mode->setChecked(true);
+    ui->text_mode->setChecked(false);
+    ui->graphical_mode->setChecked(false);
+}
+
 
 // DESTRUCTOR
 
@@ -194,10 +245,8 @@ GameWindow::~GameWindow() {
 
 /**TODO
  * view & mode menus
- * convert timer to min/h?
- * connect controller variables (enemies, mode, health, energy etc)
- * mode signal from window to controller and to label
- * pathefinder
- *
- * energy health
+ * energy health show in gamewindow
+ * add mode and view attributes to controller and connect menus to correct renderer
+ * pathfinder
+ * fix model create in factory and poison level
  */

@@ -12,7 +12,8 @@
 #include "model/behaviors/concrete/movement/genericmovebehavior.h"
 #include "model/behaviors/behaviors.h"
 #include "view/renderer/textrenderer.h"
-#include <view/renderer/colorrenderer.h>
+#include "view/renderer/colorrenderer.h"
+#include "view/renderer/spriterenderer.h"
 #include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
 #include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
 #include <pathfinder_class.h>>
@@ -36,14 +37,32 @@ public:
         Suspended,
         GameOver,
     };
+
+
+    enum class Mode {
+        Automatic,
+        Manual,
+    };
+
+    enum class View {
+        Text,
+        Graphical,
+        Color,
+    };
     /**
      * @brief GameController
      */
     GameController();
+    void startGame();
+
     QSharedPointer<GameView> getView();
     void setView(QSharedPointer<GameView> view);
-    void setupPathFinding();
+
+
+
     void findAndMoveTo(int x, int y);
+
+
 
 public slots:
 
@@ -57,12 +76,17 @@ public slots:
      * @param to
      */
     void characterAtttack();
+    void characterHealth();
 
-    // void updateMode();
     void updateLevel(unsigned int level);
+    void updateGameState(State new_state);
+    void updateGameView(View view);
+    void updateGameMode(Mode mode);
+
+
+
     // void updateHealthPacks();
     // void updateEnemies();
-    void updateGameState(State new_state);
 
 signals:
     /**
@@ -115,10 +139,12 @@ private:
      * @brief m_character
      */
     QPointer<GameObject> m_character;
+    GameObjectModel* model;
 
     unsigned int m_gameLevel;
-    QString m_gameMode;
+    Mode m_gameMode;
     State m_gameState;
+    View m_gameView;
 };
 
 #endif // GAMECONTROLLER_H

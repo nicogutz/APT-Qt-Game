@@ -71,10 +71,12 @@ GameObjectModel* ObjectModelFactory::createModel(QString filename, unsigned int 
         auto *enemyObj = new GameObject(QMap<DataRole, QVariant>({
             {DataRole::Type, QVariant::fromValue<ObjectType>(type)},
             {DataRole::Position, QPoint(enemy->getXPos(), enemy->getYPos())},
-            {DataRole::Strength, QPoint(enemy->getXPos(), enemy->getYPos())}
+            {DataRole::Strength, 0} // TODO: get strength from the library?
 
         }));
         enemyObj->setParent(worldGrid[enemy->getXPos()][enemy->getYPos()]);
+        // TODO: get poison level from the library?
+
         //        if (type == ObjectType::PoisonEnemy){
         //            enemyObj->setData(DataRole::PoisonLevel, enemy->getPoisonLevel());
         //        }
@@ -86,14 +88,12 @@ GameObjectModel* ObjectModelFactory::createModel(QString filename, unsigned int 
 
 std::vector<int> ObjectModelFactory::pathFinder() {
 
-
     Comparator<Node> comp = [](const Node &a, const Node &b) {
         return a.h > b.h;
     };
 
     PathFinder<Node, Tile> pathFinder(nodes, &nodes.front(), &nodes.back(), comp, m_world.getCols(), 1.0f);
     auto path = pathFinder.A_star();
-
 
     for(auto p : path) {
         qDebug() << "Move: " << p;
