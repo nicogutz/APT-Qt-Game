@@ -14,7 +14,7 @@ GameController::GameController()
 }
 
 void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
-    ObjectModelFactory factory;
+
     // create world with 6 Enemies 5 health packs and 3 PEnemies
     m_model = factory.createModel(":/images/worldmap.png", 6, 5, 0.5f);
 
@@ -26,6 +26,9 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
     connect(m_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
     this->show();
 
+}
+
+void GameController::path_finder(){
     if(m_gameMode == Mode::Automatic) {
         auto path = factory.pathFinder();
 
@@ -45,8 +48,14 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
                 qDebug() << "Invalid move in path: " << move;
                 continue;
             }
-            characterMove(direction);
+            characterMoveAuto(direction);
         }
+    }
+}
+void GameController::characterMoveAuto(Direction to){
+    if(m_gameState != State::Paused && m_gameView != View::Text) {
+        m_character->getBehavior<Movement>()->stepOn(to);
+        emit tick(0);
     }
 }
 
@@ -82,7 +91,7 @@ void GameController::updateLevel(unsigned int level) {
 }
 void GameController::updateGameView(View view) {
     m_gameView = view;
-    if(view == View::Graphical) {
+    if(view == View::Sprite) {
     } else if(view == View::Text) {
         m_view->createScene(m_model->getAllData(), QSharedPointer<TextRenderer>::create());
     } else {

@@ -60,7 +60,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
       <x>690</x>
       <y>20</y>
       <width>281</width>
-      <height>191</height>
+      <height>195</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -85,6 +85,13 @@ color: rgb(0,0,0)</string>
        </property>
        <property name="text">
         <string>Mode:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="path_find_trigger">
+       <property name="text">
+        <string>Find Path</string>
        </property>
       </widget>
      </item>
@@ -145,7 +152,7 @@ color: rgb(0,0,0)</string>
       <x>690</x>
       <y>450</y>
       <width>281</width>
-      <height>241</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -337,7 +344,7 @@ background-color: rgb(255, 255, 255);</string>
      <string>View</string>
     </property>
     <addaction name="text_mode"/>
-    <addaction name="graphical_mode"/>
+    <addaction name="sprite_mode"/>
     <addaction name="colour_mode"/>
    </widget>
    <addaction name="mode_menu"/>
@@ -388,12 +395,12 @@ background-color: rgb(255, 255, 255);</string>
     <string>Text</string>
    </property>
   </action>
-  <action name="graphical_mode">
+  <action name="sprite_mode">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Graphical</string>
+    <string>Sprite</string>
    </property>
   </action>
   <action name="colour_mode">

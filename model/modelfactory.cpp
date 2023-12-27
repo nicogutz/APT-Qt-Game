@@ -72,7 +72,7 @@ std::vector<int> ObjectModelFactory::pathFinder() {
         return a.h > b.h;
     };
 
-    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, m_world.getCols(), 1.0f);
+    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, 30, 1.0f);
     auto path = pathFinder.A_star();
 
     for(auto p : path) {

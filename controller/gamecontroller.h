@@ -44,7 +44,7 @@ public:
 
     enum class View {
         Text,
-        Graphical,
+        Sprite,
         Color,
     };
     /**
@@ -76,6 +76,9 @@ public slots:
     void updateGameState(State new_state);
     void updateGameView(View view);
     void updateGameMode(Mode mode);
+
+    void path_finder();
+    void characterMoveAuto(Direction to);
 
 signals:
     /**
@@ -115,6 +118,7 @@ signals:
     void stateChanged(State state);
 
 private:
+    ObjectModelFactory factory;
     /**
      * @brief m_model
      */
