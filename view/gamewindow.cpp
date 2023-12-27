@@ -40,7 +40,9 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     // START GAME
-    controller->startGame();
+    controller->startGame(6,5);
+    ui->enemies_label->setText("Enemies: 6");
+    ui->health_packs->setText("Health packs: 5");
     ui->graphicsView->setScene(controller->getView().data());
     ui->graphicsView->show();
     controller->show();
@@ -201,8 +203,11 @@ void GameWindow::zoomBySlider(int value) {
     ui->graphicsView->scale(scaleFactor, scaleFactor);
 }
 
-void GameWindow::updateLevel(unsigned int level) {
+void GameWindow::updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs) {
     ui->level_label->setText("Level: " + QString::number(level));
+    controller->startGame(enemies, health_packs);
+    ui->enemies_label->setText("Enemies: "+ QString::number(enemies));
+    ui->health_packs->setText("Health packs: "+ QString::number(health_packs));
 }
 
 void GameWindow::setGraphicalView() {

@@ -10,40 +10,40 @@ GameController::GameController()
 {
 }
 
-void GameController::startGame() {
+void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
     ObjectModelFactory factory;
     // create world with 6 Enemies 5 health packs and 3 PEnemies
-    model = factory.createModel(":/images/worldmap.png", 6, 5, 0.5f);
+    m_model = factory.createModel(":/images/worldmap.png", 6, 5, 0.5f);
 
-    model->setParent(this);
+    m_model->setParent(this);
     m_character = factory.getPro(); // this is temporary, could probably be done in a better ways
-    m_model = QList<QPointer<GameObjectModel>>({model});
+
     m_view = QSharedPointer<GameView>::create(this);
-    m_view->createScene(model->getAllData(), QSharedPointer<ColorRenderer>::create());
-    connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+    m_view->createScene(m_model->getAllData(), QSharedPointer<ColorRenderer>::create());
+    connect(m_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
     this->show();
 
     if(m_gameMode == Mode::Automatic) {
         auto path = factory.pathFinder();
-        /*
+
         for (int move : path) {
             Direction direction;
             switch (move) {
             case 0: direction = Direction::Up; break;
-            case 1: direction = Direction::TopRight; break;
-            case 2: direction = Direction::Right; break;
-            case 3: direction = Direction::BottomRight; break;
+            case 1: direction = Direction::TopLeft; break;
+            case 2: direction = Direction::Left; break;
+            case 3: direction = Direction::BottomLeft; break;
             case 4: direction = Direction::Down; break;
-            case 5: direction = Direction::BottomLeft; break;
-            case 6: direction = Direction::Left; break;
-            case 7: direction = Direction::TopLeft; break;
+            case 5: direction = Direction::BottomRight; break;
+            case 6: direction = Direction::Right; break;
+            case 7: direction = Direction::TopRight; break;
             default:
                 // Handle invalid move
                 qDebug() << "Invalid move in path: " << move;
                 continue;
             }
             characterMove(direction);
-        }*/
+        }
     }
 }
 
@@ -82,9 +82,9 @@ void GameController::updateGameView(View view) {
     m_gameView = view;
     if(view == View::Graphical) {
     } else if(view == View::Text) {
-        m_view->createScene(model->getAllData(), QSharedPointer<TextRenderer>::create());
+        m_view->createScene(m_model->getAllData(), QSharedPointer<TextRenderer>::create());
     } else {
-        m_view->createScene(model->getAllData(), QSharedPointer<ColorRenderer>::create());
+        m_view->createScene(m_model->getAllData(), QSharedPointer<ColorRenderer>::create());
     }
 }
 
