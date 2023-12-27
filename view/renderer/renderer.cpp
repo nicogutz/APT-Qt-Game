@@ -17,20 +17,16 @@ QPixmap Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) {
     switch(objectData[DataRole::Type].value<ObjectType>()) {
     case ObjectType::Tile:
         return renderTile(objectData);
-        break;
     case ObjectType::Doorway:
         return renderDoorway(objectData);
-        break;
     case ObjectType::HealthPack:
         return renderHealthPack(objectData);
-        break;
     case ObjectType::Protagonist:
         return renderProtagonist(objectData);
-        break;
-    default:
-        // Handle default case or unknown types
+    case ObjectType::Enemy:
         return renderEnemy(objectData);
-        break;
+    case ObjectType::PoisonEnemy:
+        return renderPEnemy(objectData);
     }
 }
 

@@ -3,6 +3,9 @@
 
 #include <model/behaviors/health.h>
 
+#include <QCoreApplication>
+#include <qdatetime.h>
+
 GameController::GameController()
     : QGraphicsView()
     , m_gameLevel(1)
@@ -14,7 +17,6 @@ GameController::GameController()
 }
 
 void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
-
     // create world with 6 Enemies 5 health packs and 3 PEnemies
     m_model = factory.createModel(":/images/worldmap.png", 6, 5, 0.5f);
 
@@ -25,10 +27,9 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
     m_view->createScene(m_model->getAllData(), QSharedPointer<ColorRenderer>::create());
     connect(m_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
     this->show();
-
 }
 
-void GameController::path_finder(){
+void GameController::path_finder() {
     if(m_gameMode == Mode::Automatic) {
         auto path = factory.pathFinder();
 
@@ -48,11 +49,15 @@ void GameController::path_finder(){
                 qDebug() << "Invalid move in path: " << move;
                 continue;
             }
+            QTime dieTime = QTime::currentTime().addSecs(1);
+            while(QTime::currentTime() < dieTime)
+                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
             characterMoveAuto(direction);
         }
     }
 }
-void GameController::characterMoveAuto(Direction to){
+void GameController::characterMoveAuto(Direction to) {
     if(m_gameState != State::Paused && m_gameView != View::Text) {
         m_character->getBehavior<Movement>()->stepOn(to);
         emit tick(0);

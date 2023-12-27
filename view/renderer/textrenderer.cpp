@@ -19,7 +19,6 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     painter.drawLine(9, 0, cellSize / 2 - 3, 0);
     painter.drawLine(cellSize / 2 + 7, 0, cellSize - 6, 0);
 
-
     painter.drawLine(0, 9, 0, cellSize / 2 - 3);
     painter.drawLine(0, cellSize / 2 + 7, 0, cellSize - 6);
 
@@ -69,5 +68,13 @@ QPixmap TextRenderer::renderCharacter(QString str, int weight, int size = 100) {
 
     painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(str));
 
+    return pixmap;
+}
+
+QPixmap TextRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
+    int healthLevel = object[DataRole::Health].toInt();
+    int poisonLevel = object[DataRole::PoisonLevel].toInt();
+    int direction = object[DataRole::Direction].toInt();
+    QPixmap pixmap = rotatePixmap(renderCharacter("[OO]", poisonLevel, healthLevel), direction);
     return pixmap;
 }

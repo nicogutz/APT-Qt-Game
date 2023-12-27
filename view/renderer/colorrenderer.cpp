@@ -9,7 +9,6 @@ QPixmap ColorRenderer::renderTile(
     float energyLevel = object[DataRole::Energy].toFloat();
     int brightness = 255 - (energyLevel * 255 / 1);
 
-
     QColor color(0, 0, brightness);
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(color);
@@ -131,6 +130,38 @@ QPixmap ColorRenderer::renderProtagonist(
 
 QPixmap ColorRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
+    QPixmap pixmap(cellSize, cellSize);
+    pixmap.fill(Qt::transparent); // Transparent background
+
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    QList<QPoint> trianglePoints = {
+      QPoint(cellSize / 2, cellSize / 5), // Top
+      QPoint(cellSize - (cellSize / 5), cellSize - (cellSize / 5)), // Right bottom
+      QPoint(cellSize / 2, cellSize - (cellSize / 5)), // Bottom centre
+      QPoint(cellSize / 5, cellSize - (cellSize / 5)), // Left bott0m
+      QPoint(cellSize / 2, cellSize / 5) // Back to Top point
+    };
+
+    // Draw and fill left half with health - green
+    int healthLevel = object[DataRole::Health].toInt();
+    int minIntensity = 50;
+    int maxIntensity = 255;
+    int final_color = minIntensity + (maxIntensity - minIntensity) * healthLevel / 100;
+    QColor color(0, final_color, 0);
+    painter.setBrush(QBrush(color));
+    painter.drawPolygon(trianglePoints);
+
+    painter.end();
+
+    int direction = object[DataRole::Direction].toInt();
+    pixmap = rotatePixmap(pixmap, direction);
+
+    return pixmap;
+}
+
+QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(Qt::transparent); // Transparent background
 
