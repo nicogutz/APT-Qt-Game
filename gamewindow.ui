@@ -113,7 +113,7 @@ color: rgb(0,0,0)</string>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="health_">
+      <widget class="QLabel" name="health_packs">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 14, 90);
 font: 700 16pt &quot;Segoe UI&quot;;
