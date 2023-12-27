@@ -1,11 +1,14 @@
 #include "gamecontroller.h"
+#include "model/behaviors/attack.h"
+
+#include <model/behaviors/health.h>
 
 GameController::GameController()
     : QGraphicsView()
+    , m_gameLevel(1)
     , m_gameMode(Mode::Manual)
     , m_gameState(State::Running)
     , m_gameView(View::Color)
-    , m_gameLevel(1)
 
 {
 }
@@ -56,8 +59,7 @@ void GameController::characterMove(Direction to) {
 
 void GameController::characterAtttack() {
     if(m_gameState != State::Paused) {
-        auto attack = m_character->getBehavior<Attack>();
-        if(attack) {
+        if(auto attack = m_character->getBehavior<Attack>()) {
             attack->attack();
         }
     }

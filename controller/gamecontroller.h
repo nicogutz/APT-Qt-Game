@@ -10,7 +10,6 @@
 #include "view/gameview.h"
 #include "model/behaviors/concrete/movement/poisononstepbehavior.h"
 #include "model/behaviors/concrete/movement/genericmovebehavior.h"
-#include "model/behaviors/behaviors.h"
 #include "view/renderer/textrenderer.h"
 #include "view/renderer/colorrenderer.h"
 #include "view/renderer/spriterenderer.h"
@@ -38,7 +37,6 @@ public:
         GameOver,
     };
 
-
     enum class Mode {
         Automatic,
         Manual,
@@ -55,15 +53,10 @@ public:
     GameController();
     void startGame(unsigned int enemies, unsigned int health_packs);
 
-
     QSharedPointer<GameView> getView();
     void setView(QSharedPointer<GameView> view);
 
-
-
     void findAndMoveTo(int x, int y);
-
-
 
 public slots:
 
@@ -83,10 +76,6 @@ public slots:
     void updateGameState(State new_state);
     void updateGameView(View view);
     void updateGameMode(Mode mode);
-
-
-    // void updateHealthPacks();
-    // void updateEnemies();
 
 signals:
     /**
@@ -129,7 +118,7 @@ private:
     /**
      * @brief m_model
      */
-    GameObjectModel* m_model;
+    GameObjectModel *m_model;
     /**
      * @brief m_view
      */
@@ -139,8 +128,6 @@ private:
      * @brief m_character
      */
     QPointer<GameObject> m_character;
-
-
     unsigned int m_gameLevel;
     Mode m_gameMode;
     State m_gameState;

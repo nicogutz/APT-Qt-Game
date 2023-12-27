@@ -7,24 +7,22 @@
 #include <iostream>
 #include "model/behaviors/concrete/movement/poisononstepbehavior.h"
 #include "model/behaviors/concrete/movement/genericmovebehavior.h"
-#include "model/behaviors/behaviors.h"
 #include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
 #include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
 #include <pathfinder_class.h>
 #include "node.h"
 
-class ObjectModelFactory
-{
+class ObjectModelFactory {
 public:
     ObjectModelFactory();
-    GameObjectModel* createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio);
+    GameObjectModel *createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio);
     std::vector<int> pathFinder();
-
-    QPointer<GameObject> getPro(){return pro;} //temporary
+    
+    QPointer<GameObject> getPro() { return m_protagonist; } // temporary
 private:
     World m_world;
-    std::vector<Node> nodes;
-    QPointer<GameObject> pro;
+    std::vector<Node> m_nodes;
+    QPointer<GameObject> m_protagonist;
 };
 
 #endif // MODELFACTORY_H
