@@ -15,6 +15,7 @@ class GameObject : public QObject {
 public:
     GameObject(QMap<DataRole, QVariant> objectData)
         : m_objectData(objectData) {};
+    GameObject() { m_objectData = QMap<DataRole, QVariant>(); };
 
     ~GameObject() {};
     // Extra child getter
@@ -26,6 +27,7 @@ public:
     QList<QMap<DataRole, QVariant>> getAllData() const;
 
     void setData(DataRole role, QVariant value);
+    void setData(QList<QPair<DataRole, QVariant>> data);
 
     // Neighbors getters and setters.
     const QPointer<GameObject> getNeighbor(Direction direction, int offset = 0) const;
@@ -60,9 +62,6 @@ public:
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;
     QMap<DataRole, QVariant> m_objectData;
-
-
-
 
 signals:
     void dataChanged(QMap<DataRole, QVariant> objectData);

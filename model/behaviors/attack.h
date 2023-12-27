@@ -11,7 +11,9 @@ public:
         : Behavior(owner) {};
     virtual ~Attack() = 0;
     static const struct SETTINGS {
-        static const int PLAYER_STRENGTH = 10;
+        static constexpr int PLAYER_STRENGTH = 10;
+        static constexpr int ENEMY_STRENGTH = 10;
+
     } Settings;
 
     Attack &operator=(const Attack &) { return *this; };

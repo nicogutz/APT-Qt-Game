@@ -17,7 +17,7 @@ public:
         return *this;
     };
     static const struct SETTINGS {
-        static const int MAX_ENERGY = 100;
+        static constexpr int MAX_ENERGY = 100;
     } Settings;
 
     /**

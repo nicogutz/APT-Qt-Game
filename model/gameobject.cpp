@@ -50,6 +50,12 @@ void GameObject::setData(DataRole role, QVariant value) {
     emit dataChanged(data);
 }
 
+void GameObject::setData(QList<QPair<DataRole, QVariant>> data) {
+    for(const auto &pair : data) {
+        m_objectData[pair.first] = pair.second;
+    }
+}
+
 const QPointer<GameObject> GameObject::findChild(ObjectType type) {
     return QObject::findChild<GameObject *>(QChar((char)type));
 }
