@@ -55,7 +55,7 @@ public slots:
     void processCommand();
     void zoomBySlider(int value);
 
-    void setGraphicalView();
+    void setSpriteView();
     void setTextualView();
     void setColorView();
 

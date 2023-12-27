@@ -15,10 +15,11 @@ GameWindow::GameWindow(QWidget *parent)
 
     // DEFAULT OPTIONS
     //    setStyleSheet("background-color: white;");
+    this->setFixedSize(1000, 800);
     ui->level_label->setText("Level: 1");
     ui->colour_mode->setChecked(true);
     ui->text_mode->setChecked(false);
-    ui->graphical_mode->setChecked(false);
+    ui->sprite_mode->setChecked(false);
 
     // CHOOSE MODE: MANUAL OR AUTOMATIC
     QMessageBox modeBox;
@@ -32,11 +33,13 @@ GameWindow::GameWindow(QWidget *parent)
         ui->mode_label->setText("Mode: Manual");
         ui->manual->setChecked(true);
         ui->automatic->setChecked(false);
+        ui->path_find_trigger->hide();
     } else if(modeBox.clickedButton() == autoButton) {
         controller->updateGameMode(GameController::Mode::Automatic);
         ui->mode_label->setText("Mode: Automatic");
         ui->automatic->setChecked(true);
         ui->manual->setChecked(false);
+        ui->path_find_trigger->show();
     }
 
     // START GAME
@@ -68,9 +71,11 @@ GameWindow::GameWindow(QWidget *parent)
     QObject::connect(ui->manual, &QAction::changed, ui->automatic, &QAction::toggle);
     QObject::connect(ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
 
-    connect(ui->graphical_mode, &QAction::triggered, this, &GameWindow::setGraphicalView);
+    connect(ui->sprite_mode, &QAction::triggered, this, &GameWindow::setSpriteView);
     connect(ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
     connect(ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
+
+    QObject::connect(ui->path_find_trigger, &QPushButton::clicked, controller.data(), &GameController::path_finder);
 }
 
 void GameWindow::updateTime(bool active) {
@@ -157,7 +162,7 @@ void GameWindow::processCommand() {
     } else if(command == "attack") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         controller->characterAtttack();
-    } else if(command == "pause/resume") {
+    } else if(command == "pause") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         updateTime(false);
     } else if(command == "quit") {
@@ -167,9 +172,29 @@ void GameWindow::processCommand() {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
         QApplication::quit();
-    } else if(command == "view") {
+    } else if(command == "view text") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
-    } else if(command == "help") {
+        setTextualView();
+    }
+    else if(command == "view color") {
+        ui->plainTextEdit->setPlainText("command executed: " + command);
+        setColorView();
+    }
+    else if(command == "view sprite") {
+        ui->plainTextEdit->setPlainText("command executed: " + command);
+        setSpriteView();
+    }
+    else if(command == "zoom in") {
+        ui->plainTextEdit->setPlainText("command executed: " + command);
+        ui->horizontalSlider->setValue(ui->horizontalSlider->maximum());
+        zoomBySlider(ui->horizontalSlider->maximum());
+    }
+    else if(command == "zoom out") {
+        ui->plainTextEdit->setPlainText("command executed: " + command);
+        ui->horizontalSlider->setValue(ui->horizontalSlider->minimum());
+        zoomBySlider(ui->horizontalSlider->minimum());
+    }
+    else if(command == "help") {
         showHelp();
     } else {
         showInvalidCommandMessage();
@@ -179,14 +204,14 @@ void GameWindow::processCommand() {
 
 void GameWindow::showHelp() {
     QString helpMessage = "Available commands:\n"
-                          "- move [direction]: Move the protagonist to the left/right/up/down\n"
-                          "- pause/resume: Pause or resume the game\n"
-
-                          "- view: Toggle between graphical and text view\n"
+                          "- move [left/right/up/down]: Move the protagonist\n"
                           "- attack: Attack the nearest enemy\n"
                           "- health pack: Take a health pack\n"
+                          "- pause: Toggle between Pause and Resume the game\n"
+                          "- view [text/color/sprite]: Switch views\n"
+                          "- zoom [in/out]: Zoom in and out\n"
                           "- quit: Quit the game\n"
-                          "- restart= Restart game from scratch\n"
+                          "- restart: Restart game from scratch\n"
                           "Type 'help' to show this message again.";
     ui->plainTextEdit->setPlainText(helpMessage);
 }
@@ -210,23 +235,38 @@ void GameWindow::updateLevel(unsigned int level, unsigned int enemies, unsigned 
     ui->health_packs->setText("Health packs: "+ QString::number(health_packs));
 }
 
-void GameWindow::setGraphicalView() {
-    controller->updateGameView(GameController::View::Graphical);
+void GameWindow::setSpriteView() {
+    controller->updateGameView(GameController::View::Sprite);
     ui->colour_mode->setChecked(false);
     ui->text_mode->setChecked(false);
-    ui->graphical_mode->setChecked(true);
+    ui->sprite_mode->setChecked(true);
+    ui->quit_game->show();
+    ui->rerun_game_2->show();
+    ui->pause->show();
+    ui->horizontalSlider->show();
+    ui->zoom_label->show();
 }
 void GameWindow::setTextualView() {
     controller->updateGameView(GameController::View::Text);
     ui->colour_mode->setChecked(false);
     ui->text_mode->setChecked(true);
-    ui->graphical_mode->setChecked(false);
+    ui->sprite_mode->setChecked(false);
+    ui->quit_game->hide();
+    ui->rerun_game_2->hide();
+    ui->pause->hide();
+    ui->horizontalSlider->hide();
+    ui->zoom_label->hide();
 }
 void GameWindow::setColorView() {
     controller->updateGameView(GameController::View::Color);
     ui->colour_mode->setChecked(true);
     ui->text_mode->setChecked(false);
-    ui->graphical_mode->setChecked(false);
+    ui->sprite_mode->setChecked(false);
+    ui->quit_game->show();
+    ui->rerun_game_2->show();
+    ui->pause->show();
+    ui->horizontalSlider->show();
+    ui->zoom_label->show();
 }
 
 // DESTRUCTOR
@@ -237,9 +277,7 @@ GameWindow::~GameWindow() {
 }
 
 /**TODO
- * view & mode menus
- * energy health show in gamewindow
- * add mode and view attributes to controller and connect menus to correct renderer
+ * energy health show in gamewindow!!!!
  * pathfinder
- * fix model create in factory and poison level
+ * fix factory with setting struct
  */
