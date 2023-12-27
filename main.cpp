@@ -4,6 +4,8 @@
 #include <QGraphicsView>
 #include <QApplication>
 #include <QSharedPointer>
+#include <QStyleFactory>
+#include <QFile>
 
 #include <model/gameobject.h>
 
@@ -23,14 +25,16 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+    QFile f(":qdarkstyle/light/lightstyle.qss");
+    f.open(QFile::ReadOnly | QFile::Text);
+    QTextStream ts(&f);
+    qApp->setStyleSheet(ts.readAll());
+
     qSetMessagePattern("%{function}(%{line}): %{message}");
     // Create the main classes of the gzme: GameWindow, GameView, GameController
     GameWindow w;
-    w.setStyleSheet("background-color: white");
-
     auto gameController = w.getController();
     Ui::GameWindow *ui = w.getUI();
-
 
     // Connect Signals and slots
     QObject::connect(gameController.data(), &GameController::levelChanged, &w, &GameWindow::updateLevel);

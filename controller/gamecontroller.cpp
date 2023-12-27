@@ -8,10 +8,9 @@ GameController::GameController()
     , m_gameLevel(1)
 
 {
-
 }
 
-void GameController::startGame(){
+void GameController::startGame() {
     ObjectModelFactory factory;
     // create world with 6 Enemies 5 health packs and 3 PEnemies
     model = factory.createModel(":/images/worldmap.png", 6, 5, 0.5f);
@@ -24,8 +23,7 @@ void GameController::startGame(){
     connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
     this->show();
 
-    if (m_gameMode==Mode::Automatic){
-
+    if(m_gameMode == Mode::Automatic) {
         auto path = factory.pathFinder();
         /*
         for (int move : path) {
@@ -65,16 +63,11 @@ void GameController::characterAtttack() {
     }
 }
 
-
 void GameController::characterHealth() {
     if(m_gameState != State::Paused) {
         auto health = m_character->getBehavior<Health>();
-
     }
 }
-
-
-
 
 void GameController::updateGameState(State new_state) {
     if(m_gameState != new_state) {
@@ -84,25 +77,20 @@ void GameController::updateGameState(State new_state) {
 
 void GameController::updateLevel(unsigned int level) {
     m_gameLevel = level;
-
 }
-void GameController::updateGameView(View view){
+void GameController::updateGameView(View view) {
     m_gameView = view;
-    if (view==View::Graphical){
-
-    } else if(view==View::Text){
-        //m_view->createScene(model->getAllData(), QSharedPointer<TextRenderer>::create());
-    }else{
-        //m_view->createScene(model->getAllData(), QSharedPointer<ColorRenderer>::create());
+    if(view == View::Graphical) {
+    } else if(view == View::Text) {
+        m_view->createScene(model->getAllData(), QSharedPointer<TextRenderer>::create());
+    } else {
+        m_view->createScene(model->getAllData(), QSharedPointer<ColorRenderer>::create());
     }
-
-
 }
 
-void GameController::updateGameMode(Mode mode){
+void GameController::updateGameMode(Mode mode) {
     m_gameMode = mode;
 }
-
 
 QSharedPointer<GameView> GameController::getView() {
     return m_view;

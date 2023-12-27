@@ -80,6 +80,7 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+RESOURCES += qdarkstyle/light/lightstyle.qrc
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../lib/ -lworl
