@@ -17,6 +17,7 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         worldGrid[i] = QList<QPointer<GameObject>>(cols);
     }
 
+
     // insert tiles into model
     auto tiles = m_world.getTiles();
     int i = 0;
@@ -37,6 +38,7 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         }
     }
 
+
     // Process protagonist
     auto protagonist = m_world.getProtagonist();
     auto *proObj = new GameObject();
@@ -53,15 +55,22 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
     }
 
+
+
     // Process Enemies and Poison Enemies
     auto enemies = m_world.getEnemies();
-    for(const auto &enemy : enemies) {
-        ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
+    for (const auto& enemy : enemies) {
+        int enemyX = enemy->getXPos();
+        int enemyY = enemy->getYPos();
+        Node& enemyNode = m_nodes[enemyY * cols + enemyX];
+        enemyNode.setValue(1.0);
 
-        auto *enemyObj = new GameObject();
+        ObjectType type = dynamic_cast<PEnemy*>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
+        auto* enemyObj = new GameObject();
         GameObjectSettings::getFunction(type)(enemyObj);
-        enemyObj->setParent(worldGrid[enemy->getXPos()][enemy->getYPos()]);
+        enemyObj->setParent(worldGrid[enemyX][enemyY]);
     }
+
 
     auto *model = new GameObjectModel(worldGrid);
     return model;
@@ -72,7 +81,7 @@ std::vector<int> ObjectModelFactory::pathFinder() {
         return a.h > b.h;
     };
 
-    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, 30, 1.0f);
+    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, 30, 0.001f);
     auto path = pathFinder.A_star();
 
     for(auto p : path) {

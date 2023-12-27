@@ -1,7 +1,6 @@
 #include "gamecontroller.h"
-#include "model/behaviors/attack.h"
 
-#include <model/behaviors/health.h>
+
 
 GameController::GameController()
     : QGraphicsView()
@@ -11,12 +10,15 @@ GameController::GameController()
     , m_gameView(View::Color)
 
 {
+
+
+
 }
 
 void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
 
     // create world with 6 Enemies 5 health packs and 3 PEnemies
-    m_model = factory.createModel(":/images/worldmap.png", 6, 5, 0.5f);
+    m_model = factory.createModel(":/images/worldmap.png", 20, 6, 0.5f);
 
     m_model->setParent(this);
     m_character = factory.getPro(); // this is temporary, could probably be done in a better ways
@@ -24,11 +26,14 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
     m_view = QSharedPointer<GameView>::create(this);
     m_view->createScene(m_model->getAllData(), QSharedPointer<ColorRenderer>::create());
     connect(m_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+
+    connect(m_character, &GameObject::dataChanged, this, &GameController::updateEnergy);
+    connect(m_character, &GameObject::dataChanged, this, &GameController::updateHealth);
     this->show();
 
 }
 
-void GameController::path_finder(){
+void GameController::path_finder() {
     if(m_gameMode == Mode::Automatic) {
         auto path = factory.pathFinder();
 
@@ -48,10 +53,33 @@ void GameController::path_finder(){
                 qDebug() << "Invalid move in path: " << move;
                 continue;
             }
-            characterMoveAuto(direction);
+            QTime dieTime = QTime::currentTime().addMSecs(500);
+            while(QTime::currentTime() < dieTime)
+                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+            QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
+            Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
+            if (direction != protagonist_direction){characterMoveAuto(direction); characterMoveAuto(direction);}
+            else {characterMoveAuto(direction);}
+
         }
     }
 }
+
+void GameController::updateEnergy(){
+    QVariant protagonist_energy = m_character->getData(DataRole::Energy);
+    int protagonist_energy_int = protagonist_energy.value<int>();
+    emit energyUpdated(protagonist_energy_int);
+}
+
+void GameController::updateHealth(){
+    QVariant protagonist_health = m_character->getData(DataRole::Health);
+    int protagonist_health_int = protagonist_health.value<int>();
+    emit healthUpdated(protagonist_health_int);
+}
+
+
+
 void GameController::characterMoveAuto(Direction to){
     if(m_gameState != State::Paused && m_gameView != View::Text) {
         m_character->getBehavior<Movement>()->stepOn(to);

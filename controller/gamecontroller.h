@@ -4,6 +4,15 @@
 #include <QGraphicsView>
 #include <QGraphicsTextItem>
 #include <iostream>
+#include <QTimer>
+#include <QThread>
+#include <QCoreApplication>
+
+#include "model/behaviors/attack.h"
+
+#include <model/behaviors/health.h>
+
+#include <QDateTime>
 
 #include "model/modelfactory.h"
 #include "model/gameobjectmodel.h"
@@ -58,6 +67,10 @@ public:
 
     void findAndMoveTo(int x, int y);
 
+
+
+
+
 public slots:
 
     /**
@@ -77,8 +90,11 @@ public slots:
     void updateGameView(View view);
     void updateGameMode(Mode mode);
 
-    void path_finder();
+
     void characterMoveAuto(Direction to);
+    void path_finder();
+    void updateEnergy();
+    void updateHealth();
 
 signals:
     /**
@@ -117,6 +133,9 @@ signals:
      */
     void stateChanged(State state);
 
+    void energyUpdated(int energy);
+    void healthUpdated(int health);
+
 private:
     ObjectModelFactory factory;
     /**
@@ -139,6 +158,8 @@ private:
 
     int health_packs;
     int enemies;
+
+
 };
 
 #endif // GAMECONTROLLER_H

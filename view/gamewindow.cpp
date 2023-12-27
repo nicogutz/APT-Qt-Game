@@ -20,6 +20,8 @@ GameWindow::GameWindow(QWidget *parent)
     ui->colour_mode->setChecked(true);
     ui->text_mode->setChecked(false);
     ui->sprite_mode->setChecked(false);
+    ui->health->setValue(100);
+    ui->energy->setValue(100);
 
     // CHOOSE MODE: MANUAL OR AUTOMATIC
     QMessageBox modeBox;
@@ -76,6 +78,9 @@ GameWindow::GameWindow(QWidget *parent)
     connect(ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
 
     QObject::connect(ui->path_find_trigger, &QPushButton::clicked, controller.data(), &GameController::path_finder);
+
+    QObject::connect(controller.data(), &GameController::energyUpdated, ui->energy, &QProgressBar::setValue);
+    QObject::connect(controller.data(), &GameController::healthUpdated, ui->health, &QProgressBar::setValue);
 }
 
 void GameWindow::updateTime(bool active) {
@@ -278,6 +283,7 @@ GameWindow::~GameWindow() {
 
 /**TODO
  * energy health show in gamewindow!!!!
- * pathfinder
- * fix factory with setting struct
+ * pathfinder, fix it, add delay, add visualizzation, make enemies too strong
+ * world inversed --> fix it
+ * window size
  */
