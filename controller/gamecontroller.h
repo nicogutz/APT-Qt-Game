@@ -51,7 +51,7 @@ public:
      * @brief GameController
      */
     GameController();
-    void startGame();
+    void startGame(unsigned int enemies, unsigned int health_packs);
 
     QSharedPointer<GameView> getView();
     void setView(QSharedPointer<GameView> view);
@@ -76,9 +76,6 @@ public slots:
     void updateGameState(State new_state);
     void updateGameView(View view);
     void updateGameMode(Mode mode);
-
-    // void updateHealthPacks();
-    // void updateEnemies();
 
 signals:
     /**
@@ -121,7 +118,7 @@ private:
     /**
      * @brief m_model
      */
-    QList<QPointer<GameObjectModel>> m_model;
+    GameObjectModel *m_model;
     /**
      * @brief m_view
      */
@@ -131,12 +128,13 @@ private:
      * @brief m_character
      */
     QPointer<GameObject> m_character;
-    GameObjectModel *model;
-
     unsigned int m_gameLevel;
     Mode m_gameMode;
     State m_gameState;
     View m_gameView;
+
+    int health_packs;
+    int enemies;
 };
 
 #endif // GAMECONTROLLER_H

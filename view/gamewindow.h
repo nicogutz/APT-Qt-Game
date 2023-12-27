@@ -51,7 +51,7 @@ private:
 
 public slots:
     void updateTime(bool active);
-    void updateLevel(unsigned int level);
+    void updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs);
     void processCommand();
     void zoomBySlider(int value);
 
