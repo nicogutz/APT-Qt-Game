@@ -10,6 +10,9 @@ public:
     Attack(QPointer<GameObject> owner)
         : Behavior(owner) {};
     virtual ~Attack() = 0;
+    static const struct SETTINGS {
+        static const int PLAYER_STRENGTH = 10;
+    } Settings;
 
     Attack &operator=(const Attack &) { return *this; };
 

@@ -15,10 +15,10 @@ public:
     Health &operator=(const Health &) {
         return *this;
     };
-    const struct SETTINGS {
-        const int MAX_HEALTH = 100;
-        const int MIN_HEALTH = 0;
-        const int HEALTH_PACK_HEALING = 10;
+    static const struct SETTINGS {
+        static const int MAX_HEALTH = 100;
+        static const int MIN_HEALTH = 0;
+        static const int HEALTH_PACK_HEALING = 10;
     } Settings;
 
     /**

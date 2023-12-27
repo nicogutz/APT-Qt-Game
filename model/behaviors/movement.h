@@ -16,6 +16,10 @@ public:
     Movement &operator=(const Movement &) {
         return *this;
     };
+    static const struct SETTINGS {
+        static const int MAX_ENERGY = 100;
+    } Settings;
+
     /**
      * @brief stepOn
      * @param target

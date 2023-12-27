@@ -21,7 +21,7 @@ private:
     QSharedPointer<Renderer> m_renderer;
 
     // Store the graphical representation of each GameObject
-    QList<QList<QSharedPointer<QGraphicsPixmapItem>>> m_tiles;
+    QList<QList<QGraphicsPixmapItem *>> m_tiles;
 
 public slots:
     void dataChanged(QMap<DataRole, QVariant> objectData);

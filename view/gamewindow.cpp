@@ -1,8 +1,6 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 
-
-
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
@@ -11,14 +9,12 @@ GameWindow::GameWindow(QWidget *parent)
     , elapsed_seconds(0)
     , timer(new QTimer(this))
     , paused(0) {
-
     // SETUP UI CONTROLLER AND VIEW
     controller->setParent(this);
     ui->setupUi(this);
 
-
     // DEFAULT OPTIONS
-    setStyleSheet("background-color: #F4C2C2;");
+    //    setStyleSheet("background-color: white;");
     ui->level_label->setText("Level: 1");
     ui->colour_mode->setChecked(true);
     ui->text_mode->setChecked(false);
@@ -31,12 +27,12 @@ GameWindow::GameWindow(QWidget *parent)
     QPushButton *manualButton = modeBox.addButton("Manual", QMessageBox::AcceptRole);
     QPushButton *autoButton = modeBox.addButton("Automatic", QMessageBox::AcceptRole);
     modeBox.exec();
-    if (modeBox.clickedButton() == manualButton) {
+    if(modeBox.clickedButton() == manualButton) {
         controller->updateGameMode(GameController::Mode::Manual);
         ui->mode_label->setText("Mode: Manual");
         ui->manual->setChecked(true);
         ui->automatic->setChecked(false);
-    } else if (modeBox.clickedButton() == autoButton) {
+    } else if(modeBox.clickedButton() == autoButton) {
         controller->updateGameMode(GameController::Mode::Automatic);
         ui->mode_label->setText("Mode: Automatic");
         ui->automatic->setChecked(true);
@@ -54,7 +50,6 @@ GameWindow::GameWindow(QWidget *parent)
 
     setFocusPolicy(Qt::StrongFocus);
 
-
     // ZOOM
     ui->horizontalSlider->setMinimum(-30);
     ui->horizontalSlider->setMaximum(30);
@@ -71,11 +66,9 @@ GameWindow::GameWindow(QWidget *parent)
     QObject::connect(ui->manual, &QAction::changed, ui->automatic, &QAction::toggle);
     QObject::connect(ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
 
-
     connect(ui->graphical_mode, &QAction::triggered, this, &GameWindow::setGraphicalView);
     connect(ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
     connect(ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
-
 }
 
 void GameWindow::updateTime(bool active) {
@@ -116,8 +109,6 @@ void GameWindow::updateTime(bool active) {
         }
     }
 }
-
-
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
     if(paused % 2 == 0) {
@@ -210,11 +201,9 @@ void GameWindow::zoomBySlider(int value) {
     ui->graphicsView->scale(scaleFactor, scaleFactor);
 }
 
-
 void GameWindow::updateLevel(unsigned int level) {
     ui->level_label->setText("Level: " + QString::number(level));
 }
-
 
 void GameWindow::setGraphicalView() {
     controller->updateGameView(GameController::View::Graphical);
@@ -234,7 +223,6 @@ void GameWindow::setColorView() {
     ui->text_mode->setChecked(false);
     ui->graphical_mode->setChecked(false);
 }
-
 
 // DESTRUCTOR
 
