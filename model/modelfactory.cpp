@@ -26,10 +26,10 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         m_nodes.emplace_back(tile->getXPos(), tile->getYPos(), tile->getValue());
         auto *obj = new GameObject({
           {DataRole::Energy, tile->getValue()},
-          {DataRole::Position, QPoint(i, j)},
+          {DataRole::Position, QPoint(j, i)},
         });
         GameObjectSettings::getFunction(ObjectType::Tile)(obj);
-        worldGrid[i][j] = obj;
+        worldGrid[j][i] = obj;
         if(j == cols - 1) {
             j = 0;
             i++;
