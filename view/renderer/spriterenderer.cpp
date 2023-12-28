@@ -1,6 +1,8 @@
 #include "spriterenderer.h"
 #include "qbitmap.h"
 #include <QPainter>
+#include <QPropertyAnimation>
+#include <QSequentialAnimationGroup>
 #include <iostream>
 
 SpriteRenderer::SpriteRenderer() {
@@ -58,12 +60,12 @@ QPixmap SpriteRenderer::renderProtagonist(
 
 QPixmap SpriteRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/enemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
+    return renderActor(":/images/xenemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
 }
 
 QPixmap SpriteRenderer::renderPEnemy(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/penemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 6), 6);
+    return renderActor(":/images/penemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
 }
 
 QPixmap SpriteRenderer::renderActor(const QString &imagePath, int cellSize) {
@@ -88,7 +90,7 @@ QPixmap SpriteRenderer::renderActor(const QString &imagePath, int cellSize, int 
     resultPixmap.fill(Qt::transparent);
 
     QPainter painter(&resultPixmap);
-    QRect targetRect(5, 5, cellSize - 10, cellSize - 10);
+    QRect targetRect(cellSize / 10, cellSize / 10, cellSize - (cellSize * 2 / 10), cellSize - (cellSize * 2 / 10));
 
     painter.drawImage(targetRect, POVImage);
     painter.end();

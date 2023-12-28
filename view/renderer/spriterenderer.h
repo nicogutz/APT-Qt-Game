@@ -3,6 +3,8 @@
 
 #include "renderer.h"
 
+#include <QTimer>
+
 class SpriteRenderer : public Renderer {
 public:
     SpriteRenderer();
