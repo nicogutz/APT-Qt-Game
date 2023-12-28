@@ -34,7 +34,22 @@ QPixmap SpriteRenderer::renderDoorway(
 
 QPixmap SpriteRenderer::renderHealthPack(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/health_pack.png", m_cellSize);
+    auto pixmap = renderActor(":/images/health_pack.png", m_cellSize);
+    int health = object[DataRole::Health].toInt();
+
+    QPainterPath piePath;
+    piePath.moveTo(pixmap.rect().center());
+    piePath.arcTo(pixmap.rect(), 0, health * 10);
+
+    QPixmap croppedPixmap(pixmap.size());
+    croppedPixmap.fill(Qt::transparent);
+
+    QPainter painter(&croppedPixmap);
+    painter.setClipPath(piePath);
+    painter.drawPixmap(0, 0, pixmap);
+    painter.end();
+
+    return croppedPixmap;
 }
 
 QPixmap SpriteRenderer::renderProtagonist(
