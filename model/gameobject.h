@@ -44,7 +44,10 @@ public:
         auto behavior = m_behaviors[typeid(T)];
         return qSharedPointerDynamicCast<T>(behavior);
     }
-
+    template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
+    void removeBehavior() {
+        m_behaviors.remove(typeid(T));
+    }
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>
     const QList<QSharedPointer<T>> getAllBehaviors() const {
         auto list = QList<QSharedPointer<T>>();

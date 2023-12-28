@@ -1,4 +1,5 @@
 #include "poisononkilledbehavior.h"
+#include "model/behaviors/attack.h"
 #include "model/behaviors/poison.h"
 
 #include <QRandomGenerator>
@@ -6,6 +7,7 @@
 void PoisonOnKilledBehavior::die() {
     //    m_owner->getBehavior()
     m_poisonCount = Poison::SETTINGS::POISON_SPREAD_TIMES;
+    m_owner->removeBehavior<Attack>();
     m_ticksToPoison = QRandomGenerator::global()->bounded(0, Poison::SETTINGS::POISON_SPREAD_MAX_TICKS);
     connect(m_owner, &GameObject::tick, this, &PoisonOnKilledBehavior::spreadPoison);
 }
