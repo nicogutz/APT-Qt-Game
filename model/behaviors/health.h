@@ -18,7 +18,7 @@ public:
     static const struct SETTINGS {
         static constexpr int MAX_HEALTH = 100;
         static constexpr int MIN_HEALTH = 0;
-        static constexpr int HEALTH_PACK_HEALING = 10;
+        static constexpr int HEALTH_PACK_AMOUNT = 36;
     } Settings;
 
     /**

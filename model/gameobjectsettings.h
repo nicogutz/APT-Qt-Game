@@ -64,7 +64,7 @@ class GameObjectSettings {
     struct HealthPackSettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
           {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::HealthPack)},
-          {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
+          {DataRole::Health, Health::SETTINGS::HEALTH_PACK_AMOUNT},
         };
 
         static void setObject(GameObject *obj) {
