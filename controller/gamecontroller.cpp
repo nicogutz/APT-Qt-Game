@@ -1,4 +1,7 @@
 #include "gamecontroller.h"
+#include "view/renderer/spriterenderer.h"
+#include "view/renderer/textrenderer.h"
+#include "view/renderer/colorrenderer.h"
 
 #include <QCoreApplication>
 #include <qdatetime.h>
@@ -28,7 +31,7 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
 }
 
 void GameController::path_finder() {
-    if(m_gameState == State::Automatic) {
+    if(m_gameState == State::Running) {
         auto path = factory.pathFinder();
 
         for(int move : path) {
@@ -55,10 +58,10 @@ void GameController::path_finder() {
             QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
             Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
             if(direction != protagonist_direction) {
-                characterMoveAuto(direction);
-                characterMoveAuto(direction);
+                characterMove(direction);
+                characterMove(direction);
             } else {
-                characterMoveAuto(direction);
+                characterMove(direction);
             }
         }
     }
@@ -76,18 +79,9 @@ void GameController::updateHealth() {
     emit healthUpdated(protagonist_health_int);
 }
 
-void GameController::characterMoveAuto(Direction to) {
-    if(m_gameState == State::Automatic) {
-        m_character->getBehavior<Movement>()->stepOn(to);
-        emit tick(0);
-    }
-}
-
 void GameController::characterMove(Direction to) {
-    if(m_gameState == State::Running) {
-        m_character->getBehavior<Movement>()->stepOn(to);
-        emit tick(0);
-    }
+    m_character->getBehavior<Movement>()->stepOn(to);
+    emit tick();
 }
 
 void GameController::characterAtttack() {
@@ -98,13 +92,11 @@ void GameController::characterAtttack() {
     }
 }
 
-void GameController::updateGameState(State new_state) {
-    if(m_gameState != new_state) {
-        m_gameState = new_state;
-    }
+void GameController::setState(State new_state) {
+    m_gameState = new_state;
 }
 
-void GameController::updateLevel(unsigned int level) {
+void GameController::setLevel(unsigned int level) {
     m_gameLevel = level;
 }
 void GameController::updateGameView(View view) {
@@ -116,6 +108,10 @@ void GameController::updateGameView(View view) {
     } else {
         m_view->createScene(m_model->getAllData(), QSharedPointer<ColorRenderer>::create());
     }
+}
+
+GameController::State GameController::getState() {
+    return m_gameState;
 }
 
 QSharedPointer<GameView> GameController::getView() {

@@ -7,8 +7,7 @@ GameWindow::GameWindow(QWidget *parent)
     , m_controller(QSharedPointer<GameController>::create())
     , m_startTime(QDateTime::currentDateTime().toSecsSinceEpoch())
     , m_elapsedSeconds(0)
-    , m_timer(new QTimer(this))
-    , m_paused(0) {
+    , m_timer(new QTimer(this)) {
     // SETUP UI CONTROLLER AND VIEW
     m_controller->setParent(this);
     m_ui->setupUi(this);
@@ -31,13 +30,14 @@ GameWindow::GameWindow(QWidget *parent)
     QPushButton *autoButton = modeBox.addButton("Automatic", QMessageBox::AcceptRole);
     modeBox.exec();
     if(modeBox.clickedButton() == manualButton) {
-        m_controller->updateGameState(GameController::State::Running);
+        m_controller->setState(GameController::State::Running);
         m_ui->mode_label->setText("Mode: Manual");
         m_ui->manual->setChecked(true);
         m_ui->automatic->setChecked(false);
         m_ui->path_find_trigger->hide();
     } else if(modeBox.clickedButton() == autoButton) {
-        m_controller->updateGameState(GameController::State::Automatic);
+        m_controller->setState(GameController::State::Running);
+        installEventFilter(this);
         m_ui->mode_label->setText("Mode: Automatic");
         m_ui->automatic->setChecked(true);
         m_ui->manual->setChecked(false);
@@ -63,66 +63,41 @@ GameWindow::GameWindow(QWidget *parent)
     m_ui->horizontalSlider->setValue(-30);
 
     // SIGNALS AND SLOTS
-    QObject::connect(m_timer, &QTimer::timeout, this, [this] {
-        GameWindow::updateTime(true);
-    });
-    QObject::connect(m_ui->pause, &QPushButton::clicked, this, [this] { GameWindow::updateTime(false); });
-    QObject::connect(m_ui->automatic, &QAction::changed, m_ui->manual, &QAction::toggle);
-    QObject::connect(m_ui->manual, &QAction::changed, m_ui->automatic, &QAction::toggle);
-    QObject::connect(m_ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
+    connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
+    connect(m_ui->pause, &QPushButton::clicked, this, &GameWindow::togglePause);
+    connect(m_ui->automatic, &QAction::changed, m_ui->manual, &QAction::toggle);
+    connect(m_ui->manual, &QAction::changed, m_ui->automatic, &QAction::toggle);
+    connect(m_ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
 
     connect(m_ui->sprite_mode, &QAction::triggered, this, &GameWindow::setSpriteView);
     connect(m_ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
     connect(m_ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
 
-    QObject::connect(m_ui->path_find_trigger, &QPushButton::clicked, m_controller.data(), &GameController::path_finder);
+    connect(m_ui->path_find_trigger, &QPushButton::clicked, m_controller.data(), &GameController::path_finder);
 
-    QObject::connect(m_controller.data(), &GameController::energyUpdated, m_ui->energy, &QProgressBar::setValue);
-    QObject::connect(m_controller.data(), &GameController::healthUpdated, m_ui->health, &QProgressBar::setValue);
+    connect(m_controller.data(), &GameController::energyUpdated, m_ui->energy, &QProgressBar::setValue);
+    connect(m_controller.data(), &GameController::healthUpdated, m_ui->health, &QProgressBar::setValue);
 
     zoomBySlider(-30);
 }
-
-void GameWindow::updateTime(bool active) {
-    if(active) { // RESTARTING GAME
-        if(m_paused == 0) { // first game never paused
-            m_ui->pause->setText("Pause game");
-            int currentTime = QDateTime::currentDateTime().toSecsSinceEpoch();
-            m_elapsedSeconds = currentTime - m_startTime;
-            m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + " s");
-        } else { // game restarting
-            m_elapsedSeconds++;
-            m_timer->start(1000);
-            m_ui->pause->setText("Pause game");
-            m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + " s");
-
-            m_controller->updateGameState(GameController::State::Running);
-        }
-
-    } else { // PAUSING GAME
-        m_paused++;
-        if(m_paused == 0) { // pausing for the first time
-            m_ui->pause->setText("Resume game");
-            m_timer->stop();
-            m_controller->updateGameState(GameController::State::Paused);
-
-        } else if(m_paused % 2 == 0) {
-            m_elapsedSeconds++;
-            m_timer->start(1000);
-            m_ui->pause->setText("Pause game");
-            m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + " s");
-            m_controller->updateGameState(GameController::State::Running);
-
-        } else {
-            m_ui->pause->setText("Resume game");
-            m_timer->stop();
-            m_controller->updateGameState(GameController::State::Paused);
-        }
+void GameWindow::togglePause() {
+    if(m_controller->getState() == GameController::State::Paused) {
+        connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
+        m_controller->setState(GameController::State::Running);
+        m_ui->pause->setText("Pause Game");
+    } else {
+        disconnect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
+        m_controller->setState(GameController::State::Paused);
+        m_ui->pause->setText("Resume Game");
     }
+}
+void GameWindow::updateTime() {
+    m_elapsedSeconds++;
+    m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + "s");
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
-    if(m_paused % 2 == 0) {
+    if(m_controller->getState() == GameController::State::Running) {
         switch(event->key()) {
         case Qt::Key_Up:
             m_controller->characterMove(Direction::Up);
@@ -168,7 +143,7 @@ void GameWindow::processCommand() {
         m_controller->characterAtttack();
     } else if(command == "pause") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
-        updateTime(false);
+        togglePause();
     } else if(command == "quit") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         QApplication::quit();
@@ -266,3 +241,12 @@ GameWindow::~GameWindow() {
  * world inversed --> fix it
  * window size
  */
+
+bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
+    if(event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
+        return true;
+    } else {
+        // standard event processing
+        return QObject::eventFilter(watched, event);
+    }
+}

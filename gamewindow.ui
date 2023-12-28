@@ -72,7 +72,7 @@ font: 700 16pt &quot;Segoe UI&quot;;
 color: rgb(0,0,0)</string>
        </property>
        <property name="text">
-        <string>Time</string>
+        <string>Elapsed time: 0s</string>
        </property>
       </widget>
      </item>
@@ -329,7 +329,7 @@ background-color: rgb(255, 255, 255);</string>
      <x>0</x>
      <y>0</y>
      <width>1004</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="mode_menu">

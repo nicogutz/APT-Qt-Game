@@ -17,14 +17,9 @@
 #include "model/modelfactory.h"
 #include "model/gameobjectmodel.h"
 #include "view/gameview.h"
-#include "model/behaviors/concrete/movement/poisononstepbehavior.h"
-#include "model/behaviors/concrete/movement/genericmovebehavior.h"
-#include "view/renderer/textrenderer.h"
-#include "view/renderer/colorrenderer.h"
-#include "view/renderer/spriterenderer.h"
 #include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
 #include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
-#include <pathfinder_class.h>>
+#include <pathfinder_class.h>
 
 class GameWindow;
 
@@ -40,7 +35,6 @@ public:
     enum class State {
         Running,
         Automatic,
-        BetweenLevels,
         Paused,
         GameOver,
     };
@@ -61,8 +55,6 @@ public:
 
     void findAndMoveTo(int x, int y);
 
-public slots:
-
     /**
      * @brief characterMove
      * @param to
@@ -74,11 +66,10 @@ public slots:
      */
     void characterAtttack();
 
-    void updateLevel(unsigned int level);
-    void updateGameState(State new_state);
+    void setLevel(unsigned int level);
+    void setState(State new_state);
     void updateGameView(View view);
-
-    void characterMoveAuto(Direction to);
+    State getState();
     void path_finder();
     void updateEnergy();
     void updateHealth();
@@ -88,7 +79,7 @@ signals:
      * @brief tick Emitted when a turn is complete.
      * @param clock The count of clocks so far
      */
-    void tick(unsigned long int clock);
+    void tick();
     /**
      * @brief gameOver This is emitted when the game is over.
      */
