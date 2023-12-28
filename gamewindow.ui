@@ -163,7 +163,7 @@ color: rgb(0,0,0)</string>
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>390</y>
+      <y>380</y>
       <width>151</width>
       <height>16</height>
      </rect>
@@ -199,7 +199,7 @@ color: rgb(0,0,0)</string>
       </widget>
      </item>
      <item>
-      <widget class="QProgressBar" name="health">
+      <widget class="QProgressBar" name="energy">
        <property name="whatsThis">
         <string/>
        </property>
@@ -242,7 +242,7 @@ color: rgb(0,0,0)</string>
       </widget>
      </item>
      <item>
-      <widget class="QProgressBar" name="energy">
+      <widget class="QProgressBar" name="health">
        <property name="whatsThis">
         <string/>
        </property>

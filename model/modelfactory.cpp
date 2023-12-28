@@ -17,6 +17,7 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         worldGrid[i] = QList<QPointer<GameObject>>(cols);
     }
 
+
     // insert tiles into model
     auto tiles = m_world.getTiles();
     int i = 0;
@@ -25,10 +26,10 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         m_nodes.emplace_back(tile->getXPos(), tile->getYPos(), tile->getValue());
         auto *obj = new GameObject({
           {DataRole::Energy, tile->getValue()},
-          {DataRole::Position, QPoint(i, j)},
+          {DataRole::Position, QPoint(j, i)},
         });
         GameObjectSettings::getFunction(ObjectType::Tile)(obj);
-        worldGrid[i][j] = obj;
+        worldGrid[j][i] = obj;
         if(j == cols - 1) {
             j = 0;
             i++;
@@ -36,6 +37,7 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
             j++;
         }
     }
+
 
     // Process protagonist
     auto protagonist = m_world.getProtagonist();
@@ -53,15 +55,22 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
     }
 
+
+
     // Process Enemies and Poison Enemies
     auto enemies = m_world.getEnemies();
-    for(const auto &enemy : enemies) {
-        ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
+    for (const auto& enemy : enemies) {
+        int enemyX = enemy->getXPos();
+        int enemyY = enemy->getYPos();
+        Node& enemyNode = m_nodes[enemyY * cols + enemyX];
+        enemyNode.setValue(1.0);
 
-        auto *enemyObj = new GameObject();
+        ObjectType type = dynamic_cast<PEnemy*>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
+        auto* enemyObj = new GameObject();
         GameObjectSettings::getFunction(type)(enemyObj);
-        enemyObj->setParent(worldGrid[enemy->getXPos()][enemy->getYPos()]);
+        enemyObj->setParent(worldGrid[enemyX][enemyY]);
     }
+
 
     auto *model = new GameObjectModel(worldGrid);
     return model;
@@ -72,7 +81,7 @@ std::vector<int> ObjectModelFactory::pathFinder() {
         return a.h > b.h;
     };
 
-    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, 30, 1.0f);
+    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, 30, 0.001f);
     auto path = pathFinder.A_star();
 
     for(auto p : path) {
