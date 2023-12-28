@@ -93,7 +93,7 @@ class GameObjectSettings {
           {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::PoisonEnemy)},
           {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
           {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
-          {DataRole::PoisonLevel, Poison::SETTINGS::MAX_POISON},
+          {DataRole::PoisonLevel, Poison::SETTINGS::MAX_POISON_PER_ACTION * 38},
         };
 
         static void setObject(GameObject *obj) {

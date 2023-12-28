@@ -18,12 +18,16 @@ public:
         constexpr static int MAX_POISON = 100;
         constexpr static int MIN_POISON = 0;
 
+        // Min that Game Object will poison per tick/action.
+        constexpr static int MIN_POISON_PER_ACTION = 2;
         // How much a Game Object will poison per tick/action.
         constexpr static int MAX_POISON_PER_ACTION = 10;
-        // How many times a GO will spread its poison.
+        // How many times a PEnemy will spread its poison.
         constexpr static int POISON_SPREAD_TIMES = 3;
+        // The Min ticks between poison spread
+        constexpr static int POISON_SPREAD_MIN_TICKS = 5;
         // The Max ticks between poison spread
-        constexpr static int POISON_SPREAD_MAX_TICKS = 5;
+        constexpr static int POISON_SPREAD_MAX_TICKS = 10;
         // How much damage poison does per tick.
         constexpr static int DAMAGE_PER_TICK = 5;
     } Settings;
@@ -44,7 +48,8 @@ public:
      * @param level
      * @return
      */
-    virtual int getPoisoned(int level);;
+    virtual int getPoisoned(int level);
+    ;
     /**
      * @brief getPoisoned
      * @param level

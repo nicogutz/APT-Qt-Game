@@ -1,5 +1,7 @@
 #include "genericpoisoningbehavior.h"
 
+#include <QRandomGenerator>
+
 int GenericPoisoningBehavior::poison(const QPointer<GameObject> &target) {
     auto behaviors = target->getAllBehaviors<Poison>();
     int poisonAdminisered = 0;
@@ -11,8 +13,11 @@ int GenericPoisoningBehavior::poison(const QPointer<GameObject> &target) {
             if(currentLevel <= 0)
                 continue;
 
-            int poisonedAmount = currentLevel > Poison::SETTINGS::MAX_POISON_PER_ACTION
-              ? Poison::SETTINGS::MAX_POISON_PER_ACTION
+            int poisonAmount = QRandomGenerator::global()->bounded(
+              Poison::SETTINGS::MIN_POISON_PER_ACTION, Poison::SETTINGS::MAX_POISON_PER_ACTION);
+
+            int poisonedAmount = currentLevel > poisonAmount
+              ? poisonAmount
               : currentLevel;
             poisonedAmount = behavior->getPoisoned(poisonedAmount);
             poisonAdminisered += poisonedAmount;
