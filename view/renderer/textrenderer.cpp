@@ -1,6 +1,7 @@
 #include <QFont>
 #include <QPainter>
 #include <QPen>
+#include <QRandomGenerator>
 #include "textrenderer.h"
 
 TextRenderer::TextRenderer() {
@@ -57,6 +58,15 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     painter.drawText(m_cellSize - 2, 3 * (m_cellSize / 4) - 2, "|");
     painter.drawText(m_cellSize - 2, m_cellSize - 2, "|");
 
+    if (int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
+        int maxDots = m_cellSize;
+        int numberOfDots = (maxDots * poisonLevel);
+        for (int i = 0; i < numberOfDots; ++i) {
+            int randomX = QRandomGenerator::global()->bounded(m_cellSize);
+            int randomY = QRandomGenerator::global()->bounded(m_cellSize);
+            painter.drawText(randomX, randomY, ".");
+        }
+    }
     return pixmap;
 }
 
@@ -137,12 +147,12 @@ QPixmap TextRenderer::renderCharacter(QString str, int weight, int size = 100) {
     painter.setRenderHint(QPainter::Antialiasing);
 
     QFont font = painter.font();
-    font.setBold(weight > 50); // If weight is above 50, make the font bold
-    font.setPointSize((m_cellSize / 2 - 20) + (size / 20)); // Set the font size relative to cell size
+    font.setBold(weight > 50);
+    font.setPointSize((m_cellSize / 2 - 20) + (size / 20));
     painter.setFont(font);
 
     QPen pen = painter.pen();
-    pen.setWidth(weight / 10); // Adjust pen width based on weight
+    pen.setWidth(weight / 10);
     painter.setPen(pen);
 
     painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(str));

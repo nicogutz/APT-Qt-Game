@@ -13,6 +13,12 @@ QPixmap ColorRenderer::renderTile(
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(color);
 
+    if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
+        QPainter painter(&pixmap);
+        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(0, 255, 0, poisonLevel * 16));
+        painter.drawPixmap(QPoint(0, 0), pixmap);
+    }
+
     return pixmap;
 }
 
@@ -195,8 +201,8 @@ QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     minIntensity = 50;
     maxIntensity = 200;
     final_color = minIntensity + (maxIntensity - minIntensity) * poisonLevel / 100;
-    QColor energyColor(final_color, 0, final_color);
-    painter.setBrush(QBrush(energyColor));
+    color.setRgbF(final_color, 0, final_color);
+    painter.setBrush(QBrush(color));
     painter.drawPolygon(rightHalf);
 
     painter.end();
