@@ -90,7 +90,7 @@ class GameObjectSettings {
     };
     struct PoisonEnemySettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
-          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Enemy)},
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::PoisonEnemy)},
           {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
           {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
           {DataRole::PoisonLevel, Poison::SETTINGS::MAX_POISON},

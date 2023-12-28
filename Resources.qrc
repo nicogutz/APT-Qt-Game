@@ -9,13 +9,11 @@
         <file>images/poisonous_tile.png</file>
         <file>images/projectiles.png</file>
         <file>images/spr_blob.png</file>
-        <file>images/spr_blob_big.png</file>
-        <file>images/spr_blob_big_death.png</file>
         <file>images/spr_blob_death.png</file>
         <file>images/protagonist.png</file>
         <file>images/protagonist_death.png</file>
-        <file>images/xenemy.png</file>
-        <file>images/xenemy_death.png</file>
+        <file>images/enemy.png</file>
+        <file>images/enemy_death.png</file>
         <file>images/penemy.png</file>
         <file>images/penemy_death.png</file>
         <file>images/spr_orange.png</file>

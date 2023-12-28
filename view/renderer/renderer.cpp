@@ -6,7 +6,7 @@ Renderer::Renderer() {
 QGraphicsPixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> objectDataList) {
     QGraphicsPixmapItem *tile = new QGraphicsPixmapItem(renderGameObject(objectDataList[0]));
 
-    for(auto data : objectDataList.mid(1, -1)) {
+    for(const auto &data : objectDataList.mid(1, -1)) {
         auto *obj = new QGraphicsPixmapItem(renderGameObject(data));
         obj->setParentItem(tile);
     }
