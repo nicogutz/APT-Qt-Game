@@ -57,7 +57,13 @@ void GameObject::setData(QList<QPair<DataRole, QVariant>> data) {
 }
 
 const QPointer<GameObject> GameObject::findChild(ObjectType type) {
-    return QObject::findChild<GameObject *>(QChar((char)type));
+    auto children = findChildren<GameObject *>();
+    for(auto child : children) {
+        if(child->getData(DataRole::Type).value<ObjectType>() == type) {
+            return child;
+        }
+    }
+    return nullptr;
 }
 
 QVariant GameObject::getData(DataRole role) const {

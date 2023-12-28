@@ -39,6 +39,8 @@ public:
     const QPointer<GameObject> getNeighbor(QPoint location, Direction direction, int offset) const;
     QList<QList<QList<QMap<DataRole, QVariant>>>> getAllData() const;
 
+    QList<QPointer<GameObject>> getObject(ObjectType type) const;
+
 private:
     QList<QList<QPointer<GameObject>>> m_world;
 

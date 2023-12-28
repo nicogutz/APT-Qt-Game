@@ -17,7 +17,6 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         worldGrid[i] = QList<QPointer<GameObject>>(cols);
     }
 
-
     // insert tiles into model
     auto tiles = m_world.getTiles();
     int i = 0;
@@ -37,7 +36,17 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
             j++;
         }
     }
+    auto *entryDoor = new GameObject({
+      {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Down)},
+    });
+    GameObjectSettings::getFunction(ObjectType::Doorway)(entryDoor);
+    entryDoor->setParent(worldGrid[0][0]);
 
+    auto *exitDoor = new GameObject({
+      {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Up)},
+    });
+    GameObjectSettings::getFunction(ObjectType::Doorway)(exitDoor);
+    exitDoor->setParent(worldGrid[rows - 1][cols - 1]);
 
     // Process protagonist
     auto protagonist = m_world.getProtagonist();
@@ -55,22 +64,19 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
     }
 
-
-
     // Process Enemies and Poison Enemies
     auto enemies = m_world.getEnemies();
-    for (const auto& enemy : enemies) {
+    for(const auto &enemy : enemies) {
         int enemyX = enemy->getXPos();
         int enemyY = enemy->getYPos();
-        Node& enemyNode = m_nodes[enemyY * cols + enemyX];
+        Node &enemyNode = m_nodes[enemyY * cols + enemyX];
         enemyNode.setValue(1.0);
 
-        ObjectType type = dynamic_cast<PEnemy*>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
-        auto* enemyObj = new GameObject();
+        ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
+        auto *enemyObj = new GameObject();
         GameObjectSettings::getFunction(type)(enemyObj);
         enemyObj->setParent(worldGrid[enemyX][enemyY]);
     }
-
 
     auto *model = new GameObjectModel(worldGrid);
     return model;

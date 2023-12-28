@@ -42,6 +42,18 @@ QPointer<GameObject> GameObjectModel::getObject(int row, int column, ObjectType 
     return tile->findChild(type);
 }
 
+QList<QPointer<GameObject>> GameObjectModel::getObject(ObjectType type) const {
+    QList<QPointer<GameObject>> list {};
+    for(int x = 0; x < getRowCount(); ++x) {
+        for(int y = 0; y < getColumnCount(); ++y) {
+            if(auto tile = getObject(x, y, type)) {
+                list.append(tile);
+            }
+        }
+    }
+    return list;
+}
+
 void GameObjectModel::setItem(int row, int column, QPointer<GameObject> object) {
     if(row > getRowCount() || column > getColumnCount()) {
         throw "Cannot set outside range";

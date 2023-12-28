@@ -18,7 +18,7 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
     m_model = factory.createModel(":/images/worldmap.png", 20, 6, 0.5f);
 
     m_model->setParent(this);
-    m_character = factory.getPro(); // this is temporary, could probably be done in a better ways
+    m_character = m_model->getObject(ObjectType::Protagonist).at(0); // this is temporary, could probably be done in a better ways
 
     m_view = QSharedPointer<GameView>::create(this);
     m_view->createScene(m_model->getAllData(), QSharedPointer<SpriteRenderer>::create());

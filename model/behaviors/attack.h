@@ -11,8 +11,8 @@ public:
         : Behavior(owner) {};
     virtual ~Attack() = 0;
     static const struct SETTINGS {
-        static constexpr int PLAYER_STRENGTH = 10;
-        static constexpr int ENEMY_STRENGTH = 10;
+        static constexpr int PLAYER_STRENGTH = 20;
+        static constexpr int ENEMY_STRENGTH = 5;
 
     } Settings;
 

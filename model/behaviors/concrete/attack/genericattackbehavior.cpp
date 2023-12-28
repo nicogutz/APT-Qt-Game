@@ -1,20 +1,23 @@
 #include <QRandomGenerator>
 #include "genericattackbehavior.h"
 #include "model/behaviors/health.h"
+#include "model/behaviors/movement.h"
 #include "publicenums.h"
 
 int GenericAttackBehavior::attack(const QPointer<GameObject> &target) {
     // Get the strength of the object and calculate the attack
     // strength randomly.
     int strenght = m_owner->getData(DataRole::Strength).toInt();
-    int attackStrength = QRandomGenerator::global()->bounded(strenght);
+    int attackStrength = QRandomGenerator::global()->bounded(0, strenght);
 
     int count = 0;
-    // TODO: Add emit signal to animate attack.
     for(auto bh : target->getAllBehaviors<Attack>()) {
         auto at = qSharedPointerDynamicCast<Attack>(bh);
         if(!bh.isNull()) {
-            count += at->getAttacked(m_owner, attackStrength);
+            int healthChange = at->getAttacked(m_owner, attackStrength);
+            if(healthChange + attackStrength > 0) {
+                m_owner->setData(DataRole::Energy, Movement::SETTINGS::MAX_ENERGY);
+            }
         }
     };
     return count;
