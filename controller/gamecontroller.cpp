@@ -1,7 +1,5 @@
 #include "gamecontroller.h"
 
-
-
 #include <QCoreApplication>
 #include <qdatetime.h>
 
@@ -12,11 +10,7 @@ GameController::GameController()
     , m_gameState(State::Running)
     , m_gameView(View::Color)
 
-{
-
-
-
-}
+        {};
 
 void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
     // create world with 6 Enemies 5 health packs and 3 PEnemies
@@ -61,28 +55,29 @@ void GameController::path_finder() {
 
             QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
             Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
-            if (direction != protagonist_direction){characterMoveAuto(direction); characterMoveAuto(direction);}
-            else {characterMoveAuto(direction);}
-
+            if(direction != protagonist_direction) {
+                characterMoveAuto(direction);
+                characterMoveAuto(direction);
+            } else {
+                characterMoveAuto(direction);
+            }
         }
     }
 }
 
-void GameController::updateEnergy(){
+void GameController::updateEnergy() {
     QVariant protagonist_energy = m_character->getData(DataRole::Energy);
     int protagonist_energy_int = protagonist_energy.value<int>();
     emit energyUpdated(protagonist_energy_int);
 }
 
-void GameController::updateHealth(){
+void GameController::updateHealth() {
     QVariant protagonist_health = m_character->getData(DataRole::Health);
     int protagonist_health_int = protagonist_health.value<int>();
     emit healthUpdated(protagonist_health_int);
 }
 
-
-
-void GameController::characterMoveAuto(Direction to){
+void GameController::characterMoveAuto(Direction to) {
     if(m_gameState != State::Paused && m_gameView != View::Text) {
         m_character->getBehavior<Movement>()->stepOn(to);
         emit tick(0);

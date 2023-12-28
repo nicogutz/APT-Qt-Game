@@ -31,9 +31,9 @@ public:
     QSharedPointer<QWidget> a;
     std::shared_ptr<QWidget> b;
 
-    QSharedPointer<GameController> getController(){return controller;}
-    Ui::GameWindow* getUI(){return ui;}
-    QTimer* getTimer(){return timer;}
+    QSharedPointer<GameController> getController(){return m_controller;}
+    Ui::GameWindow* getUI(){return m_ui;}
+    QTimer* getTimer(){return m_timer;}
 
     void showInvalidCommandMessage();
     void showHelp();
@@ -41,12 +41,12 @@ public:
 
 private:
 
-    Ui::GameWindow* ui;
-    QSharedPointer<GameController> controller;
-    int start_time;
-    int elapsed_seconds;
-    QTimer *timer;
-    int paused;
+    Ui::GameWindow* m_ui;
+    QSharedPointer<GameController> m_controller;
+    int m_startTime;
+    int m_elapsedSeconds;
+    QTimer *m_timer;
+    int m_paused;
 
 
 public slots:

@@ -3,25 +3,25 @@
 
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::GameWindow)
-    , controller(QSharedPointer<GameController>::create())
-    , start_time(QDateTime::currentDateTime().toSecsSinceEpoch())
-    , elapsed_seconds(0)
-    , timer(new QTimer(this))
-    , paused(0) {
+    , m_ui(new Ui::GameWindow)
+    , m_controller(QSharedPointer<GameController>::create())
+    , m_startTime(QDateTime::currentDateTime().toSecsSinceEpoch())
+    , m_elapsedSeconds(0)
+    , m_timer(new QTimer(this))
+    , m_paused(0) {
     // SETUP UI CONTROLLER AND VIEW
-    controller->setParent(this);
-    ui->setupUi(this);
+    m_controller->setParent(this);
+    m_ui->setupUi(this);
 
     // DEFAULT OPTIONS
     //    setStyleSheet("background-color: white;");
     this->setFixedSize(1000, 800);
-    ui->level_label->setText("Level: 1");
-    ui->colour_mode->setChecked(true);
-    ui->text_mode->setChecked(false);
-    ui->sprite_mode->setChecked(false);
-    ui->health->setValue(100);
-    ui->energy->setValue(100);
+    m_ui->level_label->setText("Level: 1");
+    m_ui->colour_mode->setChecked(true);
+    m_ui->text_mode->setChecked(false);
+    m_ui->sprite_mode->setChecked(false);
+    m_ui->health->setValue(100);
+    m_ui->energy->setValue(100);
 
     // CHOOSE MODE: MANUAL OR AUTOMATIC
     QMessageBox modeBox;
@@ -31,114 +31,114 @@ GameWindow::GameWindow(QWidget *parent)
     QPushButton *autoButton = modeBox.addButton("Automatic", QMessageBox::AcceptRole);
     modeBox.exec();
     if(modeBox.clickedButton() == manualButton) {
-        controller->updateGameMode(GameController::Mode::Manual);
-        ui->mode_label->setText("Mode: Manual");
-        ui->manual->setChecked(true);
-        ui->automatic->setChecked(false);
-        ui->path_find_trigger->hide();
+        m_controller->updateGameMode(GameController::Mode::Manual);
+        m_ui->mode_label->setText("Mode: Manual");
+        m_ui->manual->setChecked(true);
+        m_ui->automatic->setChecked(false);
+        m_ui->path_find_trigger->hide();
     } else if(modeBox.clickedButton() == autoButton) {
-        controller->updateGameMode(GameController::Mode::Automatic);
-        ui->mode_label->setText("Mode: Automatic");
-        ui->automatic->setChecked(true);
-        ui->manual->setChecked(false);
-        ui->path_find_trigger->show();
+        m_controller->updateGameMode(GameController::Mode::Automatic);
+        m_ui->mode_label->setText("Mode: Automatic");
+        m_ui->automatic->setChecked(true);
+        m_ui->manual->setChecked(false);
+        m_ui->path_find_trigger->show();
     }
 
     // START GAME
-    controller->startGame(6, 5);
-    ui->enemies_label->setText("Enemies: 6");
-    ui->health_packs->setText("Health packs: 5");
-    ui->graphicsView->setScene(controller->getView().data());
-    ui->graphicsView->show();
-    controller->show();
+    m_controller->startGame(6, 5);
+    m_ui->enemies_label->setText("Enemies: 6");
+    m_ui->health_packs->setText("Health packs: 5");
+    m_ui->graphicsView->setScene(m_controller->getView().data());
+    m_ui->graphicsView->show();
+    m_controller->show();
 
     // START TIMER
-    timer->start(1000);
+    m_timer->start(1000);
 
     setFocusPolicy(Qt::StrongFocus);
 
     // ZOOM
-    ui->horizontalSlider->setMinimum(-30);
-    ui->horizontalSlider->setMaximum(30);
-    ui->horizontalSlider->setValue(0);
-    ui->graphicsView->resetTransform();
-    ui->graphicsView->scale(1.0, 1.0);
+    m_ui->horizontalSlider->setMinimum(-30);
+    m_ui->horizontalSlider->setMaximum(30);
+    m_ui->horizontalSlider->setValue(-30);
 
     // SIGNALS AND SLOTS
-    QObject::connect(timer, &QTimer::timeout, this, [this] {
+    QObject::connect(m_timer, &QTimer::timeout, this, [this] {
         GameWindow::updateTime(true);
     });
-    QObject::connect(ui->pause, &QPushButton::clicked, this, [this] { GameWindow::updateTime(false); });
-    QObject::connect(ui->automatic, &QAction::changed, ui->manual, &QAction::toggle);
-    QObject::connect(ui->manual, &QAction::changed, ui->automatic, &QAction::toggle);
-    QObject::connect(ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
+    QObject::connect(m_ui->pause, &QPushButton::clicked, this, [this] { GameWindow::updateTime(false); });
+    QObject::connect(m_ui->automatic, &QAction::changed, m_ui->manual, &QAction::toggle);
+    QObject::connect(m_ui->manual, &QAction::changed, m_ui->automatic, &QAction::toggle);
+    QObject::connect(m_ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
 
-    connect(ui->sprite_mode, &QAction::triggered, this, &GameWindow::setSpriteView);
-    connect(ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
-    connect(ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
+    connect(m_ui->sprite_mode, &QAction::triggered, this, &GameWindow::setSpriteView);
+    connect(m_ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
+    connect(m_ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
 
-    QObject::connect(ui->path_find_trigger, &QPushButton::clicked, controller.data(), &GameController::path_finder);
+    QObject::connect(m_ui->path_find_trigger, &QPushButton::clicked, m_controller.data(), &GameController::path_finder);
 
-    QObject::connect(controller.data(), &GameController::energyUpdated, ui->energy, &QProgressBar::setValue);
-    QObject::connect(controller.data(), &GameController::healthUpdated, ui->health, &QProgressBar::setValue);
+    QObject::connect(m_controller.data(), &GameController::energyUpdated, m_ui->energy, &QProgressBar::setValue);
+    QObject::connect(m_controller.data(), &GameController::healthUpdated, m_ui->health, &QProgressBar::setValue);
+
+    zoomBySlider(-30);
 }
 
 void GameWindow::updateTime(bool active) {
     if(active) { // RESTARTING GAME
-        if(paused == 0) { // first game never paused
-            ui->pause->setText("Pause game");
+        if(m_paused == 0) { // first game never paused
+            m_ui->pause->setText("Pause game");
             int currentTime = QDateTime::currentDateTime().toSecsSinceEpoch();
-            elapsed_seconds = currentTime - start_time;
-            ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
-            controller->updateGameState(GameController::State::Running);
+            m_elapsedSeconds = currentTime - m_startTime;
+            m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + " s");
+            m_controller->updateGameState(GameController::State::Running);
         } else { // game restarting
-            elapsed_seconds++;
-            timer->start(1000);
-            ui->pause->setText("Pause game");
-            ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
+            m_elapsedSeconds++;
+            m_timer->start(1000);
+            m_ui->pause->setText("Pause game");
+            m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + " s");
 
-            controller->updateGameState(GameController::State::Running);
+            m_controller->updateGameState(GameController::State::Running);
         }
 
     } else { // PAUSING GAME
-        paused++;
-        if(paused == 0) { // pausing for the first time
-            ui->pause->setText("Resume game");
-            timer->stop();
-            controller->updateGameState(GameController::State::Paused);
+        m_paused++;
+        if(m_paused == 0) { // pausing for the first time
+            m_ui->pause->setText("Resume game");
+            m_timer->stop();
+            m_controller->updateGameState(GameController::State::Paused);
 
-        } else if(paused % 2 == 0) {
-            elapsed_seconds++;
-            timer->start(1000);
-            ui->pause->setText("Pause game");
-            ui->time_label->setText("Elapsed time: " + QString::number(elapsed_seconds) + " s");
-            controller->updateGameState(GameController::State::Running);
+        } else if(m_paused % 2 == 0) {
+            m_elapsedSeconds++;
+            m_timer->start(1000);
+            m_ui->pause->setText("Pause game");
+            m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + " s");
+            m_controller->updateGameState(GameController::State::Running);
 
         } else {
-            ui->pause->setText("Resume game");
-            timer->stop();
-            controller->updateGameState(GameController::State::Paused);
+            m_ui->pause->setText("Resume game");
+            m_timer->stop();
+            m_controller->updateGameState(GameController::State::Paused);
         }
     }
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
-    if(paused % 2 == 0) {
+    if(m_paused % 2 == 0) {
         switch(event->key()) {
         case Qt::Key_Up:
-            controller->characterMove(Direction::Up);
+            m_controller->characterMove(Direction::Up);
             break;
         case Qt::Key_Down:
-            controller->characterMove(Direction::Down);
+            m_controller->characterMove(Direction::Down);
             break;
         case Qt::Key_Left:
-            controller->characterMove(Direction::Left);
+            m_controller->characterMove(Direction::Left);
             break;
         case Qt::Key_Right:
-            controller->characterMove(Direction::Right);
+            m_controller->characterMove(Direction::Right);
             break;
         case Qt::Key_Space:
-            controller->characterAtttack();
+            m_controller->characterAtttack();
             break;
         default:
             QMainWindow::keyPressEvent(event); // Handle other key events
@@ -147,59 +147,59 @@ void GameWindow::keyPressEvent(QKeyEvent *event) {
 }
 
 void GameWindow::processCommand() {
-    ui->plainTextEdit->clear();
-    QString command = ui->textEdit->text().trimmed().toLower(); // Normalize input
+    m_ui->plainTextEdit->clear();
+    QString command = m_ui->textEdit->text().trimmed().toLower(); // Normalize input
     if(command == "move left") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-        controller->characterMove(Direction::Left);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_controller->characterMove(Direction::Left);
     } else if(command == "move right") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-        controller->characterMove(Direction::Right);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_controller->characterMove(Direction::Right);
     } else if(command == "move up") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-        controller->characterMove(Direction::Up);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_controller->characterMove(Direction::Up);
     } else if(command == "move down") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-        controller->characterMove(Direction::Down);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_controller->characterMove(Direction::Down);
     } else if(command == "health pack") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-        controller->characterAtttack();
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_controller->characterAtttack();
     } else if(command == "attack") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-        controller->characterAtttack();
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_controller->characterAtttack();
     } else if(command == "pause") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
         updateTime(false);
     } else if(command == "quit") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
         QApplication::quit();
     } else if(command == "restart") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
         QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
         QApplication::quit();
     } else if(command == "view text") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
         setTextualView();
     } else if(command == "view color") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
         setColorView();
     } else if(command == "view sprite") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
         setSpriteView();
     } else if(command == "zoom in") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-        ui->horizontalSlider->setValue(ui->horizontalSlider->maximum());
-        zoomBySlider(ui->horizontalSlider->maximum());
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_ui->horizontalSlider->setValue(m_ui->horizontalSlider->maximum());
+        zoomBySlider(m_ui->horizontalSlider->maximum());
     } else if(command == "zoom out") {
-        ui->plainTextEdit->setPlainText("command executed: " + command);
-        ui->horizontalSlider->setValue(ui->horizontalSlider->minimum());
-        zoomBySlider(ui->horizontalSlider->minimum());
+        m_ui->plainTextEdit->setPlainText("command executed: " + command);
+        m_ui->horizontalSlider->setValue(m_ui->horizontalSlider->minimum());
+        zoomBySlider(m_ui->horizontalSlider->minimum());
     } else if(command == "help") {
         showHelp();
     } else {
         showInvalidCommandMessage();
     }
-    ui->textEdit->clear();
+    m_ui->textEdit->clear();
 }
 
 void GameWindow::showHelp() {
@@ -213,52 +213,52 @@ void GameWindow::showHelp() {
                           "- quit: Quit the game\n"
                           "- restart: Restart game from scratch\n"
                           "Type 'help' to show this message again.";
-    ui->plainTextEdit->setPlainText(helpMessage);
+    m_ui->plainTextEdit->setPlainText(helpMessage);
 }
 
 void GameWindow::showInvalidCommandMessage() {
     QString errorMessage = "Invalid command. Type 'help' for a list of possible commands.";
-    ui->plainTextEdit->setPlainText(errorMessage);
+    m_ui->plainTextEdit->setPlainText(errorMessage);
 }
 
 void GameWindow::zoomBySlider(int value) {
     qreal scaleFactor = 1.0 + (value / 50.0);
 
-    ui->graphicsView->resetTransform();
-    ui->graphicsView->scale(scaleFactor, scaleFactor);
+    m_ui->graphicsView->resetTransform();
+    m_ui->graphicsView->scale(scaleFactor, scaleFactor);
 }
 
 void GameWindow::updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs) {
-    ui->level_label->setText("Level: " + QString::number(level));
-    controller->startGame(enemies, health_packs);
-    ui->enemies_label->setText("Enemies: " + QString::number(enemies));
-    ui->health_packs->setText("Health packs: " + QString::number(health_packs));
+    m_ui->level_label->setText("Level: " + QString::number(level));
+    m_controller->startGame(enemies, health_packs);
+    m_ui->enemies_label->setText("Enemies: " + QString::number(enemies));
+    m_ui->health_packs->setText("Health packs: " + QString::number(health_packs));
 }
 
 void GameWindow::setSpriteView() {
-    controller->updateGameView(GameController::View::Sprite);
-    ui->colour_mode->setChecked(false);
-    ui->text_mode->setChecked(false);
-    ui->sprite_mode->setChecked(true);
+    m_controller->updateGameView(GameController::View::Sprite);
+    m_ui->colour_mode->setChecked(false);
+    m_ui->text_mode->setChecked(false);
+    m_ui->sprite_mode->setChecked(true);
 }
 void GameWindow::setTextualView() {
-    controller->updateGameView(GameController::View::Text);
-    ui->colour_mode->setChecked(false);
-    ui->text_mode->setChecked(true);
-    ui->sprite_mode->setChecked(false);
+    m_controller->updateGameView(GameController::View::Text);
+    m_ui->colour_mode->setChecked(false);
+    m_ui->text_mode->setChecked(true);
+    m_ui->sprite_mode->setChecked(false);
 }
 void GameWindow::setColorView() {
-    controller->updateGameView(GameController::View::Color);
-    ui->colour_mode->setChecked(true);
-    ui->text_mode->setChecked(false);
-    ui->sprite_mode->setChecked(false);
+    m_controller->updateGameView(GameController::View::Color);
+    m_ui->colour_mode->setChecked(true);
+    m_ui->text_mode->setChecked(false);
+    m_ui->sprite_mode->setChecked(false);
 }
 
 // DESTRUCTOR
 
 GameWindow::~GameWindow() {
-    delete ui;
-    delete timer;
+    delete m_ui;
+    delete m_timer;
 }
 
 /**TODO
