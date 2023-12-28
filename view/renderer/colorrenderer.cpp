@@ -23,15 +23,13 @@ QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
     QColor color(123, 63, 0);
 
     QPainter painter(&pixmap);
-    painter.setRenderHint(QPainter::Antialiasing); // For smoother edges
+    painter.setRenderHint(QPainter::Antialiasing);
 
-    // Set the pen for the border and brush for the fill
     QPen pen(Qt::transparent);
     pen.setWidth(2);
     painter.setPen(pen);
     painter.setBrush(QBrush(color));
 
-    // Define points for the rhombus
     QPoint topleft(cellSize / 5, cellSize / 5);
     QPoint topright(cellSize - (cellSize / 5), cellSize / 5);
     QPoint bottomleft(cellSize / 5, cellSize - (cellSize / 5));
@@ -39,7 +37,6 @@ QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
 
     QList<QPoint> points = {topleft, topright, bottomright, bottomleft};
 
-    // Draw the rhombus
     painter.drawPolygon(points.data(), points.size());
 
     painter.end();
@@ -56,12 +53,11 @@ QPixmap ColorRenderer::renderHealthPack(
     QColor color(0, final_color, 0);
 
     QPixmap pixmap(cellSize, cellSize);
-    pixmap.fill(Qt::transparent); // Fill the pixmap with a transparent background
+    pixmap.fill(Qt::transparent);
 
     QPainter painter(&pixmap);
-    painter.setRenderHint(QPainter::Antialiasing); // For smoother edges
+    painter.setRenderHint(QPainter::Antialiasing);
 
-    // Set the pen for the border and brush for the fill
     QPen pen(Qt::transparent);
     pen.setWidth(2);
     painter.setPen(pen);
@@ -86,7 +82,7 @@ QPixmap ColorRenderer::renderHealthPack(
 QPixmap ColorRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
     QPixmap pixmap(cellSize, cellSize);
-    pixmap.fill(Qt::transparent); // Transparent background
+    pixmap.fill(Qt::transparent);
 
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -99,10 +95,17 @@ QPixmap ColorRenderer::renderProtagonist(
       QPoint(cellSize / 2, 0) // Back to Top point
     };
 
+    QList<QPoint> arrowPoints = {
+        QPoint(cellSize / 2 + 8, 8), //Right-top midpoint
+        QPoint(cellSize / 2, 0), // Top point
+        QPoint(cellSize / 2 - 8, 8), //Left-top midpoint
+        QPoint(cellSize / 2 + 8, 8) //back to Right-top midpoint
+    };
+
     QPolygon rightHalf(starPoints.mid(0, 3));
     QPolygon leftHalf(starPoints.mid(2));
+    QPolygon arrow(arrowPoints);
 
-    // Draw and fill left half with health - green
     int healthLevel = object[DataRole::Health].toInt();
     int minIntensity = 50;
     int maxIntensity = 255;
@@ -111,7 +114,6 @@ QPixmap ColorRenderer::renderProtagonist(
     painter.setBrush(QBrush(color));
     painter.drawPolygon(leftHalf);
 
-    // Draw and fill right half with energy - yellow
     int energyLevel = object[DataRole::Energy].toInt();
     minIntensity = 50;
     maxIntensity = 255;
@@ -119,6 +121,9 @@ QPixmap ColorRenderer::renderProtagonist(
     QColor energyColor(final_color, final_color, 0);
     painter.setBrush(QBrush(energyColor));
     painter.drawPolygon(rightHalf);
+
+    painter.setBrush(QBrush(Qt::black));
+    painter.drawPolygon(arrow);
 
     painter.end();
 
@@ -131,7 +136,7 @@ QPixmap ColorRenderer::renderProtagonist(
 QPixmap ColorRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
     QPixmap pixmap(cellSize, cellSize);
-    pixmap.fill(Qt::transparent); // Transparent background
+    pixmap.fill(Qt::transparent);
 
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -144,7 +149,6 @@ QPixmap ColorRenderer::renderEnemy(
       QPoint(cellSize / 2, cellSize / 5) // Back to Top point
     };
 
-    // Draw and fill left half with health - green
     int healthLevel = object[DataRole::Health].toInt();
     int minIntensity = 50;
     int maxIntensity = 255;
@@ -163,7 +167,7 @@ QPixmap ColorRenderer::renderEnemy(
 
 QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     QPixmap pixmap(cellSize, cellSize);
-    pixmap.fill(Qt::transparent); // Transparent background
+    pixmap.fill(Qt::transparent);
 
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -179,7 +183,6 @@ QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     QPolygon rightHalf(trianglePoints.mid(0, 3));
     QPolygon leftHalf(trianglePoints.mid(2));
 
-    // Draw and fill left half with health - green
     int healthLevel = object[DataRole::Health].toInt();
     int minIntensity = 50;
     int maxIntensity = 255;
@@ -188,11 +191,10 @@ QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     painter.setBrush(QBrush(color));
     painter.drawPolygon(leftHalf);
 
-    // Draw and fill right half with energy - yellow
-    int energyLevel = object[DataRole::PoisonLevel].toInt();
+    int poisonLevel = object[DataRole::PoisonLevel].toInt();
     minIntensity = 50;
     maxIntensity = 200;
-    final_color = minIntensity + (maxIntensity - minIntensity) * energyLevel / 100;
+    final_color = minIntensity + (maxIntensity - minIntensity) * poisonLevel / 100;
     QColor energyColor(final_color, 0, final_color);
     painter.setBrush(QBrush(energyColor));
     painter.drawPolygon(rightHalf);

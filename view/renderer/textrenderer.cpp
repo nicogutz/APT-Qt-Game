@@ -16,11 +16,16 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     pen.setWidth(5);
     painter.setPen(pen);
 
-    painter.drawLine(9, 0, cellSize / 2 - 3, 0);
-    painter.drawLine(cellSize / 2 + 7, 0, cellSize - 6, 0);
+    QFont font = painter.font();
+    font.setBold(true);
+    font.setPointSize(cellSize/2); // Set the font size relative to cell size
+    painter.setFont(font);
 
-    painter.drawLine(0, 9, 0, cellSize / 2 - 3);
-    painter.drawLine(0, cellSize / 2 + 7, 0, cellSize - 6);
+    painter.drawText(pixmap.rect().adjusted(0, -35, 0, 0), Qt::AlignTop | Qt::AlignHCenter, QString("_"));
+    painter.drawText(pixmap.rect().adjusted(0, 5, 0, 0), Qt::AlignBottom | Qt::AlignHCenter, QString("_"));
+    painter.drawText(pixmap.rect().adjusted(0, -10, 0, 0), Qt::AlignLeft | Qt::AlignVCenter, QString("|"));
+    painter.drawText(pixmap.rect().adjusted(0, -10, 0, 0), Qt::AlignRight | Qt::AlignVCenter, QString("|"));
+
 
     return pixmap;
 }
@@ -51,6 +56,14 @@ QPixmap TextRenderer::renderEnemy(QMap<DataRole, QVariant> object) {
     return pixmap;
 }
 
+QPixmap TextRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
+    int healthLevel = object[DataRole::Health].toInt();
+    int poisonLevel = object[DataRole::PoisonLevel].toInt();
+    int direction = object[DataRole::Direction].toInt();
+    QPixmap pixmap = rotatePixmap(renderCharacter("[OO]", poisonLevel, healthLevel), direction);
+    return pixmap;
+}
+
 QPixmap TextRenderer::renderCharacter(QString str, int weight, int size = 100) {
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(Qt::transparent);
@@ -67,14 +80,8 @@ QPixmap TextRenderer::renderCharacter(QString str, int weight, int size = 100) {
     painter.setPen(pen);
 
     painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(str));
+    painter.end();
 
     return pixmap;
 }
 
-QPixmap TextRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
-    int healthLevel = object[DataRole::Health].toInt();
-    int poisonLevel = object[DataRole::PoisonLevel].toInt();
-    int direction = object[DataRole::Direction].toInt();
-    QPixmap pixmap = rotatePixmap(renderCharacter("[OO]", poisonLevel, healthLevel), direction);
-    return pixmap;
-}

@@ -97,6 +97,7 @@ void GameController::updateLevel(unsigned int level) {
 void GameController::updateGameView(View view) {
     m_gameView = view;
     if(view == View::Sprite) {
+        m_view->createScene(m_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
     } else if(view == View::Text) {
         m_view->createScene(m_model->getAllData(), QSharedPointer<TextRenderer>::create());
     } else {

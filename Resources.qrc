@@ -1,5 +1,26 @@
 <RCC>
     <qresource prefix="/">
         <file>images/worldmap.png</file>
+        <file>images/cherry.png</file>
+        <file>images/cherry-mini.png</file>
+        <file>images/health_pack.png</file>
+        <file>images/doorway.png</file>
+        <file>images/low_energy_tile.png</file>
+        <file>images/poisonous_tile.png</file>
+        <file>images/projectiles.png</file>
+        <file>images/spr_blob.png</file>
+        <file>images/spr_blob_big.png</file>
+        <file>images/spr_blob_big_death.png</file>
+        <file>images/spr_blob_death.png</file>
+        <file>images/protagonist.png</file>
+        <file>images/protagonist_death.png</file>
+        <file>images/xenemy.png</file>
+        <file>images/xenemy_death.png</file>
+        <file>images/penemy.png</file>
+        <file>images/penemy_death.png</file>
+        <file>images/spr_orange.png</file>
+        <file>images/spr_orange_death.png</file>
+        <file>images/high_energy_tile.png</file>
+        <file>images/mid_energy_tile.png</file>
     </qresource>
 </RCC>
