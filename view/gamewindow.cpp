@@ -45,7 +45,7 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     // START GAME
-    controller->startGame(6,5);
+    controller->startGame(6, 5);
     ui->enemies_label->setText("Enemies: 6");
     ui->health_packs->setText("Health packs: 5");
     ui->graphicsView->setScene(controller->getView().data());
@@ -180,26 +180,21 @@ void GameWindow::processCommand() {
     } else if(command == "view text") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         setTextualView();
-    }
-    else if(command == "view color") {
+    } else if(command == "view color") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         setColorView();
-    }
-    else if(command == "view sprite") {
+    } else if(command == "view sprite") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         setSpriteView();
-    }
-    else if(command == "zoom in") {
+    } else if(command == "zoom in") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         ui->horizontalSlider->setValue(ui->horizontalSlider->maximum());
         zoomBySlider(ui->horizontalSlider->maximum());
-    }
-    else if(command == "zoom out") {
+    } else if(command == "zoom out") {
         ui->plainTextEdit->setPlainText("command executed: " + command);
         ui->horizontalSlider->setValue(ui->horizontalSlider->minimum());
         zoomBySlider(ui->horizontalSlider->minimum());
-    }
-    else if(command == "help") {
+    } else if(command == "help") {
         showHelp();
     } else {
         showInvalidCommandMessage();
@@ -236,8 +231,8 @@ void GameWindow::zoomBySlider(int value) {
 void GameWindow::updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs) {
     ui->level_label->setText("Level: " + QString::number(level));
     controller->startGame(enemies, health_packs);
-    ui->enemies_label->setText("Enemies: "+ QString::number(enemies));
-    ui->health_packs->setText("Health packs: "+ QString::number(health_packs));
+    ui->enemies_label->setText("Enemies: " + QString::number(enemies));
+    ui->health_packs->setText("Health packs: " + QString::number(health_packs));
 }
 
 void GameWindow::setSpriteView() {
@@ -245,33 +240,18 @@ void GameWindow::setSpriteView() {
     ui->colour_mode->setChecked(false);
     ui->text_mode->setChecked(false);
     ui->sprite_mode->setChecked(true);
-    ui->quit_game->show();
-    ui->rerun_game_2->show();
-    ui->pause->show();
-    ui->horizontalSlider->show();
-    ui->zoom_label->show();
 }
 void GameWindow::setTextualView() {
     controller->updateGameView(GameController::View::Text);
     ui->colour_mode->setChecked(false);
     ui->text_mode->setChecked(true);
     ui->sprite_mode->setChecked(false);
-    ui->quit_game->hide();
-    ui->rerun_game_2->hide();
-    ui->pause->hide();
-    ui->horizontalSlider->hide();
-    ui->zoom_label->hide();
 }
 void GameWindow::setColorView() {
     controller->updateGameView(GameController::View::Color);
     ui->colour_mode->setChecked(true);
     ui->text_mode->setChecked(false);
     ui->sprite_mode->setChecked(false);
-    ui->quit_game->show();
-    ui->rerun_game_2->show();
-    ui->pause->show();
-    ui->horizontalSlider->show();
-    ui->zoom_label->show();
 }
 
 // DESTRUCTOR

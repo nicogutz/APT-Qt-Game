@@ -7,25 +7,55 @@ TextRenderer::TextRenderer() {
 }
 
 QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
+    // The Pixmaps have to be transparent, text is AAd by default
     QPixmap pixmap(cellSize, cellSize);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
-    painter.setRenderHint(QPainter::Antialiasing);
-
-    QPen pen = painter.pen();
-    pen.setWidth(5);
-    painter.setPen(pen);
 
     QFont font = painter.font();
     font.setBold(true);
-    font.setPointSize(cellSize/2); // Set the font size relative to cell size
+    font.setKerning(false);
+    font.setFixedPitch(true);
+    font.setPointSize(cellSize / 4); // Set the font size relative to cell size
+    font.setLetterSpacing(QFont::AbsoluteSpacing, 0);
+    font.setWeight(QFont::Black);
+    painter.setFont(font);
+    painter.setLayoutDirection(Qt::LeftToRight);
+
+    // This has to be calculated to know the offset of the underscore characters
+    QFontMetrics fontMetrics(font);
+    int linePosition = ((cellSize - fontMetrics.horizontalAdvance("_")) / 4);
+
+    // Draw the bottom lines, we don't need top lines unless we are at the top
+    // The offsets are a bit arbitrary on the y ax.
+    painter.drawText(linePosition - 4, cellSize - 3, "_");
+    painter.drawText(2 * linePosition - 4, cellSize - 3, "_");
+    painter.drawText(3 * linePosition - 4, cellSize - 3, "_");
+    painter.drawText(4 * linePosition - 4, cellSize - 3, "_");
+
+    if(!object[DataRole::Position].toPoint().y()) {
+        painter.drawText(linePosition - 4, 0, "_");
+        painter.drawText(2 * linePosition - 4, 0, "_");
+        painter.drawText(3 * linePosition - 4, 0, "_");
+        painter.drawText(4 * linePosition - 4, 0, "_");
+    }
+
+    // The | characters are much longer than the _ so we make them smaller
+    font.setPointSize(cellSize / 8);
+    font.setStretch(125);
     painter.setFont(font);
 
-    painter.drawText(pixmap.rect().adjusted(0, -35, 0, 0), Qt::AlignTop | Qt::AlignHCenter, QString("_"));
-    painter.drawText(pixmap.rect().adjusted(0, 5, 0, 0), Qt::AlignBottom | Qt::AlignHCenter, QString("_"));
-    painter.drawText(pixmap.rect().adjusted(0, -10, 0, 0), Qt::AlignLeft | Qt::AlignVCenter, QString("|"));
-    painter.drawText(pixmap.rect().adjusted(0, -10, 0, 0), Qt::AlignRight | Qt::AlignVCenter, QString("|"));
-
+    // This looks extremely funky but it is what it is
+    painter.drawText(-1, cellSize / 4 - 2, "|");
+    painter.drawText(-1, 2 * (cellSize / 4) - 2, "|");
+    painter.drawText(-1, 3 * (cellSize / 4) - 2, "|");
+    painter.drawText(-1, cellSize - 2, "|");
+    // Since the renderer has no idea about the size of the world,
+    // It cannot simply know where the
+    painter.drawText(cellSize - 2, cellSize / 4 - 2, "|");
+    painter.drawText(cellSize - 2, 2 * (cellSize / 4) - 2, "|");
+    painter.drawText(cellSize - 2, 3 * (cellSize / 4) - 2, "|");
+    painter.drawText(cellSize - 2, cellSize - 2, "|");
 
     return pixmap;
 }
@@ -84,4 +114,3 @@ QPixmap TextRenderer::renderCharacter(QString str, int weight, int size = 100) {
 
     return pixmap;
 }
-
