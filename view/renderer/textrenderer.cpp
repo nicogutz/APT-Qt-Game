@@ -60,37 +60,73 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     return pixmap;
 }
 
-QPixmap TextRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
+QPixmap TextRenderer::renderDoorway(QMap<DataRole, QVariant>) {
     return renderCharacter("|_|", 100, 100); // No special conditions for Doorway
 }
 
 QPixmap TextRenderer::renderHealthPack(QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
-    return renderCharacter("c[_]", 100, healthLevel);
+    QColor color("blue");
+    color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
+    return renderCharacter("c[_]", color);
 }
 
 QPixmap TextRenderer::renderProtagonist(QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
-    int energyLevel = object[DataRole::Energy].toInt();
     int direction = object[DataRole::Direction].toInt();
+    QColor color("black");
+    color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
 
-    QPixmap pixmap = rotatePixmap(renderCharacter("ʕ·͡ᴥ·ʔ", energyLevel, healthLevel), direction);
-    return pixmap;
+    return rotatePixmap(renderCharacter("ʕʘ̅͜ʘ̅ʔ", color), direction);
 }
 
 QPixmap TextRenderer::renderEnemy(QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
-    int poisonLevel = object[DataRole::PoisonLevel].toInt();
     int direction = object[DataRole::Direction].toInt();
-    QPixmap pixmap = rotatePixmap(renderCharacter("[º.°]", poisonLevel, healthLevel), direction);
-    return pixmap;
+
+    QColor color("red");
+    color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
+
+    return rotatePixmap(renderCharacter("⊙_◎", color), direction);
 }
 
 QPixmap TextRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
     int poisonLevel = object[DataRole::PoisonLevel].toInt();
     int direction = object[DataRole::Direction].toInt();
-    QPixmap pixmap = rotatePixmap(renderCharacter("[OO]", poisonLevel, healthLevel), direction);
+    QColor color;
+    if(healthLevel <= 0) {
+        color = QColor("darkgreen");
+        color.setHsv(color.hue(), poisonLevel, color.value(), color.alpha());
+
+    } else {
+        color = QColor("green");
+        color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
+    }
+
+    return rotatePixmap(renderCharacter("ⓧⓧ", color), direction);
+}
+
+QPixmap TextRenderer::renderCharacter(QString str, QColor color) {
+    QPixmap pixmap(cellSize, cellSize);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    QFont font = painter.font();
+    font.setBold(true);
+    font.setKerning(false);
+    font.setFixedPitch(true);
+    font.setPointSize(cellSize / 4); // Set the font size relative to cell size
+    font.setLetterSpacing(QFont::AbsoluteSpacing, 0);
+    font.setWeight(QFont::Black);
+    painter.setFont(font);
+
+    QPen pen = painter.pen();
+    pen.setColor(color);
+    painter.setPen(pen);
+
+    painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(str));
+    painter.end();
+
     return pixmap;
 }
 

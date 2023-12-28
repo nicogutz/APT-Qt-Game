@@ -15,6 +15,7 @@ private:
     QPixmap renderEnemy(QMap<DataRole, QVariant> object) override;
     QPixmap renderCharacter(QString, int, int);
     QPixmap renderPEnemy(QMap<DataRole, QVariant> object) override;
+    QPixmap renderCharacter(QString str, QColor color);
 };
 
 #endif // TEXTRENDERER_H
