@@ -1,4 +1,5 @@
 #include "spriterenderer.h"
+#include "qbitmap.h"
 #include <QPainter>
 #include <iostream>
 
@@ -8,36 +9,47 @@ SpriteRenderer::SpriteRenderer() {
 QPixmap SpriteRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     float energyLevel = object[DataRole::Energy].toFloat() * 100;
+    QPixmap pixmap;
     if(energyLevel > 60)
-        return renderActor(":/images/high_energy_tile.png", cellSize);
+        pixmap = renderActor(":/images/high_energy_tile.png", m_cellSize);
     else if(energyLevel > 30)
-        return renderActor(":/images/mid_energy_tile.png", cellSize);
-    return renderActor(":/images/low_energy_tile.png", cellSize);
+        pixmap = renderActor(":/images/mid_energy_tile.png", m_cellSize);
+    else {
+        pixmap = renderActor(":/images/low_energy_tile.png", m_cellSize);
+    }
+    if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
+        QPainter painter(&pixmap);
+        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(0, 255, 0, poisonLevel));
+        painter.setOpacity(0.01);
+        painter.setCompositionMode(QPainter::CompositionMode_Multiply);
+        painter.drawPixmap(QPoint(0, 0), pixmap);
+    }
+    return pixmap;
 }
 
 QPixmap SpriteRenderer::renderDoorway(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/doorway.png", cellSize);
+    return renderActor(":/images/doorway.png", m_cellSize);
 }
 
 QPixmap SpriteRenderer::renderHealthPack(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/health_pack.png", cellSize);
+    return renderActor(":/images/health_pack.png", m_cellSize);
 }
 
 QPixmap SpriteRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/protagonist.png", cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
+    return renderActor(":/images/protagonist.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
 }
 
 QPixmap SpriteRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/enemy.png", cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
+    return renderActor(":/images/enemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
 }
 
 QPixmap SpriteRenderer::renderPEnemy(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/penemy.png", cellSize, calculateFrame(object[DataRole::Direction].toInt(), 6), 6);
+    return renderActor(":/images/penemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 6), 6);
 }
 
 QPixmap SpriteRenderer::renderActor(const QString &imagePath, int cellSize) {

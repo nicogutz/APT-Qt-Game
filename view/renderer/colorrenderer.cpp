@@ -10,14 +10,14 @@ QPixmap ColorRenderer::renderTile(
     int brightness = 255 - (energyLevel * 255 / 1);
 
     QColor color(0, 0, brightness);
-    QPixmap pixmap(cellSize, cellSize);
+    QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(color);
 
     return pixmap;
 }
 
 QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
-    QPixmap pixmap(cellSize, cellSize);
+    QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
     QColor color(123, 63, 0);
@@ -29,11 +29,11 @@ QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
     pen.setWidth(2);
     painter.setPen(pen);
     painter.setBrush(QBrush(color));
-
-    QPoint topleft(cellSize / 5, cellSize / 5);
-    QPoint topright(cellSize - (cellSize / 5), cellSize / 5);
-    QPoint bottomleft(cellSize / 5, cellSize - (cellSize / 5));
-    QPoint bottomright(cellSize - (cellSize / 5), cellSize - (cellSize / 5));
+    
+    QPoint topleft(m_cellSize / 5, m_cellSize / 5);
+    QPoint topright(m_cellSize - (m_cellSize / 5), m_cellSize / 5);
+    QPoint bottomleft(m_cellSize / 5, m_cellSize - (m_cellSize / 5));
+    QPoint bottomright(m_cellSize - (m_cellSize / 5), m_cellSize - (m_cellSize / 5));
 
     QList<QPoint> points = {topleft, topright, bottomright, bottomleft};
 
@@ -51,8 +51,8 @@ QPixmap ColorRenderer::renderHealthPack(
     int maxIntensity = 255;
     int final_color = minIntensity + (maxIntensity - minIntensity) * healthLevel / 100;
     QColor color(0, final_color, 0);
-
-    QPixmap pixmap(cellSize, cellSize);
+    
+    QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
     QPainter painter(&pixmap);
@@ -64,10 +64,10 @@ QPixmap ColorRenderer::renderHealthPack(
     painter.setBrush(QBrush(color));
 
     // Define points for the rhombus
-    QPoint top(cellSize / 2, cellSize / 5);
-    QPoint right(cellSize - (cellSize / 5), cellSize / 2);
-    QPoint bottom(cellSize / 2, cellSize - (cellSize / 5));
-    QPoint left(cellSize / 5, cellSize / 2);
+    QPoint top(m_cellSize / 2, m_cellSize / 5);
+    QPoint right(m_cellSize - (m_cellSize / 5), m_cellSize / 2);
+    QPoint bottom(m_cellSize / 2, m_cellSize - (m_cellSize / 5));
+    QPoint left(m_cellSize / 5, m_cellSize / 2);
 
     QList<QPoint> points = {top, right, bottom, left};
 
@@ -81,25 +81,25 @@ QPixmap ColorRenderer::renderHealthPack(
 
 QPixmap ColorRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
-    QPixmap pixmap(cellSize, cellSize);
+    QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> starPoints = {
-      QPoint(cellSize / 2, 0), // Top point
-      QPoint(cellSize, cellSize / 2), // Right point
-      QPoint(cellSize / 2, cellSize), // Bottom point
-      QPoint(0, cellSize / 2), // Left point
-      QPoint(cellSize / 2, 0) // Back to Top point
+        QPoint(m_cellSize / 2, 0), // Top point
+        QPoint(m_cellSize, m_cellSize / 2), // Right point
+        QPoint(m_cellSize / 2, m_cellSize), // Bottom point
+        QPoint(0, m_cellSize / 2), // Left point
+        QPoint(m_cellSize / 2, 0) // Back to Top point
     };
 
     QList<QPoint> arrowPoints = {
-        QPoint(cellSize / 2 + 8, 8), //Right-top midpoint
-        QPoint(cellSize / 2, 0), // Top point
-        QPoint(cellSize / 2 - 8, 8), //Left-top midpoint
-        QPoint(cellSize / 2 + 8, 8) //back to Right-top midpoint
+        QPoint(m_cellSize / 2 + 8, 8), //Right-top midpoint
+        QPoint(m_cellSize / 2, 0), // Top point
+        QPoint(m_cellSize / 2 - 8, 8), //Left-top midpoint
+        QPoint(m_cellSize / 2 + 8, 8) //back to Right-top midpoint
     };
 
     QPolygon rightHalf(starPoints.mid(0, 3));
@@ -135,18 +135,18 @@ QPixmap ColorRenderer::renderProtagonist(
 
 QPixmap ColorRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
-    QPixmap pixmap(cellSize, cellSize);
+    QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> trianglePoints = {
-      QPoint(cellSize / 2, cellSize / 5), // Top
-      QPoint(cellSize - (cellSize / 5), cellSize - (cellSize / 5)), // Right bottom
-      QPoint(cellSize / 2, cellSize - (cellSize / 5)), // Bottom centre
-      QPoint(cellSize / 5, cellSize - (cellSize / 5)), // Left bott0m
-      QPoint(cellSize / 2, cellSize / 5) // Back to Top point
+        QPoint(m_cellSize / 2, m_cellSize / 5), // Top
+        QPoint(m_cellSize - (m_cellSize / 5), m_cellSize - (m_cellSize / 5)), // Right bottom
+        QPoint(m_cellSize / 2, m_cellSize - (m_cellSize / 5)), // Bottom centre
+        QPoint(m_cellSize / 5, m_cellSize - (m_cellSize / 5)), // Left bott0m
+        QPoint(m_cellSize / 2, m_cellSize / 5) // Back to Top point
     };
 
     int healthLevel = object[DataRole::Health].toInt();
@@ -166,18 +166,18 @@ QPixmap ColorRenderer::renderEnemy(
 }
 
 QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
-    QPixmap pixmap(cellSize, cellSize);
+    QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> trianglePoints = {
-      QPoint(cellSize / 2, cellSize / 5), // Top
-      QPoint(cellSize - (cellSize / 5), cellSize - (cellSize / 5)), // Right bottom
-      QPoint(cellSize / 2, cellSize - (cellSize / 5)), // Bottom centre
-      QPoint(cellSize / 5, cellSize - (cellSize / 5)), // Left bott0m
-      QPoint(cellSize / 2, cellSize / 5) // Back to Top point
+        QPoint(m_cellSize / 2, m_cellSize / 5), // Top
+        QPoint(m_cellSize - (m_cellSize / 5), m_cellSize - (m_cellSize / 5)), // Right bottom
+        QPoint(m_cellSize / 2, m_cellSize - (m_cellSize / 5)), // Bottom centre
+        QPoint(m_cellSize / 5, m_cellSize - (m_cellSize / 5)), // Left bott0m
+        QPoint(m_cellSize / 2, m_cellSize / 5) // Back to Top point
     };
 
     QPolygon rightHalf(trianglePoints.mid(0, 3));

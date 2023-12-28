@@ -14,7 +14,7 @@ public:
     QGraphicsPixmapItem *renderGameObjects(QList<QMap<DataRole, QVariant>> objectData);
     QPixmap renderGameObject(QMap<DataRole, QVariant> objectData);
 
-    inline static constexpr int cellSize = 50;
+    inline static constexpr int m_cellSize = 50;
 
 protected:
     QPixmap rotatePixmap(const QPixmap &originalPixmap, int direction);
