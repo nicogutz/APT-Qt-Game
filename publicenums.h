@@ -22,7 +22,7 @@ enum class DataRole : int {
     PoisonLevel,
     FireLevel,
 
-    Visibility,
+    Destroyed,
 
     Position,
     Direction,

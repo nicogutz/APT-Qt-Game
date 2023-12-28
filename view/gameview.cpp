@@ -34,7 +34,20 @@ void GameView::createScene(
 void GameView::setRenderer(QSharedPointer<Renderer> newRenderer) {
     m_renderer = std::move(newRenderer);
 }
-
+QGraphicsItem *GameView::getPixmapItem(int x, int y, QVariant type) {
+    auto tile = m_tiles[x][y];
+    switch(type.value<ObjectType>()) {
+    case ObjectType::Tile:
+        return tile;
+    default:
+        for(auto child : tile->childItems()) {
+            if(child->data(static_cast<int>(DataRole::Type)) == type) {
+                return child;
+            }
+        }
+        return nullptr;
+    }
+}
 void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
     auto position = objectData[DataRole::Position].toPoint();
 
@@ -43,10 +56,12 @@ void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
         double angleRad = (direction)*M_PI / 180;
         int x = position.x() - round(cos(angleRad));
         int y = position.y() + round(sin(angleRad));
-        auto changedObject = m_tiles[x][y]->childItems()[0];
-        changedObject->setParentItem(m_tiles[position.x()][position.y()]);
+        auto changedObject = getPixmapItem(x, y, objectData[DataRole::Type]);
+        changedObject->setParentItem(getPixmapItem(position.x(), position.y(), QVariant::fromValue<ObjectType>(ObjectType::Tile)));
+    } else if(objectData[DataRole::Destroyed].toBool()) {
+        delete getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
     } else {
-        auto *obj = m_tiles[position.x()][position.y()]->childItems()[0];
+        auto *obj = getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
         dynamic_cast<QGraphicsPixmapItem *>(obj)->setPixmap(m_renderer->renderGameObject(objectData));
     }
 }

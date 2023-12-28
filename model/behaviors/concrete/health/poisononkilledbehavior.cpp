@@ -8,8 +8,6 @@ void PoisonOnKilledBehavior::die() {
     m_poisonCount = Poison::SETTINGS::POISON_SPREAD_TIMES;
 
     m_ticksToPoison = QRandomGenerator::global()->bounded(0, Poison::SETTINGS::POISON_SPREAD_MAX_TICKS);
-
-    GenericHealthBehavior::die();
 }
 
 void PoisonOnKilledBehavior::spreadPoison() {

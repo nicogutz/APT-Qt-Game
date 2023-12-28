@@ -11,8 +11,6 @@ public:
 
     int getHealthChanged(int amount) override;
     void die() override;
-signals:
-    void objectKilled(const QPointer<GameObject> &object);
 };
 
 #endif // GENERICHEALTHBEHAVIOR_H

@@ -5,13 +5,13 @@ int GenericHealingBehavior::heal(const QPointer<GameObject> &target) {
 
     auto h_behavior = target->getBehavior<Health>();
 
-    int healAmount = (h_behavior == nullptr) ? 0 : h_behavior->getHealthChanged(availableHealing);
+    int healAmount = h_behavior ? h_behavior->getHealthChanged(availableHealing) : 0;
 
     m_owner->setData(DataRole::Health, availableHealing - healAmount);
 
-    if(healAmount == availableHealing) {
-        // TODO: Disappear
-        m_owner->setData(DataRole::Visibility, 0);
+    if(healAmount >= availableHealing) {
+        m_owner->setData(DataRole::Destroyed, true);
+        delete m_owner;
     }
     return healAmount;
 }

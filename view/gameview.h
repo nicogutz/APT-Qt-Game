@@ -23,6 +23,7 @@ private:
     // Store the graphical representation of each GameObject
     QList<QList<QGraphicsPixmapItem *>> m_tiles;
 
+    QGraphicsItem *getPixmapItem(int x, int y, QVariant type);
 public slots:
     void dataChanged(QMap<DataRole, QVariant> objectData);
 };

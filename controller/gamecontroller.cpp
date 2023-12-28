@@ -20,7 +20,7 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
     m_character = factory.getPro(); // this is temporary, could probably be done in a better ways
 
     m_view = QSharedPointer<GameView>::create(this);
-    m_view->createScene(m_model->getAllData(), QSharedPointer<ColorRenderer>::create());
+    m_view->createScene(m_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
     connect(m_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
 
     connect(m_character, &GameObject::dataChanged, this, &GameController::updateEnergy);
