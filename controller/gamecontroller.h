@@ -38,17 +38,11 @@ public:
      * @brief The State enum
      */
     enum class State {
-        BeforeFirstGame,
         Running,
+        Automatic,
         BetweenLevels,
         Paused,
-        Suspended,
         GameOver,
-    };
-
-    enum class Mode {
-        Automatic,
-        Manual,
     };
 
     enum class View {
@@ -67,10 +61,6 @@ public:
 
     void findAndMoveTo(int x, int y);
 
-
-
-
-
 public slots:
 
     /**
@@ -83,13 +73,10 @@ public slots:
      * @param to
      */
     void characterAtttack();
-    void characterHealth();
 
     void updateLevel(unsigned int level);
     void updateGameState(State new_state);
     void updateGameView(View view);
-    void updateGameMode(Mode mode);
-
 
     void characterMoveAuto(Direction to);
     void path_finder();
@@ -152,14 +139,11 @@ private:
      */
     QPointer<GameObject> m_character;
     unsigned int m_gameLevel;
-    Mode m_gameMode;
     State m_gameState;
     View m_gameView;
 
     int health_packs;
     int enemies;
-
-
 };
 
 #endif // GAMECONTROLLER_H

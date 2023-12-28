@@ -6,7 +6,6 @@
 GameController::GameController()
     : QGraphicsView()
     , m_gameLevel(1)
-    , m_gameMode(Mode::Manual)
     , m_gameState(State::Running)
     , m_gameView(View::Color)
 
@@ -29,7 +28,7 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
 }
 
 void GameController::path_finder() {
-    if(m_gameMode == Mode::Automatic) {
+    if(m_gameState == State::Automatic) {
         auto path = factory.pathFinder();
 
         for(int move : path) {
@@ -78,30 +77,24 @@ void GameController::updateHealth() {
 }
 
 void GameController::characterMoveAuto(Direction to) {
-    if(m_gameState != State::Paused && m_gameView != View::Text) {
+    if(m_gameState == State::Automatic) {
         m_character->getBehavior<Movement>()->stepOn(to);
         emit tick(0);
     }
 }
 
 void GameController::characterMove(Direction to) {
-    if(m_gameState != State::Paused && m_gameMode != Mode::Automatic) {
+    if(m_gameState == State::Running) {
         m_character->getBehavior<Movement>()->stepOn(to);
         emit tick(0);
     }
 }
 
 void GameController::characterAtttack() {
-    if(m_gameState != State::Paused) {
+    if(m_gameState == State::Running) {
         if(auto attack = m_character->getBehavior<Attack>()) {
             attack->attack();
         }
-    }
-}
-
-void GameController::characterHealth() {
-    if(m_gameState != State::Paused) {
-        auto health = m_character->getBehavior<Health>();
     }
 }
 
@@ -123,10 +116,6 @@ void GameController::updateGameView(View view) {
     } else {
         m_view->createScene(m_model->getAllData(), QSharedPointer<ColorRenderer>::create());
     }
-}
-
-void GameController::updateGameMode(Mode mode) {
-    m_gameMode = mode;
 }
 
 QSharedPointer<GameView> GameController::getView() {

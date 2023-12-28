@@ -65,6 +65,7 @@ private:
 
 signals:
     void dataChanged(QMap<DataRole, QVariant> objectData);
+    void tick(int tickCount);
 };
 
 #endif // GAMEOBJECT_H

@@ -31,13 +31,13 @@ GameWindow::GameWindow(QWidget *parent)
     QPushButton *autoButton = modeBox.addButton("Automatic", QMessageBox::AcceptRole);
     modeBox.exec();
     if(modeBox.clickedButton() == manualButton) {
-        m_controller->updateGameMode(GameController::Mode::Manual);
+        m_controller->updateGameState(GameController::State::Running);
         m_ui->mode_label->setText("Mode: Manual");
         m_ui->manual->setChecked(true);
         m_ui->automatic->setChecked(false);
         m_ui->path_find_trigger->hide();
     } else if(modeBox.clickedButton() == autoButton) {
-        m_controller->updateGameMode(GameController::Mode::Automatic);
+        m_controller->updateGameState(GameController::State::Automatic);
         m_ui->mode_label->setText("Mode: Automatic");
         m_ui->automatic->setChecked(true);
         m_ui->manual->setChecked(false);
@@ -90,7 +90,6 @@ void GameWindow::updateTime(bool active) {
             int currentTime = QDateTime::currentDateTime().toSecsSinceEpoch();
             m_elapsedSeconds = currentTime - m_startTime;
             m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + " s");
-            m_controller->updateGameState(GameController::State::Running);
         } else { // game restarting
             m_elapsedSeconds++;
             m_timer->start(1000);
