@@ -44,9 +44,7 @@ public:
      * @param level
      * @return
      */
-    virtual int getPoisoned(int level) {
-        return 0;
-    };
+    virtual int getPoisoned(int level);;
     /**
      * @brief getPoisoned
      * @param level

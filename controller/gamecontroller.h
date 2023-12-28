@@ -8,8 +8,6 @@
 #include <QThread>
 #include <QCoreApplication>
 
-#include "model/behaviors/attack.h"
-
 #include <model/behaviors/health.h>
 
 #include <QDateTime>

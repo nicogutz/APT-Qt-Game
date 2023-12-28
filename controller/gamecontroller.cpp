@@ -1,4 +1,5 @@
 #include "gamecontroller.h"
+#include "model/behaviors/attack.h"
 #include "view/renderer/spriterenderer.h"
 #include "view/renderer/textrenderer.h"
 #include "view/renderer/colorrenderer.h"
@@ -10,9 +11,7 @@ GameController::GameController()
     : QGraphicsView()
     , m_gameLevel(1)
     , m_gameState(State::Running)
-    , m_gameView(View::Color)
-
-        {};
+    , m_gameView(View::Color) {};
 
 void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
     // create world with 6 Enemies 5 health packs and 3 PEnemies
@@ -24,6 +23,8 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
     m_view = QSharedPointer<GameView>::create(this);
     m_view->createScene(m_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
     connect(m_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+
+    connect(this, &GameController::tick, m_model, &GameObjectModel::tick);
 
     connect(m_character, &GameObject::dataChanged, this, &GameController::updateEnergy);
     connect(m_character, &GameObject::dataChanged, this, &GameController::updateHealth);
@@ -88,6 +89,7 @@ void GameController::characterAtttack() {
     if(m_gameState == State::Running) {
         if(auto attack = m_character->getBehavior<Attack>()) {
             attack->attack();
+            emit tick();
         }
     }
 }

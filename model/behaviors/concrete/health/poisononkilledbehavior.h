@@ -3,7 +3,8 @@
 
 #include "generichealthbehavior.h"
 
-class PoisonOnKilledBehavior : public GenericHealthBehavior {
+class PoisonOnKilledBehavior : public QObject, public GenericHealthBehavior {
+    Q_OBJECT
 public:
     PoisonOnKilledBehavior(QPointer<GameObject> owner)
         : GenericHealthBehavior(owner) {};
@@ -11,13 +12,11 @@ public:
     // Health interface
     void die() override;
 
-public slots:
-    void extracted();
-    void spreadPoison();
-
 private:
-    unsigned int m_ticksToPoison, m_poisonCount = 0;
-    unsigned long m_tickCount = 0;
+    unsigned int m_ticksToPoison = 0, m_poisonCount = 0, m_tickCount = 0;
+
+public slots:
+    void spreadPoison();
 };
 
 #endif // POISONONKILLEDBEHAVIOR_H

@@ -9,8 +9,6 @@ public:
     GenericPoisonableBehavior(QPointer<GameObject> owner)
         : Poison(owner) {};
 
-    // Poison interface
-    int getPoisoned(int level) override;
 public slots:
     void poisonEffect();
 };

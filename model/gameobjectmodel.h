@@ -15,7 +15,9 @@ public:
                 tile->setParent(this);
                 connect(tile, &GameObject::dataChanged, this, &GameObjectModel::dataChanged);
                 for(const auto &obj : tile->children()) {
-                    connect(qobject_cast<GameObject *>(obj), &GameObject::dataChanged, this, &GameObjectModel::dataChanged);
+                    auto *gameObj = qobject_cast<GameObject *>(obj);
+                    connect(gameObj, &GameObject::dataChanged, this, &GameObjectModel::dataChanged);
+                    connect(this, &GameObjectModel::tick, gameObj, &GameObject::tick);
                 }
             }
         }
@@ -42,7 +44,7 @@ private:
 
 signals:
     void dataChanged(QMap<DataRole, QVariant> objectData);
-    void tick(int);
+    void tick();
 };
 
 #endif // GAMEOBJECTMODEL_H

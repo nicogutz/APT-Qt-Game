@@ -1,24 +1,6 @@
 #include "genericpoisonablebehavior.h"
 #include "model/behaviors/health.h"
 
-int GenericPoisonableBehavior::getPoisoned(int level) {
-    QVariant poisonLevel
-      = m_owner->getData(DataRole::PoisonLevel);
-    if(poisonLevel.isNull()) {
-        throw("Cannot change poison level of object.");
-    }
-
-    int newPoison = poisonLevel.toInt() + level;
-    if(newPoison > Settings.MAX_POISON) {
-        newPoison = Settings.MAX_POISON;
-    }
-
-    m_owner->setData(
-      DataRole::PoisonLevel, QVariant(newPoison));
-
-    return newPoison;
-}
-
 void GenericPoisonableBehavior::poisonEffect() {
     QVariant poisonLevel = m_owner->getData(DataRole::PoisonLevel);
     auto behavior = m_owner->getBehavior<Health>();

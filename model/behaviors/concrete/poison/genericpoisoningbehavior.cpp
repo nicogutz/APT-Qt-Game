@@ -5,7 +5,7 @@ int GenericPoisoningBehavior::poison(const QPointer<GameObject> &target) {
     int poisonAdminisered = 0;
 
     for(const auto &behavior : behaviors) {
-        if(!behavior.isNull()) {
+        if(behavior) {
             int currentLevel = m_owner->getData(DataRole::PoisonLevel).toInt();
 
             if(currentLevel <= 0)
@@ -14,7 +14,7 @@ int GenericPoisoningBehavior::poison(const QPointer<GameObject> &target) {
             int poisonedAmount = currentLevel > Poison::SETTINGS::MAX_POISON_PER_ACTION
               ? Poison::SETTINGS::MAX_POISON_PER_ACTION
               : currentLevel;
-
+            poisonedAmount = behavior->getPoisoned(poisonedAmount);
             poisonAdminisered += poisonedAmount;
 
             m_owner->setData(

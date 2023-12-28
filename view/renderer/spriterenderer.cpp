@@ -19,9 +19,8 @@ QPixmap SpriteRenderer::renderTile(
     }
     if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
         QPainter painter(&pixmap);
-        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(0, 255, 0, poisonLevel));
-        painter.setOpacity(0.01);
-        painter.setCompositionMode(QPainter::CompositionMode_Multiply);
+        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(0, 255, 0, poisonLevel * 2));
+        painter.setCompositionMode(QPainter::CompositionMode_SoftLight);
         painter.drawPixmap(QPoint(0, 0), pixmap);
     }
     return pixmap;
