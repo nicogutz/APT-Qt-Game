@@ -15,7 +15,7 @@
 class ObjectModelFactory {
 public:
     ObjectModelFactory();
-    GameObjectModel *createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio);
+    GameObjectModel *createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio, unsigned int level);
     std::vector<int> pathFinder();
     
     QPointer<GameObject> getPro() { return m_protagonist; } // temporary

@@ -14,21 +14,115 @@ GameController::GameController()
     , m_gameView(View::Color) {};
 
 void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
-    // create world with 6 Enemies 5 health packs and 3 PEnemies
-    m_model = factory.createModel(":/images/worldmap.png", 20, 6, 0.5f);
 
-    m_model->setParent(this);
-    m_character = m_model->getObject(ObjectType::Protagonist).at(0); // this is temporary, could probably be done in a better ways
+    m_current_model = factory.createModel(":/images/worldmap.png", enemies, health_packs, 0.5f, 1);
+    m_models.append(m_current_model);
+    m_current_model->setParent(this);
+    m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
 
     m_view = QSharedPointer<GameView>::create(this);
-    m_view->createScene(m_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
-    connect(m_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+    m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+    connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
 
-    connect(this, &GameController::tick, m_model, &GameObjectModel::tick);
+    connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+    connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
 
-    connect(m_character, &GameObject::dataChanged, this, &GameController::updateEnergy);
-    connect(m_character, &GameObject::dataChanged, this, &GameController::updateHealth);
+
     this->show();
+}
+
+
+void GameController::updateLevel(Direction direction) {
+    std::cout << "update level";
+    m_gameLevel ++;
+    if (direction == Direction::Up){
+        if (m_gameLevel > (m_models.size()) ) {
+
+            disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+            disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+            disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+            m_models.append(factory.createModel(":/images/worldmap2.png", 30, 10, 0.5f, m_gameLevel));
+            m_current_model = m_models.last();
+            m_current_model->setParent(this);
+
+            m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
+            m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+
+
+            connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+            connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+            connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+        }
+        else {
+            disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+            disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+            disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+            m_current_model = m_models[m_gameLevel-1];
+            m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
+            m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+
+
+            connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+            connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+            connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+        }
+
+
+    } else if (direction == Direction::Down){
+        disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+        disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+        disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+        m_gameLevel --;
+        m_current_model = m_models[m_gameLevel-1];
+        m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
+        m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+
+
+        connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+        connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+        connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+
+    }
+
+
+}
+
+
+void GameController::dataChanged(QMap<DataRole, QVariant> objectData){
+    switch(objectData[DataRole::Type].value<ObjectType>()){
+    case ObjectType::Protagonist:
+        if (objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Energy){
+            updateEnergy();
+        }
+
+        if (objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Health){
+            updateHealth();
+        }
+        break;
+    case ObjectType::Doorway:
+        if (objectData[DataRole::Direction].value<Direction>() == Direction::Up){
+            updateLevel(Direction::Up); // go up a level
+        }
+        if (objectData[DataRole::Direction].value<Direction>() == Direction::Down){
+            if (m_gameLevel != 1){
+                updateLevel(Direction::Down);// go down a level
+            }
+        }
+        break;
+
+    case ObjectType::PoisonEnemy:
+
+        break;
+    case ObjectType::HealthPack:
+
+        break;
+
+    }
 }
 
 void GameController::path_finder() {
@@ -104,11 +198,11 @@ void GameController::setLevel(unsigned int level) {
 void GameController::updateGameView(View view) {
     m_gameView = view;
     if(view == View::Sprite) {
-        m_view->createScene(m_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+        m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
     } else if(view == View::Text) {
-        m_view->createScene(m_model->getAllData(), QSharedPointer<TextRenderer>::create());
+        m_view->createScene(m_current_model->getAllData(), QSharedPointer<TextRenderer>::create());
     } else {
-        m_view->createScene(m_model->getAllData(), QSharedPointer<ColorRenderer>::create());
+        m_view->createScene(m_current_model->getAllData(), QSharedPointer<ColorRenderer>::create());
     }
 }
 

@@ -7,7 +7,7 @@ ObjectModelFactory::ObjectModelFactory()
     , m_protagonist() {
 }
 
-GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio) {
+GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio, unsigned int level) {
     World m_world;
     m_world.createWorld(filename, nrOfEnemies, nrOfHealthpacks, pRatio);
     int rows = m_world.getRows(), cols = m_world.getCols();
@@ -36,15 +36,19 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
             j++;
         }
     }
-    auto *entryDoor = new GameObject({
-      {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Down)},
-    });
-    GameObjectSettings::getFunction(ObjectType::Doorway)(entryDoor);
-    entryDoor->setParent(worldGrid[0][0]);
+    // Process doorways
+    if(level != 1){
+        auto *entryDoor = new GameObject({
+                                          {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Down)},
+                                          });
+        GameObjectSettings::getFunction(ObjectType::Doorway)(entryDoor);
+        entryDoor->setParent(worldGrid[0][0]);
+
+    }
 
     auto *exitDoor = new GameObject({
-      {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Up)},
-    });
+                                     {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Up)},
+                                     });
     GameObjectSettings::getFunction(ObjectType::Doorway)(exitDoor);
     exitDoor->setParent(worldGrid[rows - 1][cols - 1]);
 
@@ -87,7 +91,7 @@ std::vector<int> ObjectModelFactory::pathFinder() {
         return a.h > b.h;
     };
 
-    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, 30, 0.001f);
+    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, m_world.getCols(), 0.001f);
     auto path = pathFinder.A_star();
 
     for(auto p : path) {

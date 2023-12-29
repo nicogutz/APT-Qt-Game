@@ -72,6 +72,11 @@ public:
     void updateEnergy();
     void updateHealth();
 
+    void updateLevel(Direction direction);
+
+    void dataChanged(QMap<DataRole, QVariant> objectData);
+
+
 signals:
     /**
      * @brief tick Emitted when a turn is complete.
@@ -117,7 +122,8 @@ private:
     /**
      * @brief m_model
      */
-    GameObjectModel *m_model;
+    GameObjectModel *m_current_model;
+    QList<GameObjectModel*> m_models;
     /**
      * @brief m_view
      */
@@ -127,6 +133,7 @@ private:
      * @brief m_character
      */
     QPointer<GameObject> m_character;
+
     unsigned int m_gameLevel;
     State m_gameState;
     View m_gameView;
