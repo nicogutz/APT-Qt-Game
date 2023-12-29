@@ -82,7 +82,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += qdarkstyle/light/lightstyle.qrc
 RESOURCES += Resources.qrc
-RESOURCES += Aqua.qss
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../lib/ -lworl
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../lib/ -lworld
