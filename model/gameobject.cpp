@@ -4,18 +4,20 @@
 #include <QChar>
 #include <iostream>
 
-const QPointer<GameObject> GameObject::getNeighbor(Direction direction, int offset) const {
+const QPointer<GameObject> GameObject::getNeighbor(double direction, int offset) const {
     if(auto prt = qobject_cast<GameObject *>(parent())) {
         return prt->getNeighbor(direction, offset);
     }
     return qobject_cast<GameObjectModel *>(parent())->getNeighbor(m_objectData[DataRole::Position].toPoint(), direction, offset);
 }
-
+const QPointer<GameObject> GameObject::getNeighbor(Direction direction, int offset) const {
+    return getNeighbor(static_cast<double>(direction), offset);
+}
 const QList<QPointer<GameObject>> GameObject::getAllNeighbors(int offset) const {
     // I think this ended up looking pretty sweet.
     auto list = QList<QPointer<GameObject>>();
-    for(Direction dir : EnumDirectionVector) {
-        list.append(getNeighbor(dir, offset));
+    for(float i = 0; i < 360; i += 360 / (((double)offset + 1) * 8)) {
+        list.append(getNeighbor(i, offset));
     }
     return list;
 }

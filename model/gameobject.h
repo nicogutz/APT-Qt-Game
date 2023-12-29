@@ -30,8 +30,9 @@ public:
     void setData(QList<QPair<DataRole, QVariant>> data);
 
     // Neighbors getters and setters.
-    const QPointer<GameObject> getNeighbor(Direction direction, int offset = 0) const;
     const QList<QPointer<GameObject>> getAllNeighbors(int offset = 0) const;
+    const QPointer<GameObject> getNeighbor(double direction, int offset = 0) const;
+    const QPointer<GameObject> getNeighbor(Direction direction, int offset = 0) const;
 
     // Behavior getters and setters
     template <typename T, typename = std::enable_if<std::is_base_of<Behavior, T>::value>::type>

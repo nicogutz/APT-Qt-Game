@@ -10,21 +10,18 @@ int GenericPoisoningBehavior::poison(const QPointer<GameObject> &target) {
         if(behavior) {
             int currentLevel = m_owner->getData(DataRole::PoisonLevel).toInt();
 
-            if(currentLevel <= 0)
+            if(currentLevel <= 0) {
                 continue;
+            }
 
             int poisonAmount = QRandomGenerator::global()->bounded(
               Poison::SETTINGS::MIN_POISON_PER_ACTION, Poison::SETTINGS::MAX_POISON_PER_ACTION);
 
-            int poisonedAmount = currentLevel > poisonAmount
-              ? poisonAmount
-              : currentLevel;
+            int poisonedAmount = currentLevel > poisonAmount ? poisonAmount : currentLevel;
             poisonedAmount = behavior->getPoisoned(poisonedAmount);
             poisonAdminisered += poisonedAmount;
 
-            m_owner->setData(
-              DataRole::PoisonLevel,
-              QVariant(currentLevel - poisonedAmount));
+            m_owner->setData(DataRole::PoisonLevel, QVariant(currentLevel - poisonedAmount));
         }
     }
     return poisonAdminisered;

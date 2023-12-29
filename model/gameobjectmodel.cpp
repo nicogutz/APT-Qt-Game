@@ -8,14 +8,28 @@ int GameObjectModel::getColumnCount() const {
     return m_world[0].size();
 }
 
-const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, Direction direction, int offset) const {
-    double angleRad = ((int)direction) * M_PI / 180;
-    int x = location.x() + ((offset + 1) * round(cos(angleRad)));
-    int y = location.y() - ((offset + 1) * round(sin(angleRad)));
+const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, double direction, int offset) const {
+    double angleRad = direction * M_PI / 180;
+    offset++;
+    // Took me a while to come up with this. It transforms any angle to an acute angle using mod 45.
+    // Since we know the adjacent side is always "offset" long we multiply it by the tan.
+    // The ternary fixes the issue that mod45 is 0 :(
+    double b = abs(std::fmod(direction, 90) - 45) < 1e-6 ? offset : offset * tan((std::fmod(direction, 45)) * M_PI / 180);
+
+    // Calculate the length of the hypothenuse. c = sqrt(a^2+b^2)
+    double c = sqrt(b * b + offset * offset);
+
+    // More angle kajiggery, our world is flipped w.r.t. the list in the y-ax
+    // Therefore flipping the angle flips the y axis and not the x axis :)
+    int x = location.x() + round((c * cos(-angleRad)));
+    int y = location.y() + round((c * sin(-angleRad)));
+
+    // No access allowed in the void
     if(0 > x || 0 > y || x >= getRowCount() || y >= getColumnCount()) {
         return QPointer<GameObject>(nullptr);
     }
-    return m_world[x][y];
+    // Im pretty sure this won't cause any issues :shrug:
+    return m_world.at(x).at(y);
 }
 
 QList<QList<QList<QMap<DataRole, QVariant>>>> GameObjectModel::getAllData() const {

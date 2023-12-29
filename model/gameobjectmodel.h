@@ -36,7 +36,7 @@ public:
     void setItem(int row, int column, QPointer<GameObject> object);
     int getRowCount() const;
     int getColumnCount() const;
-    const QPointer<GameObject> getNeighbor(QPoint location, Direction direction, int offset) const;
+    const QPointer<GameObject> getNeighbor(QPoint location, double direction, int offset) const;
     QList<QList<QList<QMap<DataRole, QVariant>>>> getAllData() const;
 
     QList<QPointer<GameObject>> getObject(ObjectType type) const;
