@@ -55,14 +55,32 @@ GamePixmapItem *SpriteRenderer::renderHealthPack(
 
 GamePixmapItem *SpriteRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
-    return new GamePixmapItem(renderActor(":/images/protagonist.png", m_cellSize,
-                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+    auto *item = new GamePixmapItem(renderActor(":/images/protagonist.png", m_cellSize,
+                                                calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+    auto *animation = new QPropertyAnimation(item, "pos");
+    animation->setDuration(500);
+    animation->setLoopCount(-1);
+    animation->setStartValue(QPointF(0, 0));
+    animation->setEndValue(QPointF(0, 3));
+    animation->setEasingCurve(QEasingCurve::OutInBounce);
+    animation->start();
+    animation->setParent(item);
+    return item;
 }
 
 GamePixmapItem *SpriteRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
-    return new GamePixmapItem(renderActor(":/images/xenemy.png", m_cellSize,
-                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+    auto *item = new GamePixmapItem(renderActor(":/images/xenemy.png", m_cellSize,
+                                                calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+    auto *animation = new QPropertyAnimation(item, "opacity");
+    animation->setDuration(3000);
+    animation->setLoopCount(-1);
+    animation->setStartValue(0);
+    animation->setEndValue(1);
+    animation->setEasingCurve(QEasingCurve::SineCurve);
+    animation->start();
+    animation->setParent(item);
+    return item;
 }
 
 GamePixmapItem *SpriteRenderer::renderPEnemy(

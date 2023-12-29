@@ -1,5 +1,6 @@
 #include "gameview.h"
 #include <QGraphicsPixmapItem>
+#include <QPropertyAnimation>
 
 GameView::GameView(QObject *parent)
     : QGraphicsScene(parent) {
@@ -22,7 +23,6 @@ void GameView::createScene(
             if(x < gameObjects.size() && y < gameObjects[x].size()
                && !gameObjects[x][y].empty()) {
                 auto *item = m_renderer->renderGameObjects(gameObjects[x][y]);
-
                 item->setPos(x * item->pixmap().width(), y * item->pixmap().height());
                 m_tiles[x][y] = item; // Store the shared pointer in m_tiles
                 addItem(item);
@@ -34,6 +34,7 @@ void GameView::createScene(
 void GameView::setRenderer(QSharedPointer<Renderer> newRenderer) {
     m_renderer = std::move(newRenderer);
 }
+
 GamePixmapItem *GameView::getPixmapItem(int x, int y, QVariant type) {
     auto tile = m_tiles[x][y];
     switch(type.value<ObjectType>()) {
@@ -48,6 +49,7 @@ GamePixmapItem *GameView::getPixmapItem(int x, int y, QVariant type) {
         return nullptr;
     }
 }
+
 void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
     auto position = objectData[DataRole::Position].toPoint();
     // The changes made here are only because the renderers have no access to the world.
@@ -60,6 +62,7 @@ void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
         QVariant type = QVariant::fromValue<ObjectType>(ObjectType::Tile);
 
         auto changedObject = getPixmapItem(x, y, objectData[DataRole::Type]);
+
         changedObject->setParentItem(getPixmapItem(position.x(), position.y(), type));
 
     } else if(objectData[DataRole::Destroyed].toBool()) {

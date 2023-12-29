@@ -1,5 +1,7 @@
 #include "renderer.h"
 
+#include <QPropertyAnimation>
+
 Renderer::Renderer() {
 }
 

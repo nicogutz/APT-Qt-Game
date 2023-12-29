@@ -1,3 +1,1 @@
 #include "gamepixmapitem.h"
-
-
