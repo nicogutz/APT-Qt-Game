@@ -29,7 +29,7 @@ public:
         // The Max ticks between poison spread
         constexpr static int POISON_SPREAD_MAX_TICKS = 10;
         // How much damage poison does per tick.
-        constexpr static int DAMAGE_PER_TICK = 5;
+        constexpr static int DAMAGE_PER_TICK = 1;
         // Yay for the geometric formula, ensures the PEnemy has enough poison to get all the neighbors.
         constexpr static int PENEMY_POISON_LEVEL = (MAX_POISON_PER_ACTION * 8 * (1 - POISON_SPREAD_TIMES * POISON_SPREAD_TIMES) / (1 - POISON_SPREAD_TIMES));
 
