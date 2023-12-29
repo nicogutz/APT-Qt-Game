@@ -70,7 +70,8 @@ void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
     } else {
         auto *obj = getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
         auto *newObj = m_renderer->renderGameObject(objectData);
-        obj->setPixmap(newObj->pixmap());
-        delete newObj;
+        newObj->setData((int)DataRole::Type, objectData[DataRole::Type]);
+        newObj->setParentItem(obj->parentItem());
+        delete obj;
     }
 }
