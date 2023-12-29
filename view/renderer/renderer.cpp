@@ -10,7 +10,7 @@ GamePixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> obje
 
     for(const auto &data : objectDataList.mid(1, -1)) {
         auto *obj = renderGameObject(data);
-        obj->setData(static_cast<int>(DataRole::Type), data[DataRole::Type]);
+        obj->setData(DataRole::Type, data[DataRole::Type]);
         obj->setParentItem(tile);
     }
     return tile;
