@@ -6,329 +6,431 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1004</width>
-    <height>755</height>
+    <width>1045</width>
+    <height>865</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GameWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QSlider" name="horizontalSlider">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>30</y>
-      <width>191</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="zoom_label">
-    <property name="geometry">
-     <rect>
-      <x>470</x>
-      <y>10</y>
-      <width>111</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0,0,0);
-font: 700 11pt &quot;Segoe UI&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Zoom in/out</string>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>80</y>
-      <width>631</width>
-      <height>631</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>20</y>
-      <width>281</width>
-      <height>195</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="time_label">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 14, 90);
-font: 700 16pt &quot;Segoe UI&quot;;
-color: rgb(0,0,0)</string>
-       </property>
-       <property name="text">
-        <string>Elapsed time: 0s</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="mode_label">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 14, 90);
-font: 700 15pt &quot;Segoe UI&quot;;
-color: rgb(0,0,0)</string>
-       </property>
-       <property name="text">
-        <string>Mode:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="path_find_trigger">
-       <property name="text">
-        <string>Find Path</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="level_label">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 14, 90);
-font: 700 16pt &quot;Segoe UI&quot;;
-color: rgb(0,0,0)</string>
-       </property>
-       <property name="text">
-        <string>Level:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="enemies_label">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 14, 90);
-font: 700 16pt &quot;Segoe UI&quot;;
-color: rgb(0,0,0)</string>
-       </property>
-       <property name="text">
-        <string>Enemies:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="health_packs">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 14, 90);
-font: 700 16pt &quot;Segoe UI&quot;;
-color: rgb(0,0,0)</string>
-       </property>
-       <property name="text">
-        <string>Health packs:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QLineEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>410</y>
-      <width>281</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(237, 240, 255);</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>450</y>
-      <width>281</width>
-      <height>251</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(237, 240, 255);</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="type_command">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>380</y>
-      <width>151</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0,0,0);
-font: 700 11pt &quot;Segoe UI&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Type command</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>220</y>
-      <width>281</width>
-      <height>132</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QLabel" name="energy_label">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 14, 90);
-font: 700 16pt &quot;Segoe UI&quot;;
-color: rgb(0,0,0)</string>
-       </property>
-       <property name="text">
-        <string>Energy</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QProgressBar" name="energy">
-       <property name="whatsThis">
-        <string/>
-       </property>
-       <property name="accessibleName">
-        <string>Energy </string>
-       </property>
-       <property name="accessibleDescription">
-        <string/>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 0);
-font: 12pt &quot;8514oem&quot;;
-background-color: rgb(255, 255, 255);
+   <layout class="QVBoxLayout" name="verticalLayout_7">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QPushButton" name="quit_game">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Quit Game</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="rerun_game_2">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Rerun Game</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pause">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Pause Game</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
+            <item>
+             <widget class="QLabel" name="zoom_label">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Zoom</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="horizontalSlider">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>1</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10000</width>
+            <height>1</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QGraphicsView" name="graphicsView"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item>
+         <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
+          <item row="4" column="0">
+           <widget class="QLabel" name="level_label">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+	font-weight: bold;
+}
 </string>
-       </property>
-       <property name="value">
-        <number>24</number>
-       </property>
-       <property name="invertedAppearance">
-        <bool>false</bool>
-       </property>
-       <property name="format">
-        <string>%p%</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="health_label">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 14, 90);
-font: 700 16pt &quot;Segoe UI&quot;;
-color: rgb(0,0,0)</string>
-       </property>
-       <property name="text">
-        <string>Health</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QProgressBar" name="health">
-       <property name="whatsThis">
-        <string/>
-       </property>
-       <property name="accessibleName">
-        <string>Energy </string>
-       </property>
-       <property name="accessibleDescription">
-        <string/>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 0);
-font: 12pt &quot;8514oem&quot;;
-background-color: rgb(255, 255, 255);
+            </property>
+            <property name="text">
+             <string>Level</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="enemies_label">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+	font-weight: bold;
+}
 </string>
-       </property>
-       <property name="value">
-        <number>24</number>
-       </property>
-       <property name="invertedAppearance">
-        <bool>false</bool>
-       </property>
-       <property name="format">
-        <string>%p%</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>381</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="quit_game">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(208, 0, 0);
-font: 700 9pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Quit Game</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="rerun_game_2">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(208, 0, 0);
-font: 700 9pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Rerun Game</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="pause">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(208, 0, 0);
-font: 700 9pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Pause Game</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+            </property>
+            <property name="text">
+             <string>Enemies</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="time_label">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+	font-weight: bold;
+}
+</string>
+            </property>
+            <property name="text">
+             <string>Elapsed Time</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLCDNumber" name="lcdTime">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLCDNumber{
+    color: rgb(220, 50, 47);    
+}
+</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Flat</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLCDNumber" name="lcdLevel">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLCDNumber{
+    color: rgb(220, 50, 47);    
+}
+</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Flat</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="health_packs">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+	font-weight: bold;
+}
+</string>
+            </property>
+            <property name="text">
+             <string>Health Packs</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLCDNumber" name="lcdEnemies">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLCDNumber{
+    color: rgb(220, 50, 47);    
+}
+</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Flat</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLCDNumber" name="lcdHealth">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLCDNumber{
+    color: rgb(220, 50, 47);    
+}
+</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Flat</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="health_label">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Health</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="health">
+            <property name="whatsThis">
+             <string/>
+            </property>
+            <property name="accessibleName">
+             <string>Energy </string>
+            </property>
+            <property name="accessibleDescription">
+             <string/>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> QProgressBar::chunk {
+     background-color: rgb(51, 209, 122);
+ }
+</string>
+            </property>
+            <property name="value">
+             <number>24</number>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="format">
+             <string>%p%</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="energy_label">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Energy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="energy">
+            <property name="whatsThis">
+             <string/>
+            </property>
+            <property name="accessibleName">
+             <string>Energy </string>
+            </property>
+            <property name="accessibleDescription">
+             <string/>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> QProgressBar::chunk {
+     background-color: rgb(246, 211, 45);
+ }
+</string>
+            </property>
+            <property name="value">
+             <number>24</number>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="format">
+             <string>%p%</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>200</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="path_find_trigger">
+          <property name="text">
+           <string>Find Path</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="type_command">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>Type command</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="textEdit">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPlainTextEdit" name="plainTextEdit">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1004</width>
+     <width>1045</width>
      <height>22</height>
     </rect>
    </property>

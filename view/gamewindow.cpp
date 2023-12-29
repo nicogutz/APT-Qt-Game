@@ -1,6 +1,8 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 
+#include <QDateTime>
+
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_ui(new Ui::GameWindow)
@@ -14,8 +16,7 @@ GameWindow::GameWindow(QWidget *parent)
 
     // DEFAULT OPTIONS
     //    setStyleSheet("background-color: white;");
-    this->setFixedSize(1000, 800);
-    m_ui->level_label->setText("Level: 1");
+    //    this->setFixedSize(1000, 800);
     m_ui->colour_mode->setChecked(true);
     m_ui->text_mode->setChecked(false);
     m_ui->sprite_mode->setChecked(false);
@@ -31,14 +32,14 @@ GameWindow::GameWindow(QWidget *parent)
     modeBox.exec();
     if(modeBox.clickedButton() == manualButton) {
         m_controller->setState(GameController::State::Running);
-        m_ui->mode_label->setText("Mode: Manual");
+        //        m_ui->mode_label->setText("Mode: Manual");
         m_ui->manual->setChecked(true);
         m_ui->automatic->setChecked(false);
         m_ui->path_find_trigger->hide();
     } else if(modeBox.clickedButton() == autoButton) {
         m_controller->setState(GameController::State::Running);
         installEventFilter(this);
-        m_ui->mode_label->setText("Mode: Automatic");
+        //        m_ui->mode_label->setText("Mode: Automatic");
         m_ui->automatic->setChecked(true);
         m_ui->manual->setChecked(false);
         m_ui->path_find_trigger->show();
@@ -46,11 +47,12 @@ GameWindow::GameWindow(QWidget *parent)
 
     // START GAME
     m_controller->startGame(6, 5);
-    m_ui->enemies_label->setText("Enemies: 6");
-    m_ui->health_packs->setText("Health packs: 5");
+    m_ui->lcdEnemies->display(6);
+    m_ui->lcdHealth->display(5);
     m_ui->graphicsView->setScene(m_controller->getView().data());
     m_ui->graphicsView->show();
     m_controller->show();
+    m_ui->lcdTime->display("00:00");
 
     // START TIMER
     m_timer->start(1000);
@@ -93,7 +95,7 @@ void GameWindow::togglePause() {
 }
 void GameWindow::updateTime() {
     m_elapsedSeconds++;
-    m_ui->time_label->setText("Elapsed time: " + QString::number(m_elapsedSeconds) + "s");
+    m_ui->lcdTime->display(QDateTime::fromSecsSinceEpoch(m_elapsedSeconds).toUTC().toString("mm:ss"));
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
@@ -203,10 +205,10 @@ void GameWindow::zoomBySlider(int value) {
 }
 
 void GameWindow::updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs) {
-    m_ui->level_label->setText("Level: " + QString::number(level));
+    m_ui->lcdLevel->display((int)level);
     m_controller->startGame(enemies, health_packs);
-    m_ui->enemies_label->setText("Enemies: " + QString::number(enemies));
-    m_ui->health_packs->setText("Health packs: " + QString::number(health_packs));
+    m_ui->lcdEnemies->display((int)enemies);
+    m_ui->lcdHealth->display((int)health_packs);
 }
 
 void GameWindow::setSpriteView() {
