@@ -3,18 +3,18 @@
 Renderer::Renderer() {
 }
 
-QGraphicsPixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> objectDataList) {
-    QGraphicsPixmapItem *tile = new QGraphicsPixmapItem(renderGameObject(objectDataList[0]));
+GamePixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> objectDataList) {
+    GamePixmapItem *tile = renderGameObject(objectDataList[0]);
 
     for(const auto &data : objectDataList.mid(1, -1)) {
-        auto *obj = new QGraphicsPixmapItem(renderGameObject(data));
+        auto *obj = renderGameObject(data);
         obj->setData(static_cast<int>(DataRole::Type), data[DataRole::Type]);
         obj->setParentItem(tile);
     }
     return tile;
 }
 
-QPixmap Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) {
+GamePixmapItem *Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) {
     switch(objectData[DataRole::Type].value<ObjectType>()) {
     case ObjectType::Tile:
         return renderTile(objectData);

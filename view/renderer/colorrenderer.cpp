@@ -4,7 +4,7 @@
 ColorRenderer::ColorRenderer() {
 }
 
-QPixmap ColorRenderer::renderTile(
+GamePixmapItem *ColorRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     float energyLevel = object[DataRole::Energy].toFloat();
     int brightness = 255 - (energyLevel * 255 / 1);
@@ -19,10 +19,10 @@ QPixmap ColorRenderer::renderTile(
         painter.drawPixmap(QPoint(0, 0), pixmap);
     }
 
-    return pixmap;
+    return new GamePixmapItem(pixmap);
 }
 
-QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
+GamePixmapItem *ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
@@ -35,7 +35,7 @@ QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
     pen.setWidth(2);
     painter.setPen(pen);
     painter.setBrush(QBrush(color));
-    
+
     QPoint topleft(m_cellSize / 5, m_cellSize / 5);
     QPoint topright(m_cellSize - (m_cellSize / 5), m_cellSize / 5);
     QPoint bottomleft(m_cellSize / 5, m_cellSize - (m_cellSize / 5));
@@ -47,17 +47,17 @@ QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
 
     painter.end();
 
-    return pixmap;
+    return new GamePixmapItem(pixmap);
 }
 
-QPixmap ColorRenderer::renderHealthPack(
+GamePixmapItem *ColorRenderer::renderHealthPack(
   QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
     int minIntensity = 50;
     int maxIntensity = 255;
     int final_color = minIntensity + (maxIntensity - minIntensity) * healthLevel / 100;
     QColor color(0, final_color, 0);
-    
+
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
@@ -82,10 +82,10 @@ QPixmap ColorRenderer::renderHealthPack(
 
     painter.end();
 
-    return pixmap;
+    return new GamePixmapItem(pixmap);
 }
 
-QPixmap ColorRenderer::renderProtagonist(
+GamePixmapItem *ColorRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
@@ -94,18 +94,18 @@ QPixmap ColorRenderer::renderProtagonist(
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> starPoints = {
-        QPoint(m_cellSize / 2, 0), // Top point
-        QPoint(m_cellSize, m_cellSize / 2), // Right point
-        QPoint(m_cellSize / 2, m_cellSize), // Bottom point
-        QPoint(0, m_cellSize / 2), // Left point
-        QPoint(m_cellSize / 2, 0) // Back to Top point
+      QPoint(m_cellSize / 2, 0), // Top point
+      QPoint(m_cellSize, m_cellSize / 2), // Right point
+      QPoint(m_cellSize / 2, m_cellSize), // Bottom point
+      QPoint(0, m_cellSize / 2), // Left point
+      QPoint(m_cellSize / 2, 0) // Back to Top point
     };
 
     QList<QPoint> arrowPoints = {
-        QPoint(m_cellSize / 2 + 8, 8), //Right-top midpoint
-        QPoint(m_cellSize / 2, 0), // Top point
-        QPoint(m_cellSize / 2 - 8, 8), //Left-top midpoint
-        QPoint(m_cellSize / 2 + 8, 8) //back to Right-top midpoint
+      QPoint(m_cellSize / 2 + 8, 8), // Right-top midpoint
+      QPoint(m_cellSize / 2, 0), // Top point
+      QPoint(m_cellSize / 2 - 8, 8), // Left-top midpoint
+      QPoint(m_cellSize / 2 + 8, 8) // back to Right-top midpoint
     };
 
     QPolygon rightHalf(starPoints.mid(0, 3));
@@ -136,10 +136,10 @@ QPixmap ColorRenderer::renderProtagonist(
     int direction = object[DataRole::Direction].toInt();
     pixmap = rotatePixmap(pixmap, direction);
 
-    return pixmap;
+    return new GamePixmapItem(pixmap);
 }
 
-QPixmap ColorRenderer::renderEnemy(
+GamePixmapItem *ColorRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
@@ -148,11 +148,11 @@ QPixmap ColorRenderer::renderEnemy(
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> trianglePoints = {
-        QPoint(m_cellSize / 2, m_cellSize / 5), // Top
-        QPoint(m_cellSize - (m_cellSize / 5), m_cellSize - (m_cellSize / 5)), // Right bottom
-        QPoint(m_cellSize / 2, m_cellSize - (m_cellSize / 5)), // Bottom centre
-        QPoint(m_cellSize / 5, m_cellSize - (m_cellSize / 5)), // Left bott0m
-        QPoint(m_cellSize / 2, m_cellSize / 5) // Back to Top point
+      QPoint(m_cellSize / 2, m_cellSize / 5), // Top
+      QPoint(m_cellSize - (m_cellSize / 5), m_cellSize - (m_cellSize / 5)), // Right bottom
+      QPoint(m_cellSize / 2, m_cellSize - (m_cellSize / 5)), // Bottom centre
+      QPoint(m_cellSize / 5, m_cellSize - (m_cellSize / 5)), // Left bott0m
+      QPoint(m_cellSize / 2, m_cellSize / 5) // Back to Top point
     };
 
     int healthLevel = object[DataRole::Health].toInt();
@@ -168,10 +168,10 @@ QPixmap ColorRenderer::renderEnemy(
     int direction = object[DataRole::Direction].toInt();
     pixmap = rotatePixmap(pixmap, direction);
 
-    return pixmap;
+    return new GamePixmapItem(pixmap);
 }
 
-QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
+GamePixmapItem *ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
@@ -179,11 +179,11 @@ QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> trianglePoints = {
-        QPoint(m_cellSize / 2, m_cellSize / 5), // Top
-        QPoint(m_cellSize - (m_cellSize / 5), m_cellSize - (m_cellSize / 5)), // Right bottom
-        QPoint(m_cellSize / 2, m_cellSize - (m_cellSize / 5)), // Bottom centre
-        QPoint(m_cellSize / 5, m_cellSize - (m_cellSize / 5)), // Left bott0m
-        QPoint(m_cellSize / 2, m_cellSize / 5) // Back to Top point
+      QPoint(m_cellSize / 2, m_cellSize / 5), // Top
+      QPoint(m_cellSize - (m_cellSize / 5), m_cellSize - (m_cellSize / 5)), // Right bottom
+      QPoint(m_cellSize / 2, m_cellSize - (m_cellSize / 5)), // Bottom centre
+      QPoint(m_cellSize / 5, m_cellSize - (m_cellSize / 5)), // Left bott0m
+      QPoint(m_cellSize / 2, m_cellSize / 5) // Back to Top point
     };
 
     QPolygon rightHalf(trianglePoints.mid(0, 3));
@@ -210,5 +210,5 @@ QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     int direction = object[DataRole::Direction].toInt();
     pixmap = rotatePixmap(pixmap, direction);
 
-    return pixmap;
+    return new GamePixmapItem(pixmap);
 }

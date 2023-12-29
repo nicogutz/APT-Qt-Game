@@ -13,11 +13,11 @@ const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, double 
     offset++;
     // Took me a while to come up with this. It transforms any angle to an acute angle using mod 45.
     // Since we know the adjacent side is always "offset" long we multiply it by the tan.
-    // The ternary fixes the issue that mod45 is 0 :(
-    double b = abs(std::fmod(direction, 90) - 45) < 1e-6 ? offset : offset * tan((std::fmod(direction, 45)) * M_PI / 180);
+    // The ternary fixes the issue that (n*45) % 45 is 0
+    double b = abs(std::fmod(direction, 90) - 45.0) < 1e-6 ? offset : offset * tan((std::fmod(direction, 45)) * M_PI / 180);
 
     // Calculate the length of the hypothenuse. c = sqrt(a^2+b^2)
-    double c = sqrt(b * b + offset * offset);
+    double c = sqrt(offset * offset + b * b);
 
     // More angle kajiggery, our world is flipped w.r.t. the list in the y-ax
     // Therefore flipping the angle flips the y axis and not the x axis :)

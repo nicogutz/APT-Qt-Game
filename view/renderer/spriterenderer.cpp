@@ -8,7 +8,7 @@
 SpriteRenderer::SpriteRenderer() {
 }
 
-QPixmap SpriteRenderer::renderTile(
+GamePixmapItem *SpriteRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     float energyLevel = object[DataRole::Energy].toFloat() * 100;
     QPixmap pixmap;
@@ -25,15 +25,15 @@ QPixmap SpriteRenderer::renderTile(
         painter.setCompositionMode(QPainter::CompositionMode_SoftLight);
         painter.drawPixmap(QPoint(0, 0), pixmap);
     }
-    return pixmap;
+    return new GamePixmapItem(pixmap);
 }
 
-QPixmap SpriteRenderer::renderDoorway(
+GamePixmapItem *SpriteRenderer::renderDoorway(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/doorway.png", m_cellSize);
+    return new GamePixmapItem(renderActor(":/images/doorway.png", m_cellSize));
 }
 
-QPixmap SpriteRenderer::renderHealthPack(
+GamePixmapItem *SpriteRenderer::renderHealthPack(
   QMap<DataRole, QVariant> object) {
     auto pixmap = renderActor(":/images/health_pack.png", m_cellSize);
     int health = object[DataRole::Health].toInt();
@@ -50,22 +50,25 @@ QPixmap SpriteRenderer::renderHealthPack(
     painter.drawPixmap(0, 0, pixmap);
     painter.end();
 
-    return croppedPixmap;
+    return new GamePixmapItem(croppedPixmap);
 }
 
-QPixmap SpriteRenderer::renderProtagonist(
+GamePixmapItem *SpriteRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/protagonist.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
+    return new GamePixmapItem(renderActor(":/images/protagonist.png", m_cellSize,
+                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
 }
 
-QPixmap SpriteRenderer::renderEnemy(
+GamePixmapItem *SpriteRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/xenemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
+    return new GamePixmapItem(renderActor(":/images/xenemy.png", m_cellSize,
+                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
 }
 
-QPixmap SpriteRenderer::renderPEnemy(
+GamePixmapItem *SpriteRenderer::renderPEnemy(
   QMap<DataRole, QVariant> object) {
-    return renderActor(":/images/penemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
+    return new GamePixmapItem(renderActor(":/images/penemy.png", m_cellSize,
+                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
 }
 
 QPixmap SpriteRenderer::renderActor(const QString &imagePath, int cellSize) {

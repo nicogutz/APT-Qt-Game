@@ -32,6 +32,7 @@ SOURCES += \
     model/gameobject.cpp \
     model/gameobjectmodel.cpp \
     model/modelfactory.cpp \
+    view/gamepixmapitem.cpp \
     view/gameview.cpp \
     view/gamewindow.cpp \
     view/renderer/colorrenderer.cpp \
@@ -65,6 +66,7 @@ HEADERS += \
     model/modelfactory.h \
     node.h \
     publicenums.h \
+    view/gamepixmapitem.h \
     view/gameview.h \
     view/gamewindow.h \
     view/renderer/colorrenderer.h \

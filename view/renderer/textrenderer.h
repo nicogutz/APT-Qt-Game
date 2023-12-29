@@ -8,13 +8,13 @@ public:
     TextRenderer();
 
 private:
-    QPixmap renderTile(QMap<DataRole, QVariant> object) override;
-    QPixmap renderDoorway(QMap<DataRole, QVariant> object) override;
-    QPixmap renderHealthPack(QMap<DataRole, QVariant> object) override;
-    QPixmap renderProtagonist(QMap<DataRole, QVariant> object) override;
-    QPixmap renderEnemy(QMap<DataRole, QVariant> object) override;
+    GamePixmapItem *renderTile(QMap<DataRole, QVariant> object) override;
+    GamePixmapItem *renderDoorway(QMap<DataRole, QVariant> object) override;
+    GamePixmapItem *renderHealthPack(QMap<DataRole, QVariant> object) override;
+    GamePixmapItem *renderProtagonist(QMap<DataRole, QVariant> object) override;
+    GamePixmapItem *renderEnemy(QMap<DataRole, QVariant> object) override;
     QPixmap renderCharacter(QString, int, int);
-    QPixmap renderPEnemy(QMap<DataRole, QVariant> object) override;
+    GamePixmapItem *renderPEnemy(QMap<DataRole, QVariant> object) override;
     QPixmap renderCharacter(QString str, QColor color);
 };
 
