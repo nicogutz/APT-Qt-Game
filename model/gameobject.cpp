@@ -5,17 +5,26 @@
 #include <iostream>
 
 const QPointer<GameObject> GameObject::getNeighbor(double direction, int offset) const {
+    // Overloaded function that takes an angle as its parameter. This function
+    // propagates itself by calling its parent until it is not a GameObject.
     if(auto prt = qobject_cast<GameObject *>(parent())) {
         return prt->getNeighbor(direction, offset);
     }
+    // The parent of the last GameObject parent is a GameObject model, so it asks it for its neighbor, neighbor.
     return qobject_cast<GameObjectModel *>(parent())->getNeighbor(m_objectData[DataRole::Position].toPoint(), direction, offset);
 }
 const QPointer<GameObject> GameObject::getNeighbor(Direction direction, int offset) const {
+    // Kept for laziness reasons.
     return getNeighbor(static_cast<double>(direction), offset);
 }
 const QList<QPointer<GameObject>> GameObject::getAllNeighbors(int offset) const {
-    // I think this ended up looking pretty sweet.
+    // I think this ended up looking pretty sweet. Look Mom I know math!
     auto list = QList<QPointer<GameObject>>();
+
+    // Quick reminder that int do not magically cast to doubles. The function
+    // accesses neighbors using angles, by dividing 360 deg by the offset
+    // * 8 we get a geometric increase on the number of tiles.
+    // This might? not work for big offsets, too afraid to try.
     for(float i = 0; i < 360; i += 360 / (((double)offset + 1) * 8)) {
         list.append(getNeighbor(i, offset));
     }

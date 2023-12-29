@@ -24,7 +24,7 @@ const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, double 
     int x = location.x() + round((c * cos(-angleRad)));
     int y = location.y() + round((c * sin(-angleRad)));
 
-    // No access allowed in the void
+    // No tile access allowed in the void.
     if(0 > x || 0 > y || x >= getRowCount() || y >= getColumnCount()) {
         return QPointer<GameObject>(nullptr);
     }
