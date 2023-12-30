@@ -29,7 +29,7 @@ void GamePixmapItem::setData(DataRole role, QVariant type) {
         animation->setEasingCurve(QEasingCurve::OutInBounce);
         animation->start();
         break;
-    case ObjectType::Enemy:
+    case ObjectType::MovingEnemy:
         animation->setPropertyName("opacity");
         animation->setDuration(3000);
         animation->setLoopCount(-1);
@@ -44,13 +44,11 @@ void GamePixmapItem::setData(DataRole role, QVariant type) {
     return QGraphicsPixmapItem::setData((int)role, type);
 }
 
-QImage GamePixmapItem::sprite() const
-{
+QImage GamePixmapItem::sprite() const {
     return m_sprite;
 }
 
-void GamePixmapItem::setSprite(const QImage &newSprite)
-{
+void GamePixmapItem::setSprite(const QImage &newSprite) {
     m_sprite = newSprite;
 }
 

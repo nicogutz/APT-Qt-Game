@@ -19,6 +19,7 @@ private:
     GamePixmapItem *renderProtagonist(QMap<DataRole, QVariant> object) override;
     GamePixmapItem *renderEnemy(QMap<DataRole, QVariant> object) override;
     GamePixmapItem *renderPEnemy(QMap<DataRole, QVariant> object) override;
+    GamePixmapItem *renderMovingEnemy(QMap<DataRole, QVariant> object) override;
 };
 
 #endif // COLORRENDERER_H

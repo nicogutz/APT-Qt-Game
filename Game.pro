@@ -22,6 +22,7 @@ SOURCES += \
     model/behaviors/concrete/movement/healonstepbehavior.cpp \
     model/behaviors/concrete/movement/newlevelonstep.cpp \
     model/behaviors/concrete/movement/poisononstepbehavior.cpp \
+    model/behaviors/concrete/movement/randommovementbehavior.cpp \
     model/behaviors/concrete/poison/genericpoisonablebehavior.cpp \
     model/behaviors/concrete/health/poisononkilledbehavior.cpp \
     model/behaviors/concrete/poison/genericpoisoningbehavior.cpp \
@@ -53,6 +54,7 @@ HEADERS += \
     model/behaviors/concrete/movement/healonstepbehavior.h \
     model/behaviors/concrete/movement/newlevelonstep.h \
     model/behaviors/concrete/movement/poisononstepbehavior.h \
+    model/behaviors/concrete/movement/randommovementbehavior.h \
     model/behaviors/concrete/poison/genericpoisonablebehavior.h \
     model/behaviors/concrete/health/poisononkilledbehavior.h \
     model/behaviors/concrete/poison/genericpoisoningbehavior.h \

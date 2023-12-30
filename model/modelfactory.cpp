@@ -1,13 +1,16 @@
 #include "gameobjectsettings.h"
 #include "modelfactory.h"
 
+#include <QRandomGenerator>
+
 ObjectModelFactory::ObjectModelFactory()
 
     : m_nodes()
     , m_protagonist() {
 }
 
-GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio, int level) {
+GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
+                                                 float pRatio, int level) {
     m_nodes.clear();
     World m_world;
     m_world.createWorld(filename, nrOfEnemies, nrOfHealthpacks, pRatio);
@@ -65,14 +68,18 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
     for(const auto &hp : healthPacks) {
         auto *hpObj = new GameObject();
         GameObjectSettings::getFunction(ObjectType::HealthPack)(hpObj);
-        hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
+        //        hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
     }
 
     // Process Enemies and Poison Enemies
     auto enemies = m_world.getEnemies();
+    int enemyLocations[rows][cols];
+    memset(enemyLocations, 0, sizeof(enemyLocations));
+
     for(const auto &enemy : enemies) {
         int enemyX = enemy->getXPos();
         int enemyY = enemy->getYPos();
+        enemyLocations[enemyX - 1][enemyY - 1] = 1;
         if((enemyX == cols - 1 && enemyY == rows - 1) || (enemyX == 0 && enemyY == 0)) {
             enemyX = cols - 2;
             enemyY = rows - 2; // make sure no enemies on the doorway
@@ -84,6 +91,20 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         auto *enemyObj = new GameObject();
         GameObjectSettings::getFunction(type)(enemyObj);
         enemyObj->setParent(worldGrid[enemyX][enemyY]);
+    }
+
+    // Moving enemies not placed in the same place as other enemies.
+    int movingEnemies = 5;
+    while(movingEnemies) {
+        auto *enemyObj = new GameObject();
+        GameObjectSettings::getFunction(ObjectType::MovingEnemy)(enemyObj);
+        int x = 0, y = 0;
+        do {
+            x = QRandomGenerator::global()->bounded(1, rows - 2);
+            y = QRandomGenerator::global()->bounded(1, cols - 2);
+        } while(!enemyLocations[x][y]);
+        enemyObj->setParent(worldGrid[x][y]);
+        movingEnemies--;
     }
 
     auto *model = new GameObjectModel(worldGrid);

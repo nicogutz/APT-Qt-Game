@@ -17,6 +17,7 @@ private:
     GamePixmapItem *renderEnemy(QMap<DataRole, QVariant> object) override;
     GamePixmapItem *renderPEnemy(QMap<DataRole, QVariant> object) override;
     GamePixmapItem *renderDeath(const QString &imagePath, int numOfFrames);
+    GamePixmapItem *renderMovingEnemy(QMap<DataRole, QVariant> object) override;
     QPixmap renderActor(const QString &imagePath, int cellSize);
     QPixmap renderActor(const QString &imagePath, int cellSize, int POVFrame, int numPOVs);
     int calculateFrame(int direction, int numPOVs);

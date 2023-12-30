@@ -58,11 +58,10 @@ GamePixmapItem *TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     painter.drawText(m_cellSize - 2, 3 * (m_cellSize / 4) - 2, "|");
     painter.drawText(m_cellSize - 2, m_cellSize - 2, "|");
 
-
-    if (object[DataRole::Energy] == INFINITY) {
-        for (int i = 0; i < m_cellSize; i++)
-            for (int j = 0; j < m_cellSize; j++)
-            painter.drawText(i, j, ".");
+    if(object[DataRole::Energy] == INFINITY) {
+        for(int i = 0; i < m_cellSize; i++)
+            for(int j = 0; j < m_cellSize; j++)
+                painter.drawText(i, j, ".");
     }
 
     if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
@@ -147,6 +146,23 @@ QPixmap TextRenderer::renderCharacter(QString str, QColor color) {
     painter.end();
 
     return pixmap;
+}
+
+GamePixmapItem *TextRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
+    int healthLevel = object[DataRole::Health].toInt();
+    int energyLevel = object[DataRole::Energy].toInt();
+    int direction = object[DataRole::Direction].toInt();
+    QColor color;
+    if(healthLevel <= 0) {
+        color = QColor("darkyellow");
+        color.setHsv(color.hue(), energyLevel, color.value(), color.alpha());
+
+    } else {
+        color = QColor("yellow");
+        color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
+    }
+
+    return new GamePixmapItem(rotatePixmap(renderCharacter("|+|", color), direction));
 }
 
 QPixmap TextRenderer::renderCharacter(QString str, int weight, int size = 100) {

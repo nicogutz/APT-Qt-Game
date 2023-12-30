@@ -1,6 +1,7 @@
 #ifndef GAMEOBJECTSETTINGS_H
 #define GAMEOBJECTSETTINGS_H
 
+#include "model/behaviors/concrete/movement/randommovementbehavior.h"
 #include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
 #include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
 
@@ -103,6 +104,21 @@ class GameObjectSettings {
             obj->setBehavior<Poison>(QSharedPointer<GenericPoisoningBehavior>::create(obj));
         };
     };
+    struct MovingEnemySettings {
+        inline static const QList<QPair<DataRole, QVariant>> defaultData {
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::MovingEnemy)},
+          {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
+          {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
+          {DataRole::Energy, Movement::SETTINGS::MAX_ENERGY},
+        };
+
+        static void setObject(GameObject *obj) {
+            obj->setData(defaultData);
+            obj->setBehavior<Attack>(QSharedPointer<CounterAttackBehavior>::create(obj));
+            obj->setBehavior<Health>(QSharedPointer<PoisonOnKilledBehavior>::create(obj));
+            obj->setBehavior<Movement>(QSharedPointer<RandomMovementBehavior>::create(obj));
+        };
+    };
 
 public:
     static std::function<void(GameObject *)> getFunction(ObjectType type) {
@@ -119,6 +135,10 @@ public:
             return EnemySettings::setObject;
         case ObjectType::PoisonEnemy:
             return PoisonEnemySettings::setObject;
+        case ObjectType::MovingEnemy:
+            return MovingEnemySettings::setObject;
+        default:
+            return EnemySettings::setObject;
         }
     }
 };

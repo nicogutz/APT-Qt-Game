@@ -10,7 +10,8 @@ enum class ObjectType : char {
     Protagonist = 50,
     Enemy = 100,
     PoisonEnemy = 101,
-    //    FireEnemy = 102,
+    FireEnemy = 102,
+    MovingEnemy = 103,
 };
 enum class DataRole : int {
     Type,

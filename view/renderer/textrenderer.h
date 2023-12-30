@@ -16,6 +16,7 @@ private:
     QPixmap renderCharacter(QString, int, int);
     GamePixmapItem *renderPEnemy(QMap<DataRole, QVariant> object) override;
     QPixmap renderCharacter(QString str, QColor color);
+    GamePixmapItem *renderMovingEnemy(QMap<DataRole, QVariant> object) override;
 };
 
 #endif // TEXTRENDERER_H

@@ -30,6 +30,10 @@ GamePixmapItem *Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) 
         return renderEnemy(objectData);
     case ObjectType::PoisonEnemy:
         return renderPEnemy(objectData);
+    case ObjectType::MovingEnemy:
+        return renderMovingEnemy(objectData);
+    default:
+        return renderEnemy(objectData);
     }
 }
 

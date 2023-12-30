@@ -211,3 +211,45 @@ GamePixmapItem *ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
 
     return new GamePixmapItem(pixmap);
 }
+
+GamePixmapItem *ColorRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
+    QPixmap pixmap(m_cellSize, m_cellSize);
+    pixmap.fill(Qt::transparent);
+
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    QList<QPoint> trianglePoints = {
+      QPoint(m_cellSize / 2, m_cellSize / 5), // Top
+      QPoint(m_cellSize - (m_cellSize / 5), m_cellSize - (m_cellSize / 5)), // Right bottom
+      QPoint(m_cellSize / 2, m_cellSize - (m_cellSize / 5)), // Bottom centre
+      QPoint(m_cellSize / 5, m_cellSize - (m_cellSize / 5)), // Left bott0m
+      QPoint(m_cellSize / 2, m_cellSize / 5) // Back to Top point
+    };
+
+    QPolygon rightHalf(trianglePoints.mid(0, 3));
+    QPolygon leftHalf(trianglePoints.mid(2));
+
+    int healthLevel = object[DataRole::Health].toInt();
+    int minIntensity = 50;
+    int maxIntensity = 255;
+    int final_color = minIntensity + (maxIntensity - minIntensity) * healthLevel / 100;
+    QColor color(final_color, 0, 0);
+    painter.setBrush(QBrush(color));
+    painter.drawPolygon(leftHalf);
+
+    int energy = object[DataRole::Energy].toInt();
+    minIntensity = 50;
+    maxIntensity = 200;
+    final_color = minIntensity + (maxIntensity - minIntensity) * energy / 100;
+    color.setRgbF(0, final_color, final_color);
+    painter.setBrush(QBrush(color));
+    painter.drawPolygon(rightHalf);
+
+    painter.end();
+
+    int direction = object[DataRole::Direction].toInt();
+    pixmap = rotatePixmap(pixmap, direction);
+
+    return new GamePixmapItem(pixmap);
+}

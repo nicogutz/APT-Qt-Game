@@ -17,6 +17,11 @@ bool GenericMoveBehavior::stepOn(QPointer<GameObject> target) {
     float targetEnergy = target->getData(DataRole::Energy).toFloat();
 
     if(energy - targetEnergy < 0) {
+        for(const auto &neighbor : m_owner->getAllNeighbors()) {
+            if(neighbor->getData(DataRole::Energy).toFloat())
+                break;
+            m_owner->setData(DataRole::Energy, 0);
+        }
         return false;
     }
 

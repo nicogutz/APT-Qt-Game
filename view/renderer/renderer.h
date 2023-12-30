@@ -21,6 +21,7 @@ public:
 
 protected:
     QPixmap rotatePixmap(const QPixmap &originalPixmap, int direction);
+
 private:
     virtual GamePixmapItem *renderTile(QMap<DataRole, QVariant> object) = 0;
     virtual GamePixmapItem *renderDoorway(QMap<DataRole, QVariant> object) = 0;
@@ -28,6 +29,7 @@ private:
     virtual GamePixmapItem *renderProtagonist(QMap<DataRole, QVariant> object) = 0;
     virtual GamePixmapItem *renderEnemy(QMap<DataRole, QVariant> object) = 0;
     virtual GamePixmapItem *renderPEnemy(QMap<DataRole, QVariant> object) = 0;
+    virtual GamePixmapItem *renderMovingEnemy(QMap<DataRole, QVariant> object) = 0;
 };
 
 #endif // RENDERER_H
