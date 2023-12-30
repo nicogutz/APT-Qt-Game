@@ -58,16 +58,24 @@ GamePixmapItem *TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     painter.drawText(m_cellSize - 2, 3 * (m_cellSize / 4) - 2, "|");
     painter.drawText(m_cellSize - 2, m_cellSize - 2, "|");
 
+
+    if (object[DataRole::Energy] == INFINITY) {
+        for (int i = 0; i < m_cellSize; i++)
+            for (int j = 0; j < m_cellSize; j++)
+            painter.drawText(i, j, ".");
+    }
+
     if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
-        font.setWeight(QFont::Light);
         int maxDots = m_cellSize;
         int numberOfDots = (maxDots * poisonLevel);
+        painter.setPen(Qt::green);
         for(int i = 0; i < numberOfDots; ++i) {
             int randomX = QRandomGenerator::global()->bounded(m_cellSize);
             int randomY = QRandomGenerator::global()->bounded(m_cellSize);
             painter.drawText(randomX, randomY, ".");
         }
     }
+
     return new GamePixmapItem(pixmap);
 }
 

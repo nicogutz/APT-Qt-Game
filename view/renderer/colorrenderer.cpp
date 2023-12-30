@@ -8,7 +8,6 @@ GamePixmapItem *ColorRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     float energyLevel = object[DataRole::Energy].toFloat();
     int brightness = 255 - (energyLevel * 255 / 1);
-
     QColor color(0, 0, brightness);
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(color);

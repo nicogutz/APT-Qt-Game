@@ -25,5 +25,6 @@
         <file>images/worldmap2.png</file>
         <file>images/xenemy_death.png</file>
         <file>images/xenemy.png</file>
+        <file>images/inf_energy_tile.png</file>
     </qresource>
 </RCC>

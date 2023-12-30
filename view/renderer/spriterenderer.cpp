@@ -12,7 +12,10 @@ GamePixmapItem *SpriteRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     float energyLevel = object[DataRole::Energy].toFloat() * 100;
     QPixmap pixmap;
-    if(energyLevel > 60)
+
+    if (energyLevel == INFINITY) {
+        pixmap = renderActor(":/images/inf_energy_tile.png", m_cellSize);
+    } else if(energyLevel > 60)
         pixmap = renderActor(":/images/high_energy_tile.png", m_cellSize);
     else if(energyLevel > 30)
         pixmap = renderActor(":/images/mid_energy_tile.png", m_cellSize);
