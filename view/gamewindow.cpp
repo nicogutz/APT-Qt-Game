@@ -20,9 +20,15 @@ GameWindow::GameWindow(QWidget *parent)
     m_ui->sprite_mode->setChecked(true);
     m_ui->health->setValue(100);
     m_ui->energy->setValue(100);
-    m_ui->lcdLevel->display(1);
+    m_ui->lcdTime->display("00:00");
 
     this->setFocusPolicy(Qt::StrongFocus);
+    // ZOOM
+    m_ui->horizontalSlider->setMinimum(-30);
+    m_ui->horizontalSlider->setMaximum(30);
+    m_ui->horizontalSlider->setValue(-30);
+    zoomBySlider(-30);
+
 
     // CHOOSE MODE: MANUAL OR AUTOMATIC
     QMessageBox modeBox;
@@ -41,23 +47,18 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     // START GAME
-    m_controller->startGame(6, 7);
-
-    m_ui->lcdHealth->display(7);
-    m_ui->lcdEnemies->display(6);
+    m_controller->startGame(8, 10);
+    m_ui->lcdHealth->display(10);
+    m_ui->lcdEnemies->display(8);
+    m_ui->lcdLevel->display(1);
     m_ui->graphicsView->setScene(m_controller->getView().data());
     m_ui->graphicsView->show();
-
     m_controller->show();
-    m_ui->lcdTime->display("00:00");
+
 
     // START TIMER
     m_timer->start(1000);
 
-    // ZOOM
-    m_ui->horizontalSlider->setMinimum(-30);
-    m_ui->horizontalSlider->setMaximum(30);
-    m_ui->horizontalSlider->setValue(-30);
 
     // SIGNALS AND SLOTS
     connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
@@ -88,7 +89,7 @@ GameWindow::GameWindow(QWidget *parent)
 
     connect(m_controller.data(), &GameController::gameOver, this, &GameWindow::gameOver);
 
-    zoomBySlider(-30);
+
 }
 void GameWindow::togglePause() {
     if(m_controller->getState() == GameController::State::Paused) {
@@ -240,12 +241,6 @@ void GameWindow::setColorView() {
     m_ui->sprite_mode->setChecked(false);
 }
 
-// DESTRUCTOR
-
-GameWindow::~GameWindow() {
-    delete m_ui;
-    delete m_timer;
-}
 
 bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
     if(event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
@@ -286,3 +281,12 @@ void GameWindow::gameOver() {
         QApplication::quit();
     }
 }
+
+
+// DESTRUCTOR
+
+GameWindow::~GameWindow() {
+    delete m_ui;
+    delete m_timer;
+}
+

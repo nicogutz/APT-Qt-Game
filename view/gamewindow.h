@@ -31,13 +31,14 @@ public:
     QSharedPointer<QWidget> a;
     std::shared_ptr<QWidget> b;
 
-    QSharedPointer<GameController> getController() { return m_controller; }
-    Ui::GameWindow *getUI() { return m_ui; }
-    QTimer *getTimer() { return m_timer; }
-
     void showInvalidCommandMessage();
     void showHelp();
     bool eventFilter(QObject *watched, QEvent *event) override;
+
+    // GETTERS
+    QSharedPointer<GameController> getController() { return m_controller; }
+    Ui::GameWindow *getUI() { return m_ui; }
+    QTimer *getTimer() { return m_timer; }
 
 private:
     Ui::GameWindow *m_ui;
@@ -57,7 +58,6 @@ public slots:
     void setColorView();
 
     void togglePause();
-
     void gameOver();
 
 protected:

@@ -1,11 +1,5 @@
 #include "gamecontroller.h"
-#include "model/behaviors/attack.h"
-#include "view/renderer/spriterenderer.h"
-#include "view/renderer/textrenderer.h"
-#include "view/renderer/colorrenderer.h"
 
-#include <QCoreApplication>
-#include <qdatetime.h>
 
 GameController::GameController()
     : QGraphicsView()
@@ -16,11 +10,6 @@ GameController::GameController()
 void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
     m_view = QSharedPointer<GameView>::create(this);
     m_view->setRenderer(QSharedPointer<SpriteRenderer>::create());
-    m_enemies = enemies;
-    m_health_packs = health_packs;
-    m_gameLevel = 0;
-    emitLevelUpdates();
-
     createNewLevel(m_gameLevel);
     this->show();
 }
@@ -32,73 +21,106 @@ void GameController::updateLevel(Direction direction) {
         qDebug() << "Invalid level change request. Current Level: " << m_gameLevel << ", Requested Level: " << newLevel;
         return;
     }
-
     disconnectCurrentModel();
-
     // Determine whether to create a new model or use an existing one
     if(newLevel + 1 > m_models.size()) {
         qDebug() << "Creating new model for level " << newLevel;
         createNewLevel(newLevel);
+
     } else {
         qDebug() << "Switching to existing model for level " << newLevel;
         auto *model = m_models[newLevel];
         if(!model) {
             qDebug() << "Error: Model is null at level " << newLevel;
-            return;
-        }
+            return; }
+
         m_gameLevel = newLevel;
+        switch(m_gameLevel) {
+        case 0:
+            m_enemies = 8;
+            m_health_packs = 10;
+            break;
+        case 1:
+            m_enemies = 16;
+            m_health_packs = 9;
+            break;
+        case 2:
+            m_enemies = 20;
+            m_health_packs = 10;
+            break;
+        case 3:
+            m_enemies = 30;
+            m_health_packs = 10;
+            break;
+        case 4:
+            m_enemies = 26;
+            m_health_packs = 8;
+            break;
+        case 5:
+            m_enemies = 34;
+            m_health_packs = 8;
+            break;
+        default:
+            m_enemies = 44;
+            m_health_packs = 5;
+            break;
+        }
+
         m_character = model->getObject(ObjectType::Protagonist).at(0);
         m_view->createScene(model->getAllData());
         connectCurrentModel();
+
     }
 
     emitLevelUpdates();
 }
 
+
+
 void GameController::createNewLevel(int level) {
     QString imagePath;
-    int e;
-    int hp;
+    m_gameLevel = level;
     switch(level) {
+    case 0:
+        imagePath = ":/images/worldmap.png";
+        m_enemies = 8;
+        m_health_packs = 10;
+        break;
     case 1:
         imagePath = ":/images/worldmap2.png";
-        e = 10;
-        hp = 8;
+        m_enemies = 16;
+        m_health_packs = 9;
         break;
     case 2:
         imagePath = ":/images/worldmap.png";
-        e = 14;
-        hp = 9;
+        m_enemies = 20;
+        m_health_packs = 10;
         break;
     case 3:
         imagePath = ":/images/worldmap2.png";
-        e = 16;
-        hp = 10;
+        m_enemies = 30;
+        m_health_packs = 8;
         break;
     case 5:
         imagePath = ":/images/worldmap.png";
-        e = 20;
-        hp = 10;
+        m_enemies = 26;
+        m_health_packs = 8;
         break;
     case 6:
         imagePath = ":/images/worldmap2.png";
-        e = 26;
-        hp = 8;
+        m_enemies = 34;
+        m_health_packs = 8;
         break;
     default:
-        imagePath = ":/images/worldmap.png";
-        e = 26;
-        hp = 5;
+        imagePath = ":/images/worldmap2.png";
+        m_enemies = 44;
+        m_health_packs = 5;
         break;
     }
 
-    auto *model = factory.createModel(imagePath, e, hp, 0.5f, level);
+    auto *model = factory.createModel(imagePath, m_enemies, m_health_packs, 0.5f, m_gameLevel);
     m_models.append(model);
     model->setParent(this);
-
-    m_enemies = e;
-    m_health_packs = hp;
-    m_gameLevel = level;
 
     auto oldCharacter = m_character;
     m_character = model->getObject(ObjectType::Protagonist).at(0);
@@ -110,6 +132,7 @@ void GameController::createNewLevel(int level) {
     m_view->createScene(model->getAllData());
 
     connectCurrentModel();
+    emitLevelUpdates();
 }
 
 void GameController::disconnectCurrentModel() {
@@ -144,7 +167,10 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
         break;
     case ObjectType::Doorway:
         if(objectData[DataRole::Direction].value<Direction>() == Direction::Down) {
-            updateLevel(Direction::Down); // go down a level
+            if (m_gameLevel != 0){
+                updateLevel(Direction::Down); // go down a level
+            }
+
         }
         if(objectData[DataRole::Direction].value<Direction>() == Direction::Up) {
             updateLevel(Direction::Up); // go up a level

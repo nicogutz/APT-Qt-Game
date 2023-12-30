@@ -7,8 +7,8 @@
 #include <QTimer>
 #include <QThread>
 #include <QCoreApplication>
-
-#include <model/behaviors/health.h>
+#include <QCoreApplication>
+#include <qdatetime.h>
 
 #include <QDateTime>
 
@@ -18,6 +18,13 @@
 #include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
 #include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
 #include <pathfinder_class.h>
+#include <model/behaviors/health.h>
+#include "model/behaviors/attack.h"
+#include "view/renderer/spriterenderer.h"
+#include "view/renderer/textrenderer.h"
+#include "view/renderer/colorrenderer.h"
+
+
 
 class GameWindow;
 
