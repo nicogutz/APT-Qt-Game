@@ -68,7 +68,7 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
     for(const auto &hp : healthPacks) {
         auto *hpObj = new GameObject();
         GameObjectSettings::getFunction(ObjectType::HealthPack)(hpObj);
-        //        hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
+        hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
     }
 
     // Process Enemies and Poison Enemies

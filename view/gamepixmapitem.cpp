@@ -31,11 +31,11 @@ void GamePixmapItem::setData(DataRole role, QVariant type) {
         break;
     case ObjectType::MovingEnemy:
         animation->setPropertyName("opacity");
-        animation->setDuration(3000);
+        animation->setDuration(2000);
         animation->setLoopCount(1);
         animation->setStartValue(0);
         animation->setEndValue(1);
-        animation->setEasingCurve(QEasingCurve::SineCurve);
+        animation->setEasingCurve(QEasingCurve::CosineCurve);
         animation->start();
         break;
     default:
