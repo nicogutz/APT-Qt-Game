@@ -30,5 +30,7 @@
         <file>images/grass_tile.png</file>
         <file>images/lava_tile.png</file>
         <file>images/sand_tile.png</file>
+        <file>images/spr_blob_big.png</file>
+        <file>images/spr_blob_big_death.png</file>
     </qresource>
 </RCC>

@@ -18,7 +18,7 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-    class GameWindow;
+class GameWindow;
 }
 QT_END_NAMESPACE
 
