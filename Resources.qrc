@@ -26,5 +26,9 @@
         <file>images/xenemy_death.png</file>
         <file>images/xenemy.png</file>
         <file>images/inf_energy_tile.png</file>
+        <file>images/grass_dirt.png</file>
+        <file>images/grass_tile.png</file>
+        <file>images/lava_tile.png</file>
+        <file>images/sand_tile.png</file>
     </qresource>
 </RCC>

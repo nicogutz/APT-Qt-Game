@@ -13,15 +13,23 @@ GamePixmapItem *SpriteRenderer::renderTile(
     float energyLevel = object[DataRole::Energy].toFloat() * 100;
     QPixmap pixmap;
 
-    if (energyLevel == INFINITY) {
+    if (energyLevel == INFINITY)
         pixmap = renderActor(":/images/inf_energy_tile.png", m_cellSize);
-    } else if(energyLevel > 60)
-        pixmap = renderActor(":/images/high_energy_tile.png", m_cellSize);
-    else if(energyLevel > 30)
+    else if(energyLevel > 60)
+        pixmap = renderActor(":/images/lava_tile.png", m_cellSize);
+//    else if(energyLevel > 50)
+//        pixmap = renderActor(":/images/high_energy_tile.png", m_cellSize);
+    else if(energyLevel > 40)
         pixmap = renderActor(":/images/mid_energy_tile.png", m_cellSize);
-    else {
+    else if(energyLevel > 30)
         pixmap = renderActor(":/images/low_energy_tile.png", m_cellSize);
-    }
+    else if(energyLevel > 20)
+        pixmap = renderActor(":/images/sand_tile.png", m_cellSize);
+    else if(energyLevel > 10)
+        pixmap = renderActor(":/images/grass_dirt.png", m_cellSize);
+    else
+        pixmap = renderActor(":/images/grass_tile.png", m_cellSize);
+
     if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
         QPainter painter(&pixmap);
         painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(0, 255, 0, poisonLevel * 8));
