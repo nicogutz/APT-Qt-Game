@@ -59,7 +59,7 @@ GamePixmapItem *TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     painter.drawText(m_cellSize - 2, m_cellSize - 2, "|");
 
     if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
-        painter.setBrush(QBrush(Qt::green));
+        font.setWeight(QFont::Light);
         int maxDots = m_cellSize;
         int numberOfDots = (maxDots * poisonLevel);
         for(int i = 0; i < numberOfDots; ++i) {
@@ -77,7 +77,7 @@ GamePixmapItem *TextRenderer::renderDoorway(QMap<DataRole, QVariant>) {
 
 GamePixmapItem *TextRenderer::renderHealthPack(QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
-    QColor color("blue");
+    QColor color("darkBlue");
     color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
     return new GamePixmapItem(renderCharacter("c[_]", color));
 }
