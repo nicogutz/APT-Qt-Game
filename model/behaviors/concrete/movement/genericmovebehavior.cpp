@@ -33,7 +33,7 @@ bool GenericMoveBehavior::stepOn(QPointer<GameObject> target) {
     m_owner->event(new QEvent(QEvent::ParentChange));
     m_owner->setData(DataRole::Energy, energy - targetEnergy);
 
-    return steppable;
+    return true;
 }
 
 bool GenericMoveBehavior::stepOn(Direction direction) {

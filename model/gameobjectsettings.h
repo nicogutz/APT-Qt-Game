@@ -115,7 +115,7 @@ class GameObjectSettings {
         static void setObject(GameObject *obj) {
             obj->setData(defaultData);
             obj->setBehavior<Attack>(QSharedPointer<CounterAttackBehavior>::create(obj));
-            obj->setBehavior<Health>(QSharedPointer<PoisonOnKilledBehavior>::create(obj));
+            obj->setBehavior<Health>(QSharedPointer<GenericHealthBehavior>::create(obj));
             obj->setBehavior<Movement>(QSharedPointer<RandomMovementBehavior>::create(obj));
         };
     };
