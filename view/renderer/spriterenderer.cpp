@@ -55,23 +55,46 @@ GamePixmapItem *SpriteRenderer::renderHealthPack(
 
 GamePixmapItem *SpriteRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
-    auto *item = new GamePixmapItem(renderActor(":/images/protagonist.png", m_cellSize,
-                                                calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
-    return item;
+    if (object[DataRole::Health].toInt() == 0) {
+        return renderDeath(":/images/protagonist_death.png", 10);
+    }
+    return new GamePixmapItem(renderActor(":/images/protagonist.png", m_cellSize,
+                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));;
 }
 
 GamePixmapItem *SpriteRenderer::renderEnemy(
-  QMap<DataRole, QVariant> object) {
-    auto *item = new GamePixmapItem(renderActor(":/images/xenemy.png", m_cellSize,
-                                                calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
-
-    return item;
+    QMap<DataRole, QVariant> object) {
+    if (object[DataRole::Health].toInt() == 0) {
+        return renderDeath(":/images/enemy_death.png", 5);
+    }
+    return new GamePixmapItem(renderActor(":/images/enemy.png", m_cellSize,
+                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));;
 }
 
 GamePixmapItem *SpriteRenderer::renderPEnemy(
   QMap<DataRole, QVariant> object) {
+
+    if (object[DataRole::Health].toInt() == 0) {
+        return renderDeath(":/images/penemy_death.png", 5);
+    }
     return new GamePixmapItem(renderActor(":/images/penemy.png", m_cellSize,
                                           calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+}
+
+GamePixmapItem *SpriteRenderer::renderDeath(const QString &imagePath, int numOfFrames)
+{
+    auto *item = new GamePixmapItem(renderActor(imagePath, m_cellSize, 0, numOfFrames));
+    item->setCellSize(m_cellSize);
+    item->setSprite(QImage(imagePath));
+    item->setDeathFrameCount(numOfFrames);
+    QPropertyAnimation *deathAnimation = new QPropertyAnimation(item, "frame");
+    deathAnimation->setParent(item);
+    deathAnimation->setDuration(500 * numOfFrames);
+    deathAnimation->setStartValue(0);
+    deathAnimation->setEndValue(numOfFrames - 1);
+    deathAnimation->setLoopCount(1);
+    deathAnimation->start();
+    return item;
 }
 
 QPixmap SpriteRenderer::renderActor(const QString &imagePath, int cellSize) {

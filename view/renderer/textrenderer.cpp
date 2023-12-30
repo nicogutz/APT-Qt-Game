@@ -59,6 +59,7 @@ GamePixmapItem *TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     painter.drawText(m_cellSize - 2, m_cellSize - 2, "|");
 
     if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
+        painter.setBrush(QBrush(Qt::green));
         int maxDots = m_cellSize;
         int numberOfDots = (maxDots * poisonLevel);
         for(int i = 0; i < numberOfDots; ++i) {

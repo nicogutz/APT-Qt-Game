@@ -70,10 +70,16 @@ void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
 
     } else if(objectData[DataRole::Destroyed].toBool()) {
         delete getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
-    } else {
+    } else if(objectData[DataRole::Type].toInt() == (int)ObjectType::Tile){
         auto *obj = getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
         auto *newObj = m_renderer->renderGameObject(objectData);
         obj->setPixmap(m_renderer->renderGameObject(objectData)->pixmap());
         delete newObj;
+    } else {
+        auto *obj = getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
+        auto *newObj = m_renderer->renderGameObject(objectData);
+        newObj->setParentItem(obj->parentItem());
+        newObj->setData(DataRole::Type, objectData[DataRole::Type]);
+        delete obj;
     }
 }

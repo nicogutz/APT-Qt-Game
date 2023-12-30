@@ -21,10 +21,28 @@ public:
     void setFrame(int newFrame);
     void setData(DataRole role, QVariant type);
 
+    QImage sprite() const;
+    void setSprite(const QImage &newSprite);
+
+    void setDeathFrameCount(int count) {
+        m_deathFrameCount = count;
+    }
+
+    int deathFrameCount() const {
+        return m_deathFrameCount;
+    }
+
+    void setCellSize(int cellSize) {
+        m_cellSize = cellSize;
+    }
+
 private:
     int m_frame;
     QImage m_sprite;
+    int m_deathFrameCount;
+    int m_cellSize;
 
+    QPixmap renderActor(int cellSize, int POVFrame, int numPOVs);
 signals:
     void posChanged();
     void opacityChanged();
