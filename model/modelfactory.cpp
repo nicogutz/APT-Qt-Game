@@ -74,6 +74,9 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
     for(const auto &enemy : enemies) {
         int enemyX = enemy->getXPos();
         int enemyY = enemy->getYPos();
+        if ((enemyX==cols-1 && enemyY==rows-1) || (enemyX==0 && enemyY==0)){
+            enemyX=cols-2; enemyY=rows-2; //make sure no enemies on the doorway
+        }
         Node &enemyNode = m_nodes[enemyY * cols + enemyX];
         enemyNode.setValue(1.0);
 

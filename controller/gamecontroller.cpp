@@ -189,7 +189,6 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData){
             if (m_gameLevel != 1){
                 updateLevel(Direction::Down);// go down a level
             }
-
         }
         if
             (objectData[DataRole::Direction].value<Direction>() == Direction::Up){
