@@ -494,16 +494,9 @@ url(:/qss_icons/light/rc/toolbar_move_horizontal_focus.png)
      <x>0</x>
      <y>0</y>
      <width>945</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="mode_menu">
-    <property name="title">
-     <string>Mode</string>
-    </property>
-    <addaction name="manual"/>
-    <addaction name="automatic"/>
-   </widget>
    <widget class="QMenu" name="view_menu">
     <property name="title">
      <string>View</string>
@@ -512,7 +505,6 @@ url(:/qss_icons/light/rc/toolbar_move_horizontal_focus.png)
     <addaction name="sprite_mode"/>
     <addaction name="colour_mode"/>
    </widget>
-   <addaction name="mode_menu"/>
    <addaction name="view_menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

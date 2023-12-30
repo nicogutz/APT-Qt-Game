@@ -64,17 +64,24 @@ public:
      */
     void characterAtttack();
 
-    void setLevel(unsigned int level);
     void setState(State new_state);
     void updateGameView(View view);
     State getState();
     void path_finder();
+
     void updateEnergy();
     void updateHealth();
+
 
     void updateLevel(Direction direction);
 
     void dataChanged(QMap<DataRole, QVariant> objectData);
+
+    void disconnectCurrentModel();
+    void connectCurrentModel();
+    void emitLevelUpdates();
+
+    void createNewLevel(int level);
 
 
 signals:
@@ -116,6 +123,10 @@ signals:
 
     void energyUpdated(int energy);
     void healthUpdated(int health);
+    void enemiesUpdated(int enemies);
+    void healthPacksUpdated(int health_packs);
+    void levelUpdated(int level);
+
 
 private:
     ObjectModelFactory factory;
@@ -134,12 +145,12 @@ private:
      */
     QPointer<GameObject> m_character;
 
-    unsigned int m_gameLevel;
+    int m_gameLevel;
     State m_gameState;
     View m_gameView;
 
-    int health_packs;
-    int enemies;
+    int m_health_packs;
+    int m_enemies;
 };
 
 #endif // GAMECONTROLLER_H

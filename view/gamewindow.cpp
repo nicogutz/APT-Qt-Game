@@ -17,11 +17,12 @@ GameWindow::GameWindow(QWidget *parent)
     // DEFAULT OPTIONS
     //    setStyleSheet("background-color: white;");
     //    this->setFixedSize(1000, 800);
-    m_ui->colour_mode->setChecked(true);
+    m_ui->colour_mode->setChecked(false);
     m_ui->text_mode->setChecked(false);
-    m_ui->sprite_mode->setChecked(false);
+    m_ui->sprite_mode->setChecked(true);
     m_ui->health->setValue(100);
     m_ui->energy->setValue(100);
+    m_ui->lcdLevel->display(1);
 
     // CHOOSE MODE: MANUAL OR AUTOMATIC
     QMessageBox modeBox;
@@ -32,23 +33,15 @@ GameWindow::GameWindow(QWidget *parent)
     modeBox.exec();
     if(modeBox.clickedButton() == manualButton) {
         m_controller->setState(GameController::State::Running);
-        //        m_ui->mode_label->setText("Mode: Manual");
-        m_ui->manual->setChecked(true);
-        m_ui->automatic->setChecked(false);
         m_ui->path_find_trigger->hide();
     } else if(modeBox.clickedButton() == autoButton) {
         m_controller->setState(GameController::State::Running);
         installEventFilter(this);
-        //        m_ui->mode_label->setText("Mode: Automatic");
-        m_ui->automatic->setChecked(true);
-        m_ui->manual->setChecked(false);
         m_ui->path_find_trigger->show();
     }
 
     // START GAME
-    m_controller->startGame(6, 5);
-    m_ui->lcdEnemies->display(6);
-    m_ui->lcdHealth->display(5);
+    m_controller->startGame(6, 7); m_ui->lcdHealth->display(7); m_ui->lcdEnemies->display(6);
     m_ui->graphicsView->setScene(m_controller->getView().data());
     m_ui->graphicsView->show();
     m_controller->show();
@@ -79,6 +72,20 @@ GameWindow::GameWindow(QWidget *parent)
 
     connect(m_controller.data(), &GameController::energyUpdated, m_ui->energy, &QProgressBar::setValue);
     connect(m_controller.data(), &GameController::healthUpdated, m_ui->health, &QProgressBar::setValue);
+
+    connect(m_controller.data(), &GameController::enemiesUpdated, this, [this](unsigned int enemies) {
+        m_ui->lcdEnemies->display(static_cast<int>(enemies));
+    });
+    connect(m_controller.data(), &GameController::healthPacksUpdated, this, [this](unsigned int healthPacks) {
+        m_ui->lcdHealth->display(static_cast<int>(healthPacks));
+    });
+
+    connect(m_controller.data(), &GameController::levelUpdated, this, [this](unsigned int level) {
+        m_ui->lcdLevel->display(static_cast<int>(level));
+    });
+
+
+
 
     zoomBySlider(-30);
 }
@@ -237,12 +244,6 @@ GameWindow::~GameWindow() {
     delete m_timer;
 }
 
-/**TODO
- * energy health show in gamewindow!!!!
- * pathfinder, fix it, add delay, add visualizzation, make enemies too strong
- * world inversed --> fix it
- * window size
- */
 
 bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
     if(event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {

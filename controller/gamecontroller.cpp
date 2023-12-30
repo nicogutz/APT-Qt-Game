@@ -11,11 +11,15 @@ GameController::GameController()
     : QGraphicsView()
     , m_gameLevel(1)
     , m_gameState(State::Running)
-    , m_gameView(View::Color) {};
+    , m_gameView(View::Sprite) {};
 
 void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
+    m_enemies = enemies; m_health_packs = health_packs; m_gameLevel = 1;
+    emit enemiesUpdated(m_enemies);
+    emit healthPacksUpdated(m_health_packs);
+    emit levelUpdated(m_gameLevel);
 
-    m_current_model = factory.createModel(":/images/worldmap.png", enemies, health_packs, 0.5f, 1);
+    m_current_model = factory.createModel(":/images/worldmap.png", enemies, health_packs, 0.5f, m_gameLevel);
     m_models.append(m_current_model);
     m_current_model->setParent(this);
     m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
@@ -32,66 +36,142 @@ void GameController::startGame(unsigned int enemies, unsigned int health_packs) 
 }
 
 
+//void GameController::updateLevel(Direction direction) {
+//    m_gameLevel ++;
+//    if (direction == Direction::Up){
+//        if (m_gameLevel > (m_models.size()) ) {
+
+//            disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+//            disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+//            disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+//            m_enemies = m_enemies+5 ; m_health_packs = m_health_packs+1;
+//            emit enemiesUpdated(m_enemies);
+//            emit healthPacksUpdated(m_health_packs);
+//            emit levelUpdated(m_gameLevel);
+
+
+//            m_current_model = factory.createModel(":/images/worldmap2.png", m_enemies, m_health_packs, 0.5f, m_gameLevel);
+//            m_models.append(m_current_model);
+//            m_current_model->setParent(this);
+
+//            m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
+//            m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+
+
+//            connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+//            connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+//            connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+//        }
+//        else {
+//            disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+//            disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+//            disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+//            m_current_model = m_models[m_gameLevel-1];
+//            m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
+
+//            m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+//            emit enemiesUpdated(m_enemies);
+//            emit healthPacksUpdated(m_health_packs);
+//            emit levelUpdated(m_gameLevel);
+//            connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+//            connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+//            connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+//        }
+
+//    } else if (direction == Direction::Down){
+
+//        disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+//        disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+//        disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+//        m_gameLevel --;
+
+//        m_current_model = m_models[1];
+
+//        m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
+//        m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+
+//        connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+//        connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+//        connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+
+//        emit enemiesUpdated(m_enemies);
+//        emit healthPacksUpdated(m_health_packs);
+//        emit levelUpdated(m_gameLevel);
+//    }
+
+//}
+
+//************************************************************************************
 void GameController::updateLevel(Direction direction) {
-    std::cout << "update level";
-    m_gameLevel ++;
-    if (direction == Direction::Up){
-        if (m_gameLevel > (m_models.size()) ) {
 
-            disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
-            disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
-            disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
-
-            m_models.append(factory.createModel(":/images/worldmap2.png", 30, 10, 0.5f, m_gameLevel));
-            m_current_model = m_models.last();
-            m_current_model->setParent(this);
-
-            m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
-            m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
-
-
-            connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
-            connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
-            connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+    int newLevel = (direction == Direction::Up) ? m_gameLevel + 1 : m_gameLevel - 1;
+    if (newLevel < 1 || newLevel > m_models.size() + 1) {
+        qDebug() << "Invalid level change request. Current Level: " << m_gameLevel << ", Requested Level: " << newLevel;
+        return;
+    }
+    disconnectCurrentModel();
+    // Determine whether to create a new model or use an existing one
+    if (newLevel > m_models.size()) {
+        qDebug() << "Creating new model for level " << newLevel;
+        createNewLevel(newLevel);
+    } else {
+        qDebug() << "Switching to existing model for level " << newLevel;
+        m_current_model = m_models[newLevel - 1];
+        if (!m_current_model) {
+            qDebug() << "Error: Model is null at level " << newLevel;
+            return;
         }
-        else {
-            disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
-            disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
-            disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
-
-            m_current_model = m_models[m_gameLevel-1];
-            m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
-            m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
-
-
-            connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
-            connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
-            connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
-
-        }
-
-
-    } else if (direction == Direction::Down){
-        disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
-        disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
-        disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
-
-        m_gameLevel --;
-        m_current_model = m_models[m_gameLevel-1];
         m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
         m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
-
-
-        connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
-        connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
-        connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
-
-
     }
-
-
+    // Update game level and reconnect signals
+    m_gameLevel = newLevel;
+    connectCurrentModel();
+    emitLevelUpdates();
 }
 
+void GameController::createNewLevel(int level) {
+    QString imagePath; int e; int hp;
+    switch (level) {
+    case 2: imagePath = ":/images/worldmap2.png"; e=10; hp=8; break;
+    case 3: imagePath = ":/images/worldmap.png"; e=14; hp=9; break;
+    case 4: imagePath = ":/images/worldmap2.png"; e=16; hp=10; break;
+    case 5: imagePath = ":/images/worldmap.png"; e=20; hp=10; break;
+    case 6: imagePath = ":/images/worldmap2.png"; e=26; hp=8; break;
+    default: imagePath = ":/images/worldmap.png"; e=26; hp=5; break;
+    }
+
+    m_current_model = factory.createModel(imagePath, e, hp, 0.5f, level);
+    m_enemies = e; m_health_packs = hp;
+    m_models.append(m_current_model);
+    m_current_model->setParent(this);
+    m_character = m_current_model->getObject(ObjectType::Protagonist).at(0);
+    m_view->createScene(m_current_model->getAllData(), QSharedPointer<SpriteRenderer>::create());
+}
+
+
+void GameController::disconnectCurrentModel() {
+    disconnect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+    disconnect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+    disconnect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+}
+void GameController::connectCurrentModel() {
+    connect(m_current_model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
+    connect(this, &GameController::tick, m_current_model, &GameObjectModel::tick);
+    connect(m_current_model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
+}
+
+void GameController::emitLevelUpdates() {
+    emit enemiesUpdated(m_enemies);
+    emit healthPacksUpdated(m_health_packs);
+    emit levelUpdated(m_gameLevel);
+}
+
+//***********************************************************************************************
 
 void GameController::dataChanged(QMap<DataRole, QVariant> objectData){
     switch(objectData[DataRole::Type].value<ObjectType>()){
@@ -105,14 +185,17 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData){
         }
         break;
     case ObjectType::Doorway:
-        if (objectData[DataRole::Direction].value<Direction>() == Direction::Up){
-            updateLevel(Direction::Up); // go up a level
-        }
         if (objectData[DataRole::Direction].value<Direction>() == Direction::Down){
             if (m_gameLevel != 1){
                 updateLevel(Direction::Down);// go down a level
             }
+
         }
+        if
+            (objectData[DataRole::Direction].value<Direction>() == Direction::Up){
+                updateLevel(Direction::Up); // go up a level
+
+            }
         break;
 
     case ObjectType::PoisonEnemy:
@@ -174,6 +257,8 @@ void GameController::updateHealth() {
     emit healthUpdated(protagonist_health_int);
 }
 
+
+
 void GameController::characterMove(Direction to) {
     m_character->getBehavior<Movement>()->stepOn(to);
     emit tick();
@@ -188,13 +273,9 @@ void GameController::characterAtttack() {
     }
 }
 
-void GameController::setState(State new_state) {
-    m_gameState = new_state;
-}
 
-void GameController::setLevel(unsigned int level) {
-    m_gameLevel = level;
-}
+
+
 void GameController::updateGameView(View view) {
     m_gameView = view;
     if(view == View::Sprite) {
@@ -206,6 +287,11 @@ void GameController::updateGameView(View view) {
     }
 }
 
+
+
+void GameController::setState(State new_state) {
+    m_gameState = new_state;
+}
 GameController::State GameController::getState() {
     return m_gameState;
 }
