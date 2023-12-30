@@ -264,6 +264,7 @@ void GameWindow::gameOver() {
     // summary += "Health Packs Collected: " + QString::number(m_ui->lcdHealth->intValue()) + "\n";
     summary += "Final Health: " + QString::number(m_ui->health->value()) + "\n";
 
+    disconnect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
     QString totalTime = QString::number(m_ui->lcdTime->intValue());
     summary += "Total Time: " + totalTime + " seconds\n";
 

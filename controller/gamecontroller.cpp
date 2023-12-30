@@ -183,7 +183,7 @@ void GameController::path_finder() {
                 continue;
             }
 
-            QTime dieTime = QTime::currentTime().addMSecs(500);
+            QTime dieTime = QTime::currentTime().addMSecs(250);
             while(QTime::currentTime() < dieTime)
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
@@ -200,20 +200,23 @@ void GameController::path_finder() {
 }
 
 void GameController::updateEnergy() {
-    QVariant protagonist_energy = m_character->getData(DataRole::Energy);
-    int protagonist_energy_int = protagonist_energy.value<int>();
-    emit energyUpdated(protagonist_energy_int);
+    int protagonistEnergy = m_character->getData(DataRole::Energy).toInt();
+    emit energyUpdated(protagonistEnergy);
 
-    if(protagonist_energy_int == 0) {
+    if(protagonistEnergy == 0) {
         m_gameState = State::GameOver;
         emit gameOver();
     }
 }
 
 void GameController::updateHealth() {
-    QVariant protagonist_health = m_character->getData(DataRole::Health);
-    int protagonist_health_int = protagonist_health.value<int>();
-    emit healthUpdated(protagonist_health_int);
+    int protagonistHealth = m_character->getData(DataRole::Health).toInt();
+    emit healthUpdated(protagonistHealth);
+
+    if(protagonistHealth == 0) {
+        m_gameState = State::GameOver;
+        emit gameOver();
+    }
 }
 
 void GameController::characterMove(Direction to) {
