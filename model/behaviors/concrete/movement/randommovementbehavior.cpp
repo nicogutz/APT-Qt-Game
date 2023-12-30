@@ -16,6 +16,7 @@ void RandomMovementBehavior::moveRandomly() {
             }
         }
         int neighborEnergy = neighbor->getData(DataRole::Energy).toInt();
+        neighborEnergy = neighborEnergy == INFINITY ? 1000 : neighborEnergy;
         energy = neighborEnergy > energy ? neighborEnergy : energy;
     }
 
