@@ -16,7 +16,6 @@ void GamePixmapItem::setFrame(int newFrame) {
 
 void GamePixmapItem::setData(DataRole role, QVariant type) {
     auto *animation = new QPropertyAnimation(this);
-    animation->setTargetObject(this);
     switch(type.value<ObjectType>()) {
     case ObjectType::Protagonist:
         animation->setPropertyName("pos");
@@ -26,6 +25,7 @@ void GamePixmapItem::setData(DataRole role, QVariant type) {
         animation->setEndValue(QPointF(0, 3));
         animation->setEasingCurve(QEasingCurve::OutInBounce);
         animation->start();
+        animation->setParent(this);
         break;
     case ObjectType::Enemy:
         animation->setPropertyName("opacity");
@@ -35,6 +35,7 @@ void GamePixmapItem::setData(DataRole role, QVariant type) {
         animation->setEndValue(1);
         animation->setEasingCurve(QEasingCurve::SineCurve);
         animation->start();
+        animation->setParent(this);
         break;
 
     default:

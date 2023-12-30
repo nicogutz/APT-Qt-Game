@@ -64,6 +64,7 @@ GamePixmapItem *SpriteRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
     auto *item = new GamePixmapItem(renderActor(":/images/xenemy.png", m_cellSize,
                                                 calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+
     return item;
 }
 

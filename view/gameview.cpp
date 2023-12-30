@@ -10,7 +10,10 @@ GameView::GameView(QObject *parent)
 void GameView::createScene(
   const QList<QList<QList<QMap<DataRole, QVariant>>>> &gameObjects,
   QSharedPointer<Renderer> renderer) {
-    setRenderer(renderer);
+    if(renderer) {
+        setRenderer(renderer);
+    }
+
     if(!m_tiles.empty()) {
         clear();
     }

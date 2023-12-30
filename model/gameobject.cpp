@@ -67,6 +67,10 @@ void GameObject::setData(QList<QPair<DataRole, QVariant>> data) {
     }
 }
 
+void GameObject::setData(const QMap<DataRole, QVariant> &data) {
+    m_objectData = QMap<DataRole, QVariant>(data);
+}
+
 const QPointer<GameObject> GameObject::findChild(ObjectType type) {
     auto children = findChildren<GameObject *>();
     for(auto child : children) {

@@ -38,18 +38,17 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         }
     }
     // Process doorways
-    if(level != 1){
+    if(level) {
         auto *entryDoor = new GameObject({
-                                          {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Down)},
-                                          });
+          {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Down)},
+        });
         GameObjectSettings::getFunction(ObjectType::Doorway)(entryDoor);
         entryDoor->setParent(worldGrid[0][0]);
-
     }
 
     auto *exitDoor = new GameObject({
-                {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Up)},
-                                  });
+      {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Up)},
+    });
     GameObjectSettings::getFunction(ObjectType::Doorway)(exitDoor);
     exitDoor->setParent(worldGrid[rows - 1][cols - 1]);
 
@@ -74,8 +73,9 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
     for(const auto &enemy : enemies) {
         int enemyX = enemy->getXPos();
         int enemyY = enemy->getYPos();
-        if ((enemyX==cols-1 && enemyY==rows-1) || (enemyX==0 && enemyY==0)){
-            enemyX=cols-2; enemyY=rows-2; //make sure no enemies on the doorway
+        if((enemyX == cols - 1 && enemyY == rows - 1) || (enemyX == 0 && enemyY == 0)) {
+            enemyX = cols - 2;
+            enemyY = rows - 2; // make sure no enemies on the doorway
         }
         Node &enemyNode = m_nodes[enemyY * cols + enemyX];
         enemyNode.setValue(1.0);

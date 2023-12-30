@@ -24,7 +24,6 @@ GameWindow::GameWindow(QWidget *parent)
 
     this->setFocusPolicy(Qt::StrongFocus);
 
-
     // CHOOSE MODE: MANUAL OR AUTOMATIC
     QMessageBox modeBox;
     modeBox.setWindowTitle("Select Game Mode");
@@ -42,15 +41,18 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     // START GAME
-    m_controller->startGame(6, 7); m_ui->lcdHealth->display(7); m_ui->lcdEnemies->display(6);
+    m_controller->startGame(6, 7);
+
+    m_ui->lcdHealth->display(7);
+    m_ui->lcdEnemies->display(6);
     m_ui->graphicsView->setScene(m_controller->getView().data());
     m_ui->graphicsView->show();
+
     m_controller->show();
     m_ui->lcdTime->display("00:00");
 
     // START TIMER
     m_timer->start(1000);
-
 
     // ZOOM
     m_ui->horizontalSlider->setMinimum(-30);
@@ -74,18 +76,17 @@ GameWindow::GameWindow(QWidget *parent)
     connect(m_controller.data(), &GameController::healthUpdated, m_ui->health, &QProgressBar::setValue);
 
     connect(m_controller.data(), &GameController::enemiesUpdated, this, [this](unsigned int enemies) {
-        m_ui->lcdEnemies->display(static_cast<int>(enemies));
+        m_ui->lcdEnemies->display((int)(enemies));
     });
     connect(m_controller.data(), &GameController::healthPacksUpdated, this, [this](unsigned int healthPacks) {
-        m_ui->lcdHealth->display(static_cast<int>(healthPacks));
+        m_ui->lcdHealth->display((int)(healthPacks));
     });
 
     connect(m_controller.data(), &GameController::levelUpdated, this, [this](unsigned int level) {
-        m_ui->lcdLevel->display(static_cast<int>(level));
+        m_ui->lcdLevel->display((int)(level + 1));
     });
 
     connect(m_controller.data(), &GameController::gameOver, this, &GameWindow::gameOver);
-
 
     zoomBySlider(-30);
 }
@@ -144,7 +145,7 @@ void GameWindow::processCommand() {
     } else if(command == "d") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         m_controller->characterMove(Direction::Down);
-    }  else if(command == "a") {
+    } else if(command == "a") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         m_controller->characterAtttack();
     } else if(command == "p/r") {
@@ -182,7 +183,6 @@ void GameWindow::processCommand() {
     m_ui->textEdit->clear();
 }
 
-
 void GameWindow::showHelp() {
     QString helpMessage = "Available commands:\n"
                           "l - Move Left\n"
@@ -201,7 +201,6 @@ void GameWindow::showHelp() {
                           "? - Show Help\n";
     m_ui->plainTextEdit->setPlainText(helpMessage);
 }
-
 
 void GameWindow::showInvalidCommandMessage() {
     QString errorMessage = "Invalid command. Type '?' for a list of possible commands.";
@@ -248,7 +247,6 @@ GameWindow::~GameWindow() {
     delete m_timer;
 }
 
-
 bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
     if(event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
         return true;
@@ -258,18 +256,16 @@ bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
     }
 }
 
-
 void GameWindow::gameOver() {
     QString summary;
     summary += "Game Summary:\n";
     summary += "Level Reached: " + QString::number(m_ui->lcdLevel->intValue()) + "\n";
-    //summary += "Enemies Defeated: " + QString::number(m_ui->lcdEnemies->intValue()) + "\n";
-    //summary += "Health Packs Collected: " + QString::number(m_ui->lcdHealth->intValue()) + "\n";
+    // summary += "Enemies Defeated: " + QString::number(m_ui->lcdEnemies->intValue()) + "\n";
+    // summary += "Health Packs Collected: " + QString::number(m_ui->lcdHealth->intValue()) + "\n";
     summary += "Final Health: " + QString::number(m_ui->health->value()) + "\n";
 
     QString totalTime = QString::number(m_ui->lcdTime->intValue());
     summary += "Total Time: " + totalTime + " seconds\n";
-
 
     QString gameOverText = "Game Over\nThanks for playing!\n\n" + summary;
 
@@ -277,18 +273,15 @@ void GameWindow::gameOver() {
     gameOverBox.setWindowTitle("Game Over");
     gameOverBox.setText(gameOverText);
 
-    QAbstractButton* playAgainButton = gameOverBox.addButton("Play Again", QMessageBox::YesRole);
-    QAbstractButton* quitButton = gameOverBox.addButton("Quit", QMessageBox::NoRole);
+    QAbstractButton *playAgainButton = gameOverBox.addButton("Play Again", QMessageBox::YesRole);
+    QAbstractButton *quitButton = gameOverBox.addButton("Quit", QMessageBox::NoRole);
 
     gameOverBox.exec();
 
-
-    if (gameOverBox.clickedButton() == playAgainButton) {
+    if(gameOverBox.clickedButton() == playAgainButton) {
         QCoreApplication::quit();
         QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
-    } else if (gameOverBox.clickedButton() == quitButton) {
+    } else if(gameOverBox.clickedButton() == quitButton) {
         QApplication::quit();
     }
 }
-
-

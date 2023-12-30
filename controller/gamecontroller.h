@@ -72,7 +72,6 @@ public:
     void updateEnergy();
     void updateHealth();
 
-
     void updateLevel(Direction direction);
 
     void dataChanged(QMap<DataRole, QVariant> objectData);
@@ -82,7 +81,6 @@ public:
     void emitLevelUpdates();
 
     void createNewLevel(int level);
-
 
 signals:
     /**
@@ -127,14 +125,12 @@ signals:
     void healthPacksUpdated(int health_packs);
     void levelUpdated(int level);
 
-
 private:
     ObjectModelFactory factory;
     /**
      * @brief m_model
      */
-    GameObjectModel *m_current_model;
-    QList<GameObjectModel*> m_models;
+    QList<GameObjectModel *> m_models;
     /**
      * @brief m_view
      */

@@ -63,6 +63,7 @@ public:
     // QObject interface
     bool event(QEvent *event) override;
 
+    void setData(const QMap<DataRole, QVariant> &data);
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;
     QMap<DataRole, QVariant> m_objectData;
