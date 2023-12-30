@@ -58,6 +58,8 @@ public slots:
 
     void togglePause();
 
+    void gameOver();
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 

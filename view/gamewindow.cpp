@@ -15,14 +15,15 @@ GameWindow::GameWindow(QWidget *parent)
     m_ui->setupUi(this);
 
     // DEFAULT OPTIONS
-    //    setStyleSheet("background-color: white;");
-    //    this->setFixedSize(1000, 800);
     m_ui->colour_mode->setChecked(false);
     m_ui->text_mode->setChecked(false);
     m_ui->sprite_mode->setChecked(true);
     m_ui->health->setValue(100);
     m_ui->energy->setValue(100);
     m_ui->lcdLevel->display(1);
+
+    this->setFocusPolicy(Qt::StrongFocus);
+
 
     // CHOOSE MODE: MANUAL OR AUTOMATIC
     QMessageBox modeBox;
@@ -50,7 +51,6 @@ GameWindow::GameWindow(QWidget *parent)
     // START TIMER
     m_timer->start(1000);
 
-    setFocusPolicy(Qt::StrongFocus);
 
     // ZOOM
     m_ui->horizontalSlider->setMinimum(-30);
@@ -84,7 +84,7 @@ GameWindow::GameWindow(QWidget *parent)
         m_ui->lcdLevel->display(static_cast<int>(level));
     });
 
-
+    connect(m_controller.data(), &GameController::gameOver, this, &GameWindow::gameOver);
 
 
     zoomBySlider(-30);
@@ -132,41 +132,38 @@ void GameWindow::keyPressEvent(QKeyEvent *event) {
 void GameWindow::processCommand() {
     m_ui->plainTextEdit->clear();
     QString command = m_ui->textEdit->text().trimmed().toLower(); // Normalize input
-    if(command == "move left") {
+    if(command == "l") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         m_controller->characterMove(Direction::Left);
-    } else if(command == "move right") {
+    } else if(command == "r") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         m_controller->characterMove(Direction::Right);
-    } else if(command == "move up") {
+    } else if(command == "u") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         m_controller->characterMove(Direction::Up);
-    } else if(command == "move down") {
+    } else if(command == "d") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         m_controller->characterMove(Direction::Down);
-    } else if(command == "health pack") {
+    }  else if(command == "a") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         m_controller->characterAtttack();
-    } else if(command == "attack") {
-        m_ui->plainTextEdit->setPlainText("command executed: " + command);
-        m_controller->characterAtttack();
-    } else if(command == "pause") {
+    } else if(command == "p/r") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         togglePause();
-    } else if(command == "quit") {
+    } else if(command == "q") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         QApplication::quit();
-    } else if(command == "restart") {
+    } else if(command == "res") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
         QApplication::quit();
-    } else if(command == "view text") {
+    } else if(command == "text") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         setTextualView();
-    } else if(command == "view color") {
+    } else if(command == "color") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         setColorView();
-    } else if(command == "view sprite") {
+    } else if(command == "sprite") {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         setSpriteView();
     } else if(command == "zoom in") {
@@ -177,7 +174,7 @@ void GameWindow::processCommand() {
         m_ui->plainTextEdit->setPlainText("command executed: " + command);
         m_ui->horizontalSlider->setValue(m_ui->horizontalSlider->minimum());
         zoomBySlider(m_ui->horizontalSlider->minimum());
-    } else if(command == "help") {
+    } else if(command == "?") {
         showHelp();
     } else {
         showInvalidCommandMessage();
@@ -185,22 +182,29 @@ void GameWindow::processCommand() {
     m_ui->textEdit->clear();
 }
 
+
 void GameWindow::showHelp() {
     QString helpMessage = "Available commands:\n"
-                          "- move [left/right/up/down]: Move the protagonist\n"
-                          "- attack: Attack the nearest enemy\n"
-                          "- health pack: Take a health pack\n"
-                          "- pause: Toggle between Pause and Resume the game\n"
-                          "- view [text/color/sprite]: Switch views\n"
-                          "- zoom [in/out]: Zoom in and out\n"
-                          "- quit: Quit the game\n"
-                          "- restart: Restart game from scratch\n"
-                          "Type 'help' to show this message again.";
+                          "l - Move Left\n"
+                          "r - Move Right\n"
+                          "u - Move Up\n"
+                          "d - Move Down\n"
+                          "a - Attack\n"
+                          "p/r - Pause/Resume game\n"
+                          "q - Quit\n"
+                          "res - Restart game\n"
+                          "text - Switch to Text View\n"
+                          "color - Switch to Color View\n"
+                          "sprite - Switch to Sprite View\n"
+                          "zoom in - Zoom In\n"
+                          "zoom out - Zoom Out\n"
+                          "? - Show Help\n";
     m_ui->plainTextEdit->setPlainText(helpMessage);
 }
 
+
 void GameWindow::showInvalidCommandMessage() {
-    QString errorMessage = "Invalid command. Type 'help' for a list of possible commands.";
+    QString errorMessage = "Invalid command. Type '?' for a list of possible commands.";
     m_ui->plainTextEdit->setPlainText(errorMessage);
 }
 
@@ -253,3 +257,38 @@ bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
         return QObject::eventFilter(watched, event);
     }
 }
+
+
+void GameWindow::gameOver() {
+    QString summary;
+    summary += "Game Summary:\n";
+    summary += "Level Reached: " + QString::number(m_ui->lcdLevel->intValue()) + "\n";
+    //summary += "Enemies Defeated: " + QString::number(m_ui->lcdEnemies->intValue()) + "\n";
+    //summary += "Health Packs Collected: " + QString::number(m_ui->lcdHealth->intValue()) + "\n";
+    summary += "Final Health: " + QString::number(m_ui->health->value()) + "\n";
+
+    QString totalTime = QString::number(m_ui->lcdTime->intValue());
+    summary += "Total Time: " + totalTime + " seconds\n";
+
+
+    QString gameOverText = "Game Over\nThanks for playing!\n\n" + summary;
+
+    QMessageBox gameOverBox;
+    gameOverBox.setWindowTitle("Game Over");
+    gameOverBox.setText(gameOverText);
+
+    QAbstractButton* playAgainButton = gameOverBox.addButton("Play Again", QMessageBox::YesRole);
+    QAbstractButton* quitButton = gameOverBox.addButton("Quit", QMessageBox::NoRole);
+
+    gameOverBox.exec();
+
+
+    if (gameOverBox.clickedButton() == playAgainButton) {
+        QCoreApplication::quit();
+        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    } else if (gameOverBox.clickedButton() == quitButton) {
+        QApplication::quit();
+    }
+}
+
+

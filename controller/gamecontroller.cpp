@@ -248,6 +248,11 @@ void GameController::updateEnergy() {
     QVariant protagonist_energy = m_character->getData(DataRole::Energy);
     int protagonist_energy_int = protagonist_energy.value<int>();
     emit energyUpdated(protagonist_energy_int);
+
+    if (protagonist_energy_int == 0){
+        m_gameState = State::GameOver;
+        emit gameOver();
+    }
 }
 
 void GameController::updateHealth() {
