@@ -53,7 +53,7 @@ public:
      * @brief GameController
      */
     GameController();
-    void startGame(unsigned int enemies, unsigned int health_packs);
+    void startGame();
 
     QSharedPointer<GameView> getView();
     void setView(QSharedPointer<GameView> view);
@@ -88,6 +88,8 @@ public:
     void emitLevelUpdates();
 
     void createNewLevel(int level);
+
+    void centerOnProtagonist();
 
 signals:
     /**

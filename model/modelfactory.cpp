@@ -69,6 +69,9 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
     // Process Health Packs
     auto healthPacks = m_world.getHealthPacks();
     for(const auto &hp : healthPacks) {
+        int hpX = hp->getXPos();
+        int hpY = hp->getYPos();
+        m_nodes[hpY * columns + hpX].setValue(0.1);
         auto *hpObj = new GameObject();
         GameObjectSettings::getFunction(ObjectType::HealthPack)(hpObj);
         hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);

@@ -27,10 +27,10 @@ GameWindow::GameWindow(QWidget *parent)
 
     this->setFocusPolicy(Qt::StrongFocus);
     // ZOOM
-    m_ui->horizontalSlider->setMinimum(-30);
+    m_ui->horizontalSlider->setMinimum(-34);
     m_ui->horizontalSlider->setMaximum(30);
-    m_ui->horizontalSlider->setValue(-30);
-    zoomBySlider(-30);
+    m_ui->horizontalSlider->setValue(-34);
+    zoomBySlider(-34);
 
 
     // CHOOSE MODE: MANUAL OR AUTOMATIC
@@ -50,9 +50,9 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     // START GAME
-    m_controller->startGame(8, 10);
-    m_ui->lcdHealth->display(10);
-    m_ui->lcdEnemies->display(8);
+    m_controller->startGame();
+    m_ui->lcdHealth->display(4);
+    m_ui->lcdEnemies->display(27);
     m_ui->lcdLevel->display(1);
     m_ui->graphicsView->setScene(m_controller->getView().data());
     m_ui->graphicsView->show();
@@ -69,6 +69,10 @@ GameWindow::GameWindow(QWidget *parent)
     connect(m_ui->automatic, &QAction::changed, m_ui->manual, &QAction::toggle);
     connect(m_ui->manual, &QAction::changed, m_ui->automatic, &QAction::toggle);
     connect(m_ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
+
+    connect(m_controller.data(), &GameController::levelUpdated, this, [this](int level) {
+        zoomBySlider(-34);
+    });
 
     connect(m_ui->sprite_mode, &QAction::triggered, this, &GameWindow::setSpriteView);
     connect(m_ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
@@ -218,9 +222,11 @@ void GameWindow::zoomBySlider(int value) {
     m_ui->graphicsView->scale(scaleFactor, scaleFactor);
 }
 
+
+
 void GameWindow::updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs) {
     m_ui->lcdLevel->display((int)level);
-    m_controller->startGame(enemies, health_packs);
+    m_controller->startGame();
     m_ui->lcdEnemies->display((int)enemies);
     m_ui->lcdHealth->display((int)health_packs);
 }

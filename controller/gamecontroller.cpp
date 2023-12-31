@@ -6,7 +6,7 @@ GameController::GameController()
     , m_gameState(State::Running)
     , m_gameView(View::Sprite) {};
 
-void GameController::startGame(unsigned int enemies, unsigned int health_packs) {
+void GameController::startGame() {
     m_view = QSharedPointer<GameView>::create(this);
     m_view->setRenderer(QSharedPointer<SpriteRenderer>::create());
     createNewLevel(m_gameLevel);
@@ -35,36 +35,8 @@ void GameController::updateLevel(Direction direction) {
         }
 
         m_gameLevel = newLevel;
-        switch(m_gameLevel) {
-        case 0:
-            m_enemies = 8;
-            m_health_packs = 10;
-            break;
-        case 1:
-            m_enemies = 16;
-            m_health_packs = 9;
-            break;
-        case 2:
-            m_enemies = 20;
-            m_health_packs = 10;
-            break;
-        case 3:
-            m_enemies = 30;
-            m_health_packs = 10;
-            break;
-        case 4:
-            m_enemies = 26;
-            m_health_packs = 8;
-            break;
-        case 5:
-            m_enemies = 34;
-            m_health_packs = 8;
-            break;
-        default:
-            m_enemies = 44;
-            m_health_packs = 5;
-            break;
-        }
+        m_enemies = 10 * (m_gameLevel + 1) + 25;
+        m_health_packs = 5 - (m_gameLevel / 3);
 
         m_character = model->getObject(ObjectType::Protagonist).at(0);
         m_view->createScene(model->getAllData());
@@ -124,6 +96,10 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
 
         if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Health) {
             updateHealth();
+        }
+
+        if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Position) {
+            centerOnProtagonist();
         }
         break;
     case ObjectType::Doorway:
@@ -265,4 +241,11 @@ QSharedPointer<GameView> GameController::getView() {
 
 void GameController::setView(QSharedPointer<GameView> view) {
     m_view = view;
+}
+
+
+void GameController::centerOnProtagonist() {
+    QPointF protagonistPosition = m_character->getData(DataRole::Position).toPointF();
+    centerOn(protagonistPosition);
+
 }
