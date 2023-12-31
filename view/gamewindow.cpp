@@ -14,6 +14,9 @@ GameWindow::GameWindow(QWidget *parent)
     m_controller->setParent(this);
     m_ui->setupUi(this);
 
+
+    qApp->installEventFilter(this);
+
     // DEFAULT OPTIONS
     m_ui->colour_mode->setChecked(false);
     m_ui->text_mode->setChecked(false);
@@ -242,14 +245,16 @@ void GameWindow::setColorView() {
 }
 
 
+
 bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
-    if(event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        keyPressEvent(keyEvent);
         return true;
-    } else {
-        // standard event processing
-        return QObject::eventFilter(watched, event);
     }
+    return QMainWindow::eventFilter(watched, event);
 }
+
 
 void GameWindow::gameOver() {
     QString summary;
