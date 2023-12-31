@@ -4,10 +4,13 @@
 
 #include <QRandomGenerator>
 
+#include <model/behaviors/concrete/movement/genericwalkablebehavior.h>
+
 void PoisonOnKilledBehavior::die() {
     //    m_owner->getBehavior()
     m_poisonCount = Poison::SETTINGS::POISON_SPREAD_TIMES;
     m_owner->removeBehavior<Attack>();
+    m_owner->setBehavior<Movement>(QSharedPointer<GenericWalkableBehavior>::create(m_owner));
 
     m_ticksToPoison = QRandomGenerator::global()->bounded(
       Poison::SETTINGS::POISON_SPREAD_MIN_TICKS,
