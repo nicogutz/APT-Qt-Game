@@ -85,7 +85,7 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
             enemyY = rows - 2; // make sure no enemies on the doorway
         }
         Node &enemyNode = m_nodes[enemyY * cols + enemyX];
-        enemyNode.setValue(1.0);
+        //enemyNode.setValue(1.0);
 
         ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
         auto *enemyObj = new GameObject();

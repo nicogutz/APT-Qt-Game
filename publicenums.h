@@ -12,6 +12,7 @@ enum class ObjectType : char {
     PoisonEnemy = 101,
     FireEnemy = 102,
     MovingEnemy = 103,
+
 };
 enum class DataRole : int {
     Type,
@@ -30,6 +31,8 @@ enum class DataRole : int {
 
     LatestChange,
     ChangeDirection,
+
+    Path,
 };
 enum class Direction : int {
     Right = 0,

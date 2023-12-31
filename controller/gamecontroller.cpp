@@ -83,7 +83,7 @@ void GameController::createNewLevel(int level) {
     switch(level) {
     case 0:
         imagePath = ":/images/worldmap.png";
-        m_enemies = 8;
+        m_enemies = 40;
         m_health_packs = 10;
         break;
     case 1:
@@ -191,23 +191,15 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
 void GameController::path_finder() {
     if(m_gameState == State::Running) {
         auto path = factory.pathFinder();
+        auto first_tile = m_models[m_gameLevel]->getObject(0,0,ObjectType::Tile);
+        for (int move : path){
+            first_tile->setData(DataRole::Path, true);
+            first_tile = first_tile->getNeighbor(((45*move + 90)%360));
+
+        }
 
         for(int move : path) {
-            Direction direction;
-            switch(move) {
-            case 0: direction = Direction::Up; break;
-            case 1: direction = Direction::TopLeft; break;
-            case 2: direction = Direction::Left; break;
-            case 3: direction = Direction::BottomLeft; break;
-            case 4: direction = Direction::Down; break;
-            case 5: direction = Direction::BottomRight; break;
-            case 6: direction = Direction::Right; break;
-            case 7: direction = Direction::TopRight; break;
-            default:
-                // Handle invalid move
-                qDebug() << "Invalid move in path: " << move;
-                continue;
-            }
+            Direction direction = (Direction)((45*move + 90)%360);
 
             QTime dieTime = QTime::currentTime().addMSecs(250);
             while(QTime::currentTime() < dieTime)
@@ -215,9 +207,29 @@ void GameController::path_finder() {
 
             QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
             Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
+
+            if(auto tile = m_character->getNeighbor(direction)){
+                for (auto child : tile->getAllData()){
+                    if (child[DataRole::Type].toInt() > 99){
+                        while(m_character->getData(DataRole::Energy).toInt() != 100){
+                            QTime dieTime = QTime::currentTime().addMSecs(250);
+                            while(QTime::currentTime() < dieTime)
+                                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+                            if(auto attack = m_character->getBehavior<Attack>()) {
+                                attack->attack(direction);
+                                emit tick();
+                            }
+                        }
+                    }
+                }
+
+            }
             if(direction != protagonist_direction) {
                 characterMove(direction);
                 characterMove(direction);
+
+
             } else {
                 characterMove(direction);
             }
