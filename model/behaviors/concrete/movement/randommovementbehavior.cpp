@@ -21,6 +21,8 @@ void RandomMovementBehavior::moveRandomly() {
     }
 
     if(!steppable || energy > m_owner->getData(DataRole::Energy).toInt()) {
+        m_owner->setData(DataRole::Energy, 0);
+        disconnect(m_owner, &GameObject::tick, this, &RandomMovementBehavior::moveRandomly);
         return;
     }
 
