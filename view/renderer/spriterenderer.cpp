@@ -37,10 +37,9 @@ GamePixmapItem *SpriteRenderer::renderTile(
         painter.drawPixmap(QPoint(0, 0), pixmap);
     }
 
-
     if(object[DataRole::Path].toBool()) {
         QPainter painter(&pixmap);
-        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(255, 0, 0, 50));
+        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(0, 0, 255, 100));
         painter.setCompositionMode(QPainter::CompositionMode_SoftLight);
         painter.drawPixmap(QPoint(0, 0), pixmap);
     }
