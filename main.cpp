@@ -38,7 +38,9 @@ int main(int argc, char *argv[]) {
 
     // Connect Signals and slots
     QObject::connect(ui->textEdit, &QLineEdit::returnPressed, &w, &GameWindow::processCommand);
-    QObject::connect(ui->quit_game, &QPushButton::clicked, &app, &QApplication::quit);
+    QObject::connect(ui->quit_game, &QPushButton::clicked, &app, [] {
+        QCoreApplication::quit();
+    });
     QObject::connect(ui->rerun_game_2, &QPushButton::clicked, [] {
         QCoreApplication::quit();
         QProcess::startDetached(qApp->arguments()[0], qApp->arguments());

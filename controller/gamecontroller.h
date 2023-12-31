@@ -74,7 +74,7 @@ public:
     void setState(State new_state);
     void updateGameView(View view);
     State getState();
-    void path_finder();
+    void path_finder(int rows);
 
     void updateEnergy();
     void updateHealth();

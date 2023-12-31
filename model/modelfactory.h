@@ -15,10 +15,12 @@
 class ObjectModelFactory {
 public:
     ObjectModelFactory();
-    GameObjectModel *createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio, int level);
-    std::vector<int> pathFinder();
-    
-    QPointer<GameObject> getPro() { return m_protagonist; } // temporary
+    GameObjectModel *createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio, int level, int rows = 40, int columns = 40);
+    std::vector<int> pathFinder(int rows);
+
+    QPointer<GameObject> getPro() {
+        return m_protagonist;
+    } // temporary
 private:
     World m_world;
     std::vector<Node> m_nodes;

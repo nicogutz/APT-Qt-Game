@@ -1,6 +1,8 @@
 #include "gameobjectsettings.h"
 #include "modelfactory.h"
+#include "worldimagefactory.h"
 
+#include <QFile>
 #include <QRandomGenerator>
 
 ObjectModelFactory::ObjectModelFactory()
@@ -9,16 +11,17 @@ ObjectModelFactory::ObjectModelFactory()
     , m_protagonist() {
 }
 
-GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
-                                                 float pRatio, int level) {
+GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
+                                                 float pRatio, int level, int rows, int columns) {
     m_nodes.clear();
     World m_world;
-    m_world.createWorld(filename, nrOfEnemies, nrOfHealthpacks, pRatio);
-    int rows = m_world.getRows(), cols = m_world.getCols();
+    WorldImageFactory::createWorld(level, rows, columns);
+    m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);
+    QFile::remove(QStringLiteral("./world_%1.png").arg(level));
 
     QList<QList<QPointer<GameObject>>> worldGrid(rows); // instantiate gameObjectModel aka the worldgrid
     for(int i = 0; i < rows; ++i) {
-        worldGrid[i] = QList<QPointer<GameObject>>(cols);
+        worldGrid[i] = QList<QPointer<GameObject>>(columns);
     }
 
     // insert tiles into model
@@ -33,7 +36,7 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         });
         GameObjectSettings::getFunction(ObjectType::Tile)(obj);
         worldGrid[j][i] = obj;
-        if(j == cols - 1) {
+        if(j == columns - 1) {
             j = 0;
             i++;
         } else {
@@ -53,7 +56,7 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
       {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Up)},
     });
     GameObjectSettings::getFunction(ObjectType::Doorway)(exitDoor);
-    exitDoor->setParent(worldGrid[rows - 1][cols - 1]);
+    exitDoor->setParent(worldGrid[rows - 1][columns - 1]);
 
     // Process protagonist
     auto protagonist = m_world.getProtagonist();
@@ -73,19 +76,19 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
 
     // Process Enemies and Poison Enemies
     auto enemies = m_world.getEnemies();
-    int enemyLocations[rows][cols];
+    int enemyLocations[rows][columns];
     memset(enemyLocations, 0, sizeof(enemyLocations));
 
     for(const auto &enemy : enemies) {
         int enemyX = enemy->getXPos();
         int enemyY = enemy->getYPos();
         enemyLocations[enemyX - 1][enemyY - 1] = 1;
-        if((enemyX == cols - 1 && enemyY == rows - 1) || (enemyX == 0 && enemyY == 0)) {
-            enemyX = cols - 2;
+        if((enemyX == columns - 1 && enemyY == rows - 1) || (enemyX == 0 && enemyY == 0)) {
+            enemyX = columns - 2;
             enemyY = rows - 2; // make sure no enemies on the doorway
         }
-        Node &enemyNode = m_nodes[enemyY * cols + enemyX];
-        //enemyNode.setValue(1.0);
+        Node &enemyNode = m_nodes[enemyY * columns + enemyX];
+        // enemyNode.setValue(1.0);
 
         ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
         auto *enemyObj = new GameObject();
@@ -101,22 +104,23 @@ GameObjectModel *ObjectModelFactory::createModel(QString filename, unsigned int 
         int x = 0, y = 0;
         do {
             x = QRandomGenerator::global()->bounded(1, rows - 2);
-            y = QRandomGenerator::global()->bounded(1, cols - 2);
+            y = QRandomGenerator::global()->bounded(1, columns - 2);
         } while(!enemyLocations[x][y]);
         enemyObj->setParent(worldGrid[x][y]);
         movingEnemies--;
     }
 
     auto *model = new GameObjectModel(worldGrid);
+
     return model;
 }
 
-std::vector<int> ObjectModelFactory::pathFinder() {
+std::vector<int> ObjectModelFactory::pathFinder(int rows) {
     Comparator<Node> comp = [](const Node &a, const Node &b) {
         return a.h > b.h;
     };
 
-    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, 30, 0.001f);
+    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, rows, 0.001f);
     auto path = pathFinder.A_star();
 
     for(auto p : path) {

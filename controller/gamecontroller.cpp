@@ -1,6 +1,5 @@
 #include "gamecontroller.h"
 
-
 GameController::GameController()
     : QGraphicsView()
     , m_gameLevel(0)
@@ -32,7 +31,8 @@ void GameController::updateLevel(Direction direction) {
         auto *model = m_models[newLevel];
         if(!model) {
             qDebug() << "Error: Model is null at level " << newLevel;
-            return; }
+            return;
+        }
 
         m_gameLevel = newLevel;
         switch(m_gameLevel) {
@@ -69,56 +69,17 @@ void GameController::updateLevel(Direction direction) {
         m_character = model->getObject(ObjectType::Protagonist).at(0);
         m_view->createScene(model->getAllData());
         connectCurrentModel();
-
     }
 
     emitLevelUpdates();
 }
 
-
-
 void GameController::createNewLevel(int level) {
-    QString imagePath;
     m_gameLevel = level;
-    switch(level) {
-    case 0:
-        imagePath = ":/images/worldmap.png";
-        m_enemies = 40;
-        m_health_packs = 10;
-        break;
-    case 1:
-        imagePath = ":/images/worldmap2.png";
-        m_enemies = 16;
-        m_health_packs = 9;
-        break;
-    case 2:
-        imagePath = ":/images/worldmap.png";
-        m_enemies = 20;
-        m_health_packs = 10;
-        break;
-    case 3:
-        imagePath = ":/images/worldmap2.png";
-        m_enemies = 30;
-        m_health_packs = 8;
-        break;
-    case 5:
-        imagePath = ":/images/worldmap.png";
-        m_enemies = 26;
-        m_health_packs = 8;
-        break;
-    case 6:
-        imagePath = ":/images/worldmap2.png";
-        m_enemies = 34;
-        m_health_packs = 8;
-        break;
-    default:
-        imagePath = ":/images/worldmap2.png";
-        m_enemies = 44;
-        m_health_packs = 5;
-        break;
-    }
+    m_enemies = 10 * (level + 1) + 25;
+    m_health_packs = 5 - (level / 3);
 
-    auto *model = factory.createModel(imagePath, m_enemies, m_health_packs, 0.5f, m_gameLevel);
+    auto *model = factory.createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel);
     m_models.append(model);
     model->setParent(this);
 
@@ -167,10 +128,9 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
         break;
     case ObjectType::Doorway:
         if(objectData[DataRole::Direction].value<Direction>() == Direction::Down) {
-            if (m_gameLevel != 0){
+            if(m_gameLevel != 0) {
                 updateLevel(Direction::Down); // go down a level
             }
-
         }
         if(objectData[DataRole::Direction].value<Direction>() == Direction::Up) {
             updateLevel(Direction::Up); // go up a level
@@ -188,31 +148,30 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
     }
 }
 
-void GameController::path_finder() {
+void GameController::path_finder(int rows) {
     if(m_gameState == State::Running) {
-        auto path = factory.pathFinder();
-        auto first_tile = m_models[m_gameLevel]->getObject(0,0,ObjectType::Tile);
-        for (int move : path){
+        auto path = factory.pathFinder(m_models.at(m_gameLevel)->getRowCount());
+        auto first_tile = m_models[m_gameLevel]->getObject(0, 0, ObjectType::Tile);
+        for(int move : path) {
             first_tile->setData(DataRole::Path, true);
-            first_tile = first_tile->getNeighbor(((45*move + 90)%360));
-
+            first_tile = first_tile->getNeighbor(((45 * move + 90) % 360));
         }
 
         for(int move : path) {
-            Direction direction = (Direction)((45*move + 90)%360);
+            Direction direction = (Direction)((45 * move + 90) % 360);
 
-            QTime dieTime = QTime::currentTime().addMSecs(250);
+            QTime dieTime = QTime::currentTime().addMSecs(100);
             while(QTime::currentTime() < dieTime)
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
             QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
             Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
 
-            if(auto tile = m_character->getNeighbor(direction)){
-                for (auto child : tile->getAllData()){
-                    if (child[DataRole::Type].toInt() > 99){
-                        while(m_character->getData(DataRole::Energy).toInt() != 100){
-                            QTime dieTime = QTime::currentTime().addMSecs(250);
+            if(auto tile = m_character->getNeighbor(direction)) {
+                for(auto child : tile->getAllData()) {
+                    if(child[DataRole::Type].toInt() > 99) {
+                        while(m_character->getData(DataRole::Energy).toInt() != 100) {
+                            QTime dieTime = QTime::currentTime().addMSecs(100);
                             while(QTime::currentTime() < dieTime)
                                 QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
@@ -223,12 +182,10 @@ void GameController::path_finder() {
                         }
                     }
                 }
-
             }
             if(direction != protagonist_direction) {
                 characterMove(direction);
                 characterMove(direction);
-
 
             } else {
                 characterMove(direction);
