@@ -1,3 +1,8 @@
+#include "perlinnoise.h"
+#include <cmath>
+#include <random>
+#include <algorithm>
+#include <numeric>
 /**
  * Obtained from: https://github.com/DeiVadder/QNoise
  *
@@ -9,12 +14,6 @@
  * The source implementation was made in Java by Kurt Spencer and was translated to c++11 by me. See for reference here: https://gist.github.com/KdotJPG/b1270127455a94ac5d19
  * The example is a ready to compile Qt-Application (c++11 compiler and Qt5 needed) A noise map is drawn on top of the QWidget and shows the algorithem in action.
  **/
-
-#include "perlinnoise.h"
-#include <cmath>
-#include <random>
-#include <algorithm>
-#include <numeric>
 
 // THIS IS A DIRECT TRANSLATION TO C++11 FROM THE REFERENCE
 // JAVA IMPLEMENTATION OF THE IMPROVED PERLIN FUNCTION (see http://mrl.nyu.edu/~perlin/noise/)
