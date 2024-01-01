@@ -15,7 +15,8 @@
 class ObjectModelFactory {
 public:
     ObjectModelFactory();
-    GameObjectModel *createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks, float pRatio, int level, int rows = 40, int columns = 40);
+    GameObjectModel *createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
+                                 float pRatio, int level, int rows = 30, int columns = 30);
     std::vector<int> pathFinder(int rows);
 
     QPointer<GameObject> getPro() {

@@ -37,9 +37,12 @@ bool GameObject::event(QEvent *event) {
         data[DataRole::Position] = qobject_cast<GameObject *>(parent())->getData(DataRole::Position);
         data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(DataRole::Position);
         data[DataRole::ChangeDirection] = getData(DataRole::Direction);
-        qDebug() << "Moved To: (" << data[DataRole::Position].toPoint().x() << ", " << data[DataRole::Position].toPoint().y() << ")";
-        qDebug() << "Direction: " << data[DataRole::ChangeDirection].toInt();
 
+        // Debug for protagonist only
+        if(data[DataRole::Type].value<ObjectType>() == ObjectType::Protagonist) {
+            qDebug() << data[DataRole::Type].toString() << "Moved To: (" << data[DataRole::Position].toPoint().x() << ", "
+                     << data[DataRole::Position].toPoint().y() << ")" << data[DataRole::ChangeDirection].toString();
+        }
         emit dataChanged(data);
         return true;
     }
@@ -48,16 +51,21 @@ bool GameObject::event(QEvent *event) {
 }
 
 void GameObject::setData(DataRole role, QVariant value) {
+    Direction dir = value.toFloat() > m_objectData[role].toFloat() ? Direction::Up : Direction::Down;
     m_objectData[role] = value;
 
+    if(m_objectData[DataRole::Type].value<ObjectType>() == ObjectType::Protagonist) {
+        qDebug() << m_objectData[DataRole::Type].toString() << "Data Changed: " << QVariant::fromValue<DataRole>(role).toString()
+                 << " : " << m_objectData[role].toFloat() << ":" << QVariant::fromValue<Direction>(dir).toString();
+    }
+
     auto data = getData();
-    Direction dir = value.toInt() > data[role].toInt() ? Direction::Up : Direction::Down;
-    qDebug() << "Data Changed: " << (int)role << " : " << m_objectData[role].toInt() << ":" << (int)dir;
     if(parent() && parent()->inherits("GameObject")) {
         data[DataRole::Position] = qobject_cast<GameObject *>(parent())->getData(DataRole::Position);
     }
     data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(role);
     data[DataRole::ChangeDirection] = QVariant::fromValue<Direction>(dir);
+
     emit dataChanged(data);
 }
 

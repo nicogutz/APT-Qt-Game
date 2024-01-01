@@ -4,7 +4,7 @@
 
 void RandomMovementBehavior::moveRandomly() {
     bool steppable = true;
-    int energy = 0;
+    float energy = 0;
     for(const auto &neighbor : m_owner->getAllNeighbors()) {
         if(!neighbor) {
             continue;
@@ -15,12 +15,12 @@ void RandomMovementBehavior::moveRandomly() {
                 return;
             }
         }
-        int neighborEnergy = neighbor->getData(DataRole::Energy).toInt();
+        float neighborEnergy = neighbor->getData(DataRole::Energy).toFloat();
         neighborEnergy = neighborEnergy == INFINITY ? 1000 : neighborEnergy;
         energy = neighborEnergy > energy ? neighborEnergy : energy;
     }
 
-    if(!steppable || energy > m_owner->getData(DataRole::Energy).toInt()) {
+    if(!steppable || energy > m_owner->getData(DataRole::Energy).toFloat()) {
         m_owner->setData(DataRole::Energy, 0);
         disconnect(m_owner, &GameObject::tick, this, &RandomMovementBehavior::moveRandomly);
         return;

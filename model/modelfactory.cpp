@@ -127,7 +127,7 @@ std::vector<int> ObjectModelFactory::pathFinder(int rows) {
     auto path = pathFinder.A_star();
 
     for(auto p : path) {
-        qDebug() << "Move: " << p;
+        //        qDebug() << "Move: " << p;
     }
     return path;
 }
