@@ -1,63 +1,65 @@
 #ifndef PUBLICENUMS_H
 #define PUBLICENUMS_H
-#include <cstdint>
-#include <QMetaType>
+#include <QObject>
+namespace _pub {
+    Q_NAMESPACE
+    enum class ObjectType : char {
+        Tile = 0,
+        Doorway = 1,
+        HealthPack = 2,
+        Protagonist = 50,
+        Enemy = 100,
+        PoisonEnemy = 101,
+        FireEnemy = 102,
+        MovingEnemy = 103,
 
-enum class ObjectType : char {
-    Tile = 0,
-    Doorway = 1,
-    HealthPack = 2,
-    Protagonist = 50,
-    Enemy = 100,
-    PoisonEnemy = 101,
-    FireEnemy = 102,
-    MovingEnemy = 103,
+    };
+    Q_ENUM_NS(ObjectType);
 
-};
-enum class DataRole : int {
-    Type,
+    enum class DataRole : int {
+        Type,
 
-    Health,
-    Energy,
-    Strength,
+        Health,
+        Energy,
+        Strength,
 
-    PoisonLevel,
-    FireLevel,
+        PoisonLevel,
+        FireLevel,
 
-    Destroyed,
+        Destroyed,
 
-    Position,
-    Direction,
+        Position,
+        Direction,
 
-    LatestChange,
-    ChangeDirection,
+        LatestChange,
+        ChangeDirection,
 
-    Path,
-};
-enum class Direction : int {
-    Right = 0,
-    TopRight = 45,
-    Up = 90,
-    TopLeft = 135,
-    Left = 180,
-    BottomLeft = 225,
-    Down = 270,
-    BottomRight = 315,
-};
+        Path,
+    };
+    Q_ENUM_NS(DataRole);
 
-const Direction EnumDirectionVector[] = {
-  Direction::TopLeft,
-  Direction::Up,
-  Direction::TopRight,
-  Direction::Left,
-  Direction::Right,
-  Direction::BottomLeft,
-  Direction::Down,
-  Direction::BottomRight,
-};
+    enum class Direction : int {
+        Right = 0,
+        TopRight = 45,
+        Up = 90,
+        TopLeft = 135,
+        Left = 180,
+        BottomLeft = 225,
+        Down = 270,
+        BottomRight = 315,
+    };
+    Q_ENUM_NS(Direction);
 
-Q_DECLARE_METATYPE(ObjectType);
-Q_DECLARE_METATYPE(DataRole);
-Q_DECLARE_METATYPE(Direction);
-
+    const Direction EnumDirectionVector[] = {
+      Direction::TopLeft,
+      Direction::Up,
+      Direction::TopRight,
+      Direction::Left,
+      Direction::Right,
+      Direction::BottomLeft,
+      Direction::Down,
+      Direction::BottomRight,
+    };
+}
+using namespace _pub;
 #endif // PUBLICENUMS_H
