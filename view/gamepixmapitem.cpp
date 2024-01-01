@@ -1,7 +1,9 @@
 #include "gamepixmapitem.h"
+#include "qbitmap.h"
 #include "qpainter.h"
 
 #include <QPropertyAnimation>
+#include <QRegion>
 
 int GamePixmapItem::frame() const {
     return m_frame;
@@ -52,6 +54,48 @@ void GamePixmapItem::setSprite(const QImage &newSprite) {
     m_sprite = newSprite;
 }
 
+void GamePixmapItem::setDeathFrameCount(int count) {
+    m_deathFrameCount = count;
+}
+
+int GamePixmapItem::deathFrameCount() const {
+    return m_deathFrameCount;
+}
+
+void GamePixmapItem::setCellSize(int cellSize) {
+    m_cellSize = cellSize;
+}
+
+QColor GamePixmapItem::getTint() const {
+    return tint;
+}
+
+void GamePixmapItem::setTint(const QColor &newTint) {
+    if(tint == newTint)
+        return;
+    QPixmap currentPixmap = this->pixmap();
+    QPixmap overlay(currentPixmap.size());
+    overlay.fill(Qt::transparent);
+    QPainter painter(&overlay);
+    painter.setClipRegion(QRegion(currentPixmap.mask()));
+    painter.setCompositionMode(QPainter::CompositionMode_Overlay);
+    painter.fillRect(overlay.rect(), newTint);
+    painter.end();
+
+    auto children = this->childItems();
+
+    QGraphicsPixmapItem *child;
+    if(children.empty()) {
+        child = new QGraphicsPixmapItem(overlay);
+    } else {
+        child = dynamic_cast<QGraphicsPixmapItem *>(children[0]);
+    }
+    child->setParentItem(this);
+    child->setPixmap(overlay);
+    tint = newTint;
+    emit tintChanged();
+}
+
 QPixmap GamePixmapItem::renderActor(int cellSize, int POVFrame, int numPOVs) {
     QImage image(m_sprite);
 
@@ -70,3 +114,16 @@ QPixmap GamePixmapItem::renderActor(int cellSize, int POVFrame, int numPOVs) {
 
     return resultPixmap;
 }
+
+// void GamePixmapItem::renderHealthAnimation() {
+//     QColor overlayColor = (m_isHealthGain)
+//       ? QColor(0, 255, 0, 255 / 2)
+//       : QColor(255, 0, 0, 255 / 2);
+
+//    QPixmap currentPixmap = this->pixmap();
+//    QPainter painter(&currentPixmap);
+//    painter.setClipRegion(QRegion(currentPixmap.mask()));
+//    painter.fillRect(currentPixmap.rect(), overlayColor);
+//    painter.end();
+//    this->setPixmap(currentPixmap);
+//}
