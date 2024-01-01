@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>945</width>
-    <height>865</height>
+    <width>939</width>
+    <height>685</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -452,6 +452,22 @@ url(:/qss_icons/light/rc/toolbar_move_horizontal_focus.png)
          </layout>
         </item>
         <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="QPushButton" name="path_find_trigger">
           <property name="text">
            <string>Find Path</string>
@@ -493,8 +509,8 @@ url(:/qss_icons/light/rc/toolbar_move_horizontal_focus.png)
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>945</width>
-     <height>21</height>
+     <width>939</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="view_menu">
