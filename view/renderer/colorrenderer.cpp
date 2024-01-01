@@ -4,7 +4,11 @@
 ColorRenderer::ColorRenderer() {
 }
 
-GamePixmapItem *ColorRenderer::renderTile(
+void ColorRenderer::renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item) {
+    Renderer::renderGameObject(objectData, item);
+}
+
+QPixmap ColorRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     float energyLevel = object[DataRole::Energy].toFloat();
     int brightness = 255 - (energyLevel * 255 / 1);
@@ -18,10 +22,10 @@ GamePixmapItem *ColorRenderer::renderTile(
         painter.drawPixmap(QPoint(0, 0), pixmap);
     }
 
-    return new GamePixmapItem(pixmap);
+    return pixmap;
 }
 
-GamePixmapItem *ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
+QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
@@ -46,10 +50,10 @@ GamePixmapItem *ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
 
     painter.end();
 
-    return new GamePixmapItem(pixmap);
+    return pixmap;
 }
 
-GamePixmapItem *ColorRenderer::renderHealthPack(
+QPixmap ColorRenderer::renderHealthPack(
   QMap<DataRole, QVariant> object) {
     int healthLevel = object[DataRole::Health].toInt();
     int minIntensity = 50;
@@ -81,10 +85,10 @@ GamePixmapItem *ColorRenderer::renderHealthPack(
 
     painter.end();
 
-    return new GamePixmapItem(pixmap);
+    return pixmap;
 }
 
-GamePixmapItem *ColorRenderer::renderProtagonist(
+QPixmap ColorRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
@@ -135,10 +139,10 @@ GamePixmapItem *ColorRenderer::renderProtagonist(
     int direction = object[DataRole::Direction].toInt();
     pixmap = rotatePixmap(pixmap, direction);
 
-    return new GamePixmapItem(pixmap);
+    return pixmap;
 }
 
-GamePixmapItem *ColorRenderer::renderEnemy(
+QPixmap ColorRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
@@ -167,10 +171,10 @@ GamePixmapItem *ColorRenderer::renderEnemy(
     int direction = object[DataRole::Direction].toInt();
     pixmap = rotatePixmap(pixmap, direction);
 
-    return new GamePixmapItem(pixmap);
+    return pixmap;
 }
 
-GamePixmapItem *ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
+QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
@@ -209,10 +213,10 @@ GamePixmapItem *ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     int direction = object[DataRole::Direction].toInt();
     pixmap = rotatePixmap(pixmap, direction);
 
-    return new GamePixmapItem(pixmap);
+    return pixmap;
 }
 
-GamePixmapItem *ColorRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
+QPixmap ColorRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
     QPixmap pixmap(m_cellSize, m_cellSize);
     pixmap.fill(Qt::transparent);
 
@@ -251,5 +255,5 @@ GamePixmapItem *ColorRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object
     int direction = object[DataRole::Direction].toInt();
     pixmap = rotatePixmap(pixmap, direction);
 
-    return new GamePixmapItem(pixmap);
+    return pixmap;
 }

@@ -57,29 +57,29 @@ void GameView::dataChanged(QMap<DataRole, QVariant> objectData) {
     auto position = objectData[DataRole::Position].toPoint();
     // The changes made here are only because the renderers have no access to the world.
     if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Position) {
+        // The direction tells us where the object moved to. Since the data stored in it
+        // has the new position, we want to get the GamePixmapItem that is located in the tile
+        // opposite to the movement direction.
         double direction = objectData[DataRole::Direction].toDouble();
         double angleRad = -direction * M_PI / 180.0;
 
+        // Simple math, the angle is negative since (0,0) on an array is inverted wrt the
+        // QGraphicsScene the scene fills up to down while the model fills down to up.
         int x = position.x() - round(cos(angleRad));
         int y = position.y() - round(sin(angleRad));
-        QVariant type = QVariant::fromValue<ObjectType>(ObjectType::Tile);
 
+        // Perhaps an ID would be better in this case.
         auto changedObject = getPixmapItem(x, y, objectData[DataRole::Type]);
 
+        QVariant type = QVariant::fromValue<ObjectType>(ObjectType::Tile);
         changedObject->setParentItem(getPixmapItem(position.x(), position.y(), type));
 
     } else if(objectData[DataRole::Destroyed].toBool()) {
+        // This removes the object from the scene.
         delete getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
-    } else if(objectData[DataRole::Type].value<ObjectType>() == ObjectType::Tile) {
-        auto *obj = getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
-        auto *newObj = m_renderer->renderGameObject(objectData);
-        obj->setPixmap(m_renderer->renderGameObject(objectData)->pixmap());
-        delete newObj;
     } else {
+        // For every other change we pass it to the renderer.
         auto *obj = getPixmapItem(position.x(), position.y(), objectData[DataRole::Type]);
-        auto *newObj = m_renderer->renderGameObject(objectData);
-        newObj->setParentItem(obj->parentItem());
-        newObj->setData(DataRole::Type, objectData[DataRole::Type]);
-        delete obj;
+        m_renderer->renderGameObject(objectData, obj);
     }
 }

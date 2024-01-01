@@ -6,7 +6,8 @@ Renderer::Renderer() {
 }
 
 GamePixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> objectDataList) {
-    GamePixmapItem *tile = renderGameObject(objectDataList[0]);
+    auto *tile = renderGameObject(objectDataList[0]);
+    tile->setData(DataRole::Type, objectDataList[0][DataRole::Type]);
 
     for(const auto &data : objectDataList.mid(1, -1)) {
         auto *obj = renderGameObject(data);
@@ -16,25 +17,39 @@ GamePixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> obje
     return tile;
 }
 
-GamePixmapItem *Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) {
+void Renderer::renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item) {
     switch(objectData[DataRole::Type].value<ObjectType>()) {
     case ObjectType::Tile:
-        return renderTile(objectData);
+        item->setPixmap(renderTile(objectData));
+        break;
     case ObjectType::Doorway:
-        return renderDoorway(objectData);
+        item->setPixmap(renderDoorway(objectData));
+        break;
     case ObjectType::HealthPack:
-        return renderHealthPack(objectData);
+        item->setPixmap(renderHealthPack(objectData));
+        break;
     case ObjectType::Protagonist:
-        return renderProtagonist(objectData);
+        item->setPixmap(renderProtagonist(objectData));
+        break;
     case ObjectType::Enemy:
-        return renderEnemy(objectData);
+        item->setPixmap(renderEnemy(objectData));
+        break;
     case ObjectType::PoisonEnemy:
-        return renderPEnemy(objectData);
+        item->setPixmap(renderPEnemy(objectData));
+        break;
     case ObjectType::MovingEnemy:
-        return renderMovingEnemy(objectData);
+        item->setPixmap(renderMovingEnemy(objectData));
+        break;
     default:
-        return renderEnemy(objectData);
+        item->setPixmap(renderEnemy(objectData));
+        break;
     }
+}
+
+GamePixmapItem *Renderer::renderGameObject(QMap<DataRole, QVariant> objectData) {
+    auto *obj = new GamePixmapItem();
+    renderGameObject(objectData, obj);
+    return obj;
 }
 
 QPixmap Renderer::rotatePixmap(const QPixmap &originalPixmap, int direction) {

@@ -1,5 +1,4 @@
 #include "spriterenderer.h"
-#include "qbitmap.h"
 #include <QPainter>
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup>
@@ -8,7 +7,11 @@
 SpriteRenderer::SpriteRenderer() {
 }
 
-GamePixmapItem *SpriteRenderer::renderTile(
+void SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item) {
+    Renderer::renderGameObject(objectData, item);
+}
+
+QPixmap SpriteRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     float energyLevel = object[DataRole::Energy].toFloat() * 100;
     QPixmap pixmap;
@@ -43,15 +46,14 @@ GamePixmapItem *SpriteRenderer::renderTile(
         painter.setCompositionMode(QPainter::CompositionMode_SoftLight);
         painter.drawPixmap(QPoint(0, 0), pixmap);
     }
-    return new GamePixmapItem(pixmap);
+    return pixmap;
 }
 
-GamePixmapItem *SpriteRenderer::renderDoorway(
-  QMap<DataRole, QVariant> object) {
-    return new GamePixmapItem(renderActor(":/images/doorway.png", m_cellSize));
+QPixmap SpriteRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
+    return rotatePixmap(renderActor(":/images/doorway.png", m_cellSize), object[DataRole::Direction].toInt());
 }
 
-GamePixmapItem *SpriteRenderer::renderHealthPack(
+QPixmap SpriteRenderer::renderHealthPack(
   QMap<DataRole, QVariant> object) {
     auto pixmap = renderActor(":/images/health_pack.png", m_cellSize);
     int health = object[DataRole::Health].toInt();
@@ -68,85 +70,27 @@ GamePixmapItem *SpriteRenderer::renderHealthPack(
     painter.drawPixmap(0, 0, pixmap);
     painter.end();
 
-    return new GamePixmapItem(croppedPixmap);
+    return croppedPixmap;
 }
 
-GamePixmapItem *SpriteRenderer::renderProtagonist(
+QPixmap SpriteRenderer::renderProtagonist(
   QMap<DataRole, QVariant> object) {
-    if(object[DataRole::Health].toInt() == 0) {
-        return renderDeath(":/images/protagonist_death.png", 10);
-    } else if(object[DataRole::LatestChange].value<DataRole>() == DataRole::Health) {
-        return renderHealthChange(renderActor(":/images/protagonist.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8),
-                                  object[DataRole::ChangeDirection].value<Direction>() == Direction::Up);
-    }
-    return new GamePixmapItem(renderActor(":/images/protagonist.png", m_cellSize,
-                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+    return renderActor(":/images/protagonist.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
     ;
 }
 
-GamePixmapItem *SpriteRenderer::renderEnemy(
+QPixmap SpriteRenderer::renderEnemy(
   QMap<DataRole, QVariant> object) {
-    if(object[DataRole::Health].toInt() == 0) {
-        return renderDeath(":/images/xenemy_death.png", 3);
-    } else if(object[DataRole::LatestChange].value<DataRole>() == DataRole::Health) {
-        return renderHealthChange(renderActor(":/images/xenemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8),
-                                  object[DataRole::ChangeDirection].value<Direction>() == Direction::Up);
-    }
-    return new GamePixmapItem(renderActor(":/images/xenemy.png", m_cellSize,
-                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+    return renderActor(":/images/xenemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
 }
 
-GamePixmapItem *SpriteRenderer::renderPEnemy(
+QPixmap SpriteRenderer::renderPEnemy(
   QMap<DataRole, QVariant> object) {
-    if(object[DataRole::Health].toInt() == 0) {
-        return renderDeath(":/images/penemy_death.png", 5);
-    } else if(object[DataRole::LatestChange].value<DataRole>() == DataRole::Health) {
-        return renderHealthChange(renderActor(":/images/penemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8),
-                                  object[DataRole::ChangeDirection].value<Direction>() == Direction::Up);
-    }
-    return new GamePixmapItem(renderActor(":/images/penemy.png", m_cellSize,
-                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
+    return renderActor(":/images/penemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
 }
 
-GamePixmapItem *SpriteRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
-    if(object[DataRole::Health].toInt() == 0) {
-        return renderDeath(":/images/enemy_death.png", 5);
-    } else if(object[DataRole::LatestChange].value<DataRole>() == DataRole::Health) {
-        return renderHealthChange(renderActor(":/images/enemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8),
-                                  object[DataRole::ChangeDirection].value<Direction>() == Direction::Up);
-    }
-    return new GamePixmapItem(renderActor(":/images/enemy.png", m_cellSize,
-                                          calculateFrame(object[DataRole::Direction].toInt(), 8), 8));
-}
-
-GamePixmapItem *SpriteRenderer::renderDeath(const QString &imagePath, int numOfFrames) {
-    auto *item = new GamePixmapItem(renderActor(imagePath, m_cellSize, 0, numOfFrames));
-    item->setCellSize(m_cellSize);
-    item->setSprite(QImage(imagePath));
-    item->setDeathFrameCount(numOfFrames);
-    QPropertyAnimation *deathAnimation = new QPropertyAnimation(item, "frame");
-    deathAnimation->setParent(item);
-    deathAnimation->setDuration(500 * numOfFrames);
-    deathAnimation->setStartValue(0);
-    deathAnimation->setEndValue(numOfFrames - 1);
-    deathAnimation->setLoopCount(1);
-    deathAnimation->start();
-    return item;
-}
-
-GamePixmapItem *SpriteRenderer::renderHealthChange(QPixmap pixmap, bool healthGain) {
-    auto *item = new GamePixmapItem(pixmap);
-    item->setCellSize(m_cellSize);
-    QColor color(255 * !healthGain, 255 * healthGain, 0, 80);
-    QPropertyAnimation *healthAnimation = new QPropertyAnimation(item, "tint");
-    healthAnimation->setParent(item);
-    healthAnimation->setDuration(400);
-    healthAnimation->setStartValue(QColor(0, 0, 0, 0));
-    healthAnimation->setEndValue(color);
-    healthAnimation->setEasingCurve(QEasingCurve::SineCurve);
-    healthAnimation->setLoopCount(1);
-    healthAnimation->start();
-    return item;
+QPixmap SpriteRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
+    return renderActor(":/images/enemy.png", m_cellSize, calculateFrame(object[DataRole::Direction].toInt(), 8), 8);
 }
 
 QPixmap SpriteRenderer::renderActor(const QString &imagePath, int cellSize) {

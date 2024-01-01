@@ -16,6 +16,10 @@ public:
         : QObject()
         , QGraphicsPixmapItem(pixmap) {};
 
+    explicit GamePixmapItem()
+        : QObject()
+        , QGraphicsPixmapItem() {};
+
     int frame() const;
     void setFrame(int newFrame);
 
