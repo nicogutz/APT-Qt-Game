@@ -25,7 +25,7 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    QFile f(":qdarkstyle/light/lightstyle.qss");
+    QFile f(":qdarkstyle/dark/darkstyle.qss");
     f.open(QFile::ReadOnly | QFile::Text);
     QTextStream ts(&f);
     qApp->setStyleSheet(ts.readAll());
@@ -37,13 +37,13 @@ int main(int argc, char *argv[]) {
     Ui::GameWindow *ui = w.getUI();
 
     //    QObject::connect(ui->textEdit, &QLineEdit::returnPressed, &w, &GameWindow::processCommand);
-        QObject::connect(ui->quit_game, &QPushButton::clicked, &app, [] {
-            QCoreApplication::quit();
-        });
-        QObject::connect(ui->rerun_game_2, &QPushButton::clicked, [] {
-            QCoreApplication::quit();
-            QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
-        });
+    QObject::connect(ui->quit_game, &QPushButton::clicked, &app, [] {
+        QCoreApplication::quit();
+    });
+    QObject::connect(ui->rerun_game_2, &QPushButton::clicked, [] {
+        QCoreApplication::quit();
+        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    });
 
     w.show();
     return app.exec();
