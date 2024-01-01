@@ -5,7 +5,7 @@
 #include <QMainWindow>
 #include <QSharedPointer>
 
-#include <controller/gamecontroller.h>
+#include "controller/gamecontroller.h"
 
 #include <QElapsedTimer>
 #include <QKeyEvent>
@@ -15,6 +15,7 @@
 #include <QTime>
 #include <qgraphicsitem.h>
 #include <QMessageBox>
+#include <QDateTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,10 +29,9 @@ class GameWindow : public QMainWindow {
 public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
-    QSharedPointer<QWidget> a;
-    std::shared_ptr<QWidget> b;
+    //QSharedPointer<QWidget> a;
+    //std::shared_ptr<QWidget> b;
 
-    void showInvalidCommandMessage();
     void showHelp();
     bool eventFilter(QObject *watched, QEvent *event) override;
 
@@ -49,7 +49,6 @@ private:
 
 public slots:
     void updateTime();
-    void updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs);
     void processCommand();
     void zoomBySlider(int value);
 
@@ -58,11 +57,19 @@ public slots:
     void setColorView();
 
     void togglePause();
+    void updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs);
     void gameOver();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
-    // QObject interface
+    QMap<QString, std::pair<std::function<void()>, QString>> moveCommands;
+    QMap<QString, std::pair<std::function<void()>, QString>> viewCommands;
+    QMap<QString, std::pair<std::function<void()>, QString>> gameCommands;
+    QMap<QString, std::pair<std::function<void()>, QString>> zoomCommands;
+
+    void initializeCommands();
+
+
 };
 #endif // GAMEWINDOW_H

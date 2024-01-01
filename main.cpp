@@ -36,15 +36,15 @@ int main(int argc, char *argv[]) {
     auto gameController = w.getController();
     Ui::GameWindow *ui = w.getUI();
 
-    // Connect Signals and slots
-    QObject::connect(ui->textEdit, &QLineEdit::returnPressed, &w, &GameWindow::processCommand);
-    QObject::connect(ui->quit_game, &QPushButton::clicked, &app, [] {
-        QCoreApplication::quit();
-    });
-    QObject::connect(ui->rerun_game_2, &QPushButton::clicked, [] {
-        QCoreApplication::quit();
-        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
-    });
+    //    QObject::connect(ui->textEdit, &QLineEdit::returnPressed, &w, &GameWindow::processCommand);
+        QObject::connect(ui->quit_game, &QPushButton::clicked, &app, [] {
+            QCoreApplication::quit();
+        });
+        QObject::connect(ui->rerun_game_2, &QPushButton::clicked, [] {
+            QCoreApplication::quit();
+            QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+        });
+
     w.show();
     return app.exec();
 

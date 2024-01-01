@@ -97,10 +97,6 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
         if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Health) {
             updateHealth();
         }
-
-        if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Position) {
-            centerOnProtagonist();
-        }
         break;
     case ObjectType::Doorway:
         if(objectData[DataRole::Direction].value<Direction>() == Direction::Down) {
@@ -244,8 +240,3 @@ void GameController::setView(QSharedPointer<GameView> view) {
 }
 
 
-void GameController::centerOnProtagonist() {
-    QPointF protagonistPosition = m_character->getData(DataRole::Position).toPointF();
-    centerOn(protagonistPosition);
-
-}

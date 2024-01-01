@@ -55,8 +55,6 @@ public:
     GameController();
     void startGame();
 
-    QSharedPointer<GameView> getView();
-    void setView(QSharedPointer<GameView> view);
 
     void findAndMoveTo(int x, int y);
 
@@ -70,16 +68,12 @@ public:
      * @param to
      */
     void characterAtttack();
-
-    void setState(State new_state);
-    void updateGameView(View view);
-    State getState();
     void path_finder(int rows);
 
     void updateEnergy();
     void updateHealth();
-
     void updateLevel(Direction direction);
+    void updateGameView(View view);
 
     void dataChanged(QMap<DataRole, QVariant> objectData);
 
@@ -89,7 +83,12 @@ public:
 
     void createNewLevel(int level);
 
-    void centerOnProtagonist();
+    void setState(State new_state);
+    State getState();
+    View getGameView(){return m_gameView;}
+    QSharedPointer<GameView> getView();
+    void setView(QSharedPointer<GameView> view);
+
 
 signals:
     /**
@@ -102,32 +101,11 @@ signals:
      */
     void gameOver();
     /**
-     * @brief levelChanged This is emitted when the level changes.
-     * @param level The new level
-     */
-    void levelChanged(unsigned int level);
-
-    /**
-     * @brief scoreChanged This is emitted when the source changes
-     * @param score The new score
-     */
-    void scoreChanged(unsigned int score);
-    /**
-     * @brief livesChanged This is emitted when the lives change
-     * @param lives The new lives
-     */
-    void livesChanged(unsigned int lives);
-    /**
-     * @brief timeChanged This is emitted when the time changes
-     * @param time The new time value
-     */
-    void timeChanged(unsigned int time);
-    /**
      * @brief stateChanged This is emitted when the game state changes
      * @param stateChanged state The new game state
      */
-    void stateChanged(State state);
 
+    void stateChanged(State state);
     void energyUpdated(int energy);
     void healthUpdated(int health);
     void enemiesUpdated(int enemies);
