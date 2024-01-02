@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     auto gameController = w.getController();
     Ui::GameWindow *ui = w.getUI();
 
-    //    QObject::connect(ui->textEdit, &QLineEdit::returnPressed, &w, &GameWindow::processCommand);
+    // connect quit and rerun game
     QObject::connect(ui->quit_game, &QPushButton::clicked, &app, [] {
         QCoreApplication::quit();
     });

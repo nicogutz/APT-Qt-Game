@@ -9,8 +9,9 @@
 #include <QCoreApplication>
 #include <QCoreApplication>
 #include <qdatetime.h>
-
 #include <QDateTime>
+
+#include <pathfinder_class.h>
 
 #include "model/modelfactory.h"
 #include "model/gameobjectmodel.h"
@@ -39,7 +40,6 @@ public:
      */
     enum class State {
         Running,
-        Automatic,
         Paused,
         GameOver,
     };
@@ -68,7 +68,7 @@ public:
      * @param to
      */
     void characterAtttack();
-    void path_finder(int rows);
+    void path_finder(int X, int Y);
 
     void updateEnergy();
     void updateHealth();
@@ -83,11 +83,13 @@ public:
 
     void createNewLevel(int level);
 
-    void setState(State new_state);
-    State getState();
+    void setState(State new_state){m_gameState = new_state;}
+    void setView(QSharedPointer<GameView> view){m_view = view;}
+
+    State getState(){return m_gameState;}
     View getGameView(){return m_gameView;}
-    QSharedPointer<GameView> getView();
-    void setView(QSharedPointer<GameView> view);
+    QSharedPointer<GameView> getView(){return m_view;}
+
 
 
 signals:
@@ -134,6 +136,12 @@ private:
 
     int m_health_packs;
     int m_enemies;
+
 };
 
 #endif // GAMECONTROLLER_H
+
+
+
+
+

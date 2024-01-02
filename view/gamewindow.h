@@ -29,8 +29,6 @@ class GameWindow : public QMainWindow {
 public:
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
-    //QSharedPointer<QWidget> a;
-    //std::shared_ptr<QWidget> b;
 
     void showHelp();
     bool eventFilter(QObject *watched, QEvent *event) override;
@@ -46,6 +44,7 @@ private:
     int m_startTime;
     int m_elapsedSeconds;
     QTimer *m_timer;
+    void updatePathFindTriggerButton();
 
 public slots:
     void updateTime();
@@ -67,6 +66,7 @@ protected:
     QMap<QString, std::pair<std::function<void()>, QString>> viewCommands;
     QMap<QString, std::pair<std::function<void()>, QString>> gameCommands;
     QMap<QString, std::pair<std::function<void()>, QString>> zoomCommands;
+
 
     void initializeCommands();
 

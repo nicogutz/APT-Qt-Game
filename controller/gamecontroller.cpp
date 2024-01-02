@@ -108,62 +108,103 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
             updateLevel(Direction::Up); // go up a level
         }
         break;
-
-    case ObjectType::PoisonEnemy:
-
-        break;
-    case ObjectType::HealthPack:
-
-        break;
     default:
         break;
     }
 }
 
-void GameController::path_finder(int rows) {
-    if(m_gameState == State::Running) {
-        auto path = factory.pathFinder(m_models.at(m_gameLevel)->getRowCount());
-        auto first_tile = m_models[m_gameLevel]->getObject(0, 0, ObjectType::Tile);
-        for(int move : path) {
-            first_tile->setData(DataRole::Path, true);
-            first_tile = first_tile->getNeighbor(((45 * move + 90) % 360));
+void GameController::path_finder(int X, int Y) {
+    int rows = m_models[m_gameLevel]->getRowCount();
+    int cols = m_models[m_gameLevel]->getColumnCount();
+
+    Comparator<Node> comp = [](const Node &a, const Node &b) {
+        return a.h > b.h;
+    };
+
+    std::vector<Node> m_nodes;
+    m_nodes.clear();
+
+    Node* start;
+    Node* destination;
+    QPointer<GameObject> first_tile;
+
+    if (X >= rows || Y >= cols || X<0 || Y<0){
+        X = cols-1;
+        Y = rows-1;
+    }
+
+    // Iterate through the model to gather the energy and position of each tile
+    for(int x = 0; x < cols; ++x) {
+        for(int y = 0; y < rows; ++y) {
+            auto tile = m_models[m_gameLevel]->getObject(x, y, ObjectType::Tile);
+            float energy = tile->getData(DataRole::Energy).toFloat();
+            for(auto child : tile->getAllData()) {
+                if (child[DataRole::Type].toInt() > 99){
+                    energy = 0.7;
+                }
+                if (child[DataRole::Type].toInt() == 2){
+                    energy = 0.1;
+                }
+            }
+            m_nodes.emplace_back(x, y, energy);
+
+            for(auto child : tile->getAllData()) {
+                if(child[DataRole::Type].toInt() == 50) {
+                    start = &m_nodes.back();
+                    first_tile = m_models[m_gameLevel]->getObject(x, y, ObjectType::Tile);
+                } else if (x == X && y == Y) {
+                    destination = &m_nodes.back();
+                }
+            }
         }
+    }
 
-        for(int move : path) {
-            Direction direction = (Direction)((45 * move + 90) % 360);
+        PathFinder<Node, Tile> pathFinder(m_nodes, start, destination, comp, cols, 0.001f);
+        auto path = pathFinder.A_star();
 
-            QTime dieTime = QTime::currentTime().addMSecs(100);
-            while(QTime::currentTime() < dieTime)
-                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        if(m_gameState == State::Running) {
+            //auto first_tile = m_models[m_gameLevel]->getObject(0, 0, ObjectType::Tile);
+            for(int move : path) {
+                first_tile->setData(DataRole::Path, true);
+                first_tile = first_tile->getNeighbor(((45 * move + 90) % 360));
+            }
 
-            QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
-            Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
+            for(int move : path) {
+                Direction direction = (Direction)((45 * move + 90) % 360);
 
-            if(auto tile = m_character->getNeighbor(direction)) {
-                for(auto child : tile->getAllData()) {
-                    if(child[DataRole::Type].toInt() > 99) {
-                        while(m_character->getData(DataRole::Energy).toInt() != 100) {
-                            QTime dieTime = QTime::currentTime().addMSecs(100);
-                            while(QTime::currentTime() < dieTime)
-                                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+                QTime dieTime = QTime::currentTime().addMSecs(100);
+                while(QTime::currentTime() < dieTime)
+                    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
-                            if(auto attack = m_character->getBehavior<Attack>()) {
-                                attack->attack(direction);
-                                emit tick();
+                QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
+                Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
+
+                if(auto tile = m_character->getNeighbor(direction)) {
+                    for(auto child : tile->getAllData()) {
+                        if(child[DataRole::Type].toInt() > 99) {
+                            while(m_character->getData(DataRole::Energy).toInt() != 100) {
+                                QTime dieTime = QTime::currentTime().addMSecs(100);
+                                while(QTime::currentTime() < dieTime)
+                                    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+                                if(auto attack = m_character->getBehavior<Attack>()) {
+                                    attack->attack(direction);
+                                    emit tick();
+                                }
                             }
                         }
                     }
                 }
-            }
-            if(direction != protagonist_direction) {
-                characterMove(direction);
-                characterMove(direction);
+                if(direction != protagonist_direction) {
+                    characterMove(direction);
+                    characterMove(direction);
 
-            } else {
-                characterMove(direction);
+                } else {
+                    characterMove(direction);
+                }
             }
         }
-    }
+
 }
 
 void GameController::updateEnergy() {
@@ -224,19 +265,7 @@ void GameController::updateGameView(View view) {
     m_gameView = view;
 }
 
-void GameController::setState(State new_state) {
-    m_gameState = new_state;
-}
-GameController::State GameController::getState() {
-    return m_gameState;
-}
 
-QSharedPointer<GameView> GameController::getView() {
-    return m_view;
-}
 
-void GameController::setView(QSharedPointer<GameView> view) {
-    m_view = view;
-}
 
 
