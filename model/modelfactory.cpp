@@ -6,9 +6,8 @@
 #include "modelfactory.h"
 #include "world.h"
 
-GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
-                                                 float pRatio, int level, int rows, int columns) {
-
+QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
+                                                                            float pRatio, int level, int rows, int columns) {
     World m_world;
     createWorld(level, rows, columns);
     m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);
@@ -21,7 +20,9 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
 
     // insert tiles into model
     auto tiles = m_world.getTiles();
+    std::vector<Node> nodes; // Node class for the pathfinder
     for(const auto &tile : tiles) {
+        nodes.emplace_back(tile->getXPos(), tile->getYPos(), tile->getValue());
         auto *obj = new GameObject({
           {DataRole::Energy, tile->getValue()},
           {DataRole::Position, QPoint(tile->getXPos(), tile->getYPos())},
@@ -94,7 +95,7 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
 
     auto *model = new GameObjectModel(worldGrid);
 
-    return model;
+    return {model, nodes};
 }
 
 void ObjectModelFactory::createWorld(int level, int width, int height, double difficulty) {

@@ -539,10 +539,18 @@ url(:/qss_icons/light/rc/toolbar_move_horizontal_focus.png)
            <number>0</number>
           </property>
           <item>
-           <widget class="QLineEdit" name="x_path"/>
+           <widget class="QLineEdit" name="x_path">
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="y_path"/>
+           <widget class="QLineEdit" name="y_path">
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -624,7 +632,7 @@ url(:/qss_icons/light/rc/toolbar_move_horizontal_focus.png)
      <x>0</x>
      <y>0</y>
      <width>1053</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="view_menu">

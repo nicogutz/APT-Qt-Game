@@ -58,19 +58,19 @@ void GameController::createNewLevel(int level) {
     m_enemies = 10 * (level + 1) + 25;
     m_health_packs = 5 - (level / 3);
     // Call the model factory to generate model
-    auto *model = ObjectModelFactory::createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel);
-    m_models.append({model, std::vector<Node>()});
-    model->setParent(this);
+    auto model = ObjectModelFactory::createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel);
+    m_models.append(model);
+    model.first->setParent(this);
     // Set the character aka protagonist
     auto oldCharacter = m_character;
-    m_character = model->getObject(ObjectType::Protagonist).at(0);
+    m_character = model.first->getObject(ObjectType::Protagonist).at(0);
 
     if(oldCharacter) {
         m_character->setData(oldCharacter->getAllData().at(0));
     }
 
     // Create new scene
-    m_view->createScene(model->getAllData());
+    m_view->createScene(model.first->getAllData());
     connectCurrentModel(); // Reconnect new model
     emitLevelUpdates(); // Signal changes to the window
 }
@@ -122,19 +122,10 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
 }
 
 void GameController::pathFinder(int x, int y) {
-
-    auto data = m_models[m_gameLevel].first->getAllData(false); // Get current model data
-    std::vector<Node> nodes; // Node class for the pathfinder
+    auto nodes = m_models[m_gameLevel].second; // Node class for the pathfinder
 
     int rows = m_models[m_gameLevel].first->getRowCount();
     int cols = m_models[m_gameLevel].first->getColumnCount();
-
-    for(const auto &row : data) {
-        for(const auto &obj : row) {
-
-            nodes.emplace_back(obj); // Insert model tiles into nodes
-        }
-    }
 
     // Get protagonist position in the world = start position of the pathfinder
     auto pos = static_cast<GameObject *>(m_character->parent())->getData(DataRole::Position).toPoint();
@@ -145,11 +136,11 @@ void GameController::pathFinder(int x, int y) {
 
     // Check for non valid input position
     if(x >= rows || y >= cols || x < 0 || y < 0) {
-         y = cols - 1;
-         x = rows - 1;
+        y = cols - 1;
+        x = rows - 1;
     }
-    auto* start = &nodes[rows * pos.y() + pos.x()];
-    auto* dest = &nodes[rows * y + x];
+    auto *start = &nodes[rows * pos.y() + pos.x()];
+    auto *dest = &nodes[rows * y + x];
     PathFinder<Node, Node> pathFinder(nodes, start, dest, comp, cols, 0.001f);
 
     // Call the algorithm
@@ -158,8 +149,8 @@ void GameController::pathFinder(int x, int y) {
     if(m_gameState == State::Running) {
         auto first_tile = m_models[m_gameLevel].first->getObject(pos.x(), pos.y(), ObjectType::Tile); // Tile at the start position
         for(int move : path) {
-            first_tile->setData(DataRole::Path, true);
             first_tile = first_tile->getNeighbor(((45 * move + 90) % 360)); // Assign the path tiles to DataRole Path
+            first_tile->setData(DataRole::Path, true);
         }
 
         for(int move : path) {

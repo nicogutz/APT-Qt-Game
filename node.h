@@ -13,24 +13,29 @@ struct Node : public Tile {
     Node *prev = nullptr;
     Node(int x, int y, float val)
         : Tile(x, y, val) { }
-
+    Node(const Tile &t)
+        : Tile(t) {};
     Node(const Node &n)
-        : Tile(n.getXPos(), n.getYPos(), n.getValue()),
-        f(n.f), g(n.g), h(n.h), visited(n.visited), prev(n.prev) {}
+        : Tile(n.getXPos(), n.getYPos(), n.getValue())
+        , f(n.f)
+        , g(n.g)
+        , h(n.h)
+        , visited(n.visited)
+        , prev(n.prev) { }
 
-    Node() : Tile(0, 0, 0) {}
+    Node()
+        : Tile(0, 0, 0) { }
 
     Node(const QMap<DataRole, QVariant> &obj)
         : Tile(obj[DataRole::Position].toPoint().x(),
                obj[DataRole::Position].toPoint().y(),
                obj.contains(DataRole::Energy) ? obj[DataRole::Energy].toFloat() : 0) {
-
     }
 
-    virtual ~Node() {}
+    virtual ~Node() { }
 
-    Node& operator=(const Node &n) {
-        if (this != &n) {
+    Node &operator=(const Node &n) {
+        if(this != &n) {
             Tile::operator=(n);
             f = n.f;
             g = n.g;
@@ -43,4 +48,3 @@ struct Node : public Tile {
 };
 
 #endif // NODE_H
-
