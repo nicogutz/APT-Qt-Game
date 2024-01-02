@@ -8,7 +8,7 @@
 
 GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
                                                  float pRatio, int level, int rows, int columns) {
-    // m_nodes.clear();
+
     World m_world;
     createWorld(level, rows, columns);
     m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);

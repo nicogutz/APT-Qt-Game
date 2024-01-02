@@ -11,15 +11,16 @@ GameController::GameController()
     , m_gameView(View::Sprite) {};
 
 void GameController::startGame() {
-    m_view = QSharedPointer<GameView>::create(this);
-    m_view->setRenderer(QSharedPointer<SpriteRenderer>::create());
-    createNewLevel(m_gameLevel);
+    m_view = QSharedPointer<GameView>::create(this); // Instantiate the GameView
+    m_view->setRenderer(QSharedPointer<SpriteRenderer>::create()); // Instantiate and set the default renderer
+    createNewLevel(m_gameLevel); // Create first level
     this->show();
 }
 
 void GameController::updateLevel(Direction direction) {
-    int newLevel = (direction == Direction::Up) ? m_gameLevel + 1 : m_gameLevel - 1;
+    int newLevel = (direction == Direction::Up) ? m_gameLevel + 1 : m_gameLevel - 1; // Check whether we go level up or level down
 
+    // Invalid level
     if(newLevel < 0 || newLevel > m_models.size()) {
         qDebug() << "Invalid level change request. Current Level: " << m_gameLevel << ", Requested Level: " << newLevel;
         return;
@@ -47,18 +48,20 @@ void GameController::updateLevel(Direction direction) {
         connectCurrentModel();
     }
 
+    // Signal changes to the window
     emitLevelUpdates();
 }
 
 void GameController::createNewLevel(int level) {
+    // Set the level parameters
     m_gameLevel = level;
     m_enemies = 10 * (level + 1) + 25;
     m_health_packs = 5 - (level / 3);
-
+    // Call the model factory to generate model
     auto *model = ObjectModelFactory::createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel);
     m_models.append({model, std::vector<Node>()});
     model->setParent(this);
-
+    // Set the character aka protagonist
     auto oldCharacter = m_character;
     m_character = model->getObject(ObjectType::Protagonist).at(0);
 
@@ -66,10 +69,10 @@ void GameController::createNewLevel(int level) {
         m_character->setData(oldCharacter->getAllData().at(0));
     }
 
+    // Create new scene
     m_view->createScene(model->getAllData());
-
-    connectCurrentModel();
-    emitLevelUpdates();
+    connectCurrentModel(); // Reconnect new model
+    emitLevelUpdates(); // Signal changes to the window
 }
 
 void GameController::disconnectCurrentModel() {
@@ -92,6 +95,7 @@ void GameController::emitLevelUpdates() {
 }
 
 void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
+    // Filter the changes based on their type
     switch(objectData[DataRole::Type].value<ObjectType>()) {
     case ObjectType::Protagonist:
         if(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Energy) {
@@ -118,44 +122,55 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
 }
 
 void GameController::pathFinder(int x, int y) {
-    auto data = m_models[m_gameLevel].first->getAllData(false);
-    std::vector<Node> nodes;
+
+    auto data = m_models[m_gameLevel].first->getAllData(false); // Get current model data
+    std::vector<Node> nodes; // Node class for the pathfinder
 
     int rows = m_models[m_gameLevel].first->getRowCount();
     int cols = m_models[m_gameLevel].first->getColumnCount();
 
     for(const auto &row : data) {
         for(const auto &obj : row) {
-            nodes.emplace_back(obj);
+
+            nodes.emplace_back(obj); // Insert model tiles into nodes
         }
     }
+
+    // Get protagonist position in the world = start position of the pathfinder
     auto pos = static_cast<GameObject *>(m_character->parent())->getData(DataRole::Position).toPoint();
+
     Comparator<Node> comp = [](const Node &a, const Node &b) {
         return a.h > b.h;
     };
 
-    PathFinder<Node, Node> pathFinder(nodes, &nodes[rows * pos.y() + pos.x()], &nodes[rows * y + x], comp, rows - 1, 0.001f);
+    // Check for non valid input position
+    if(x >= rows || y >= cols || x < 0 || y < 0) {
+         y = cols - 1;
+         x = rows - 1;
+    }
+    auto* start = &nodes[rows * pos.y() + pos.x()];
+    auto* dest = &nodes[rows * y + x];
+    PathFinder<Node, Node> pathFinder(nodes, start, dest, comp, cols, 0.001f);
+
+    // Call the algorithm
     auto path = pathFinder.A_star();
 
-    if(x >= rows || y >= cols || x < 0 || y < 0) {
-        int y = cols - 1;
-        int x = rows - 1;
-    }
-
     if(m_gameState == State::Running) {
-        auto first_tile = m_models[m_gameLevel].first->getObject(0, 0, ObjectType::Tile);
+        auto first_tile = m_models[m_gameLevel].first->getObject(pos.x(), pos.y(), ObjectType::Tile); // Tile at the start position
         for(int move : path) {
             first_tile->setData(DataRole::Path, true);
-            first_tile = first_tile->getNeighbor(((45 * move + 90) % 360));
+            first_tile = first_tile->getNeighbor(((45 * move + 90) % 360)); // Assign the path tiles to DataRole Path
         }
 
         for(int move : path) {
             Direction direction = (Direction)((45 * move + 90) % 360);
 
+            // Quick Delay for visualization
             QTime dieTime = QTime::currentTime().addMSecs(100);
             while(QTime::currentTime() < dieTime)
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
+            // Check whether enemy is on the way of the path and attack it
             QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
             Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
 

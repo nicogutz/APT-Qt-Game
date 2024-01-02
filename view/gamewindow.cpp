@@ -1,5 +1,5 @@
 #include "gamewindow.h"
-#include "ui_gamewindow.h"
+
 
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -8,13 +8,17 @@ GameWindow::GameWindow(QWidget *parent)
     , m_startTime(QDateTime::currentDateTime().toSecsSinceEpoch())
     , m_elapsedSeconds(0)
     , m_timer(new QTimer(this)) {
-    // SETUP UI CONTROLLER AND VIEW
+
+    // SETUP UI, CONTROLLER AND VIEW
     m_controller->setParent(this);
     m_ui->setupUi(this);
-    initializeCommands();
-    qApp->installEventFilter(this);
 
-    // DEFAULT OPTIONS
+    // OTHER SETUP
+    initializeCommands(); // Initializes the user commands as lists and maps them to slots/methods and desriptions
+    qApp->installEventFilter(this); // Event filter for diffrent modes and visualizations
+    this->setFocusPolicy(Qt::StrongFocus);
+
+    // UI INITIAL PARAMETERS
     m_ui->colour_mode->setChecked(false);
     m_ui->text_mode->setChecked(false);
     m_ui->sprite_mode->setChecked(true);
@@ -26,10 +30,8 @@ GameWindow::GameWindow(QWidget *parent)
     m_ui->type_command->hide();
     m_ui->path_find_trigger->setEnabled(false);
 
-    this->setFocusPolicy(Qt::StrongFocus);
-
-    // ZOOM
-    m_ui->horizontalSlider->setMinimum(-32);
+    // ZOOM INITIAL SETUP
+    m_ui->horizontalSlider->setMinimum(-37);
     m_ui->horizontalSlider->setMaximum(32);
     m_ui->horizontalSlider->setValue(-32);
     zoomBySlider(-32);
@@ -39,45 +41,35 @@ GameWindow::GameWindow(QWidget *parent)
     m_ui->lcdHealth->display(4);
     m_ui->lcdEnemies->display(27);
     m_ui->lcdLevel->display(1);
-    m_ui->graphicsView->setScene(m_controller->getView().data());
+    m_ui->graphicsView->setScene(m_controller->getView().data()); // SET SCENE ACCORDING TO LEVEL AND VISUALIZATION
     m_ui->graphicsView->show();
-    m_controller->show();
 
     // START TIMER
     m_timer->start(1000);
 
     // SIGNALS AND SLOTS
-    connect(m_ui->x_path, &QLineEdit::textChanged, this, [this]() {
-        updatePathFindTriggerButton();
-    });
-    connect(m_ui->y_path, &QLineEdit::textChanged, this, [this]() {
-        updatePathFindTriggerButton();
-    });
 
+
+// Pathfinder trigger
     connect(m_ui->path_find_trigger, &QPushButton::clicked, [this]() {
         int x = m_ui->x_path->text().toInt();
         int y = m_ui->y_path->text().toInt();
         m_controller->pathFinder(x, y);
     });
-
+// Execute user input commands
     QObject::connect(m_ui->textEdit, &QLineEdit::returnPressed, this, &GameWindow::processCommand);
+// Timer and pause / resume states
     connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
     connect(m_ui->pause, &QPushButton::clicked, this, &GameWindow::togglePause);
     connect(m_ui->automatic, &QAction::changed, m_ui->manual, &QAction::toggle);
     connect(m_ui->manual, &QAction::changed, m_ui->automatic, &QAction::toggle);
+// Zoom control
     connect(m_ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
-    connect(m_controller.data(), &GameController::levelUpdated, this, [this](int level) {
-        if(level == 2) {
-            zoomBySlider(-34);
-        } else {
-            zoomBySlider(-31);
-        }
-    });
-
+// Switch between visualizations
     connect(m_ui->sprite_mode, &QAction::triggered, this, &GameWindow::setSpriteView);
     connect(m_ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
     connect(m_ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
-
+// Signals from the controller
     connect(m_controller.data(), &GameController::energyUpdated, m_ui->energy, &QProgressBar::setValue);
     connect(m_controller.data(), &GameController::healthUpdated, m_ui->health, &QProgressBar::setValue);
     connect(m_controller.data(), &GameController::enemiesUpdated, this, [this](unsigned int enemies) {
@@ -90,27 +82,13 @@ GameWindow::GameWindow(QWidget *parent)
         m_ui->lcdLevel->display((int)(level + 1));
     });
     connect(m_controller.data(), &GameController::gameOver, this, &GameWindow::gameOver);
-}
-
-void GameWindow::updatePathFindTriggerButton() {
-    bool enableButton = !m_ui->x_path->text().isEmpty() && !m_ui->y_path->text().isEmpty();
-    m_ui->path_find_trigger->setEnabled(enableButton);
-}
-
-void GameWindow::togglePause() {
-    if(m_controller->getState() == GameController::State::Paused) {
-        connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
-        m_controller->setState(GameController::State::Running);
-        m_ui->pause->setText("Pause Game");
-    } else {
-        disconnect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
-        m_controller->setState(GameController::State::Paused);
-        m_ui->pause->setText("Resume Game");
-    }
-}
-void GameWindow::updateTime() {
-    m_elapsedSeconds++;
-    m_ui->lcdTime->display(QDateTime::fromSecsSinceEpoch(m_elapsedSeconds).toUTC().toString("mm:ss"));
+// Enable pathfinder button
+    connect(m_ui->x_path, &QLineEdit::textChanged, this, [this]() {
+        updatePathFindTriggerButton();
+    });
+    connect(m_ui->y_path, &QLineEdit::textChanged, this, [this]() {
+        updatePathFindTriggerButton();
+    });
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
@@ -183,7 +161,7 @@ void GameWindow::processCommand() {
     } else {
         QStringList commandParts = command.split(' ');
 
-        if(commandParts.size() == 3 && commandParts[0] == "go" && commandParts[1] == "to") {
+        if(commandParts.size() == 4 && commandParts[0] == "go" && commandParts[1] == "to") {
             bool okX, okY;
             int x = commandParts[2].toInt(&okX);
             int y = commandParts[3].toInt(&okY);
@@ -236,14 +214,8 @@ void GameWindow::showHelp() {
         helpMessage += "zoom " + cmd + " - " + zoomCommands[cmd].second + "\n";
     }
 
-    helpMessage += "\ngo to xy - Moves the protagonist to the specified coordinates x and y.\n";
+    helpMessage += "\ngo to x y - Moves the protagonist to the specified coordinates x and y.\n If non-valid coordinates, protagonist moves automatically to the doorway (next level)";
     m_ui->plainTextEdit->setPlainText(helpMessage);
-}
-
-void GameWindow::zoomBySlider(int value) {
-    qreal scaleFactor = 1.0 + (value / 50.0);
-    m_ui->graphicsView->resetTransform();
-    m_ui->graphicsView->scale(scaleFactor, scaleFactor);
 }
 
 void GameWindow::updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs) {
@@ -266,6 +238,7 @@ void GameWindow::setSpriteView() {
     m_ui->y_path->show();
     m_ui->label->show();
     m_ui->label_2->show();
+    m_ui->label_3->show();
 }
 void GameWindow::setTextualView() {
     m_controller->updateGameView(GameController::View::Text);
@@ -280,6 +253,7 @@ void GameWindow::setTextualView() {
     m_ui->y_path->hide();
     m_ui->label->hide();
     m_ui->label_2->hide();
+    m_ui->label_3->hide();
 }
 void GameWindow::setColorView() {
     m_controller->updateGameView(GameController::View::Color);
@@ -294,19 +268,23 @@ void GameWindow::setColorView() {
     m_ui->y_path->show();
     m_ui->label->show();
     m_ui->label_2->show();
+    m_ui->label_3->show();
 }
 
-bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
-    if(m_controller->getGameView() != GameController::View::Text && event->type() == QEvent::KeyPress) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        if(m_ui->x_path->hasFocus() || m_ui->y_path->hasFocus()) {
-            return QObject::eventFilter(watched, event);
-        } else {
-            keyPressEvent(keyEvent);
-            return true;
-        }
+void GameWindow::togglePause() {
+    if(m_controller->getState() == GameController::State::Paused) {
+        connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
+        m_controller->setState(GameController::State::Running);
+        m_ui->pause->setText("Pause Game");
+    } else {
+        disconnect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
+        m_controller->setState(GameController::State::Paused);
+        m_ui->pause->setText("Resume Game");
     }
-    return QMainWindow::eventFilter(watched, event);
+}
+void GameWindow::updateTime() {
+    m_elapsedSeconds++;
+    m_ui->lcdTime->display(QDateTime::fromSecsSinceEpoch(m_elapsedSeconds).toUTC().toString("mm:ss"));
 }
 
 void GameWindow::gameOver() {
@@ -336,6 +314,33 @@ void GameWindow::gameOver() {
     } else if(gameOverBox.clickedButton() == quitButton) {
         QApplication::quit();
     }
+}
+
+void GameWindow::zoomBySlider(int value) {
+    qreal scaleFactor = 1.0 + (value / 50.0);
+    m_ui->graphicsView->resetTransform();
+    m_ui->graphicsView->scale(scaleFactor, scaleFactor);
+}
+
+bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
+    if(m_controller->getGameView() != GameController::View::Text && event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if(m_ui->x_path->hasFocus() || m_ui->y_path->hasFocus()) {
+            return QObject::eventFilter(watched, event);
+        } else {
+            keyPressEvent(keyEvent);
+            return true;
+        }
+    }
+    return QMainWindow::eventFilter(watched, event);
+}
+
+void GameWindow::updatePathFindTriggerButton() {
+    bool okX, okY;
+    m_ui->x_path->text().toInt(&okX);
+    m_ui->y_path->text().toInt(&okY);
+    bool enableButton = okX && okY;
+    m_ui->path_find_trigger->setEnabled(enableButton);
 }
 
 // DESTRUCTOR
