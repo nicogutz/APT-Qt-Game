@@ -47,6 +47,42 @@ void GamePixmapItem::setTint(const QColor &newTint) {
     emit tintChanged();
 }
 
+void GamePixmapItem::updatePixmap() {
+    int x = m_frame.x() * m_frameDimension.width();
+    int y = m_frame.y() * m_frameDimension.height();
+
+    QImage frame = m_sprite.copy(x, y, m_frameDimension.width(), m_frameDimension.height())
+                     .scaled(CELL_SIZE, CELL_SIZE, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+    this->setPixmap(QPixmap::fromImage(frame));
+}
+
+QImage GamePixmapItem::sprite() const {
+    return m_sprite;
+}
+
+void GamePixmapItem::setSprite(QImage newSprite) {
+    if(m_sprite == newSprite)
+        return;
+
+    if(m_frameDimension.isEmpty()) {
+        m_frameDimension = newSprite.size();
+    }
+    m_sprite = newSprite;
+    emit spriteChanged();
+}
+
+QSize GamePixmapItem::frameDimension() const {
+    return m_frameDimension;
+}
+
+void GamePixmapItem::setFrameDimension(const QSize &newFrameDimension) {
+    if(m_frameDimension == newFrameDimension)
+        return;
+    m_frameDimension = newFrameDimension;
+    emit frameDimensionChanged();
+}
+
 // QPixmap GamePixmapItem::renderActor(int cellSize, int POVFrame, int numPOVs) {
 //     QImage image(m_sprite);
 
@@ -65,3 +101,16 @@ void GamePixmapItem::setTint(const QColor &newTint) {
 
 //    return resultPixmap;
 //}
+
+QPoint GamePixmapItem::frame() const {
+    return m_frame;
+}
+
+void GamePixmapItem::setFrame(QPoint newFrame) {
+    if(m_frame == newFrame) {
+        return;
+    }
+    m_frame = newFrame;
+    updatePixmap();
+    emit frameChanged();
+}

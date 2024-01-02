@@ -10,27 +10,41 @@ public:
     SpriteRenderer() {
         m_characters = QImage(":/images/characters.png");
         m_tiles = QImage(":/images/tiles.png");
+
+        m_charSize = QSize(m_characters.width() / CHAR_MAX_X, m_characters.height() / CHAR_MAX_Y);
+        m_tileSize = QSize(m_tiles.width() / TILE_COUNT, m_tiles.width() / TILE_COUNT);
     }
-    void renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item) override;
+
+    void renderGameObject(QMap<DataRole, QVariant> object, GamePixmapItem *item) override;
+    GamePixmapItem *renderGameObject(QMap<DataRole, QVariant> objectData) override;
 
     enum SpriteSettings {
         TILE_COUNT = 21,
-        TILE_SIZE = 32,
+        CHAR_MAX_X = 10,
+        CHAR_MAX_Y = 8,
+    };
+
+    struct CharacterData {
+        QPoint alive;
+        QPoint dead;
+    };
+
+    inline static const QMap<ObjectType, CharacterData> m_charMap = {
+      {ObjectType::Protagonist, {{7, 0}, {9, 1}}},
+      {ObjectType::MovingEnemy, {{7, 2}, {4, 3}}},
+      {ObjectType::PoisonEnemy, {{7, 4}, {4, 5}}},
+      {ObjectType::Enemy, {{7, 6}, {5, 7}}},
     };
 
 private:
-    QPixmap renderTile(QMap<DataRole, QVariant> object) override;
-    QPixmap renderDoorway(QMap<DataRole, QVariant> object) override;
-    QPixmap renderHealthPack(QMap<DataRole, QVariant> object) override;
-    QPixmap renderProtagonist(QMap<DataRole, QVariant> object) override;
-    QPixmap renderEnemy(QMap<DataRole, QVariant> object) override;
-    QPixmap renderPEnemy(QMap<DataRole, QVariant> object) override;
-    QPixmap renderMovingEnemy(QMap<DataRole, QVariant> object) override;
-    int calculateFrame(int direction, int numPOVs);
-    QPixmap renderActor(const QString &imagePath, int cellSize, int POVFrame, int numPOVs);
-    QPixmap renderActor(const QString &imagePath, int cellSize);
+    int calculateFrame(QVariant direction, int numPOVs);
+
+    QRect getTileRect(QMap<DataRole, QVariant> object);
+    QImage sliceFrames(QImage image, QLine diagonal, QPoint frameSize);
 
     QImage m_tiles, m_characters;
+    QSize m_charSize, m_tileSize;
+    QRect getCharacterRect(ObjectType type);
 };
 
 #endif // SPRITERENDERER_H
