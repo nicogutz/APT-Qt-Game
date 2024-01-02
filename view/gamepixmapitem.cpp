@@ -1,7 +1,7 @@
 #include "gamepixmapitem.h"
 #include "qbitmap.h"
 #include "qpainter.h"
-
+#include "publicenums.h"
 #include <QPropertyAnimation>
 #include <QRegion>
 
@@ -37,28 +37,37 @@ void GamePixmapItem::setTint(const QColor &newTint, bool onParent) {
 void GamePixmapItem::setTint(const QColor &newTint) {
     if(m_tint == newTint)
         return;
+    m_tint = newTint;
+    updateOverlay();
+    emit tintChanged();
+}
+void GamePixmapItem::updateOverlay() {
     QPixmap currentPixmap = this->pixmap();
     QPixmap overlay(currentPixmap.size());
     overlay.fill(Qt::transparent);
     QPainter painter(&overlay);
     painter.setClipRegion(QRegion(currentPixmap.mask()));
     painter.setCompositionMode(QPainter::CompositionMode_Overlay);
-    painter.fillRect(overlay.rect(), newTint);
+    painter.fillRect(overlay.rect(), m_tint);
     painter.end();
 
     auto children = this->childItems();
-    QGraphicsPixmapItem *child;
-    if(children.empty()) {
+    QGraphicsPixmapItem *child = nullptr;
+    if(!children.empty()) {
+        for(const auto &obj : children) {
+            if(obj->data((int)DataRole::Type).value<ObjectType>() == ObjectType::Overlay) {
+                child = dynamic_cast<QGraphicsPixmapItem *>(obj);
+            }
+        }
+    }
+
+    if(child == nullptr) {
         child = new QGraphicsPixmapItem(overlay);
-    } else {
-        child = dynamic_cast<QGraphicsPixmapItem *>(children[0]);
+        child->setData((int)DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Overlay));
     }
     child->setParentItem(this);
     child->setPixmap(overlay);
-    m_tint = newTint;
-    emit tintChanged();
 }
-
 void GamePixmapItem::updatePixmap() {
     int x = m_frame.x() * m_frameDimension.width();
     int y = m_frame.y() * m_frameDimension.height();

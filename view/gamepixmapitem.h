@@ -25,13 +25,14 @@ public:
     void setTint(const QColor &newTint);
     void setTint(const QColor &newTint, bool onParent);
 
-    void updatePixmap();
-
     QImage sprite() const;
     void setSprite(QImage newSprite);
 
     QSize frameDimension() const;
     void setFrameDimension(const QSize &newFrameDimension);
+
+    void updatePixmap();
+    void updateOverlay();
 
 protected:
     inline static constexpr int CELL_SIZE = 50;

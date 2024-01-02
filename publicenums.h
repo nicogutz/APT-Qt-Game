@@ -4,6 +4,7 @@
 namespace _pub {
     Q_NAMESPACE
     enum class ObjectType : char {
+        Overlay = -1,
         Tile = 0,
         Doorway = 1,
         HealthPack = 2,

@@ -45,6 +45,7 @@ void SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapI
                     animateHealth(item, data[DataRole::ChangeDirection].value<Direction>());
                 } else {
                     animateDeath(item);
+                    item->setTint({0, 0, 0, 0});
                 }
             }
             return;
@@ -95,7 +96,7 @@ void SpriteRenderer::animatePoison(GamePixmapItem *item, int level) {
     animateTint(item, {0, 255, 0, level * 3})->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
-QPropertyAnimation *SpriteRenderer::animateTint(GamePixmapItem *item, QColor initial, QColor final) {
+QPropertyAnimation *SpriteRenderer::animateTint(GamePixmapItem *item, QColor final, QColor initial) {
     QPropertyAnimation *healthAnimation = new QPropertyAnimation(item, "tint");
     healthAnimation->setParent(item);
     healthAnimation->setDuration(400);

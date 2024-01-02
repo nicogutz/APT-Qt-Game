@@ -34,7 +34,7 @@ public:
       {ObjectType::Protagonist, {{7, 0}, {9, 1}}},
       {ObjectType::MovingEnemy, {{7, 2}, {4, 3}}},
       {ObjectType::PoisonEnemy, {{7, 4}, {4, 5}}},
-      {ObjectType::Enemy, {{7, 6}, {3, 7}}},
+      {ObjectType::Enemy, {{7, 6}, {2, 7}}},
     };
 
 private:
