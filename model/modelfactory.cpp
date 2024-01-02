@@ -1,18 +1,14 @@
+#include <QRandomGenerator>
+#include <QFile>
+
+#include "model/noise/perlinnoise.h"
 #include "gameobjectsettings.h"
 #include "modelfactory.h"
-
-#include <QFile>
-#include <QRandomGenerator>
-
-ObjectModelFactory::ObjectModelFactory()
-
-    : m_nodes()
-    , m_protagonist() {
-}
+#include "world.h"
 
 GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
                                                  float pRatio, int level, int rows, int columns) {
-    m_nodes.clear();
+    // m_nodes.clear();
     World m_world;
     createWorld(level, rows, columns);
     m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);
@@ -25,22 +21,14 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
 
     // insert tiles into model
     auto tiles = m_world.getTiles();
-    int i = 0;
-    int j = 0;
     for(const auto &tile : tiles) {
-        m_nodes.emplace_back(tile->getXPos(), tile->getYPos(), tile->getValue());
+        // m_nodes.emplace_back(tile->getXPos(), tile->getYPos(), tile->getValue());
         auto *obj = new GameObject({
           {DataRole::Energy, tile->getValue()},
-          {DataRole::Position, QPoint(j, i)},
+          {DataRole::Position, QPoint(tile->getXPos(), tile->getYPos())},
         });
         GameObjectSettings::getFunction(ObjectType::Tile)(obj);
-        worldGrid[j][i] = obj;
-        if(j == columns - 1) {
-            j = 0;
-            i++;
-        } else {
-            j++;
-        }
+        worldGrid[tile->getYPos()][tile->getXPos()] = obj;
     }
     // Process doorways
     if(level) {
@@ -63,14 +51,12 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
     GameObjectSettings::getFunction(ObjectType::Protagonist)(proObj);
     proObj->setParent(worldGrid[protagonist->getXPos()][protagonist->getYPos()]);
 
-    m_protagonist = proObj;
-
     // Process Health Packs
     auto healthPacks = m_world.getHealthPacks();
     for(const auto &hp : healthPacks) {
-        int hpX = hp->getXPos();
-        int hpY = hp->getYPos();
-        m_nodes[hpY * columns + hpX].setValue(0.1);
+        // int hpX = hp->getXPos();
+        // int hpY = hp->getYPos();
+        // m_nodes[hpY * columns + hpX].setValue(0.1);
         auto *hpObj = new GameObject();
         GameObjectSettings::getFunction(ObjectType::HealthPack)(hpObj);
         hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
@@ -89,8 +75,8 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
             enemyX = columns - 2;
             enemyY = rows - 2; // make sure no enemies on the doorway
         }
-        Node &enemyNode = m_nodes[enemyY * columns + enemyX];
-        enemyNode.setValue(0.8);
+        // Node &enemyNode = m_nodes[enemyY * columns + enemyX];
+        // enemyNode.setValue(0.8);
 
         ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
         auto *enemyObj = new GameObject();
@@ -115,20 +101,6 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
     auto *model = new GameObjectModel(worldGrid);
 
     return model;
-}
-
-std::vector<int> ObjectModelFactory::pathFinder(int rows) {
-    Comparator<Node> comp = [](const Node &a, const Node &b) {
-        return a.h > b.h;
-    };
-
-    PathFinder<Node, Tile> pathFinder(m_nodes, &m_nodes.front(), &m_nodes.back(), comp, rows, 0.001f);
-    auto path = pathFinder.A_star();
-
-    for(auto p : path) {
-        //        qDebug() << "Move: " << p;
-    }
-    return path;
 }
 
 void ObjectModelFactory::createWorld(int level, int width, int height, double difficulty) {

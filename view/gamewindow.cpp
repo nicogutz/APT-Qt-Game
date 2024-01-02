@@ -25,31 +25,16 @@ GameWindow::GameWindow(QWidget *parent)
     m_ui->textEdit->hide();
     m_ui->plainTextEdit->hide();
     m_ui->type_command->hide();
+    m_ui->path_find_trigger->setEnabled(false);
 
     this->setFocusPolicy(Qt::StrongFocus);
 
     // ZOOM
-    m_ui->horizontalSlider->setMinimum(-34);
-    m_ui->horizontalSlider->setMaximum(30);
-    m_ui->horizontalSlider->setValue(-34);
-    zoomBySlider(-34);
+    m_ui->horizontalSlider->setMinimum(-32);
+    m_ui->horizontalSlider->setMaximum(32);
+    m_ui->horizontalSlider->setValue(-32);
+    zoomBySlider(-32);
 
-
-    // CHOOSE MODE: MANUAL OR AUTOMATIC
-    QMessageBox modeBox;
-    modeBox.setWindowTitle("Select Game Mode");
-    modeBox.setText("Please select the game mode:");
-    QPushButton *manualButton = modeBox.addButton("Manual", QMessageBox::AcceptRole);
-    QPushButton *autoButton = modeBox.addButton("Automatic", QMessageBox::AcceptRole);
-    modeBox.exec();
-    if(modeBox.clickedButton() == manualButton) {
-        m_controller->setState(GameController::State::Running);
-        m_ui->path_find_trigger->hide();
-    } else if(modeBox.clickedButton() == autoButton) {
-        m_controller->setState(GameController::State::Running);
-        installEventFilter(this);
-        m_ui->path_find_trigger->show();
-    }
 
     // START GAME
     m_controller->startGame();
@@ -65,6 +50,20 @@ GameWindow::GameWindow(QWidget *parent)
 
 
     // SIGNALS AND SLOTS
+    connect(m_ui->x_path, &QLineEdit::textChanged, this, [this]() {
+        updatePathFindTriggerButton();
+    });
+    connect(m_ui->y_path, &QLineEdit::textChanged, this, [this]() {
+        updatePathFindTriggerButton();
+    });
+
+    connect(m_ui->path_find_trigger, &QPushButton::clicked, [this]() {
+        int x = m_ui->x_path->text().toInt();
+        int y = m_ui->y_path->text().toInt();
+        
+        m_controller->pathFinder(x, y);
+    });
+
     QObject::connect(m_ui->textEdit, &QLineEdit::returnPressed, this, &GameWindow::processCommand);
     connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
     connect(m_ui->pause, &QPushButton::clicked, this, &GameWindow::togglePause);
@@ -72,12 +71,17 @@ GameWindow::GameWindow(QWidget *parent)
     connect(m_ui->manual, &QAction::changed, m_ui->automatic, &QAction::toggle);
     connect(m_ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
     connect(m_controller.data(), &GameController::levelUpdated, this, [this](int level) {
-        zoomBySlider(-34);
+        if (level == 2) {
+            zoomBySlider(-34);
+        } else {
+            zoomBySlider(-31);
+        }
     });
+
     connect(m_ui->sprite_mode, &QAction::triggered, this, &GameWindow::setSpriteView);
     connect(m_ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
     connect(m_ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
-    connect(m_ui->path_find_trigger, &QPushButton::clicked, m_controller.data(), &GameController::path_finder);
+
     connect(m_controller.data(), &GameController::energyUpdated, m_ui->energy, &QProgressBar::setValue);
     connect(m_controller.data(), &GameController::healthUpdated, m_ui->health, &QProgressBar::setValue);
     connect(m_controller.data(), &GameController::enemiesUpdated, this, [this](unsigned int enemies) {
@@ -92,6 +96,12 @@ GameWindow::GameWindow(QWidget *parent)
     connect(m_controller.data(), &GameController::gameOver, this, &GameWindow::gameOver);
 
 }
+
+void GameWindow::updatePathFindTriggerButton() {
+    bool enableButton = !m_ui->x_path->text().isEmpty() && !m_ui->y_path->text().isEmpty();
+    m_ui->path_find_trigger->setEnabled(enableButton);
+}
+
 void GameWindow::togglePause() {
     if(m_controller->getState() == GameController::State::Paused) {
         connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
@@ -178,7 +188,15 @@ void GameWindow::processCommand() {
     } else {
         QStringList commandParts = command.split(' ');
 
-        if (commandParts.size() == 2) {
+        if (commandParts.size() == 3 && commandParts[0] == "go" && commandParts[1] == "to") {
+            bool okX, okY;
+            int x = commandParts[2].toInt(&okX);
+            int y = commandParts[3].toInt(&okY);
+
+            if (okX && okY) {
+                m_controller->pathFinder(x, y);
+            }
+        } else if (commandParts.size() == 2) {
             QString commandType = commandParts[0];
             QString commandAction = commandParts[1];
 
@@ -222,6 +240,8 @@ void GameWindow::showHelp() {
     for (const auto &cmd : zoomCommands.keys()) {
         helpMessage += "zoom " + cmd + " - " + zoomCommands[cmd].second + "\n";
     }
+
+    helpMessage += "\ngo to xy - Moves the protagonist to the specified coordinates x and y.\n";
     m_ui->plainTextEdit->setPlainText(helpMessage);
 }
 
@@ -250,6 +270,11 @@ void GameWindow::setSpriteView() {
     m_ui->textEdit->hide();
     m_ui->plainTextEdit->hide();
     m_ui->type_command->hide();
+    m_ui->path_find_trigger->show();
+    m_ui->x_path->show();
+    m_ui->y_path->show();
+    m_ui->label->show();
+    m_ui->label_2->show();
 }
 void GameWindow::setTextualView() {
     m_controller->updateGameView(GameController::View::Text);
@@ -259,6 +284,11 @@ void GameWindow::setTextualView() {
     m_ui->textEdit->show();
     m_ui->plainTextEdit->show();
     m_ui->type_command->show();
+    m_ui->path_find_trigger->hide();
+    m_ui->x_path->hide();
+    m_ui->y_path->hide();
+    m_ui->label->hide();
+    m_ui->label_2->hide();
 }
 void GameWindow::setColorView() {
     m_controller->updateGameView(GameController::View::Color);
@@ -268,21 +298,28 @@ void GameWindow::setColorView() {
     m_ui->textEdit->hide();
     m_ui->plainTextEdit->hide();
     m_ui->type_command->hide();
+    m_ui->path_find_trigger->show();
+    m_ui->x_path->show();
+    m_ui->y_path->show();
+    m_ui->label->show();
+    m_ui->label_2->show();
 }
 
 
 
 bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
-    if (m_controller->getGameView() != GameController::View::Text){
-        if (event->type() == QEvent::KeyPress) {
-            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+    if (m_controller->getGameView() != GameController::View::Text && event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (m_ui->x_path->hasFocus() || m_ui->y_path->hasFocus()) {
+            return QObject::eventFilter(watched, event);
+        } else {
             keyPressEvent(keyEvent);
             return true;
         }
-        return QMainWindow::eventFilter(watched, event);
     }
-    return false;
+    return QMainWindow::eventFilter(watched, event);
 }
+
 
 
 void GameWindow::gameOver() {
@@ -291,6 +328,7 @@ void GameWindow::gameOver() {
     summary += "Level Reached: " + QString::number(m_ui->lcdLevel->intValue()) + "\n";
     summary += "Final Health: " + QString::number(m_ui->health->value()) + "\n";
     summary += "Final Energy: " + QString::number(m_ui->energy->value()) + "\n";
+
 
     QString totalTime = QString::number(m_elapsedSeconds);
     summary += "Total Time: " + totalTime + " seconds\n";

@@ -2,6 +2,8 @@
 
 #include <model/behaviors/movement.h>
 
+#include <node.h>
+
 GameController::GameController()
     : QGraphicsView()
     , m_gameLevel(0)
@@ -30,7 +32,7 @@ void GameController::updateLevel(Direction direction) {
 
     } else {
         qDebug() << "Switching to existing model for level " << newLevel;
-        auto *model = m_models[newLevel];
+        auto *model = m_models[newLevel].first;
         if(!model) {
             qDebug() << "Error: Model is null at level " << newLevel;
             return;
@@ -53,8 +55,8 @@ void GameController::createNewLevel(int level) {
     m_enemies = 10 * (level + 1) + 25;
     m_health_packs = 5 - (level / 3);
 
-    auto *model = factory.createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel);
-    m_models.append(model);
+    auto *model = ObjectModelFactory::createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel);
+    m_models.append({model, std::vector<Node>()});
     model->setParent(this);
 
     auto oldCharacter = m_character;
@@ -71,13 +73,13 @@ void GameController::createNewLevel(int level) {
 }
 
 void GameController::disconnectCurrentModel() {
-    auto *model = m_models[m_gameLevel];
+    auto *model = m_models[m_gameLevel].first;
     disconnect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
     disconnect(this, &GameController::tick, model, &GameObjectModel::tick);
     disconnect(model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
 }
 void GameController::connectCurrentModel() {
-    auto *model = m_models[m_gameLevel];
+    auto *model = m_models[m_gameLevel].first;
     connect(model, &GameObjectModel::dataChanged, m_view.get(), &GameView::dataChanged);
     connect(this, &GameController::tick, model, &GameObjectModel::tick);
     connect(model, &GameObjectModel::dataChanged, this, &GameController::dataChanged);
@@ -110,22 +112,33 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
             updateLevel(Direction::Up); // go up a level
         }
         break;
-
-    case ObjectType::PoisonEnemy:
-
-        break;
-    case ObjectType::HealthPack:
-
-        break;
     default:
         break;
     }
 }
 
-void GameController::path_finder(int rows) {
+void GameController::pathFinder(int x, int y) {
+    auto data = m_models[m_gameLevel].first->getAllData(false);
+    std::vector<Node> nodes;
+
+    int rows = m_models[m_gameLevel].first->getRowCount();
+    int cols = m_models[m_gameLevel].first->getColumnCount();
+
+    for(const auto &row : data) {
+        for(const auto &obj : row) {
+            nodes.emplace_back(obj);
+        }
+    }
+    auto pos = static_cast<GameObject *>(m_character->parent())->getData(DataRole::Position).toPoint();
+    Comparator<Node> comp = [](const Node &a, const Node &b) {
+        return a.h > b.h;
+    };
+
+    PathFinder<Node, Node> pathFinder(nodes, &nodes[rows * pos.y() + pos.x()], &nodes[rows * y + x], comp, rows - 1, 0.001f);
+    auto path = pathFinder.A_star();
+
     if(m_gameState == State::Running) {
-        auto path = factory.pathFinder(m_models.at(m_gameLevel)->getRowCount());
-        auto first_tile = m_models[m_gameLevel]->getObject(0, 0, ObjectType::Tile);
+        auto first_tile = m_models[m_gameLevel].first->getObject(0, 0, ObjectType::Tile);
         for(int move : path) {
             first_tile->setData(DataRole::Path, true);
             first_tile = first_tile->getNeighbor(((45 * move + 90) % 360));
@@ -207,7 +220,7 @@ void GameController::characterAtttack() {
 }
 
 void GameController::updateGameView(View view) {
-    auto data = m_models[m_gameLevel]->getAllData();
+    auto data = m_models[m_gameLevel].first->getAllData();
     QSharedPointer<Renderer> renderer;
 
     switch(view) {
@@ -225,20 +238,3 @@ void GameController::updateGameView(View view) {
     m_view->createScene(data, renderer);
     m_gameView = view;
 }
-
-void GameController::setState(State new_state) {
-    m_gameState = new_state;
-}
-GameController::State GameController::getState() {
-    return m_gameState;
-}
-
-QSharedPointer<GameView> GameController::getView() {
-    return m_view;
-}
-
-void GameController::setView(QSharedPointer<GameView> view) {
-    m_view = view;
-}
-
-

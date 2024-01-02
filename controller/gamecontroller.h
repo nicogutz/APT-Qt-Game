@@ -9,8 +9,10 @@
 #include <QCoreApplication>
 #include <QCoreApplication>
 #include <qdatetime.h>
-
 #include <QDateTime>
+
+#include <node.h>
+#include <pathfinder_class.h>
 
 #include "model/modelfactory.h"
 #include "model/gameobjectmodel.h"
@@ -23,8 +25,6 @@
 #include "view/renderer/spriterenderer.h"
 #include "view/renderer/textrenderer.h"
 #include "view/renderer/colorrenderer.h"
-
-
 
 class GameWindow;
 
@@ -39,7 +39,6 @@ public:
      */
     enum class State {
         Running,
-        Automatic,
         Paused,
         GameOver,
     };
@@ -55,7 +54,6 @@ public:
     GameController();
     void startGame();
 
-
     void findAndMoveTo(int x, int y);
 
     /**
@@ -68,7 +66,7 @@ public:
      * @param to
      */
     void characterAtttack();
-    void path_finder(int rows);
+    void pathFinder(int X, int Y);
 
     void updateEnergy();
     void updateHealth();
@@ -83,12 +81,12 @@ public:
 
     void createNewLevel(int level);
 
-    void setState(State new_state);
-    State getState();
-    View getGameView(){return m_gameView;}
-    QSharedPointer<GameView> getView();
-    void setView(QSharedPointer<GameView> view);
+    void setState(State new_state) { m_gameState = new_state; }
+    void setView(QSharedPointer<GameView> view) { m_view = view; }
 
+    State getState() { return m_gameState; }
+    View getGameView() { return m_gameView; }
+    QSharedPointer<GameView> getView() { return m_view; }
 
 signals:
     /**
@@ -113,11 +111,10 @@ signals:
     void levelUpdated(int level);
 
 private:
-    ObjectModelFactory factory;
     /**
      * @brief m_model
      */
-    QList<GameObjectModel *> m_models;
+    QList<QPair<GameObjectModel *, std::vector<Node>>> m_models;
     /**
      * @brief m_view
      */
