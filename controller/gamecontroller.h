@@ -66,7 +66,7 @@ public:
      * @param to
      */
     void characterAtttack();
-    void pathFinder(int X, int Y);
+    void pathFinder(int x, int y);
 
     void updateEnergy();
     void updateHealth();

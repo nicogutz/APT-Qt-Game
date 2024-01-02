@@ -1,7 +1,6 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 
-
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_ui(new Ui::GameWindow)
@@ -35,7 +34,6 @@ GameWindow::GameWindow(QWidget *parent)
     m_ui->horizontalSlider->setValue(-32);
     zoomBySlider(-32);
 
-
     // START GAME
     m_controller->startGame();
     m_ui->lcdHealth->display(4);
@@ -48,7 +46,6 @@ GameWindow::GameWindow(QWidget *parent)
     // START TIMER
     m_timer->start(1000);
 
-
     // SIGNALS AND SLOTS
     connect(m_ui->x_path, &QLineEdit::textChanged, this, [this]() {
         updatePathFindTriggerButton();
@@ -60,7 +57,6 @@ GameWindow::GameWindow(QWidget *parent)
     connect(m_ui->path_find_trigger, &QPushButton::clicked, [this]() {
         int x = m_ui->x_path->text().toInt();
         int y = m_ui->y_path->text().toInt();
-        
         m_controller->pathFinder(x, y);
     });
 
@@ -71,7 +67,7 @@ GameWindow::GameWindow(QWidget *parent)
     connect(m_ui->manual, &QAction::changed, m_ui->automatic, &QAction::toggle);
     connect(m_ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
     connect(m_controller.data(), &GameController::levelUpdated, this, [this](int level) {
-        if (level == 2) {
+        if(level == 2) {
             zoomBySlider(-34);
         } else {
             zoomBySlider(-31);
@@ -94,7 +90,6 @@ GameWindow::GameWindow(QWidget *parent)
         m_ui->lcdLevel->display((int)(level + 1));
     });
     connect(m_controller.data(), &GameController::gameOver, this, &GameWindow::gameOver);
-
 }
 
 void GameWindow::updatePathFindTriggerButton() {
@@ -119,8 +114,7 @@ void GameWindow::updateTime() {
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
-    if(m_controller->getState() == GameController::State::Running &&
-        m_controller->getGameView() != GameController::View::Text) {
+    if(m_controller->getState() == GameController::State::Running && m_controller->getGameView() != GameController::View::Text) {
         switch(event->key()) {
         case Qt::Key_Up:
             m_controller->characterMove(Direction::Up);
@@ -143,70 +137,71 @@ void GameWindow::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-
-
 void GameWindow::initializeCommands() {
     // Move commands
-    moveCommands["l"] = { [this]() { m_controller->characterMove(Direction::Left); }, "Move Left" };
-    moveCommands["r"] = { [this]() { m_controller->characterMove(Direction::Right); }, "Move Right" };
-    moveCommands["u"] = { [this]() { m_controller->characterMove(Direction::Up); }, "Move Up" };
-    moveCommands["d"] = { [this]() { m_controller->characterMove(Direction::Down); }, "Move Down" };
-    moveCommands["a"] = { [this]() { m_controller->characterAtttack(); }, "Attack" };
+    moveCommands["l"] = {[this]() { m_controller->characterMove(Direction::Left); }, "Move Left"};
+    moveCommands["r"] = {[this]() { m_controller->characterMove(Direction::Right); }, "Move Right"};
+    moveCommands["u"] = {[this]() { m_controller->characterMove(Direction::Up); }, "Move Up"};
+    moveCommands["d"] = {[this]() { m_controller->characterMove(Direction::Down); }, "Move Down"};
+    moveCommands["a"] = {[this]() { m_controller->characterAtttack(); }, "Attack"};
 
     // View commands
-    viewCommands["t"] = { [this]() { setTextualView(); }, "Switch to Textual View" };
-    viewCommands["c"] = { [this]() { setColorView(); }, "Switch to Color View" };
-    viewCommands["s"] = { [this]() { setSpriteView(); }, "Switch to Sprite View" };
+    viewCommands["t"] = {[this]() { setTextualView(); }, "Switch to Textual View"};
+    viewCommands["c"] = {[this]() { setColorView(); }, "Switch to Color View"};
+    viewCommands["s"] = {[this]() { setSpriteView(); }, "Switch to Sprite View"};
 
     // Game commands
-    gameCommands["q"] = { [this]() { QApplication::quit(); }, "Quit Game" };
-    gameCommands["p"] = { [this]() { togglePause(); }, "Pause/Resume Game" };
-    gameCommands["r"] = { [this]() {
+    gameCommands["q"] = {[this]() { QApplication::quit(); }, "Quit Game"};
+    gameCommands["p"] = {[this]() { togglePause(); }, "Pause/Resume Game"};
+    gameCommands["r"] = {[this]() {
                              QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
                              QApplication::quit();
-                         }, "Restart Game" };
+                         },
+                         "Restart Game"};
 
     // Zoom commands
-    zoomCommands["+"] = { [this]() {
+    zoomCommands["+"] = {[this]() {
                              int maxZoom = m_ui->horizontalSlider->maximum();
                              m_ui->horizontalSlider->setValue(maxZoom);
                              zoomBySlider(maxZoom);
-                         }, "Zoom In" };
-    zoomCommands["-"] = { [this]() {
+                         },
+                         "Zoom In"};
+    zoomCommands["-"] = {[this]() {
                              int minZoom = m_ui->horizontalSlider->minimum();
                              m_ui->horizontalSlider->setValue(minZoom);
                              zoomBySlider(minZoom);
-                         }, "Zoom Out" };
+                         },
+                         "Zoom Out"};
 }
 
 void GameWindow::processCommand() {
     QString errorMessage = "Invalid command. Type '?' for a list of possible commands.";
     QString command = m_ui->textEdit->text().trimmed().toLower();
 
-    if (command == '?') {
+    if(command == '?') {
         showHelp();
     } else {
         QStringList commandParts = command.split(' ');
 
-        if (commandParts.size() == 3 && commandParts[0] == "go" && commandParts[1] == "to") {
+        if(commandParts.size() == 3 && commandParts[0] == "go" && commandParts[1] == "to") {
             bool okX, okY;
             int x = commandParts[2].toInt(&okX);
             int y = commandParts[3].toInt(&okY);
 
-            if (okX && okY) {
+            if(okX && okY) {
                 m_controller->pathFinder(x, y);
             }
-        } else if (commandParts.size() == 2) {
+        } else if(commandParts.size() == 2) {
             QString commandType = commandParts[0];
             QString commandAction = commandParts[1];
 
-            if (commandType == "move" && moveCommands.contains(commandAction)) {
+            if(commandType == "move" && moveCommands.contains(commandAction)) {
                 moveCommands[commandAction].first();
-            } else if (commandType == "view" && viewCommands.contains(commandAction)) {
+            } else if(commandType == "view" && viewCommands.contains(commandAction)) {
                 viewCommands[commandAction].first();
-            } else if (commandType == "game" && gameCommands.contains(commandAction)) {
+            } else if(commandType == "game" && gameCommands.contains(commandAction)) {
                 gameCommands[commandAction].first();
-            } else if (commandType == "zoom" && zoomCommands.contains(commandAction)) {
+            } else if(commandType == "zoom" && zoomCommands.contains(commandAction)) {
                 zoomCommands[commandAction].first();
             } else {
                 m_ui->plainTextEdit->setPlainText(errorMessage);
@@ -222,22 +217,22 @@ void GameWindow::showHelp() {
     QString helpMessage = "Available commands:\n";
     // Move Commands
     helpMessage += "\nMove Commands:\n";
-    for (const auto &cmd : moveCommands.keys()) {
+    for(const auto &cmd : moveCommands.keys()) {
         helpMessage += "move " + cmd + " - " + moveCommands[cmd].second + "\n";
     }
     // View Commands
     helpMessage += "\nView Commands:\n";
-    for (const auto &cmd : viewCommands.keys()) {
+    for(const auto &cmd : viewCommands.keys()) {
         helpMessage += "view " + cmd + " - " + viewCommands[cmd].second + "\n";
     }
     // Game Commands
     helpMessage += "\nGame Commands:\n";
-    for (const auto &cmd : gameCommands.keys()) {
+    for(const auto &cmd : gameCommands.keys()) {
         helpMessage += "game " + cmd + " - " + gameCommands[cmd].second + "\n";
     }
     // Zoom Commands
     helpMessage += "\nZoom Commands:\n";
-    for (const auto &cmd : zoomCommands.keys()) {
+    for(const auto &cmd : zoomCommands.keys()) {
         helpMessage += "zoom " + cmd + " - " + zoomCommands[cmd].second + "\n";
     }
 
@@ -245,15 +240,11 @@ void GameWindow::showHelp() {
     m_ui->plainTextEdit->setPlainText(helpMessage);
 }
 
-
-
 void GameWindow::zoomBySlider(int value) {
     qreal scaleFactor = 1.0 + (value / 50.0);
     m_ui->graphicsView->resetTransform();
     m_ui->graphicsView->scale(scaleFactor, scaleFactor);
 }
-
-
 
 void GameWindow::updateLevel(unsigned int level, unsigned int enemies, unsigned int health_packs) {
     m_ui->lcdLevel->display((int)level);
@@ -305,12 +296,10 @@ void GameWindow::setColorView() {
     m_ui->label_2->show();
 }
 
-
-
 bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
-    if (m_controller->getGameView() != GameController::View::Text && event->type() == QEvent::KeyPress) {
+    if(m_controller->getGameView() != GameController::View::Text && event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        if (m_ui->x_path->hasFocus() || m_ui->y_path->hasFocus()) {
+        if(m_ui->x_path->hasFocus() || m_ui->y_path->hasFocus()) {
             return QObject::eventFilter(watched, event);
         } else {
             keyPressEvent(keyEvent);
@@ -320,15 +309,12 @@ bool GameWindow::eventFilter(QObject *watched, QEvent *event) {
     return QMainWindow::eventFilter(watched, event);
 }
 
-
-
 void GameWindow::gameOver() {
     QString summary;
     summary += "Game Summary:\n";
     summary += "Level Reached: " + QString::number(m_ui->lcdLevel->intValue()) + "\n";
     summary += "Final Health: " + QString::number(m_ui->health->value()) + "\n";
     summary += "Final Energy: " + QString::number(m_ui->energy->value()) + "\n";
-
 
     QString totalTime = QString::number(m_elapsedSeconds);
     summary += "Total Time: " + totalTime + " seconds\n";
@@ -352,11 +338,9 @@ void GameWindow::gameOver() {
     }
 }
 
-
 // DESTRUCTOR
 
 GameWindow::~GameWindow() {
     delete m_ui;
     delete m_timer;
 }
-

@@ -137,6 +137,11 @@ void GameController::pathFinder(int x, int y) {
     PathFinder<Node, Node> pathFinder(nodes, &nodes[rows * pos.y() + pos.x()], &nodes[rows * y + x], comp, rows - 1, 0.001f);
     auto path = pathFinder.A_star();
 
+    if(x >= rows || y >= cols || x < 0 || y < 0) {
+        int y = cols - 1;
+        int x = rows - 1;
+    }
+
     if(m_gameState == State::Running) {
         auto first_tile = m_models[m_gameLevel].first->getObject(0, 0, ObjectType::Tile);
         for(int move : path) {

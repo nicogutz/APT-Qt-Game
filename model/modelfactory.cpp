@@ -22,7 +22,6 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
     // insert tiles into model
     auto tiles = m_world.getTiles();
     for(const auto &tile : tiles) {
-        // m_nodes.emplace_back(tile->getXPos(), tile->getYPos(), tile->getValue());
         auto *obj = new GameObject({
           {DataRole::Energy, tile->getValue()},
           {DataRole::Position, QPoint(tile->getXPos(), tile->getYPos())},
@@ -54,9 +53,6 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
     // Process Health Packs
     auto healthPacks = m_world.getHealthPacks();
     for(const auto &hp : healthPacks) {
-        // int hpX = hp->getXPos();
-        // int hpY = hp->getYPos();
-        // m_nodes[hpY * columns + hpX].setValue(0.1);
         auto *hpObj = new GameObject();
         GameObjectSettings::getFunction(ObjectType::HealthPack)(hpObj);
         hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
@@ -75,8 +71,6 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
             enemyX = columns - 2;
             enemyY = rows - 2; // make sure no enemies on the doorway
         }
-        // Node &enemyNode = m_nodes[enemyY * columns + enemyX];
-        // enemyNode.setValue(0.8);
 
         ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
         auto *enemyObj = new GameObject();
@@ -114,12 +108,12 @@ void ObjectModelFactory::createWorld(int level, int width, int height, double di
             double x = (double)j / ((double)width);
             double y = (double)i / ((double)height);
 
-            double n = 1.2 * pn.noise(x * width / 20, y * height / 20, 0.9);
+            double n = 1 * pn.noise(x * width / 20, y * height / 20, 0.9);
             n += 0.5 * pn.noise(x * width / 5, y * height / 5, 0.1);
             n -= 0.5 * pn.noise(x * width / 5, y * height / 5, 0.1);
 
             // Map the values to the [0, 255] interval
-            *pLine++ = floor(255 * n);
+            *pLine++ = floor(255 * n / 1.5);
         }
     }
 
