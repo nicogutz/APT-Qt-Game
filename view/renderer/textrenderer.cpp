@@ -13,7 +13,7 @@ void TextRenderer::renderGameObject(QMap<DataRole, QVariant> objectData, GamePix
 
 QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     // The Pixmaps have to be transparent, text is AAd by default
-    QPixmap pixmap(m_cellSize, m_cellSize);
+    QPixmap pixmap(CELL_SIZE, CELL_SIZE);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
 
@@ -21,7 +21,7 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     font.setBold(true);
     font.setKerning(false);
     font.setFixedPitch(true);
-    font.setPointSize(m_cellSize / 4); // Set the font size relative to cell size
+    font.setPointSize(CELL_SIZE / 4); // Set the font size relative to cell size
     font.setLetterSpacing(QFont::AbsoluteSpacing, 0);
     font.setWeight(QFont::Black);
     painter.setFont(font);
@@ -29,14 +29,14 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
 
     // This has to be calculated to know the offset of the underscore characters
     QFontMetrics fontMetrics(font);
-    int linePosition = ((m_cellSize - fontMetrics.horizontalAdvance("_")) / 4);
+    int linePosition = ((CELL_SIZE - fontMetrics.horizontalAdvance("_")) / 4);
 
     // Draw the bottom lines, we don't need top lines unless we are at the top
     // The offsets are a bit arbitrary on the y ax.
-    painter.drawText(linePosition - 4, m_cellSize - 3, "_");
-    painter.drawText(2 * linePosition - 4, m_cellSize - 3, "_");
-    painter.drawText(3 * linePosition - 4, m_cellSize - 3, "_");
-    painter.drawText(4 * linePosition - 4, m_cellSize - 3, "_");
+    painter.drawText(linePosition - 4, CELL_SIZE - 3, "_");
+    painter.drawText(2 * linePosition - 4, CELL_SIZE - 3, "_");
+    painter.drawText(3 * linePosition - 4, CELL_SIZE - 3, "_");
+    painter.drawText(4 * linePosition - 4, CELL_SIZE - 3, "_");
 
     if(!object[DataRole::Position].toPoint().y()) {
         painter.drawText(linePosition - 4, 0, "_");
@@ -46,35 +46,35 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     }
 
     // The | characters are much longer than the _ so we make them smaller
-    font.setPointSize(m_cellSize / 8);
+    font.setPointSize(CELL_SIZE / 8);
     font.setStretch(125);
     painter.setFont(font);
 
     // This looks extremely funky but it is what it is
-    painter.drawText(-1, m_cellSize / 4 - 2, "|");
-    painter.drawText(-1, 2 * (m_cellSize / 4) - 2, "|");
-    painter.drawText(-1, 3 * (m_cellSize / 4) - 2, "|");
-    painter.drawText(-1, m_cellSize - 2, "|");
+    painter.drawText(-1, CELL_SIZE / 4 - 2, "|");
+    painter.drawText(-1, 2 * (CELL_SIZE / 4) - 2, "|");
+    painter.drawText(-1, 3 * (CELL_SIZE / 4) - 2, "|");
+    painter.drawText(-1, CELL_SIZE - 2, "|");
     // Since the renderer has no idea about the size of the world,
     // It cannot simply know where the
-    painter.drawText(m_cellSize - 2, m_cellSize / 4 - 2, "|");
-    painter.drawText(m_cellSize - 2, 2 * (m_cellSize / 4) - 2, "|");
-    painter.drawText(m_cellSize - 2, 3 * (m_cellSize / 4) - 2, "|");
-    painter.drawText(m_cellSize - 2, m_cellSize - 2, "|");
+    painter.drawText(CELL_SIZE - 2, CELL_SIZE / 4 - 2, "|");
+    painter.drawText(CELL_SIZE - 2, 2 * (CELL_SIZE / 4) - 2, "|");
+    painter.drawText(CELL_SIZE - 2, 3 * (CELL_SIZE / 4) - 2, "|");
+    painter.drawText(CELL_SIZE - 2, CELL_SIZE - 2, "|");
 
     if(object[DataRole::Energy] == INFINITY) {
-        for(int i = 0; i < m_cellSize; i++)
-            for(int j = 0; j < m_cellSize; j++)
+        for(int i = 0; i < CELL_SIZE; i++)
+            for(int j = 0; j < CELL_SIZE; j++)
                 painter.drawText(i, j, ".");
     }
 
     if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
-        int maxDots = m_cellSize;
+        int maxDots = CELL_SIZE;
         int numberOfDots = (maxDots * poisonLevel);
         painter.setPen(Qt::green);
         for(int i = 0; i < numberOfDots; ++i) {
-            int randomX = QRandomGenerator::global()->bounded(m_cellSize);
-            int randomY = QRandomGenerator::global()->bounded(m_cellSize);
+            int randomX = QRandomGenerator::global()->bounded(CELL_SIZE);
+            int randomY = QRandomGenerator::global()->bounded(CELL_SIZE);
             painter.drawText(randomX, randomY, ".");
         }
     }
@@ -130,14 +130,14 @@ QPixmap TextRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
 }
 
 QPixmap TextRenderer::renderCharacter(QString str, QColor color) {
-    QPixmap pixmap(m_cellSize, m_cellSize);
+    QPixmap pixmap(CELL_SIZE, CELL_SIZE);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     QFont font = painter.font();
     font.setBold(true);
     font.setKerning(false);
     font.setFixedPitch(true);
-    font.setPointSize(m_cellSize / 4); // Set the font size relative to cell size
+    font.setPointSize(CELL_SIZE / 4); // Set the font size relative to cell size
     font.setLetterSpacing(QFont::AbsoluteSpacing, 0);
     font.setWeight(QFont::Black);
     painter.setFont(font);
@@ -170,14 +170,14 @@ QPixmap TextRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
 }
 
 QPixmap TextRenderer::renderCharacter(QString str, int weight, int size) {
-    QPixmap pixmap(m_cellSize, m_cellSize);
+    QPixmap pixmap(CELL_SIZE, CELL_SIZE);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
 
     QFont font = painter.font();
     font.setBold(weight > 50);
-    font.setPointSize((m_cellSize / 2 - 20) + (size / 20));
+    font.setPointSize((CELL_SIZE / 2 - 20) + (size / 20));
     painter.setFont(font);
 
     QPen pen = painter.pen();

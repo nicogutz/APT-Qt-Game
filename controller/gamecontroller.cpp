@@ -1,5 +1,7 @@
 #include "gamecontroller.h"
 
+#include <model/behaviors/movement.h>
+
 GameController::GameController()
     : QGraphicsView()
     , m_gameLevel(0)

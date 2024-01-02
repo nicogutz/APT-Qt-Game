@@ -18,7 +18,7 @@ public:
     QPixmap rotatePixmap(const QPixmap &originalPixmap, int direction);
 
 protected:
-    inline static constexpr int m_cellSize = 50;
+    inline static constexpr int CELL_SIZE = 50;
 
 private:
     virtual QPixmap renderTile(QMap<DataRole, QVariant> object) = 0;

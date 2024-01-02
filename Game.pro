@@ -34,7 +34,6 @@ SOURCES += \
     model/gameobjectmodel.cpp \
     model/modelfactory.cpp \
     model/noise/perlinnoise.cpp \
-    model/worldimagefactory.cpp \
     view/gamepixmapitem.cpp \
     view/gameview.cpp \
     view/gamewindow.cpp \
@@ -69,7 +68,6 @@ HEADERS += \
     model/gameobjectsettings.h \
     model/modelfactory.h \
     model/noise/perlinnoise.h \
-    model/worldimagefactory.h \
     node.h \
     publicenums.h \
     view/gamepixmapitem.h \

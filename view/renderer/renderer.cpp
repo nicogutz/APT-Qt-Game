@@ -7,11 +7,11 @@ Renderer::Renderer() {
 
 GamePixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> objectDataList) {
     auto *tile = renderGameObject(objectDataList[0]);
-    tile->setData(DataRole::Type, objectDataList[0][DataRole::Type]);
+    tile->setData((int)DataRole::Type, objectDataList[0][DataRole::Type]);
 
     for(const auto &data : objectDataList.mid(1, -1)) {
         auto *obj = renderGameObject(data);
-        obj->setData(DataRole::Type, data[DataRole::Type]);
+        obj->setData((int)DataRole::Type, data[DataRole::Type]);
         obj->setParentItem(tile);
     }
     return tile;

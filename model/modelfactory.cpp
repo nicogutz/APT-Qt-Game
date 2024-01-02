@@ -1,6 +1,5 @@
 #include "gameobjectsettings.h"
 #include "modelfactory.h"
-#include "worldimagefactory.h"
 
 #include <QFile>
 #include <QRandomGenerator>
@@ -15,7 +14,7 @@ GameObjectModel *ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsig
                                                  float pRatio, int level, int rows, int columns) {
     m_nodes.clear();
     World m_world;
-    WorldImageFactory::createWorld(level, rows, columns);
+    createWorld(level, rows, columns);
     m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);
     QFile::remove(QStringLiteral("./world_%1.png").arg(level));
 
@@ -130,4 +129,27 @@ std::vector<int> ObjectModelFactory::pathFinder(int rows) {
         //        qDebug() << "Move: " << p;
     }
     return path;
+}
+
+void ObjectModelFactory::createWorld(int level, int width, int height, double difficulty) {
+    QImage image(width, height, QImage::Format_Grayscale8);
+    int seed = floor(QRandomGenerator::global()->bounded(1, 1000));
+    PerlinNoise pn(seed);
+    for(int i = 0; i < height; ++i) { // y
+        auto pLine = image.scanLine(i);
+
+        for(int j = 0; j < width; ++j) { // x
+            double x = (double)j / ((double)width);
+            double y = (double)i / ((double)height);
+
+            double n = 1.2 * pn.noise(x * width / 20, y * height / 20, 0.9);
+            n += 0.5 * pn.noise(x * width / 5, y * height / 5, 0.1);
+            n -= 0.5 * pn.noise(x * width / 5, y * height / 5, 0.1);
+
+            // Map the values to the [0, 255] interval
+            *pLine++ = floor(255 * n);
+        }
+    }
+
+    image.save(QStringLiteral("./world_%1.png").arg(level), "png", -1);
 }
