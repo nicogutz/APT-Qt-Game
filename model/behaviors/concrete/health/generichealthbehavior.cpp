@@ -5,7 +5,9 @@ int GenericHealthBehavior::getHealthChanged(int amount) {
     if(currentHealth.isNull()) {
         throw("Cannot change health of object without health");
     }
-
+    if(currentHealth == Settings.MAX_HEALTH && amount > 0) {
+        return 0;
+    }
     int newHealth = currentHealth.toInt() + amount;
 
     if(newHealth <= 0) {

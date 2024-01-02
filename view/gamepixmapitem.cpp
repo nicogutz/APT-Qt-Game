@@ -21,6 +21,18 @@
 QColor GamePixmapItem::getTint() const {
     return m_tint;
 }
+void GamePixmapItem::setTint(const QColor &newTint, bool onParent) {
+    if(onParent) {
+        auto pixmap = this->pixmap();
+        QPainter painter(&pixmap);
+        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(0, 0, 255, 100));
+        painter.setCompositionMode(QPainter::CompositionMode_SoftLight);
+        painter.drawPixmap(QPoint(0, 0), pixmap);
+        this->setPixmap(pixmap);
+    } else {
+        setTint(newTint);
+    }
+};
 
 void GamePixmapItem::setTint(const QColor &newTint) {
     if(m_tint == newTint)

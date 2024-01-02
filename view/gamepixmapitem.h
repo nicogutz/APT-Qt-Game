@@ -9,7 +9,7 @@ class GamePixmapItem : public QObject, public QGraphicsPixmapItem {
     Q_INTERFACES(QGraphicsItem)
 
     Q_PROPERTY(QColor tint READ getTint WRITE setTint NOTIFY tintChanged FINAL)
-    //    Q_PROPERTY(QPoint frame READ frame WRITE setFrame NOTIFY frameChanged FINAL)
+    Q_PROPERTY(QPoint frame READ frame WRITE setFrame NOTIFY frameChanged FINAL)
     //    Q_PROPERTY(QImage sprite READ sprite WRITE setSprite NOTIFY spriteChanged FINAL)
     //    Q_PROPERTY(QSize frameDimension READ frameDimension WRITE setFrameDimension NOTIFY frameDimensionChanged FINAL)
 
@@ -23,6 +23,7 @@ public:
 
     QColor getTint() const;
     void setTint(const QColor &newTint);
+    void setTint(const QColor &newTint, bool onParent);
 
     void updatePixmap();
 

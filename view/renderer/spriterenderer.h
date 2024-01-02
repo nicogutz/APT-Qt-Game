@@ -3,6 +3,7 @@
 
 #include "renderer.h"
 
+#include <QPropertyAnimation>
 #include <QTimer>
 
 class SpriteRenderer : public Renderer {
@@ -15,8 +16,8 @@ public:
         m_tileSize = QSize(m_tiles.width() / TILE_COUNT, m_tiles.width() / TILE_COUNT);
     }
 
-    void renderGameObject(QMap<DataRole, QVariant> object, GamePixmapItem *item) override;
-    GamePixmapItem *renderGameObject(QMap<DataRole, QVariant> objectData) override;
+    void renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) override;
+    GamePixmapItem *renderGameObject(QMap<DataRole, QVariant> data) override;
 
     enum SpriteSettings {
         TILE_COUNT = 21,
@@ -33,13 +34,17 @@ public:
       {ObjectType::Protagonist, {{7, 0}, {9, 1}}},
       {ObjectType::MovingEnemy, {{7, 2}, {4, 3}}},
       {ObjectType::PoisonEnemy, {{7, 4}, {4, 5}}},
-      {ObjectType::Enemy, {{7, 6}, {5, 7}}},
+      {ObjectType::Enemy, {{7, 6}, {3, 7}}},
     };
 
 private:
+    QPropertyAnimation *animateTint(GamePixmapItem *item, QColor final, QColor initial = {0, 0, 0, 0});
     int calculateFrame(QVariant direction, int numPOVs);
+    void animateDeath(GamePixmapItem *item);
+    void animateHealth(GamePixmapItem *item, Direction dir);
+    void animatePoison(GamePixmapItem *item, int level);
 
-    QRect getTileRect(QMap<DataRole, QVariant> object);
+    QRect getTileRect(QMap<DataRole, QVariant> data);
     QImage sliceFrames(QImage image, QLine diagonal, QPoint frameSize);
 
     QImage m_tiles, m_characters;
