@@ -3,6 +3,8 @@
 
 #include <QChar>
 #include <iostream>
+#include <ranges>
+#include <algorithm>
 
 const QPointer<GameObject> GameObject::getNeighbor(double direction, int offset) const {
     // Overloaded function that takes an angle as its parameter. This function
@@ -18,7 +20,7 @@ const QPointer<GameObject> GameObject::getNeighbor(Direction direction, int offs
     return getNeighbor(static_cast<double>(direction), offset);
 }
 const QList<QPointer<GameObject>> GameObject::getAllNeighbors(int offset) const {
-    // I think this ended up looking pretty sweet. Look Mom I know math!
+    // I think this ended up looking pretty sweet.
     auto list = QList<QPointer<GameObject>>();
 
     // Quick reminder that int do not magically cast to doubles. The function
@@ -89,6 +91,42 @@ const QPointer<GameObject> GameObject::findChild(ObjectType type) {
     return nullptr;
 }
 
+bool GameObject::hasChild(QPair<ObjectType, ObjectType> range) const {
+    auto children = getAllData(false);
+
+    return std::any_of(children.begin(), children.end(), [&range](const QMap<DataRole, QVariant> &obj) {
+        int type = obj[DataRole::Type].toInt();
+        return type >= (int)range.first && type <= (int)range.second;
+    });
+}
+
+bool GameObject::hasChild(ObjectType type) const {
+    return hasChild({type, type});
+}
+
+const GameObject *GameObject::nearest(ObjectType type) const {
+    return nearest({type, type});
+}
+
+const GameObject *GameObject::nearest(QPair<ObjectType, ObjectType> range) const {
+    auto filter = [&range](QPointer<GameObject> obj) { return obj.isNull() ? false : obj->hasChild(range); };
+    auto comp = [](QPointer<GameObject> a) { return a.isNull(); };
+    int i = 0;
+
+    while(true) {
+        auto tiles = getAllNeighbors(i);
+        if(std::all_of(tiles.begin(), tiles.end(), comp)) {
+            return nullptr;
+        }
+        auto it = std::find_if(tiles.begin(), tiles.end(), filter);
+        if(it != tiles.end()) {
+            return *it;
+        }
+
+        i++;
+    };
+}
+
 QVariant GameObject::getData(DataRole role) const {
     return m_objectData[role];
 }
@@ -97,9 +135,12 @@ QMap<DataRole, QVariant> GameObject::getData() const {
     return m_objectData;
 }
 
-QList<QMap<DataRole, QVariant>> GameObject::getAllData() const {
+QList<QMap<DataRole, QVariant>> GameObject::getAllData(bool self) const {
     QList<QMap<DataRole, QVariant>> list;
-    list.append(getData());
+    if(self) {
+        list.append(getData());
+    }
+
     for(auto child : children()) {
         list.append(qobject_cast<GameObject *>(child)->getData());
     }

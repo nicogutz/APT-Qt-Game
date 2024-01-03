@@ -24,7 +24,7 @@ public:
     // Data getters and setters.
     QVariant getData(DataRole role) const;
     QMap<DataRole, QVariant> getData() const;
-    QList<QMap<DataRole, QVariant>> getAllData() const;
+    QList<QMap<DataRole, QVariant>> getAllData(bool self = true) const;
 
     void setData(DataRole role, QVariant value);
     void setData(QList<QPair<DataRole, QVariant>> data);
@@ -65,6 +65,21 @@ public:
 
     void setData(const QMap<DataRole, QVariant> &data);
 
+    bool operator==(GameObject const &obj) const {
+        return m_objectData[DataRole::Type].value<ObjectType>() == obj;
+    }
+
+    bool operator==(ObjectType const &type) const {
+        return m_objectData[DataRole::Type].value<ObjectType>() == type;
+    }
+
+    bool hasChild(ObjectType type) const;
+
+    bool hasChild(QPair<ObjectType, ObjectType> range) const;
+
+    const GameObject *nearest(QPair<ObjectType, ObjectType> range) const;
+
+    const GameObject *nearest(ObjectType type) const;
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;
     QMap<DataRole, QVariant> m_objectData;

@@ -1,8 +1,12 @@
-#include "gamecontroller.h"
-
-#include <model/behaviors/movement.h>
-
 #include <node.h>
+
+#include "gamecontroller.h"
+#include "model/modelfactory.h"
+#include "model/behaviors/attack.h"
+#include "model/behaviors/movement.h"
+#include "view/renderer/spriterenderer.h"
+#include "view/renderer/textrenderer.h"
+#include "view/renderer/colorrenderer.h"
 
 GameController::GameController()
     : QGraphicsView()
@@ -43,7 +47,7 @@ void GameController::updateLevel(Direction direction) {
         m_enemies = 10 * (m_gameLevel + 1) + 25;
         m_health_packs = 5 - (m_gameLevel / 3);
 
-        m_character = model->getObject(ObjectType::Protagonist).at(0);
+        m_protagonist = model->getObject(ObjectType::Protagonist).at(0);
         m_view->createScene(model->getAllData());
         connectCurrentModel();
     }
@@ -55,18 +59,18 @@ void GameController::updateLevel(Direction direction) {
 void GameController::createNewLevel(int level) {
     // Set the level parameters
     m_gameLevel = level;
-    m_enemies = 10 * (level + 1) + 25;
-    m_health_packs = 5 - (level / 3);
+    m_enemies = 4 * (level + 1) + 25;
+    m_health_packs = 10 - (level / 3);
     // Call the model factory to generate model
     auto model = ObjectModelFactory::createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel);
     m_models.append(model);
     model.first->setParent(this);
     // Set the character aka protagonist
-    auto oldCharacter = m_character;
-    m_character = model.first->getObject(ObjectType::Protagonist).at(0);
+    auto oldCharacter = m_protagonist;
+    m_protagonist = model.first->getObject(ObjectType::Protagonist).at(0);
 
     if(oldCharacter) {
-        m_character->setData(oldCharacter->getAllData().at(0));
+        m_protagonist->setData(oldCharacter->getAllData().at(0));
     }
 
     // Create new scene
@@ -120,36 +124,26 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
         break;
     }
 }
+void GameController::automaticAttack(Direction direction) {
+    while(m_protagonist->getData(DataRole::Energy).toInt() != 100) {
+        QTime time = QTime::currentTime().addMSecs(100);
+        while(QTime::currentTime() < time)
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
-void GameController::pathFinder(int x, int y) {
-    auto nodes = m_models[m_gameLevel].second; // Node class for the pathfinder
-
-    int rows = m_models[m_gameLevel].first->getRowCount();
-    int cols = m_models[m_gameLevel].first->getColumnCount();
-
-    // Get protagonist position in the world = start position of the pathfinder
-    auto pos = static_cast<GameObject *>(m_character->parent())->getData(DataRole::Position).toPoint();
-
-    Comparator<Node> comp = [](const Node &a, const Node &b) {
-        return a.h > b.h;
-    };
-
-    // Check for non valid input position
-    if(x >= rows || y >= cols || x < 0 || y < 0) {
-        y = cols - 1;
-        x = rows - 1;
+        if(auto attack = m_protagonist->getBehavior<Attack>()) {
+            attack->attack(direction);
+            emit tick();
+        }
     }
-    auto *start = &nodes[rows * pos.y() + pos.x()];
-    auto *dest = &nodes[rows * y + x];
-    PathFinder<Node, Node> pathFinder(nodes, start, dest, comp, cols, 0.001f);
+}
 
-    // Call the algorithm
-    auto path = pathFinder.A_star();
-
+void GameController::executePath(std::vector<int> path, bool full) {
     if(m_gameState == State::Running) {
-        auto first_tile = m_models[m_gameLevel].first->getObject(pos.x(), pos.y(), ObjectType::Tile); // Tile at the start position
+        // Tile at the start position
+        auto first_tile = qobject_cast<GameObject *>(m_protagonist->parent());
         for(int move : path) {
-            first_tile = first_tile->getNeighbor(((45 * move + 90) % 360)); // Assign the path tiles to DataRole Path
+            // Assign the path tiles to DataRole Path
+            first_tile = first_tile->getNeighbor(((45 * move + 90) % 360));
             first_tile->setData(DataRole::Path, true);
         }
 
@@ -161,39 +155,77 @@ void GameController::pathFinder(int x, int y) {
             while(QTime::currentTime() < dieTime)
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
+            if(direction != m_protagonist->getData(DataRole::Direction).value<Direction>()) {
+                characterMove(direction);
+            }
+
             // Check whether enemy is on the way of the path and attack it
-            QVariant protagonist_direction_variant = m_character->getData(DataRole::Direction);
-            Direction protagonist_direction = protagonist_direction_variant.value<Direction>();
-
-            if(auto tile = m_character->getNeighbor(direction)) {
-                for(auto child : tile->getAllData()) {
-                    if(child[DataRole::Type].toInt() > 99) {
-                        while(m_character->getData(DataRole::Energy).toInt() != 100) {
-                            QTime dieTime = QTime::currentTime().addMSecs(100);
-                            while(QTime::currentTime() < dieTime)
-                                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-
-                            if(auto attack = m_character->getBehavior<Attack>()) {
-                                attack->attack(direction);
-                                emit tick();
-                            }
-                        }
-                    }
+            if(auto tile = m_protagonist->getNeighbor(direction)) {
+                if(tile->hasChild({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END})) {
+                    automaticAttack(direction);
                 }
             }
-            if(direction != protagonist_direction) {
-                characterMove(direction);
-                characterMove(direction);
 
-            } else {
-                characterMove(direction);
+            if(full) {
+                QPointer<const GameObject> obj;
+                if(m_protagonist->getData(DataRole::Energy).toInt() < 80) {
+                    obj = m_protagonist->nearest({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
+
+                } else if(m_protagonist->getData(DataRole::Health).toInt() < 80) {
+                    obj = m_protagonist->nearest(ObjectType::HealthPack);
+                }
+
+                if(obj) {
+                    QPoint objPos = obj->getData(DataRole::Position).toPoint();
+                    QPoint charPos = m_protagonist->getData(DataRole::Position).toPoint();
+                    QPoint doorPos(m_models[m_gameLevel].first->getRowCount(),
+                                   m_models[m_gameLevel].first->getColumnCount());
+                    int distObj = (objPos - charPos).manhattanLength();
+                    int distDoor = (doorPos - charPos).manhattanLength();
+
+                    if(distObj < distDoor) {
+                        pathFinder(objPos.x(), objPos.y());
+                    }
+                    pathFinder(-1, -1);
+                }
             }
+            characterMove(direction);
         }
     }
 }
 
+void GameController::pathFinder(int x, int y) {
+    bool full = (x == -1 && y == -1);
+    do {
+        auto nodes = m_models[m_gameLevel].second; // Node class for the pathfinder
+
+        int rows = m_models[m_gameLevel].first->getRowCount();
+        int cols = m_models[m_gameLevel].first->getColumnCount();
+
+        // Get protagonist position in the world = start position of the pathfinder
+        auto pos = static_cast<GameObject *>(m_protagonist->parent())->getData(DataRole::Position).toPoint();
+
+        Comparator<Node> comp = [](const Node &a, const Node &b) {
+            return a.h > b.h;
+        };
+        // Check for non valid input position
+        if(x >= rows || y >= cols || x < 0 || y < 0) {
+            y = cols - 1;
+            x = rows - 1;
+        }
+
+        auto *start = &nodes[rows * pos.y() + pos.x()];
+        auto *dest = &nodes[rows * y + x];
+        PathFinder<Node, Node> pathFinder(nodes, start, dest, comp, cols, 0.001f);
+
+        // Call the algorithm
+        auto path = pathFinder.A_star();
+        executePath(path, full);
+    } while(full);
+}
+
 void GameController::updateEnergy() {
-    int protagonistEnergy = m_character->getData(DataRole::Energy).toInt();
+    int protagonistEnergy = m_protagonist->getData(DataRole::Energy).toInt();
     emit energyUpdated(protagonistEnergy);
 
     if(protagonistEnergy == 0) {
@@ -203,7 +235,7 @@ void GameController::updateEnergy() {
 }
 
 void GameController::updateHealth() {
-    int protagonistHealth = m_character->getData(DataRole::Health).toInt();
+    int protagonistHealth = m_protagonist->getData(DataRole::Health).toInt();
     emit healthUpdated(protagonistHealth);
 
     if(protagonistHealth == 0) {
@@ -214,7 +246,7 @@ void GameController::updateHealth() {
 
 void GameController::characterMove(Direction to) {
     if(m_gameState == State::Running) {
-        if(auto move = m_character->getBehavior<Movement>()) {
+        if(auto move = m_protagonist->getBehavior<Movement>()) {
             move->stepOn(to);
             emit tick();
         }
@@ -223,7 +255,7 @@ void GameController::characterMove(Direction to) {
 
 void GameController::characterAtttack() {
     if(m_gameState == State::Running) {
-        if(auto attack = m_character->getBehavior<Attack>()) {
+        if(auto attack = m_protagonist->getBehavior<Attack>()) {
             attack->attack();
             emit tick();
         }

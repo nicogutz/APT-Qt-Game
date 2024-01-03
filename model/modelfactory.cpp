@@ -6,8 +6,9 @@
 #include "modelfactory.h"
 #include "world.h"
 
-QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
-                                                                            float pRatio, int level, int rows, int columns) {
+QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
+  unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
+  float pRatio, int level, int rows, int columns) {
     World m_world;
     createWorld(level, rows, columns);
     m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);
@@ -73,6 +74,8 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(unsi
             enemyY = rows - 2; // make sure no enemies on the doorway
         }
 
+        nodes[enemyY * columns + enemyX].setValue(0.8);
+
         ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
         auto *enemyObj = new GameObject();
         GameObjectSettings::getFunction(type)(enemyObj);
@@ -109,12 +112,11 @@ void ObjectModelFactory::createWorld(int level, int width, int height, double di
             double x = (double)j / ((double)width);
             double y = (double)i / ((double)height);
 
-            double n = 1 * pn.noise(x * width / 20, y * height / 20, 0.9);
-            n += 0.5 * pn.noise(x * width / 5, y * height / 5, 0.1);
-            n -= 0.5 * pn.noise(x * width / 5, y * height / 5, 0.1);
+            double n = 1.8 * pn.noise(x * width / 20, y * height / 30, 0.8);
+            n += 0.2 * pn.noise(x * width / 2, y * height / 3, 0.8);
 
             // Map the values to the [0, 255] interval
-            *pLine++ = floor(255 * n / 1.5);
+            *pLine++ = floor(255 * n / 2);
         }
     }
 

@@ -14,17 +14,12 @@
 #include <node.h>
 #include <pathfinder_class.h>
 
-#include "model/modelfactory.h"
 #include "model/gameobjectmodel.h"
 #include "view/gameview.h"
 #include <model/behaviors/concrete/poison/genericpoisonablebehavior.h>
 #include <model/behaviors/concrete/poison/genericpoisoningbehavior.h>
 #include <pathfinder_class.h>
 #include <model/behaviors/health.h>
-#include "model/behaviors/attack.h"
-#include "view/renderer/spriterenderer.h"
-#include "view/renderer/textrenderer.h"
-#include "view/renderer/colorrenderer.h"
 
 class GameWindow;
 
@@ -63,7 +58,7 @@ public:
      * @param x
      * @param y
      */
-    //void findAndMoveTo(int x, int y);
+    // void findAndMoveTo(int x, int y);
     /**
      * @brief characterMove call model behavior to move the protagonist
      * @param to
@@ -128,7 +123,8 @@ public:
     QSharedPointer<GameView> getView() { return m_view; } // GameView
     View getGameView() { return m_gameView; } // Visualization enum
 
-
+    void automaticAttack(Direction direction);
+    void executePath(std::vector<int> path, bool fully = false);
 signals:
     /**
      * @brief tick Emitted when a turn is complete.
@@ -187,7 +183,7 @@ private:
     /**
      * @brief m_character The protagonist of the game
      */
-    QPointer<GameObject> m_character;
+    QPointer<GameObject> m_protagonist;
     /**
      * @brief m_gameLevel current game level
      */

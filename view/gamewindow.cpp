@@ -1,6 +1,5 @@
 #include "gamewindow.h"
 
-
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_ui(new Ui::GameWindow)
@@ -8,7 +7,6 @@ GameWindow::GameWindow(QWidget *parent)
     , m_startTime(QDateTime::currentDateTime().toSecsSinceEpoch())
     , m_elapsedSeconds(0)
     , m_timer(new QTimer(this)) {
-
     // SETUP UI, CONTROLLER AND VIEW
     m_controller->setParent(this);
     m_ui->setupUi(this);
@@ -28,7 +26,6 @@ GameWindow::GameWindow(QWidget *parent)
     m_ui->textEdit->hide();
     m_ui->plainTextEdit->hide();
     m_ui->type_command->hide();
-    m_ui->path_find_trigger->setEnabled(false);
 
     // ZOOM INITIAL SETUP
     m_ui->horizontalSlider->setMinimum(-37);
@@ -49,27 +46,26 @@ GameWindow::GameWindow(QWidget *parent)
 
     // SIGNALS AND SLOTS
 
-
-// Pathfinder trigger
+    // Pathfinder trigger
     connect(m_ui->path_find_trigger, &QPushButton::clicked, [this]() {
         int x = m_ui->x_path->text().toInt();
         int y = m_ui->y_path->text().toInt();
         m_controller->pathFinder(x, y);
     });
-// Execute user input commands
+    // Execute user input commands
     QObject::connect(m_ui->textEdit, &QLineEdit::returnPressed, this, &GameWindow::processCommand);
-// Timer and pause / resume states
+    // Timer and pause / resume states
     connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTime);
     connect(m_ui->pause, &QPushButton::clicked, this, &GameWindow::togglePause);
     connect(m_ui->automatic, &QAction::changed, m_ui->manual, &QAction::toggle);
     connect(m_ui->manual, &QAction::changed, m_ui->automatic, &QAction::toggle);
-// Zoom control
+    // Zoom control
     connect(m_ui->horizontalSlider, &QSlider::valueChanged, this, &GameWindow::zoomBySlider);
-// Switch between visualizations
+    // Switch between visualizations
     connect(m_ui->sprite_mode, &QAction::triggered, this, &GameWindow::setSpriteView);
     connect(m_ui->text_mode, &QAction::triggered, this, &GameWindow::setTextualView);
     connect(m_ui->colour_mode, &QAction::triggered, this, &GameWindow::setColorView);
-// Signals from the controller
+    // Signals from the controller
     connect(m_controller.data(), &GameController::energyUpdated, m_ui->energy, &QProgressBar::setValue);
     connect(m_controller.data(), &GameController::healthUpdated, m_ui->health, &QProgressBar::setValue);
     connect(m_controller.data(), &GameController::enemiesUpdated, this, [this](unsigned int enemies) {
@@ -82,7 +78,7 @@ GameWindow::GameWindow(QWidget *parent)
         m_ui->lcdLevel->display((int)(level + 1));
     });
     connect(m_controller.data(), &GameController::gameOver, this, &GameWindow::gameOver);
-// Enable pathfinder button
+    // Enable pathfinder button
     connect(m_ui->x_path, &QLineEdit::textChanged, this, [this]() {
         updatePathFindTriggerButton();
     });

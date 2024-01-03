@@ -5,15 +5,19 @@ namespace _pub {
     Q_NAMESPACE
     enum class ObjectType : char {
         Overlay = -1,
+
         Tile = 0,
+
         Doorway = 1,
         HealthPack = 2,
+
         Protagonist = 50,
+
+        _ENEMIES_START = 99,
         Enemy = 100,
         PoisonEnemy = 101,
-        FireEnemy = 102,
-        MovingEnemy = 103,
-
+        MovingEnemy = 102,
+        _ENEMIES_END,
     };
     Q_ENUM_NS(ObjectType);
 
