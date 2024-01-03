@@ -82,6 +82,7 @@ QImage Renderer::animateHealthPack(int health, GamePixmapItem *item) {
     painter.end();
     return pixmap.toImage();
 }
+
 QPropertyAnimation *Renderer::animateHealth(Direction dir) {
     bool healthGain = (dir == Direction::Up);
     return animateTint({255 * !healthGain, 255 * healthGain, 0, 80});
@@ -135,6 +136,7 @@ QPropertyAnimation *Renderer::animateTint(QColor final, QColor initial) {
     anim->setLoopCount(1);
     return anim;
 }
+
 QPixmap Renderer::rotatePixmap(const QPixmap &originalPixmap, int direction) {
     QTransform transformation;
     transformation.rotate(-direction + 90);
