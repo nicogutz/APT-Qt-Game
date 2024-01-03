@@ -122,7 +122,7 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
 }
 
 QPixmap TextRenderer::renderDoorway(QMap<DataRole, QVariant>) {
-    return renderCharacter("||", 100, 100); // No special conditions for Doorway
+    return renderCharacter("||", 100, 100);
 }
 
 QPixmap TextRenderer::renderHealthPack(QMap<DataRole, QVariant> object) {
