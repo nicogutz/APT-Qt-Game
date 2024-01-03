@@ -9,8 +9,10 @@
 QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
   unsigned int nrOfEnemies, unsigned int nrOfHealthpacks,
   float pRatio, int level, int rows, int columns) {
+    std::vector<Node> nodes; // Node class for the pathfinder
     World m_world;
-    createWorld(level, rows, columns);
+
+    createWorld(level, rows, columns, (double)(level + 1) / 20.0);
     m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);
     QFile::remove(QStringLiteral("./world_%1.png").arg(level));
 
@@ -21,7 +23,6 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
 
     // insert tiles into model
     auto tiles = m_world.getTiles();
-    std::vector<Node> nodes; // Node class for the pathfinder
     for(const auto &tile : tiles) {
         nodes.emplace_back(tile->getXPos(), tile->getYPos(), tile->getValue());
         auto *obj = new GameObject({
@@ -57,6 +58,7 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
     for(const auto &hp : healthPacks) {
         auto *hpObj = new GameObject();
         GameObjectSettings::getFunction(ObjectType::HealthPack)(hpObj);
+        nodes[hp->getYPos() * columns + hp->getXPos()].setValue(0.01);
         hpObj->setParent(worldGrid[hp->getXPos()][hp->getYPos()]);
     }
 
@@ -112,11 +114,10 @@ void ObjectModelFactory::createWorld(int level, int width, int height, double di
             double x = (double)j / ((double)width);
             double y = (double)i / ((double)height);
 
-            double n = 1.8 * pn.noise(x * width / 20, y * height / 30, 0.8);
-            n += 0.2 * pn.noise(x * width / 2, y * height / 3, 0.8);
+            double n = 2 * pn.noise(x * width / 15, y * height / 30, 0.8);
 
             // Map the values to the [0, 255] interval
-            *pLine++ = floor(255 * n / 2);
+            *pLine++ = floor(255 * n * difficulty);
         }
     }
 

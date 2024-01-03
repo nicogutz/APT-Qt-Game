@@ -168,10 +168,10 @@ void GameController::executePath(std::vector<int> path, bool full) {
 
             if(full) {
                 QPointer<const GameObject> obj;
-                if(m_protagonist->getData(DataRole::Energy).toInt() < 80) {
+                if(m_protagonist->getData(DataRole::Energy).toInt() < 60) {
                     obj = m_protagonist->nearest({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
 
-                } else if(m_protagonist->getData(DataRole::Health).toInt() < 80) {
+                } else if(m_protagonist->getData(DataRole::Health).toInt() < 60) {
                     obj = m_protagonist->nearest(ObjectType::HealthPack);
                 }
 
