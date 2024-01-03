@@ -3,6 +3,8 @@
 
 #include "renderer.h"
 
+#include <QColor>
+#include <QPoint>
 #include <QPropertyAnimation>
 #include <QTimer>
 
@@ -38,18 +40,15 @@ public:
     };
 
 private:
-    int calculateFrame(QVariant direction, int numPOVs);
-    QPropertyAnimation *animateTint(QColor final, QColor initial = {0, 0, 0, 0});
-    QPropertyAnimation *animateDeath(QPoint frame);
-    QPropertyAnimation *animateHealth(Direction dir);
-    QPropertyAnimation *animateAttack(int dir, bool attacking);
-
-    QRect getTileRect(QMap<DataRole, QVariant> data);
     QImage sliceFrames(QImage image, QLine diagonal, QPoint frameSize);
+    QRect getTileRect(QMap<DataRole, QVariant> data);
+    QRect getCharacterRect(ObjectType type);
+    int calculateFrame(QVariant direction, int numPOVs);
+
+    QPropertyAnimation *animateDeath(QPoint frame);
 
     QImage m_tiles, m_characters;
     QSize m_charSize, m_tileSize;
-    QRect getCharacterRect(ObjectType type);
 };
 
 #endif // SPRITERENDERER_H

@@ -28,6 +28,10 @@ private:
     virtual QPixmap renderEnemy(QMap<DataRole, QVariant> object) {};
     virtual QPixmap renderPEnemy(QMap<DataRole, QVariant> object) {};
     virtual QPixmap renderMovingEnemy(QMap<DataRole, QVariant> object) {};
+
+    QPropertyAnimation *animateTint(QColor final, QColor initial = {0, 0, 0, 0});
+    QPropertyAnimation *animateAttack(int dir, bool attacking);
+    QPropertyAnimation *animateHealth(Direction dir);
 };
 
 #endif // RENDERER_H

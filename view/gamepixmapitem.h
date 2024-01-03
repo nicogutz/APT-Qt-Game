@@ -80,7 +80,7 @@ private:
     /**
      * @brief m_position
      */
-    QPointF m_scaling {1, 1};
+    QPointF m_scaling {0, 0};
 
     /**
      * @brief m_animationGroup

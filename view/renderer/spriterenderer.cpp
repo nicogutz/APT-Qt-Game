@@ -44,7 +44,7 @@ void SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapI
         case DataRole::Health:
             if((int)type > 49) {
                 if(data[DataRole::Health].toInt()) {
-                    item->addAnimation(animateHealth(data[DataRole::ChangeDirection].value<Direction>()));
+                    break;
                 } else {
                     item->animationGroup()->clear();
                     item->addAnimation(animateDeath(m_charMap[item->data((int)DataRole::Type).value<ObjectType>()].dead));
@@ -52,23 +52,11 @@ void SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapI
                 }
             }
             return;
-        case DataRole::PoisonLevel:
-            if(type == ObjectType::Tile) {
-                item->setTint({21, 88, 21, data[DataRole::PoisonLevel].toInt() * 15}, true);
-            }
-            return;
-        case DataRole::Strength:
-            item->addAnimation(animateAttack(
-              data[DataRole::Direction].toInt(),
-              data[DataRole::LatestChange].value<Direction>() == Direction::Up));
-            return;
-        case DataRole::Path:
-            item->setTint(QColor(0, 0, 255, 100), true);
-            return;
         default:
-            return;
+            break;
         }
     }
+    Renderer::renderGameObject(data, item);
 }
 
 QRect SpriteRenderer::getTileRect(QMap<DataRole, QVariant> data) {
@@ -95,39 +83,6 @@ QPropertyAnimation *SpriteRenderer::animateDeath(QPoint frame) {
     anim->setDuration(250 * frame.x());
     anim->setStartValue(QPoint(0, 1));
     anim->setEndValue(QPoint(frame.x(), 1));
-    anim->setLoopCount(1);
-    return anim;
-}
-
-QPropertyAnimation *SpriteRenderer::animateHealth(Direction dir) {
-    bool healthGain = (dir == Direction::Up);
-    return animateTint({255 * !healthGain, 255 * healthGain, 0, 80});
-}
-
-QPropertyAnimation *SpriteRenderer::animateAttack(int dir, bool attacking) {
-    double angle = attacking ? dir : (dir + 180) % 360;
-    QLineF line({0, 0}, {1, 0});
-    QTransform transformation;
-    transformation.rotate(angle);
-    line = transformation.map(line);
-
-    QPropertyAnimation *anim = new QPropertyAnimation();
-    anim->setPropertyName("scaling");
-    anim->setDuration(200);
-    anim->setStartValue(line.p1());
-    anim->setEndValue(line.p2());
-    anim->setEasingCurve(QEasingCurve::SineCurve);
-    anim->setLoopCount(1);
-    return anim;
-}
-
-QPropertyAnimation *SpriteRenderer::animateTint(QColor final, QColor initial) {
-    QPropertyAnimation *anim = new QPropertyAnimation();
-    anim->setPropertyName("tint");
-    anim->setDuration(400);
-    anim->setStartValue(initial);
-    anim->setEndValue(final);
-    anim->setEasingCurve(QEasingCurve::SineCurve);
     anim->setLoopCount(1);
     return anim;
 }
