@@ -23,7 +23,7 @@ class GameObjectSettings {
           {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
           {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
           {DataRole::Energy, Movement::SETTINGS::MAX_ENERGY},
-          {DataRole::Strength, Attack::SETTINGS::PLAYER_STRENGTH},
+          {DataRole::Strength, (float)Attack::SETTINGS::PLAYER_STRENGTH},
           {DataRole::PoisonLevel, Poison::SETTINGS::MIN_POISON},
           {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Down)},
 
@@ -78,7 +78,7 @@ class GameObjectSettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
           {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Enemy)},
           {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
-          {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
+          {DataRole::Strength, (float)Attack::SETTINGS::ENEMY_STRENGTH},
           {DataRole::Direction, 0},
 
         };

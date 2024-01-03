@@ -5,27 +5,15 @@
 #include <QPropertyAnimation>
 #include <QRegion>
 
-// int GamePixmapItem::frame() const {
-//     return m_frame;
-// }
-
-// void GamePixmapItem::setFrame(int newFrame) {
-//     if(m_frame == newFrame)
-//         return;
-//     m_frame = newFrame;
-////    QPixmap framePixmap = renderActor(m_cellSize, m_frame, m_deathFrameCount);
-//    this->setPixmap(framePixmap);
-//    emit frameChanged();
-//}
-
 QColor GamePixmapItem::getTint() const {
     return m_tint;
 }
 void GamePixmapItem::setTint(const QColor &newTint, bool onParent) {
     if(onParent) {
+        updatePixmap();
         auto pixmap = this->pixmap();
         QPainter painter(&pixmap);
-        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), QColor(0, 0, 255, 100));
+        painter.fillRect(QRect(QPoint(0, 0), pixmap.size()), newTint);
         painter.setCompositionMode(QPainter::CompositionMode_SoftLight);
         painter.drawPixmap(QPoint(0, 0), pixmap);
         this->setPixmap(pixmap);
@@ -41,6 +29,7 @@ void GamePixmapItem::setTint(const QColor &newTint) {
     updateOverlay();
     emit tintChanged();
 }
+
 void GamePixmapItem::updateOverlay() {
     QPixmap currentPixmap = this->pixmap();
     QPixmap overlay(currentPixmap.size());
@@ -68,14 +57,44 @@ void GamePixmapItem::updateOverlay() {
     child->setParentItem(this);
     child->setPixmap(overlay);
 }
+
+void GamePixmapItem::addAnimation(QPropertyAnimation *animation, bool sequential) {
+    animation->setTargetObject(this);
+    if(sequential) {
+        auto *group = dynamic_cast<QSequentialAnimationGroup *>(m_animationGroup->animationAt(0));
+        group->addAnimation(animation);
+    } else {
+        m_animationGroup->addAnimation(animation);
+    }
+
+    if(m_animationGroup->state() == QAnimationGroup::State::Stopped) {
+        m_animationGroup->start();
+    }
+}
+
+const QPointer<QParallelAnimationGroup> GamePixmapItem::animationGroup() const {
+    return m_animationGroup;
+}
+
+QPointF GamePixmapItem::scaling() const {
+    return m_scaling;
+}
+
+void GamePixmapItem::setScaling(QPointF newScaling) {
+    m_scaling = newScaling;
+    updatePixmap();
+    emit scalingChanged();
+}
+
 void GamePixmapItem::updatePixmap() {
     int x = m_frame.x() * m_frameDimension.width();
     int y = m_frame.y() * m_frameDimension.height();
 
-    QImage frame = m_sprite.copy(x, y, m_frameDimension.width(), m_frameDimension.height())
-                     .scaled(CELL_SIZE, CELL_SIZE, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QImage frame = m_sprite.copy(x, y, m_frameDimension.width(), m_frameDimension.height());
+    auto sc = QPoint(1, 1) - (m_scaling / 10);
 
-    this->setPixmap(QPixmap::fromImage(frame));
+    this->setPixmap(QPixmap::fromImage(frame).scaled(CELL_SIZE * sc.x(), CELL_SIZE * sc.y(),
+                                                     Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 QImage GamePixmapItem::sprite() const {
@@ -103,25 +122,6 @@ void GamePixmapItem::setFrameDimension(const QSize &newFrameDimension) {
     m_frameDimension = newFrameDimension;
     emit frameDimensionChanged();
 }
-
-// QPixmap GamePixmapItem::renderActor(int cellSize, int POVFrame, int numPOVs) {
-//     QImage image(m_sprite);
-
-//    int frameWidth = image.width() / numPOVs;
-//    QRect frameRect(POVFrame * frameWidth, 0, frameWidth, image.height());
-//    QImage POVImage = image.copy(frameRect);
-
-//    QPixmap resultPixmap(cellSize, cellSize);
-//    resultPixmap.fill(Qt::transparent);
-
-//    QPainter painter(&resultPixmap);
-//    QRect targetRect(cellSize / 10, cellSize / 10, cellSize - (cellSize * 2 / 10), cellSize - (cellSize * 2 / 10));
-
-//    painter.drawImage(targetRect, POVImage);
-//    painter.end();
-
-//    return resultPixmap;
-//}
 
 QPoint GamePixmapItem::frame() const {
     return m_frame;

@@ -11,6 +11,8 @@ GamePixmapItem *SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data) 
     ObjectType type = data[DataRole::Type].value<ObjectType>();
     switch(type) {
     case ObjectType::Tile:
+        // We could also save the whole tile sprite since
+        // images are shared data in Qt. I'm more partial to this.
         item->setSprite(m_tiles.copy(getTileRect(data)));
         item->updatePixmap();
         return item;
@@ -40,14 +42,25 @@ void SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapI
                             item->frame().y()});
             return;
         case DataRole::Health:
-            if((int)type > 99) {
+            if((int)type > 49) {
                 if(data[DataRole::Health].toInt()) {
-                    animateHealth(item, data[DataRole::ChangeDirection].value<Direction>());
+                    item->addAnimation(animateHealth(data[DataRole::ChangeDirection].value<Direction>()));
                 } else {
-                    animateDeath(item);
+                    item->animationGroup()->clear();
+                    item->addAnimation(animateDeath(m_charMap[item->data((int)DataRole::Type).value<ObjectType>()].dead));
                     item->setTint({0, 0, 0, 0});
                 }
             }
+            return;
+        case DataRole::PoisonLevel:
+            if(type == ObjectType::Tile) {
+                item->setTint({21, 88, 21, data[DataRole::PoisonLevel].toInt() * 15}, true);
+            }
+            return;
+        case DataRole::Strength:
+            item->addAnimation(animateAttack(
+              data[DataRole::Direction].toInt(),
+              data[DataRole::LatestChange].value<Direction>() == Direction::Up));
             return;
         case DataRole::Path:
             item->setTint(QColor(0, 0, 255, 100), true);
@@ -73,36 +86,48 @@ QRect SpriteRenderer::getCharacterRect(ObjectType type) {
 }
 
 int SpriteRenderer::calculateFrame(QVariant direction, int numPOVs) {
-    return ((direction.toInt() / 45 + 2) % (numPOVs + 1));
+    return (((direction.toInt() / 45) + 2) % (numPOVs + 1));
 }
 
-void SpriteRenderer::animateDeath(GamePixmapItem *item) {
-    QPropertyAnimation *deathAnimation = new QPropertyAnimation(item, "frame");
-    QPoint frame = m_charMap[item->data((int)DataRole::Type).value<ObjectType>()].dead;
-    deathAnimation->setParent(item);
-    deathAnimation->setDuration(250 * frame.x());
-    deathAnimation->setStartValue(QPoint(0, 1));
-    deathAnimation->setEndValue(QPoint(frame.x(), 1));
-    deathAnimation->setLoopCount(1);
-    deathAnimation->start(QAbstractAnimation::DeleteWhenStopped);
+QPropertyAnimation *SpriteRenderer::animateDeath(QPoint frame) {
+    QPropertyAnimation *anim = new QPropertyAnimation();
+    anim->setPropertyName("frame");
+    anim->setDuration(250 * frame.x());
+    anim->setStartValue(QPoint(0, 1));
+    anim->setEndValue(QPoint(frame.x(), 1));
+    anim->setLoopCount(1);
+    return anim;
 }
 
-void SpriteRenderer::animateHealth(GamePixmapItem *item, Direction dir) {
+QPropertyAnimation *SpriteRenderer::animateHealth(Direction dir) {
     bool healthGain = (dir == Direction::Up);
-    animateTint(item, {255 * !healthGain, 255 * healthGain, 0, 80})->start(QAbstractAnimation::DeleteWhenStopped);
+    return animateTint({255 * !healthGain, 255 * healthGain, 0, 80});
 }
 
-void SpriteRenderer::animatePoison(GamePixmapItem *item, int level) {
-    animateTint(item, {0, 255, 0, level * 3})->start(QAbstractAnimation::DeleteWhenStopped);
+QPropertyAnimation *SpriteRenderer::animateAttack(int dir, bool attacking) {
+    double angle = attacking ? dir : (dir + 180) % 360;
+    QLineF line({0, 0}, {1, 0});
+    QTransform transformation;
+    transformation.rotate(angle);
+    line = transformation.map(line);
+
+    QPropertyAnimation *anim = new QPropertyAnimation();
+    anim->setPropertyName("scaling");
+    anim->setDuration(200);
+    anim->setStartValue(line.p1());
+    anim->setEndValue(line.p2());
+    anim->setEasingCurve(QEasingCurve::SineCurve);
+    anim->setLoopCount(1);
+    return anim;
 }
 
-QPropertyAnimation *SpriteRenderer::animateTint(GamePixmapItem *item, QColor final, QColor initial) {
-    QPropertyAnimation *healthAnimation = new QPropertyAnimation(item, "tint");
-    healthAnimation->setParent(item);
-    healthAnimation->setDuration(400);
-    healthAnimation->setStartValue(initial);
-    healthAnimation->setEndValue(final);
-    healthAnimation->setEasingCurve(QEasingCurve::SineCurve);
-    healthAnimation->setLoopCount(1);
-    return healthAnimation;
+QPropertyAnimation *SpriteRenderer::animateTint(QColor final, QColor initial) {
+    QPropertyAnimation *anim = new QPropertyAnimation();
+    anim->setPropertyName("tint");
+    anim->setDuration(400);
+    anim->setStartValue(initial);
+    anim->setEndValue(final);
+    anim->setEasingCurve(QEasingCurve::SineCurve);
+    anim->setLoopCount(1);
+    return anim;
 }

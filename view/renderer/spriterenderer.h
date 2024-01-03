@@ -38,11 +38,11 @@ public:
     };
 
 private:
-    QPropertyAnimation *animateTint(GamePixmapItem *item, QColor final, QColor initial = {0, 0, 0, 0});
     int calculateFrame(QVariant direction, int numPOVs);
-    void animateDeath(GamePixmapItem *item);
-    void animateHealth(GamePixmapItem *item, Direction dir);
-    void animatePoison(GamePixmapItem *item, int level);
+    QPropertyAnimation *animateTint(QColor final, QColor initial = {0, 0, 0, 0});
+    QPropertyAnimation *animateDeath(QPoint frame);
+    QPropertyAnimation *animateHealth(Direction dir);
+    QPropertyAnimation *animateAttack(int dir, bool attacking);
 
     QRect getTileRect(QMap<DataRole, QVariant> data);
     QImage sliceFrames(QImage image, QLine diagonal, QPoint frameSize);

@@ -7,11 +7,11 @@
 int GenericAttackBehavior::attack(const QPointer<GameObject> &target) {
     // Get the strength of the object and calculate the attack
     // strength randomly.
-    int strenght = m_owner->getData(DataRole::Strength).toInt();
-    int attackStrength = QRandomGenerator::global()->bounded(1, strenght);
+    float strenght = m_owner->getData(DataRole::Strength).toFloat();
+    int attackStrength = QRandomGenerator::global()->bounded(1, (int)strenght);
 
     int attacks = 0;
-    for(auto bh : target->getAllBehaviors<Attack>()) {
+    for(const auto &bh : target->getAllBehaviors<Attack>()) {
         auto at = qSharedPointerDynamicCast<Attack>(bh);
         if(!bh.isNull()) {
             int healthChange = at->getAttacked(m_owner, attackStrength);
@@ -19,6 +19,7 @@ int GenericAttackBehavior::attack(const QPointer<GameObject> &target) {
                 m_owner->setData(DataRole::Energy, Movement::SETTINGS::MAX_ENERGY);
             }
             attacks += healthChange;
+            m_owner->setData(DataRole::Strength, strenght + 0.1);
         }
     };
     return -attacks;
@@ -35,7 +36,10 @@ int GenericAttackBehavior::attack() {
     return attack(m_owner->getData(DataRole::Direction).value<Direction>());
 }
 
-int GenericAttackBehavior::getAttacked(const QPointer<GameObject> &by, int strength) {
+int GenericAttackBehavior::getAttacked(const QPointer<GameObject> &, int strength) {
+    m_owner->setData(DataRole::Strength,
+                     m_owner->getData()[DataRole::Strength].toFloat() - 0.1);
+
     auto behavior = m_owner->getBehavior<Health>();
     return behavior.isNull() ? 0 : behavior->getHealthChanged(-strength);
 }

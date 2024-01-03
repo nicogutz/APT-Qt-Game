@@ -133,10 +133,7 @@ void GameController::automaticAttack(Direction direction) {
         while(QTime::currentTime() < time)
             QCoreApplication::processEvents(QEventLoop::AllEvents, 200);
 
-        if(auto attack = m_protagonist->getBehavior<Attack>()) {
-            attack->attack(direction);
-            emit tick();
-        }
+        characterAtttack();
     }
 }
 

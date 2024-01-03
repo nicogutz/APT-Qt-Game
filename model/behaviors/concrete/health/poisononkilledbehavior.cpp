@@ -40,7 +40,6 @@ void PoisonOnKilledBehavior::spreadPoison() {
 
         m_poisonCount--;
     } else {
-        m_owner->setData(DataRole::Destroyed, true);
         delete m_owner;
     }
 }
