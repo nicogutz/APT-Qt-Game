@@ -1,5 +1,6 @@
 #include "renderer.h"
 
+#include <QPainter>
 #include <QPropertyAnimation>
 
 Renderer::Renderer() {
@@ -36,8 +37,11 @@ void Renderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *i
                 if(data[DataRole::Health].toInt()) {
                     item->addAnimation(animateHealth(data[DataRole::ChangeDirection].value<Direction>()));
                 } else {
+                    item->setSprite(animateHealthPack(data[DataRole::Health].toInt(), item));
+                    item->updatePixmap();
                     break;
                 }
+            } else {
             }
             return;
         case DataRole::PoisonLevel:
@@ -46,6 +50,10 @@ void Renderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *i
             }
             return;
         case DataRole::Strength:
+            if(type == ObjectType::MovingEnemy) {
+                item->animationGroup()->clear();
+                item->setOpacity(1);
+            }
             item->addAnimation(animateAttack(
               data[DataRole::Direction].toInt(),
               data[DataRole::LatestChange].value<Direction>() == Direction::Up));
@@ -56,36 +64,24 @@ void Renderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *i
         default:
             return;
         }
-    } else {
-        switch(data[DataRole::Type].value<ObjectType>()) {
-        case ObjectType::Tile:
-            item->setPixmap(renderTile(data));
-            break;
-        case ObjectType::Doorway:
-            item->setPixmap(renderDoorway(data));
-            break;
-        case ObjectType::HealthPack:
-            item->setPixmap(renderHealthPack(data));
-            break;
-        case ObjectType::Protagonist:
-            item->setPixmap(renderProtagonist(data));
-            break;
-        case ObjectType::Enemy:
-            item->setPixmap(renderEnemy(data));
-            break;
-        case ObjectType::PoisonEnemy:
-            item->setPixmap(renderPEnemy(data));
-            break;
-        case ObjectType::MovingEnemy:
-            item->setPixmap(renderMovingEnemy(data));
-            break;
-        default:
-            item->setPixmap(renderEnemy(data));
-            break;
-        }
     }
 }
 
+QImage Renderer::animateHealthPack(int health, GamePixmapItem *item) {
+    auto pixmap = item->pixmap();
+    QPainterPath piePath;
+    piePath.moveTo(pixmap.rect().center());
+    piePath.arcTo(pixmap.rect(), 0, health * 10);
+
+    QPixmap croppedPixmap(pixmap.size());
+    croppedPixmap.fill(Qt::transparent);
+
+    QPainter painter(&croppedPixmap);
+    painter.setClipPath(piePath);
+    painter.drawPixmap(0, 0, pixmap);
+    painter.end();
+    return pixmap.toImage();
+}
 QPropertyAnimation *Renderer::animateHealth(Direction dir) {
     bool healthGain = (dir == Direction::Up);
     return animateTint({255 * !healthGain, 255 * healthGain, 0, 80});
@@ -105,10 +101,10 @@ QPropertyAnimation *Renderer::animateHide() {
     QPropertyAnimation *anim = new QPropertyAnimation();
     anim->setPropertyName("opacity");
     anim->setDuration(2000);
-    anim->setLoopCount(-1);
-    anim->setStartValue(0);
-    anim->setEndValue(1);
-    anim->setEasingCurve(QEasingCurve::SineCurve);
+    anim->setLoopCount(1);
+    anim->setStartValue(1);
+    anim->setEndValue(0);
+    anim->setEasingCurve(QEasingCurve::OutCubic);
     return anim;
 }
 

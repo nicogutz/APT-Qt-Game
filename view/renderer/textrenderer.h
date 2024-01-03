@@ -9,13 +9,13 @@ public:
     void renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item) override;
 
 private:
-    QPixmap renderTile(QMap<DataRole, QVariant> object) override;
-    QPixmap renderDoorway(QMap<DataRole, QVariant> object) override;
-    QPixmap renderHealthPack(QMap<DataRole, QVariant> object) override;
-    QPixmap renderProtagonist(QMap<DataRole, QVariant> object) override;
-    QPixmap renderEnemy(QMap<DataRole, QVariant> object) override;
-    QPixmap renderPEnemy(QMap<DataRole, QVariant> object) override;
-    QPixmap renderMovingEnemy(QMap<DataRole, QVariant> object) override;
+    QPixmap renderTile(QMap<DataRole, QVariant> object);
+    QPixmap renderDoorway(QMap<DataRole, QVariant> object);
+    QPixmap renderHealthPack(QMap<DataRole, QVariant> object);
+    QPixmap renderProtagonist(QMap<DataRole, QVariant> object);
+    QPixmap renderEnemy(QMap<DataRole, QVariant> object);
+    QPixmap renderPEnemy(QMap<DataRole, QVariant> object);
+    QPixmap renderMovingEnemy(QMap<DataRole, QVariant> object);
 
     QPixmap renderCharacter(QString str, QColor color);
     QPixmap renderCharacter(QString str, int weight, int size = 100);

@@ -1,18 +1,43 @@
 
 #include "colorrenderer.h"
 
-ColorRenderer::ColorRenderer() {
-}
-
-void ColorRenderer::renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item) {
-    Renderer::renderGameObject(objectData, item);
+void ColorRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) {
+    switch(data[DataRole::Type].value<ObjectType>()) {
+    case ObjectType::Tile:
+        item->setSprite(renderTile(data).toImage());
+        break;
+    case ObjectType::Doorway:
+        item->setSprite(renderDoorway(data).toImage());
+        break;
+    case ObjectType::HealthPack:
+        item->setSprite(renderHealthPack(data).toImage());
+        break;
+    case ObjectType::Protagonist:
+        item->setSprite(renderProtagonist(data).toImage());
+        break;
+    case ObjectType::Enemy:
+        item->setSprite(renderEnemy(data).toImage());
+        break;
+    case ObjectType::PoisonEnemy:
+        item->setSprite(renderPEnemy(data).toImage());
+        break;
+    case ObjectType::MovingEnemy:
+        item->setSprite(renderMovingEnemy(data).toImage());
+        break;
+    default:
+        item->setSprite(renderEnemy(data).toImage());
+        break;
+    }
+    item->updatePixmap();
+    item->setActive(true);
+    Renderer::renderGameObject(data, item);
 }
 
 QPixmap ColorRenderer::renderTile(
   QMap<DataRole, QVariant> object) {
     float energyLevel = object[DataRole::Energy].toFloat();
     int brightness = 255 - (energyLevel * 255 / 1);
-    QColor color(0, 0, brightness);
+    QColor color(179, 196, 255, brightness);
     QPixmap pixmap(CELL_SIZE, CELL_SIZE);
     pixmap.fill(color);
 
@@ -25,7 +50,7 @@ QPixmap ColorRenderer::renderTile(
     return pixmap;
 }
 
-QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
+QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant>) {
     QPixmap pixmap(CELL_SIZE, CELL_SIZE);
     pixmap.fill(Qt::transparent);
 
@@ -38,7 +63,7 @@ QPixmap ColorRenderer::renderDoorway(QMap<DataRole, QVariant> object) {
     pen.setWidth(2);
     painter.setPen(pen);
     painter.setBrush(QBrush(color));
-    
+
     QPoint topleft(CELL_SIZE / 5, CELL_SIZE / 5);
     QPoint topright(CELL_SIZE - (CELL_SIZE / 5), CELL_SIZE / 5);
     QPoint bottomleft(CELL_SIZE / 5, CELL_SIZE - (CELL_SIZE / 5));
@@ -60,7 +85,7 @@ QPixmap ColorRenderer::renderHealthPack(
     int maxIntensity = 255;
     int final_color = minIntensity + (maxIntensity - minIntensity) * healthLevel / 100;
     QColor color(0, final_color, 0);
-    
+
     QPixmap pixmap(CELL_SIZE, CELL_SIZE);
     pixmap.fill(Qt::transparent);
 
@@ -97,18 +122,18 @@ QPixmap ColorRenderer::renderProtagonist(
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> starPoints = {
-        QPoint(CELL_SIZE / 2, 0), // Top point
-        QPoint(CELL_SIZE, CELL_SIZE / 2), // Right point
-        QPoint(CELL_SIZE / 2, CELL_SIZE), // Bottom point
-        QPoint(0, CELL_SIZE / 2), // Left point
-        QPoint(CELL_SIZE / 2, 0) // Back to Top point
+      QPoint(CELL_SIZE / 2, 0), // Top point
+      QPoint(CELL_SIZE, CELL_SIZE / 2), // Right point
+      QPoint(CELL_SIZE / 2, CELL_SIZE), // Bottom point
+      QPoint(0, CELL_SIZE / 2), // Left point
+      QPoint(CELL_SIZE / 2, 0) // Back to Top point
     };
 
     QList<QPoint> arrowPoints = {
-        QPoint(CELL_SIZE / 2 + 8, 8), // Right-top midpoint
-        QPoint(CELL_SIZE / 2, 0), // Top point
-        QPoint(CELL_SIZE / 2 - 8, 8), // Left-top midpoint
-        QPoint(CELL_SIZE / 2 + 8, 8) // back to Right-top midpoint
+      QPoint(CELL_SIZE / 2 + 8, 8), // Right-top midpoint
+      QPoint(CELL_SIZE / 2, 0), // Top point
+      QPoint(CELL_SIZE / 2 - 8, 8), // Left-top midpoint
+      QPoint(CELL_SIZE / 2 + 8, 8) // back to Right-top midpoint
     };
 
     QPolygon rightHalf(starPoints.mid(0, 3));
@@ -151,11 +176,11 @@ QPixmap ColorRenderer::renderEnemy(
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> trianglePoints = {
-        QPoint(CELL_SIZE / 2, CELL_SIZE / 5), // Top
-        QPoint(CELL_SIZE - (CELL_SIZE / 5), CELL_SIZE - (CELL_SIZE / 5)), // Right bottom
-        QPoint(CELL_SIZE / 2, CELL_SIZE - (CELL_SIZE / 5)), // Bottom centre
-        QPoint(CELL_SIZE / 5, CELL_SIZE - (CELL_SIZE / 5)), // Left bott0m
-        QPoint(CELL_SIZE / 2, CELL_SIZE / 5) // Back to Top point
+      QPoint(CELL_SIZE / 2, CELL_SIZE / 5), // Top
+      QPoint(CELL_SIZE - (CELL_SIZE / 5), CELL_SIZE - (CELL_SIZE / 5)), // Right bottom
+      QPoint(CELL_SIZE / 2, CELL_SIZE - (CELL_SIZE / 5)), // Bottom centre
+      QPoint(CELL_SIZE / 5, CELL_SIZE - (CELL_SIZE / 5)), // Left bott0m
+      QPoint(CELL_SIZE / 2, CELL_SIZE / 5) // Back to Top point
     };
 
     int healthLevel = object[DataRole::Health].toInt();
@@ -182,11 +207,11 @@ QPixmap ColorRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> trianglePoints = {
-        QPoint(CELL_SIZE / 2, CELL_SIZE / 5), // Top
-        QPoint(CELL_SIZE - (CELL_SIZE / 5), CELL_SIZE - (CELL_SIZE / 5)), // Right bottom
-        QPoint(CELL_SIZE / 2, CELL_SIZE - (CELL_SIZE / 5)), // Bottom centre
-        QPoint(CELL_SIZE / 5, CELL_SIZE - (CELL_SIZE / 5)), // Left bott0m
-        QPoint(CELL_SIZE / 2, CELL_SIZE / 5) // Back to Top point
+      QPoint(CELL_SIZE / 2, CELL_SIZE / 5), // Top
+      QPoint(CELL_SIZE - (CELL_SIZE / 5), CELL_SIZE - (CELL_SIZE / 5)), // Right bottom
+      QPoint(CELL_SIZE / 2, CELL_SIZE - (CELL_SIZE / 5)), // Bottom centre
+      QPoint(CELL_SIZE / 5, CELL_SIZE - (CELL_SIZE / 5)), // Left bott0m
+      QPoint(CELL_SIZE / 2, CELL_SIZE / 5) // Back to Top point
     };
 
     QPolygon rightHalf(trianglePoints.mid(0, 3));
@@ -224,11 +249,11 @@ QPixmap ColorRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
     painter.setRenderHint(QPainter::Antialiasing);
 
     QList<QPoint> trianglePoints = {
-        QPoint(CELL_SIZE / 2, CELL_SIZE / 5), // Top
-        QPoint(CELL_SIZE - (CELL_SIZE / 5), CELL_SIZE - (CELL_SIZE / 5)), // Right bottom
-        QPoint(CELL_SIZE / 2, CELL_SIZE - (CELL_SIZE / 5)), // Bottom centre
-        QPoint(CELL_SIZE / 5, CELL_SIZE - (CELL_SIZE / 5)), // Left bott0m
-        QPoint(CELL_SIZE / 2, CELL_SIZE / 5) // Back to Top point
+      QPoint(CELL_SIZE / 2, CELL_SIZE / 5), // Top
+      QPoint(CELL_SIZE - (CELL_SIZE / 5), CELL_SIZE - (CELL_SIZE / 5)), // Right bottom
+      QPoint(CELL_SIZE / 2, CELL_SIZE - (CELL_SIZE / 5)), // Bottom centre
+      QPoint(CELL_SIZE / 5, CELL_SIZE - (CELL_SIZE / 5)), // Left bott0m
+      QPoint(CELL_SIZE / 2, CELL_SIZE / 5) // Back to Top point
     };
 
     QPolygon rightHalf(trianglePoints.mid(0, 3));

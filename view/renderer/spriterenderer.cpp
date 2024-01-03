@@ -49,6 +49,11 @@ void SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapI
         case DataRole::Direction:
             item->setFrame({calculateFrame(data[DataRole::Direction], m_charMap[type].alive.x()),
                             item->frame().y()});
+
+            if(data[DataRole::Type].value<ObjectType>() == ObjectType::MovingEnemy) {
+                item->animationGroup()->clear();
+                item->addAnimation(animateHide());
+            }
             return;
         case DataRole::Health:
             if((int)type > 49) {

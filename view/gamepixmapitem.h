@@ -24,7 +24,6 @@ public:
         , QGraphicsPixmapItem() {
         m_animationGroup = new QParallelAnimationGroup;
         m_animationGroup->setParent(this);
-        m_animationGroup->insertAnimation(0, new QSequentialAnimationGroup);
     };
 
     QPoint frame() const;
@@ -43,7 +42,7 @@ public:
     void updatePixmap();
     void updateOverlay();
 
-    void addAnimation(QPropertyAnimation *animation, bool sequential = false);
+    void addAnimation(QPropertyAnimation *animation);
 
     const QPointer<QParallelAnimationGroup> animationGroup() const;
 

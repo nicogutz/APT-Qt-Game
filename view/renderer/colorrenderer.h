@@ -10,17 +10,17 @@
 
 class ColorRenderer : public Renderer {
 public:
-    ColorRenderer();
+    ColorRenderer() { }
     void renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item) override;
 
 private:
-    QPixmap renderTile(QMap<DataRole, QVariant> object) override;
-    QPixmap renderDoorway(QMap<DataRole, QVariant> object) override;
-    QPixmap renderHealthPack(QMap<DataRole, QVariant> object) override;
-    QPixmap renderProtagonist(QMap<DataRole, QVariant> object) override;
-    QPixmap renderEnemy(QMap<DataRole, QVariant> object) override;
-    QPixmap renderPEnemy(QMap<DataRole, QVariant> object) override;
-    QPixmap renderMovingEnemy(QMap<DataRole, QVariant> object) override;
+    QPixmap renderTile(QMap<DataRole, QVariant> object);
+    QPixmap renderDoorway(QMap<DataRole, QVariant> object);
+    QPixmap renderHealthPack(QMap<DataRole, QVariant> object);
+    QPixmap renderProtagonist(QMap<DataRole, QVariant> object);
+    QPixmap renderEnemy(QMap<DataRole, QVariant> object);
+    QPixmap renderPEnemy(QMap<DataRole, QVariant> object);
+    QPixmap renderMovingEnemy(QMap<DataRole, QVariant> object);
 };
 
 #endif // COLORRENDERER_H

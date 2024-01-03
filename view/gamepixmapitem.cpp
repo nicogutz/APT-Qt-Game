@@ -58,15 +58,10 @@ void GamePixmapItem::updateOverlay() {
     child->setPixmap(overlay);
 }
 
-void GamePixmapItem::addAnimation(QPropertyAnimation *animation, bool sequential) {
+void GamePixmapItem::addAnimation(QPropertyAnimation *animation) {
     animation->setTargetObject(this);
-    if(sequential) {
-        auto *group = dynamic_cast<QSequentialAnimationGroup *>(m_animationGroup->animationAt(0));
-        group->addAnimation(animation);
-    } else {
-        m_animationGroup->addAnimation(animation);
-    }
-
+    m_animationGroup->addAnimation(animation);
+    animation->start();
     if(m_animationGroup->state() == QAnimationGroup::State::Stopped) {
         m_animationGroup->start();
     }

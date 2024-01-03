@@ -7,14 +7,42 @@
 TextRenderer::TextRenderer() {
 }
 
-void TextRenderer::renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item) {
-    Renderer::renderGameObject(objectData, item);
+void TextRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) {
+    switch(data[DataRole::Type].value<ObjectType>()) {
+    case ObjectType::Tile:
+        item->setSprite(renderTile(data).toImage());
+        break;
+    case ObjectType::Doorway:
+        item->setSprite(renderDoorway(data).toImage());
+        break;
+    case ObjectType::HealthPack:
+        item->setSprite(renderHealthPack(data).toImage());
+        break;
+    case ObjectType::Protagonist:
+        item->setSprite(renderProtagonist(data).toImage());
+        break;
+    case ObjectType::Enemy:
+        item->setSprite(renderEnemy(data).toImage());
+        break;
+    case ObjectType::PoisonEnemy:
+        item->setSprite(renderPEnemy(data).toImage());
+        break;
+    case ObjectType::MovingEnemy:
+        item->setSprite(renderMovingEnemy(data).toImage());
+        break;
+    default:
+        item->setSprite(renderEnemy(data).toImage());
+        break;
+    }
+    item->updatePixmap();
+    item->setActive(true);
+    Renderer::renderGameObject(data, item);
 }
 
 QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     // The Pixmaps have to be transparent, text is AAd by default
     QPixmap pixmap(CELL_SIZE, CELL_SIZE);
-    pixmap.fill(Qt::transparent);
+    pixmap.fill({227, 239, 255, 255});
     QPainter painter(&pixmap);
 
     QFont font = painter.font();
@@ -79,18 +107,27 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
         }
     }
 
+    if(int energy = object[DataRole::Energy].toInt()) {
+        int maxDots = CELL_SIZE;
+        int numberOfDots = (maxDots * energy);
+        painter.setPen(Qt::blue);
+        for(int i = 0; i < numberOfDots; ++i) {
+            int randomX = QRandomGenerator::global()->bounded(CELL_SIZE);
+            int randomY = QRandomGenerator::global()->bounded(CELL_SIZE);
+            painter.drawText(randomX, randomY, ".");
+        }
+    }
+
     return pixmap;
 }
 
 QPixmap TextRenderer::renderDoorway(QMap<DataRole, QVariant>) {
-    return renderCharacter("|_|", 100, 100); // No special conditions for Doorway
+    return renderCharacter("||", 100, 100); // No special conditions for Doorway
 }
 
 QPixmap TextRenderer::renderHealthPack(QMap<DataRole, QVariant> object) {
-    int healthLevel = object[DataRole::Health].toInt();
-    QColor color("darkBlue");
-    color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
-    return renderCharacter("c[_]", color);
+    QColor color(43, 255, 0);
+    return renderCharacter("c[]", color);
 }
 
 QPixmap TextRenderer::renderProtagonist(QMap<DataRole, QVariant> object) {
@@ -99,7 +136,7 @@ QPixmap TextRenderer::renderProtagonist(QMap<DataRole, QVariant> object) {
     QColor color("black");
     color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
 
-    return rotatePixmap(renderCharacter("ʕʘ̅͜ʘ̅ʔ", color), direction);
+    return rotatePixmap(renderCharacter(">", color), direction);
 }
 
 QPixmap TextRenderer::renderEnemy(QMap<DataRole, QVariant> object) {
@@ -109,7 +146,7 @@ QPixmap TextRenderer::renderEnemy(QMap<DataRole, QVariant> object) {
     QColor color("red");
     color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
 
-    return rotatePixmap(renderCharacter("⊙_◎", color), direction);
+    return rotatePixmap(renderCharacter("◎", color), direction);
 }
 
 QPixmap TextRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
@@ -126,7 +163,7 @@ QPixmap TextRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
         color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
     }
 
-    return rotatePixmap(renderCharacter("ⓧⓧ", color), direction);
+    return rotatePixmap(renderCharacter("ⓧ", color), direction);
 }
 
 QPixmap TextRenderer::renderCharacter(QString str, QColor color) {
@@ -137,7 +174,7 @@ QPixmap TextRenderer::renderCharacter(QString str, QColor color) {
     font.setBold(true);
     font.setKerning(false);
     font.setFixedPitch(true);
-    font.setPointSize(CELL_SIZE / 4); // Set the font size relative to cell size
+    font.setPointSize(CELL_SIZE / 1.7); // Set the font size relative to cell size
     font.setLetterSpacing(QFont::AbsoluteSpacing, 0);
     font.setWeight(QFont::Black);
     painter.setFont(font);
@@ -166,7 +203,7 @@ QPixmap TextRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
         color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
     }
 
-    return rotatePixmap(renderCharacter("|+|", color), direction);
+    return rotatePixmap(renderCharacter("@", color), direction);
 }
 
 QPixmap TextRenderer::renderCharacter(QString str, int weight, int size) {
