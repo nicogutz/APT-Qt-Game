@@ -90,6 +90,16 @@ const QPointer<GameObject> GameObject::findChild(ObjectType type) {
     }
     return nullptr;
 }
+const QPointer<GameObject> GameObject::findChild(QPair<ObjectType, ObjectType> range) {
+    auto children = findChildren<GameObject *>();
+    for(auto child : children) {
+        int type = child->getData(DataRole::Type).toInt();
+        if(type >= (int)range.first && type <= (int)range.second) {
+            return child;
+        }
+    }
+    return nullptr;
+}
 
 bool GameObject::hasChild(QPair<ObjectType, ObjectType> range) const {
     auto children = getAllData(false);

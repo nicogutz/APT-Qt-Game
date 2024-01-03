@@ -125,10 +125,13 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
     }
 }
 void GameController::automaticAttack(Direction direction) {
-    while(m_protagonist->getData(DataRole::Energy).toInt() != 100) {
+    auto target = m_protagonist->getNeighbor(direction)
+                    ->findChild({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
+
+    while(target && target->getData(DataRole::Health).toInt()) {
         QTime time = QTime::currentTime().addMSecs(100);
         while(QTime::currentTime() < time)
-            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 200);
 
         if(auto attack = m_protagonist->getBehavior<Attack>()) {
             attack->attack(direction);

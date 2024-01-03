@@ -80,6 +80,7 @@ public:
     const GameObject *nearest(QPair<ObjectType, ObjectType> range) const;
 
     const GameObject *nearest(ObjectType type) const;
+    const QPointer<GameObject> findChild(QPair<ObjectType, ObjectType> range);
 private:
     QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;
     QMap<DataRole, QVariant> m_objectData;
