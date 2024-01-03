@@ -156,7 +156,9 @@ void GameController::executePath(std::vector<int> path, bool full) {
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
             if(direction != m_protagonist->getData(DataRole::Direction).value<Direction>()) {
-                characterMove(direction);
+
+                    characterMove(direction);
+
             }
 
             // Check whether enemy is on the way of the path and attack it
@@ -186,7 +188,7 @@ void GameController::executePath(std::vector<int> path, bool full) {
                     if(distObj < distDoor) {
                         pathFinder(objPos.x(), objPos.y());
                     }
-                    pathFinder(-1, -1);
+                        pathFinder(-1, -1);
                 }
             }
             characterMove(direction);
@@ -220,7 +222,12 @@ void GameController::pathFinder(int x, int y) {
 
         // Call the algorithm
         auto path = pathFinder.A_star();
-        executePath(path, full);
+        if (m_gameState != State::GameOver){
+                    executePath(path, full);
+        }
+
+        if (m_gameState == State::GameOver){ break;}
+
     } while(full);
 }
 
@@ -245,7 +252,7 @@ void GameController::updateHealth() {
 }
 
 void GameController::characterMove(Direction to) {
-    if(m_gameState == State::Running) {
+    if(m_gameState == State::Running && m_gameState != State::GameOver) {
         if(auto move = m_protagonist->getBehavior<Movement>()) {
             move->stepOn(to);
             emit tick();

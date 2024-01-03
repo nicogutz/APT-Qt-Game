@@ -17,13 +17,17 @@ int main(int argc, char *argv[]) {
     // Make qDebug output function and line
     qSetMessagePattern("%{function}(%{line}): %{message}");
 
-    // Create the main classes of the gzme: GameWindow, GameView, GameController
+    // Create the main classes of the game: GameWindow, GameView, GameController
     GameWindow w;
 
     // connect quit and rerun game
-    QObject::connect(w.getUI()->quit_game, &QPushButton::clicked, &app, [] {
+
+    QObject::connect(w.getUI()->quit_game, &QPushButton::clicked, &app, [&w] {
+        w.getController()->setState(GameController::State::GameOver);
         QCoreApplication::quit();
+
     });
+
     QObject::connect(w.getUI()->rerun_game_2, &QPushButton::clicked, [] {
         QCoreApplication::quit();
         QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
