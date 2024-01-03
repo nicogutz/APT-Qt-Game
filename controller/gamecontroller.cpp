@@ -129,7 +129,7 @@ void GameController::automaticAttack(Direction direction) {
                     ->findChild({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
 
     while(target && target->getData(DataRole::Health).toInt()) {
-        QTime time = QTime::currentTime().addMSecs(100);
+        QTime time = QTime::currentTime().addMSecs(200);
         while(QTime::currentTime() < time)
             QCoreApplication::processEvents(QEventLoop::AllEvents, 200);
 
@@ -156,9 +156,7 @@ void GameController::executePath(std::vector<int> path, bool full) {
                 QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
             if(direction != m_protagonist->getData(DataRole::Direction).value<Direction>()) {
-
-                    characterMove(direction);
-
+                characterMove(direction);
             }
 
             // Check whether enemy is on the way of the path and attack it
@@ -170,10 +168,10 @@ void GameController::executePath(std::vector<int> path, bool full) {
 
             if(full) {
                 QPointer<const GameObject> obj;
-                if(m_protagonist->getData(DataRole::Energy).toInt() < 60) {
+                if(m_protagonist->getData(DataRole::Energy).toInt() < 80 || m_protagonist->getData(DataRole::PoisonLevel).toInt() > 15) {
                     obj = m_protagonist->nearest({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
 
-                } else if(m_protagonist->getData(DataRole::Health).toInt() < 60) {
+                } else if(m_protagonist->getData(DataRole::Health).toInt() < 80) {
                     obj = m_protagonist->nearest(ObjectType::HealthPack);
                 }
 
@@ -188,7 +186,7 @@ void GameController::executePath(std::vector<int> path, bool full) {
                     if(distObj < distDoor) {
                         pathFinder(objPos.x(), objPos.y());
                     }
-                        pathFinder(-1, -1);
+                    pathFinder(-1, -1);
                 }
             }
             characterMove(direction);
@@ -222,11 +220,13 @@ void GameController::pathFinder(int x, int y) {
 
         // Call the algorithm
         auto path = pathFinder.A_star();
-        if (m_gameState != State::GameOver){
-                    executePath(path, full);
+        if(m_gameState != State::GameOver) {
+            executePath(path, full);
         }
 
-        if (m_gameState == State::GameOver){ break;}
+        if(m_gameState == State::GameOver) {
+            break;
+        }
 
     } while(full);
 }

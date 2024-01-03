@@ -1,6 +1,4 @@
 #include "gameobjectmodel.h"
-#include <QTransform>
-#include <QLine>
 #include <math.h>
 int GameObjectModel::getRowCount() const {
     return m_world[0].size();
@@ -11,22 +9,23 @@ int GameObjectModel::getColumnCount() const {
 }
 
 const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, double direction, int offset) const {
-    // This is much better than what I was doing :P
-    QLine line({0, 0}, {offset + 1, 0});
+    double angleRad = -direction * M_PI / 180;
+    offset++;
+    // Took me a while to come up with this. It transforms any angle to an acute angle using mod 45.
+    // Since we know the adjacent side is always "offset" long we multiply it by the tan.
+    // The ternary fixes the issue that (n*45) % 45 is 0
+    double b = abs(std::fmod(direction, 90) - 45.0) < 1e-6 ? offset : offset * tan((std::fmod(direction, 45)) * M_PI / 180);
 
-    // QTransforms are great, they are a matrix.
-    QTransform transformation;
-    transformation.rotate(-direction);
-    line = transformation.map(line);
+    // Calculate the length of the hypothenuse. c = sqrt(a^2+b^2)
+    double c = sqrt(offset * offset + b * b);
 
-    int x = line.x2() + location.x();
-    int y = line.y2() + location.y();
+    int x = location.x() + round((c * cos(angleRad)));
+    int y = location.y() + round((c * sin(angleRad)));
 
     // No tile access allowed in the void.
     if(0 > x || 0 > y || x >= getRowCount() || y >= getColumnCount()) {
         return QPointer<GameObject>(nullptr);
     }
-
     // Im pretty sure this won't cause any issues :shrug:
     return m_world.at(y).at(x);
 }

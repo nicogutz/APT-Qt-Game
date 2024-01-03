@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup>
+#include <QTimer>
 #include <iostream>
 
 GamePixmapItem *SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data) {
