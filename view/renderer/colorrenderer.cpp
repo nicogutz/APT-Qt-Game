@@ -97,7 +97,6 @@ QPixmap ColorRenderer::renderHealthPack(
     painter.setPen(pen);
     painter.setBrush(QBrush(color));
 
-    // Define points for the rhombus
     QPoint top(CELL_SIZE / 2, CELL_SIZE / 5);
     QPoint right(CELL_SIZE - (CELL_SIZE / 5), CELL_SIZE / 2);
     QPoint bottom(CELL_SIZE / 2, CELL_SIZE - (CELL_SIZE / 5));
@@ -105,7 +104,6 @@ QPixmap ColorRenderer::renderHealthPack(
 
     QList<QPoint> points = {top, right, bottom, left};
 
-    // Draw the rhombus
     painter.drawPolygon(points.data(), points.size());
 
     painter.end();
