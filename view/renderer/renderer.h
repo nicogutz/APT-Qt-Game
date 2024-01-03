@@ -29,9 +29,12 @@ private:
     virtual QPixmap renderPEnemy(QMap<DataRole, QVariant> object) {};
     virtual QPixmap renderMovingEnemy(QMap<DataRole, QVariant> object) {};
 
+protected:
     QPropertyAnimation *animateTint(QColor final, QColor initial = {0, 0, 0, 0});
     QPropertyAnimation *animateAttack(int dir, bool attacking);
+    QPropertyAnimation *animateBounce();
     QPropertyAnimation *animateHealth(Direction dir);
+    QPropertyAnimation *animateHide();
 };
 
 #endif // RENDERER_H

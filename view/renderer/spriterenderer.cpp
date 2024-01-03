@@ -28,6 +28,15 @@ GamePixmapItem *SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data) 
         item->setSprite(m_characters.copy(getCharacterRect(type)));
         item->setFrameDimension(m_charSize);
         item->updatePixmap();
+        switch(type) {
+        case ObjectType::Protagonist:
+            item->addAnimation(Renderer::animateBounce());
+            break;
+        case ObjectType::MovingEnemy:
+            item->addAnimation(Renderer::animateHide());
+        default:
+            break;
+        }
         return item;
     }
 }

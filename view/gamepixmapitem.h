@@ -15,6 +15,8 @@ class GamePixmapItem : public QObject, public QGraphicsPixmapItem {
     Q_PROPERTY(QColor tint READ getTint WRITE setTint NOTIFY tintChanged FINAL)
     Q_PROPERTY(QPoint frame READ frame WRITE setFrame NOTIFY frameChanged FINAL)
     Q_PROPERTY(QPointF scaling READ scaling WRITE setScaling NOTIFY scalingChanged FINAL)
+    Q_PROPERTY(QPointF pos READ pos WRITE setPos NOTIFY posChanged FINAL)
+    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity NOTIFY opacityChanged FINAL)
 
 public:
     explicit GamePixmapItem()
@@ -93,6 +95,8 @@ signals:
     void spriteChanged();
     void frameDimensionChanged();
     void scalingChanged();
+    void posChanged();
+    void opacityChanged();
 };
 
 #endif // GAMEPIXMAPITEM_H

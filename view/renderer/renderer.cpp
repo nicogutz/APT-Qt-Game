@@ -91,6 +91,27 @@ QPropertyAnimation *Renderer::animateHealth(Direction dir) {
     return animateTint({255 * !healthGain, 255 * healthGain, 0, 80});
 }
 
+QPropertyAnimation *Renderer::animateBounce() {
+    QPropertyAnimation *anim = new QPropertyAnimation();
+    anim->setPropertyName("pos");
+    anim->setDuration(500);
+    anim->setLoopCount(-1);
+    anim->setStartValue(QPointF(0, 0));
+    anim->setEndValue(QPointF(0, 3));
+    anim->setEasingCurve(QEasingCurve::OutInBounce);
+    return anim;
+}
+QPropertyAnimation *Renderer::animateHide() {
+    QPropertyAnimation *anim = new QPropertyAnimation();
+    anim->setPropertyName("opacity");
+    anim->setDuration(2000);
+    anim->setLoopCount(-1);
+    anim->setStartValue(0);
+    anim->setEndValue(1);
+    anim->setEasingCurve(QEasingCurve::SineCurve);
+    return anim;
+}
+
 QPropertyAnimation *Renderer::animateAttack(int dir, bool attacking) {
     double angle = attacking ? dir : (dir + 180) % 360;
     QLineF line({0, 0}, {1, 0});
