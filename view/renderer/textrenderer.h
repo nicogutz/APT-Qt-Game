@@ -80,7 +80,6 @@ private:
      * @return QPixmap
      */
     QPixmap renderCharacter(QString str, QColor color);
-    QPixmap renderCharacter(QString str, int weight, int size = 100);
 };
 
 #endif // TEXTRENDERER_H

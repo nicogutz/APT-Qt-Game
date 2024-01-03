@@ -122,10 +122,11 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
 }
 
 QPixmap TextRenderer::renderDoorway(QMap<DataRole, QVariant>) {
-    return renderCharacter("||", 100, 100);
+    QColor color(0, 0, 0);
+    return renderCharacter("||", color);
 }
 
-QPixmap TextRenderer::renderHealthPack(QMap<DataRole, QVariant> object) {
+QPixmap TextRenderer::renderHealthPack(QMap<DataRole, QVariant>) {
     QColor color(43, 255, 0);
     return renderCharacter("c[]", color);
 }
@@ -206,23 +207,3 @@ QPixmap TextRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
     return rotatePixmap(renderCharacter("@", color), direction);
 }
 
-QPixmap TextRenderer::renderCharacter(QString str, int weight, int size) {
-    QPixmap pixmap(CELL_SIZE, CELL_SIZE);
-    pixmap.fill(Qt::transparent);
-    QPainter painter(&pixmap);
-    painter.setRenderHint(QPainter::Antialiasing);
-
-    QFont font = painter.font();
-    font.setBold(weight > 50);
-    font.setPointSize((CELL_SIZE / 2 - 20) + (size / 20));
-    painter.setFont(font);
-
-    QPen pen = painter.pen();
-    pen.setWidth(weight / 10);
-    painter.setPen(pen);
-
-    painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(str));
-    painter.end();
-
-    return pixmap;
-}
