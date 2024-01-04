@@ -19,7 +19,7 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class GameWindow;
+    class GameWindow;
 }
 QT_END_NAMESPACE
 
@@ -140,14 +140,11 @@ public slots:
      */
     void setColorView();
 
-
-
 protected:
     /**
      * @brief keyPressEvent handles user key presses and calls the corresponding methods in the controller
      * @param event
      */
     void keyPressEvent(QKeyEvent *event) override;
-
 };
 #endif // GAMEWINDOW_H

@@ -30,6 +30,15 @@ class GameController : public QGraphicsView {
     Q_OBJECT
 public:
     /**
+     * @brief GameController controls the state of the game, has instance of the model data
+     */
+    GameController(QSize size = {40, 25})
+        : QGraphicsView()
+        , m_gameLevel(0)
+        , m_gameState(State::Running)
+        , m_gameView(View::Sprite)
+        , m_levelSize(size) {};
+    /**
      * @brief The State enum, Game states can be Running, Paused or GameOver
      */
     enum class State {
@@ -45,10 +54,6 @@ public:
         Sprite,
         Color,
     };
-    /**
-     * @brief GameController controls the state of the game, has instance of the model data
-     */
-    GameController();
     /**
      * @brief startGame starts the game at level 1
      */
@@ -170,8 +175,6 @@ signals:
      */
     void levelUpdated(int level);
 
-
-
 private:
     /**
      * @brief m_model List of the different game models for different levels, holds all game data and logic
@@ -181,7 +184,6 @@ private:
      * @brief m_view The scene of the controller
      */
     QSharedPointer<GameView> m_view;
-
     /**
      * @brief m_character The protagonist of the game
      */
@@ -206,6 +208,10 @@ private:
      * @brief m_enemies Number of current enemies in the game
      */
     int m_enemies;
+    /**
+     * @brief m_levelSize Size of the levels
+     */
+    QSize m_levelSize;
 };
 
 #endif // GAMECONTROLLER_H

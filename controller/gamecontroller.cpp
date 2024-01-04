@@ -8,12 +8,6 @@
 #include "view/renderer/textrenderer.h"
 #include "view/renderer/colorrenderer.h"
 
-GameController::GameController()
-    : QGraphicsView()
-    , m_gameLevel(0)
-    , m_gameState(State::Running)
-    , m_gameView(View::Sprite) {};
-
 void GameController::startGame() {
     m_view = QSharedPointer<GameView>::create(this); // Instantiate the GameView
     m_view->setRenderer(QSharedPointer<SpriteRenderer>::create()); // Instantiate and set the default renderer
@@ -58,11 +52,13 @@ void GameController::updateLevel(Direction direction) {
 
 void GameController::createNewLevel(int level) {
     // Set the level parameters
+    int tiles = m_levelSize.width() * m_levelSize.height();
     m_gameLevel = level;
-    m_enemies = 4 * (level + 1) + 25;
-    m_health_packs = 10 - (level / 3);
+    m_enemies = tiles / 20 + (level + 1) * sqrt(tiles) / 10;
+    m_health_packs = sqrt(tiles) / 4 - (level / 5);
     // Call the model factory to generate model
-    auto model = ObjectModelFactory::createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel);
+    auto model = ObjectModelFactory::createModel(m_enemies, m_health_packs, 0.5f, m_gameLevel,
+                                                 m_levelSize.height(), m_levelSize.width());
     m_models.append(model);
     model.first->setParent(this);
     // Set the character aka protagonist

@@ -1,15 +1,51 @@
 #include "gamewindow.h"
 
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QInputDialog>
+#include <QSpinBox>
+
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_ui(new Ui::GameWindow)
-    , m_controller(QSharedPointer<GameController>::create())
+    , m_timer(new QTimer(this))
     , m_startTime(QDateTime::currentDateTime().toSecsSinceEpoch())
-    , m_elapsedSeconds(0)
-    , m_timer(new QTimer(this)) {
+    , m_elapsedSeconds(0) {
+    // CHOOSE GAME SIZE
+    QDialog dialog(this);
+    QFormLayout form(&dialog);
+
+    form.addRow(new QLabel("Select Game Size"));
+
+    QSpinBox *colSpinBox = new QSpinBox(&dialog);
+    colSpinBox->setRange(20, 2000);
+    colSpinBox->setValue(40);
+    form.addRow("Width", colSpinBox);
+
+    QSpinBox *rowSpinBox = new QSpinBox(&dialog);
+    rowSpinBox->setRange(20, 2000);
+    colSpinBox->setValue(30);
+    form.addRow("Height", rowSpinBox);
+
+    // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+                               Qt::Horizontal, &dialog);
+    form.addRow(&buttonBox);
+    QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+    if(dialog.exec() == QDialog::Accepted) {
+        // START GAME
+        m_controller = QSharedPointer<GameController>(new GameController({
+          colSpinBox->cleanText().toInt(),
+          rowSpinBox->cleanText().toInt(),
+        }));
+    }
+
     // SETUP UI, CONTROLLER AND VIEW
     m_controller->setParent(this);
     m_ui->setupUi(this);
+    setWindowState(Qt::WindowMaximized);
 
     // OTHER SETUP
     initializeCommands(); // Initializes the user commands as lists and maps them to slots/methods and desriptions

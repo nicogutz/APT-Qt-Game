@@ -115,7 +115,7 @@ void ObjectModelFactory::createWorld(int level, int width, int height, double di
             double x = (double)j / ((double)width);
             double y = (double)i / ((double)height);
 
-            double n = 10 * pn.noise(x * width / 15, y * height / 30, 0.8);
+            double n = 4 * pn.noise(x * width / 15, y * height / 30, 0.8);
 
             // Map the values to the [0, 255] interval
             *pLine++ = floor(255 * n * difficulty);
