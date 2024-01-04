@@ -1,4 +1,5 @@
 ************************************************* APT Game Project *****************************************************
+
 --Project Summary--
 
 APT is a dynamic, interactive game developed using C++ and the Qt framework. The game combines strategic movement, attack mechanisms, and various behavior models to create a unique gaming experience.
@@ -13,6 +14,7 @@ APT is a dynamic, interactive game developed using C++ and the Qt framework. The
     
 
 --Main Classes--
+
 GameWindow, GameController, GameView, GameObject, GameObjectModel + Renderers & Behaviors
 
 --Game Features Overview--
