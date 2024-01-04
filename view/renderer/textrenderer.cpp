@@ -39,7 +39,7 @@ void TextRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapIte
     case ObjectType::PoisonEnemy:
         image = renderCharacter("ⓧ", {
                                        0,
-                                       TO_CHAR(data[DataRole::PoisonLevel].toInt()),
+                                       255,
                                        0,
                                        TO_CHAR(data[DataRole::Health].toInt()),
                                      },

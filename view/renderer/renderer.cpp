@@ -23,6 +23,9 @@ GamePixmapItem *Renderer::renderGameObject(QMap<DataRole, QVariant> data) {
 }
 
 void Renderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) {
+    if(data[DataRole::Path].toBool())
+        item->setTint(QColor(0, 0, 255, 100), true);
+
     if(item->isActive()) {
         DataRole change = data[DataRole::LatestChange].value<DataRole>();
         ObjectType type = data[DataRole::Type].value<ObjectType>();
@@ -53,9 +56,6 @@ void Renderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *i
             item->addAnimation(animateAttack(
               data[DataRole::Direction].toInt(),
               data[DataRole::LatestChange].value<Direction>() == Direction::Up));
-            return;
-        case DataRole::Path:
-            item->setTint(QColor(0, 0, 255, 100), true);
             return;
         default:
             return;
