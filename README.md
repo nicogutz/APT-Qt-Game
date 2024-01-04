@@ -4,8 +4,11 @@ APT is a dynamic, interactive game developed using C++ and the Qt framework. The
 
 --Contributors--
     • Nicolas Gutrierrez: Implemented the model and the behaviors (GameObject, GameObjectModel, GamePixmapItem, publicEnums, GameObjectSettings, PerlinNoise + all the behaviors)
+
     • Nur Alda: Implemented the views and the renderers (GameView, Renderer, TextRenderer, ColorRenderer, SpriteRenderer)
+
     • Salma Loukili: Implemented the controller and the UI (ModelFactory, GameController, GameWindow, GameWindow.ui, Node.h)
+    
 
 --Main Classes--
 GameWindow, GameController, GameView, GameObject, GameObjectModel + Renderers & Behaviors
