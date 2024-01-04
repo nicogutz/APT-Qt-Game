@@ -6,8 +6,8 @@
 #include <iostream>
 
 GamePixmapItem *SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data) {
-    auto *item = new GamePixmapItem();
-    item->setData((int)DataRole::Type, data[DataRole::Type]);
+    // Create the item
+    auto *item = Renderer::renderGameObject(data);
 
     ObjectType type = data[DataRole::Type].value<ObjectType>();
     switch(type) {
@@ -18,6 +18,7 @@ GamePixmapItem *SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data) 
         item->updatePixmap();
         return item;
     case ObjectType::Doorway:
+        // When the frame dimension is not set it
         item->setSprite(QImage(":/images/doorway.png"));
         item->updatePixmap();
         return item;
@@ -28,15 +29,13 @@ GamePixmapItem *SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data) 
     default:
         item->setSprite(m_characters.copy(getCharacterRect(type)));
         item->setFrameDimension(m_charSize);
+        item->setFrame({calculateFrame(data[DataRole::Direction], m_charMap[type].alive.x()),
+                        item->frame().y()});
         item->updatePixmap();
-        switch(type) {
-        case ObjectType::Protagonist:
-            item->addAnimation(Renderer::animateBounce());
-            break;
-        case ObjectType::MovingEnemy:
+        item->addAnimation(Renderer::animateBounce());
+
+        if(type == ObjectType::MovingEnemy) {
             item->addAnimation(Renderer::animateHide());
-        default:
-            break;
         }
         return item;
     }
@@ -46,11 +45,12 @@ void SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapI
     DataRole change = data[DataRole::LatestChange].value<DataRole>();
     ObjectType type = data[DataRole::Type].value<ObjectType>();
     if(item->isActive()) {
+        // Animates every time the data changes. They all run in parallel so they don't affect eachother.
         switch(change) {
         case DataRole::Direction:
             item->setFrame({calculateFrame(data[DataRole::Direction], m_charMap[type].alive.x()),
                             item->frame().y()});
-
+            // So they look like ghosts
             if(data[DataRole::Type].value<ObjectType>() == ObjectType::MovingEnemy) {
                 item->animationGroup()->clear();
                 item->addAnimation(animateHide());
@@ -84,14 +84,17 @@ QRect SpriteRenderer::getCharacterRect(ObjectType type) {
     CharacterData data = m_charMap[type];
     int maxX = data.alive.x() > data.dead.x() ? data.alive.x() : data.dead.x();
 
-    return {0, data.alive.y() * m_charSize.height(),
-            m_charSize.width() * maxX, m_charSize.height() * 2};
+    return {
+      0,
+      data.alive.y() * m_charSize.height(),
+      m_charSize.width() * (maxX + 1),
+      m_charSize.height() * 2,
+    };
 }
 
 int SpriteRenderer::calculateFrame(QVariant direction, int numPOVs) {
     return (((direction.toInt() / 45) + 2) % (numPOVs + 1));
 }
-
 QPropertyAnimation *SpriteRenderer::animateDeath(QPoint frame) {
     QPropertyAnimation *anim = new QPropertyAnimation();
     anim->setPropertyName("frame");

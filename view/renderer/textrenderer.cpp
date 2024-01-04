@@ -5,9 +5,6 @@
 #include "textrenderer.h"
 #define TO_CHAR(v) ((v * 255) / 100)
 
-TextRenderer::TextRenderer() {
-}
-
 void TextRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) {
     QImage image;
     switch(data[DataRole::Type].value<ObjectType>()) {

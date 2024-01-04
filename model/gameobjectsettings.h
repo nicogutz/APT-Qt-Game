@@ -79,8 +79,6 @@ class GameObjectSettings {
           {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Enemy)},
           {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
           {DataRole::Strength, (float)Attack::SETTINGS::ENEMY_STRENGTH},
-          {DataRole::Direction, 0},
-
         };
 
         static void setObject(GameObject *obj) {
@@ -110,6 +108,7 @@ class GameObjectSettings {
           {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
           {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
           {DataRole::Energy, Movement::SETTINGS::MAX_ENERGY * 10},
+
         };
 
         static void setObject(GameObject *obj) {

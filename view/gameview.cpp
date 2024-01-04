@@ -17,14 +17,14 @@ void GameView::createScene(
     if(!m_tiles.empty()) {
         clear();
     }
+
     m_tiles = QList<QList<GamePixmapItem *>>(gameObjects.size());
+
     for(int y = 0; y < gameObjects.size(); ++y) {
         QList<GamePixmapItem *> rowItems(gameObjects[0].size());
         m_tiles[y] = (rowItems);
-
         for(int x = 0; x < gameObjects[0].size(); ++x) {
-            if(x < gameObjects.size() && y < gameObjects[x].size()
-               && !gameObjects[y][x].empty()) {
+            if(x < gameObjects.size() && y < gameObjects[x].size() && !gameObjects[y][x].empty()) {
                 auto *item = m_renderer->renderGameObjects(gameObjects[y][x]);
                 item->setPos(x * item->pixmap().width(), y * item->pixmap().height());
                 m_tiles[y][x] = item; // Store the shared pointer in m_tiles

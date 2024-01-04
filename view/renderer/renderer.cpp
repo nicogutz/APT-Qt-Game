@@ -1,29 +1,25 @@
 #include "renderer.h"
+#include "qrandom.h"
 
 #include <QPainter>
 #include <QPropertyAnimation>
 
-Renderer::Renderer() {
-}
+GamePixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> dataList) {
+    auto *tile = renderGameObject(dataList[0]);
+    renderGameObject(dataList[0], tile);
 
-GamePixmapItem *Renderer::renderGameObjects(QList<QMap<DataRole, QVariant>> objectDataList) {
-    auto *tile = renderGameObject(objectDataList[0]);
-    tile->setData((int)DataRole::Type, objectDataList[0][DataRole::Type]);
-
-    for(const auto &data : objectDataList.mid(1, -1)) {
+    for(const auto &data : dataList.mid(1, -1)) {
         auto *obj = renderGameObject(data);
-        obj->setData((int)DataRole::Type, data[DataRole::Type]);
+        renderGameObject(data, obj);
         obj->setParentItem(tile);
     }
     return tile;
 }
 
 GamePixmapItem *Renderer::renderGameObject(QMap<DataRole, QVariant> data) {
-    auto *obj = new GamePixmapItem();
-    obj->setData((int)DataRole::Type, data[DataRole::Type]);
-
-    renderGameObject(data, obj);
-    return obj;
+    auto *item = new GamePixmapItem();
+    item->setData((int)DataRole::Type, data[DataRole::Type]);
+    return item;
 }
 
 void Renderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) {
@@ -91,7 +87,7 @@ QPropertyAnimation *Renderer::animateHealth(Direction dir) {
 QPropertyAnimation *Renderer::animateBounce() {
     QPropertyAnimation *anim = new QPropertyAnimation();
     anim->setPropertyName("pos");
-    anim->setDuration(500);
+    anim->setDuration(QRandomGenerator::global()->bounded(400, 600));
     anim->setLoopCount(-1);
     anim->setStartValue(QPointF(0, 0));
     anim->setEndValue(QPointF(0, 3));

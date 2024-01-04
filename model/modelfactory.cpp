@@ -81,6 +81,7 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
         ObjectType type = dynamic_cast<PEnemy *>(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;
         auto *enemyObj = new GameObject();
         GameObjectSettings::getFunction(type)(enemyObj);
+        enemyObj->setData(DataRole::Direction, QRandomGenerator::global()->bounded(0, 7) * 45);
         enemyObj->setParent(worldGrid[enemyX][enemyY]);
     }
 

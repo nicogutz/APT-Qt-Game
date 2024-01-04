@@ -11,11 +11,6 @@
 class Renderer {
 public:
     /**
-     * @brief Renderer constructor
-     */
-    Renderer();
-
-    /**
      * @brief ~Renderer virtual destructor
      */
     virtual ~Renderer() {
