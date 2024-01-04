@@ -23,18 +23,18 @@ const QPointer<GameObject> GameObjectModel::getNeighbor(QPoint location, double 
     int y = location.y() + round((c * sin(angleRad)));
 
     // No tile access allowed in the void.
-    if(0 > x || 0 > y || x >= getRowCount() || y >= getColumnCount()) {
+    if(0 > x || 0 > y || x >= getColumnCount() || y >= getRowCount()) {
         return QPointer<GameObject>(nullptr);
     }
     // Im pretty sure this won't cause any issues :shrug:
-    return m_world.at(y).at(x);
+    return m_world.at(x).at(y);
 }
 QList<QList<QMap<DataRole, QVariant>>> GameObjectModel::getAllData(bool) const {
     QList<QList<QMap<DataRole, QVariant>>> list;
-    for(int y = 0; y < getColumnCount(); ++y) {
+    for(int x = 0; x < getColumnCount(); ++x) {
         list.append(QList<QMap<DataRole, QVariant>>());
-        for(int x = 0; x < getRowCount(); ++x) {
-            list[y].append(m_world[y][x]->getData());
+        for(int y = 0; y < getRowCount(); ++y) {
+            list[x].append(m_world[x][y]->getData());
         }
     }
     return list;
@@ -42,21 +42,21 @@ QList<QList<QMap<DataRole, QVariant>>> GameObjectModel::getAllData(bool) const {
 
 QList<QList<QList<QMap<DataRole, QVariant>>>> GameObjectModel::getAllData() const {
     QList<QList<QList<QMap<DataRole, QVariant>>>> list;
-    for(int y = 0; y < getColumnCount(); ++y) {
+    for(int x = 0; x < getColumnCount(); ++x) {
         list.append(QList<QList<QMap<DataRole, QVariant>>>());
-        for(int x = 0; x < getRowCount(); ++x) {
-            list[y].append(m_world[y][x]->getAllData());
+        for(int y = 0; y < getRowCount(); ++y) {
+            list[x].append(m_world[x][y]->getAllData());
         }
     }
     return list;
 }
 
-QPointer<GameObject> GameObjectModel::getObject(int row, int column, ObjectType type) const {
-    if(row > getRowCount() || column > getColumnCount()) {
+QPointer<GameObject> GameObjectModel::getObject(int x, int y, ObjectType type) const {
+    if(y > getRowCount() || x > getColumnCount()) {
         return QPointer<GameObject>(nullptr);
     }
 
-    auto tile = m_world[column][row];
+    auto tile = m_world[x][y];
     if(type == ObjectType::Tile) {
         return tile;
     }
@@ -66,9 +66,9 @@ QPointer<GameObject> GameObjectModel::getObject(int row, int column, ObjectType 
 
 QList<QPointer<GameObject>> GameObjectModel::getObject(ObjectType type) const {
     QList<QPointer<GameObject>> list {};
-    for(int y = 0; y < getColumnCount(); ++y) {
-        for(int x = 0; x < getRowCount(); ++x) {
-            if(auto tile = getObject(y, x, type)) {
+    for(int x = 0; x < getColumnCount(); ++x) {
+        for(int y = 0; y < getRowCount(); ++y) {
+            if(auto tile = getObject(x, y, type)) {
                 list.append(tile);
             }
         }
@@ -76,16 +76,16 @@ QList<QPointer<GameObject>> GameObjectModel::getObject(ObjectType type) const {
     return list;
 }
 
-void GameObjectModel::setItem(int row, int column, QPointer<GameObject> object) {
-    if(row > getRowCount() || column > getColumnCount()) {
+void GameObjectModel::setItem(int x, int y, QPointer<GameObject> object) {
+    if(y > getRowCount() || x > getColumnCount()) {
         throw "Cannot set outside range";
     }
 
     if(object->getData(DataRole::Type).value<ObjectType>() == ObjectType::Tile) {
-        delete m_world[column][row];
-        m_world[column][row] = object;
+        delete m_world[x][y];
+        m_world[x][y] = object;
         return;
     }
 
-    object->setParent(m_world[column][row]);
+    object->setParent(m_world[x][y]);
 }

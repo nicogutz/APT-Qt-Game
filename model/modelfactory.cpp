@@ -12,13 +12,13 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
     std::vector<Node> nodes; // Node class for the pathfinder
     World m_world;
 
-    createWorld(level, rows, columns, (double)(level + 1) / 20.0);
+    createWorld(level, columns, rows, (double)(level + 1) / 20.0);
     m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);
     QFile::remove(QStringLiteral("./world_%1.png").arg(level));
 
-    QList<QList<QPointer<GameObject>>> worldGrid(rows); // instantiate gameObjectModel aka the worldgrid
-    for(int i = 0; i < rows; ++i) {
-        worldGrid[i] = QList<QPointer<GameObject>>(columns);
+    QList<QList<QPointer<GameObject>>> worldGrid(columns); // instantiate gameObjectModel aka the worldgrid
+    for(int i = 0; i < columns; ++i) {
+        worldGrid[i] = QList<QPointer<GameObject>>(rows);
     }
 
     // insert tiles into model
@@ -30,7 +30,7 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
           {DataRole::Position, QPoint(tile->getXPos(), tile->getYPos())},
         });
         GameObjectSettings::getFunction(ObjectType::Tile)(obj);
-        worldGrid[tile->getYPos()][tile->getXPos()] = obj;
+        worldGrid[tile->getXPos()][tile->getYPos()] = obj;
     }
     // Process doorways
     if(level) {
@@ -45,7 +45,7 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
       {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Up)},
     });
     GameObjectSettings::getFunction(ObjectType::Doorway)(exitDoor);
-    exitDoor->setParent(worldGrid[rows - 1][columns - 1]);
+    exitDoor->setParent(worldGrid[columns - 1][rows - 1]);
 
     // Process protagonist
     auto protagonist = m_world.getProtagonist();
@@ -64,7 +64,7 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
 
     // Process Enemies and Poison Enemies
     auto enemies = m_world.getEnemies();
-    int enemyLocations[rows][columns];
+    int enemyLocations[columns][rows];
     memset(enemyLocations, 0, sizeof(enemyLocations));
 
     for(const auto &enemy : enemies) {
@@ -92,8 +92,8 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
         GameObjectSettings::getFunction(ObjectType::MovingEnemy)(enemyObj);
         int x = 0, y = 0;
         do {
-            x = QRandomGenerator::global()->bounded(1, rows - 2);
-            y = QRandomGenerator::global()->bounded(1, columns - 2);
+            x = QRandomGenerator::global()->bounded(1, columns - 2);
+            y = QRandomGenerator::global()->bounded(1, rows - 2);
         } while(!enemyLocations[x][y]);
         enemyObj->setParent(worldGrid[x][y]);
         movingEnemies--;
@@ -115,7 +115,7 @@ void ObjectModelFactory::createWorld(int level, int width, int height, double di
             double x = (double)j / ((double)width);
             double y = (double)i / ((double)height);
 
-            double n = 4 * pn.noise(x * width / 15, y * height / 30, 0.8);
+            double n = 10 * pn.noise(x * width / 15, y * height / 30, 0.8);
 
             // Map the values to the [0, 255] interval
             *pLine++ = floor(255 * n * difficulty);

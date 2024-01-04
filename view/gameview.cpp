@@ -20,14 +20,14 @@ void GameView::createScene(
 
     m_tiles = QList<QList<GamePixmapItem *>>(gameObjects.size());
 
-    for(int y = 0; y < gameObjects.size(); ++y) {
+    for(int x = 0; x < gameObjects.size(); ++x) {
         QList<GamePixmapItem *> rowItems(gameObjects[0].size());
-        m_tiles[y] = (rowItems);
-        for(int x = 0; x < gameObjects[0].size(); ++x) {
-            if(x < gameObjects.size() && y < gameObjects[x].size() && !gameObjects[y][x].empty()) {
-                auto *item = m_renderer->renderGameObjects(gameObjects[y][x]);
+        m_tiles[x] = (rowItems);
+        for(int y = 0; y < gameObjects[0].size(); ++y) {
+            if(x < gameObjects.size() && y < gameObjects[x].size() && !gameObjects[x][y].empty()) {
+                auto *item = m_renderer->renderGameObjects(gameObjects[x][y]);
                 item->setPos(x * item->pixmap().width(), y * item->pixmap().height());
-                m_tiles[y][x] = item; // Store the shared pointer in m_tiles
+                m_tiles[x][y] = item; // Store the shared pointer in m_tiles
                 addItem(item);
             }
         }
@@ -39,7 +39,7 @@ void GameView::setRenderer(QSharedPointer<Renderer> newRenderer) {
 }
 
 GamePixmapItem *GameView::getPixmapItem(int x, int y, QVariant type) {
-    auto tile = m_tiles[y][x];
+    auto tile = m_tiles[x][y];
     switch(type.value<ObjectType>()) {
     case ObjectType::Tile:
         return tile;

@@ -178,8 +178,8 @@ void GameController::executePath(std::vector<int> path, bool full) {
                 if(obj) {
                     QPoint objPos = obj->getData(DataRole::Position).toPoint();
                     QPoint charPos = m_protagonist->getData(DataRole::Position).toPoint();
-                    QPoint doorPos(m_models[m_gameLevel].first->getRowCount(),
-                                   m_models[m_gameLevel].first->getColumnCount());
+                    QPoint doorPos(m_models[m_gameLevel].first->getColumnCount(),
+                                   m_models[m_gameLevel].first->getRowCount());
                     int distObj = (objPos - charPos).manhattanLength();
                     int distDoor = (doorPos - charPos).manhattanLength();
 
@@ -209,13 +209,13 @@ void GameController::pathFinder(int x, int y) {
             return a.h > b.h;
         };
         // Check for non valid input position
-        if(x >= rows || y >= cols || x < 0 || y < 0) {
-            y = cols - 1;
-            x = rows - 1;
+        if(x >= cols || y >= rows || x < 0 || y < 0) {
+            y = rows - 1;
+            x = cols - 1;
         }
 
-        auto *start = &nodes[rows * pos.y() + pos.x()];
-        auto *dest = &nodes[rows * y + x];
+        auto *start = &nodes[cols * pos.y() + pos.x()];
+        auto *dest = &nodes[cols * y + x];
         PathFinder<Node, Node> pathFinder(nodes, start, dest, comp, cols, 0.001f);
 
         // Call the algorithm
