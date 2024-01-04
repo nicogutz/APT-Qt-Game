@@ -6,7 +6,8 @@
 #include "view/gamepixmapitem.h"
 
 /**
- * @brief The Renderer class
+ * @brief The Renderer class is a base class for the renderers
+ * that use different visualizations for objects
  */
 class Renderer {
 public:
@@ -18,47 +19,55 @@ public:
 
     /**
      * @brief renderGameObjects renders the initial state of the world
-     * @param objectData
-     * @return GamePixmapItem
+     * @param objectData is the full data which is parsed one by one
+     * @return tile The GamePixmap with the data visualized
      */
     GamePixmapItem *renderGameObjects(QList<QMap<DataRole, QVariant>> objectData);
 
     /**
-     * @brief renderGameObject renders separate objects one by one
-     * @param objectData
-     * @return GamePixmapItem
+     * @brief renderGameObject creates GamePixmapItem and sets the objectData on it
+     * @param objectData The GameObject data to set on the item
+     * @param item The GamePixmapItem which is teh separate tile in the world
+     * This function is overloaded in some child classes of Renderer
      */
     virtual GamePixmapItem *renderGameObject(QMap<DataRole, QVariant> objectData);
 
     /**
      * @brief renderGameObject applies latest change to the object visually to show change of the state
-     * @param objectData
-     * @param item
+     * @param objectData the data of the item
+     * @param item the item to animate changes of
+     * Gets overloaded in Renderer's child classes
      */
     virtual void renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item);
 
     /**
      * @brief rotatePixmap rotated the pixmap based on direction
-     * @param originalPixmap
-     * @param direction
-     * @return QPixmap
+     * @param originalPixmap initial pixmap of the object
+     * @param direction the direction in which pixmap is turned
+     * @return QPixmap The rotated pixmap
      */
     QPixmap rotatePixmap(const QPixmap &originalPixmap, int direction);
 
+    /**
+     * @brief rotateImage rotates the image based on direction
+     * @param image initial image of the object
+     * @param direction the direction in which image is turned
+     * @return QImage the rotated image
+     */
     QImage rotateImage(const QImage &image, int direction);
 
 protected:
     /**
-     * @brief CELL_SIZE
+     * @brief CELL_SIZE is constant size of the grid cell
      */
     inline static constexpr int CELL_SIZE = 50;
 
 protected:
     /**
      * @brief animateHealthPack animates the protagonist obtain of the healthpack
-     * @param health
-     * @param item
-     * @return QImage
+     * @param health the health level of the object
+     * @param item the GamePixmapItem of the health pack
+     * @return QImage The animated QImage of the health pack
      */
     QImage animateHealthPack(int health, GamePixmapItem *item);
 
@@ -72,28 +81,28 @@ protected:
 
     /**
      * @brief animateAttack animates the attack by slightly moving the pixmap in the direction of dir
-     * @param dir
-     * @param attacking
-     * @return QPropertyAnimation
+     * @param dir the direction of the attack
+     * @param attacking boolean indication the if the object is attacking or is getting atacked
+     * @return QPropertyAnimation The animation of the attack
      */
     QPropertyAnimation *animateAttack(int dir, bool attacking);
 
     /**
      * @brief animateBounce animates bouncing movement of the protagonist
-     * @return QPropertyAnimation
+     * @return QPropertyAnimation the animation of the bounce
      */
     QPropertyAnimation *animateBounce();
 
     /**
      * @brief animateHealth animates health gain of the protagonist
-     * @param dir
-     * @return QPropertyAnimation
+     * @param dir indicates if health is gained or lost
+     * @return QPropertyAnimation the animation of health loss or gain
      */
     QPropertyAnimation *animateHealth(Direction dir);
 
     /**
      * @brief animateHide animates the change of the opacity in the object, implemented on the moving enemy in our case
-     * @return QPropertyAnimation
+     * @return QPropertyAnimation the animation of the breathing color of the object
      */
     QPropertyAnimation *animateHide();
 };

@@ -4,8 +4,7 @@
 #include "renderer.h"
 
 /**
- * @brief TextRenderer Performs rendering of the bojects for the text view.
- * Re renders the obje
+ * @brief TextRenderer Performs rendering of the objects for the text view.
  */
 class TextRenderer : public Renderer {
 public:
