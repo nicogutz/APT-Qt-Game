@@ -137,8 +137,14 @@ QPropertyAnimation *Renderer::animateTint(QColor final, QColor initial) {
     return anim;
 }
 
-QPixmap Renderer::rotatePixmap(const QPixmap &originalPixmap, int direction) {
+QPixmap Renderer::rotatePixmap(const QPixmap &pixmap, int direction) {
     QTransform transformation;
     transformation.rotate(-direction + 90);
-    return originalPixmap.transformed(transformation);
+    return pixmap.transformed(transformation);
+}
+
+QImage Renderer::rotateImage(const QImage &image, int direction) {
+    QTransform transformation;
+    transformation.rotate(-direction + 90);
+    return image.transformed(transformation);
 }

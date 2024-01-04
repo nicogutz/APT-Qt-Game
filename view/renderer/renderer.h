@@ -10,7 +10,6 @@
  */
 class Renderer {
 public:
-
     /**
      * @brief Renderer constructor
      */
@@ -51,15 +50,15 @@ public:
      */
     QPixmap rotatePixmap(const QPixmap &originalPixmap, int direction);
 
-protected:
+    QImage rotateImage(const QImage &image, int direction);
 
+protected:
     /**
      * @brief CELL_SIZE
      */
     inline static constexpr int CELL_SIZE = 50;
 
 protected:
-
     /**
      * @brief animateHealthPack animates the protagonist obtain of the healthpack
      * @param health

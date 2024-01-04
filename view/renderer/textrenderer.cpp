@@ -3,43 +3,70 @@
 #include <QPen>
 #include <QRandomGenerator>
 #include "textrenderer.h"
+#define TO_CHAR(v) ((v * 255) / 100)
 
 TextRenderer::TextRenderer() {
 }
 
 void TextRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) {
+    QImage image;
     switch(data[DataRole::Type].value<ObjectType>()) {
     case ObjectType::Tile:
-        item->setSprite(renderTile(data).toImage());
+        image = renderTile(data);
         break;
     case ObjectType::Doorway:
-        item->setSprite(renderDoorway(data).toImage());
+        image = rotateImage(renderCharacter("||", {0, 0, 0, 255}), 180);
         break;
     case ObjectType::HealthPack:
-        item->setSprite(renderHealthPack(data).toImage());
+        image = rotateImage(renderCharacter("c[]", {43, 255, 0}), 180);
         break;
     case ObjectType::Protagonist:
-        item->setSprite(renderProtagonist(data).toImage());
+        image = renderCharacter("Å",
+                                {
+                                  0,
+                                  0,
+                                  0,
+                                  TO_CHAR(data[DataRole::Health].toInt()),
+                                },
+                                data[DataRole::Direction].toInt());
         break;
     case ObjectType::Enemy:
-        item->setSprite(renderEnemy(data).toImage());
+        image = renderCharacter("#", {
+                                       255,
+                                       0,
+                                       0,
+                                       TO_CHAR(data[DataRole::Health].toInt()),
+                                     },
+                                data[DataRole::Direction].toInt());
         break;
     case ObjectType::PoisonEnemy:
-        item->setSprite(renderPEnemy(data).toImage());
+        image = renderCharacter("ⓧ", {
+                                       0,
+                                       TO_CHAR(data[DataRole::PoisonLevel].toInt()),
+                                       0,
+                                       TO_CHAR(data[DataRole::Health].toInt()),
+                                     },
+                                data[DataRole::Direction].toInt());
         break;
     case ObjectType::MovingEnemy:
-        item->setSprite(renderMovingEnemy(data).toImage());
+        image = renderCharacter("@", {
+                                       255,
+                                       255,
+                                       0,
+                                       TO_CHAR(data[DataRole::Health].toInt()),
+                                     },
+                                data[DataRole::Direction].toInt());
         break;
     default:
-        item->setSprite(renderEnemy(data).toImage());
         break;
     }
+    item->setSprite(image);
     item->updatePixmap();
     item->setActive(true);
     Renderer::renderGameObject(data, item);
 }
 
-QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
+QImage TextRenderer::renderTile(QMap<DataRole, QVariant> data) {
     // The Pixmaps have to be transparent, text is AAd by default
     QPixmap pixmap(CELL_SIZE, CELL_SIZE);
     pixmap.fill({227, 239, 255, 255});
@@ -66,7 +93,7 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     painter.drawText(3 * linePosition - 4, CELL_SIZE - 3, "_");
     painter.drawText(4 * linePosition - 4, CELL_SIZE - 3, "_");
 
-    if(!object[DataRole::Position].toPoint().y()) {
+    if(!data[DataRole::Position].toPoint().y()) {
         painter.drawText(linePosition - 4, 0, "_");
         painter.drawText(2 * linePosition - 4, 0, "_");
         painter.drawText(3 * linePosition - 4, 0, "_");
@@ -90,13 +117,13 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
     painter.drawText(CELL_SIZE - 2, 3 * (CELL_SIZE / 4) - 2, "|");
     painter.drawText(CELL_SIZE - 2, CELL_SIZE - 2, "|");
 
-    if(object[DataRole::Energy] == INFINITY) {
+    if(data[DataRole::Energy] == INFINITY) {
         for(int i = 0; i < CELL_SIZE; i++)
             for(int j = 0; j < CELL_SIZE; j++)
                 painter.drawText(i, j, ".");
     }
 
-    if(int poisonLevel = object[DataRole::PoisonLevel].toInt()) {
+    if(int poisonLevel = data[DataRole::PoisonLevel].toInt()) {
         int maxDots = CELL_SIZE;
         int numberOfDots = (maxDots * poisonLevel);
         painter.setPen(Qt::green);
@@ -107,9 +134,9 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
         }
     }
 
-    if(int energy = object[DataRole::Energy].toInt()) {
+    if(float energy = data[DataRole::Energy].toFloat()) {
         int maxDots = CELL_SIZE;
-        int numberOfDots = (maxDots * energy);
+        int numberOfDots = round(((float)maxDots * energy));
         painter.setPen(Qt::blue);
         for(int i = 0; i < numberOfDots; ++i) {
             int randomX = QRandomGenerator::global()->bounded(CELL_SIZE);
@@ -118,56 +145,10 @@ QPixmap TextRenderer::renderTile(QMap<DataRole, QVariant> object) {
         }
     }
 
-    return pixmap;
+    return pixmap.toImage();
 }
 
-QPixmap TextRenderer::renderDoorway(QMap<DataRole, QVariant>) {
-    QColor color(0, 0, 0);
-    return renderCharacter("||", color);
-}
-
-QPixmap TextRenderer::renderHealthPack(QMap<DataRole, QVariant>) {
-    QColor color(43, 255, 0);
-    return renderCharacter("c[]", color);
-}
-
-QPixmap TextRenderer::renderProtagonist(QMap<DataRole, QVariant> object) {
-    int healthLevel = object[DataRole::Health].toInt();
-    int direction = object[DataRole::Direction].toInt();
-    QColor color("black");
-    color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
-
-    return rotatePixmap(renderCharacter(">", color), direction);
-}
-
-QPixmap TextRenderer::renderEnemy(QMap<DataRole, QVariant> object) {
-    int healthLevel = object[DataRole::Health].toInt();
-    int direction = object[DataRole::Direction].toInt();
-
-    QColor color("red");
-    color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
-
-    return rotatePixmap(renderCharacter("◎", color), direction);
-}
-
-QPixmap TextRenderer::renderPEnemy(QMap<DataRole, QVariant> object) {
-    int healthLevel = object[DataRole::Health].toInt();
-    int poisonLevel = object[DataRole::PoisonLevel].toInt();
-    int direction = object[DataRole::Direction].toInt();
-    QColor color;
-    if(healthLevel <= 0) {
-        color = QColor("darkgreen");
-        color.setHsv(color.hue(), poisonLevel, color.value(), color.alpha());
-
-    } else {
-        color = QColor("green");
-        color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
-    }
-
-    return rotatePixmap(renderCharacter("ⓧ", color), direction);
-}
-
-QPixmap TextRenderer::renderCharacter(QString str, QColor color) {
+QImage TextRenderer::renderCharacter(QString str, QColor color, int direction) {
     QPixmap pixmap(CELL_SIZE, CELL_SIZE);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -187,23 +168,5 @@ QPixmap TextRenderer::renderCharacter(QString str, QColor color) {
     painter.drawText(pixmap.rect(), Qt::AlignCenter, QString(str));
     painter.end();
 
-    return pixmap;
+    return rotateImage(pixmap.toImage(), direction);
 }
-
-QPixmap TextRenderer::renderMovingEnemy(QMap<DataRole, QVariant> object) {
-    int healthLevel = object[DataRole::Health].toInt();
-    int energyLevel = object[DataRole::Energy].toInt();
-    int direction = object[DataRole::Direction].toInt();
-    QColor color;
-    if(healthLevel <= 0) {
-        color = QColor("darkyellow");
-        color.setHsv(color.hue(), energyLevel, color.value(), color.alpha());
-
-    } else {
-        color = QColor("yellow");
-        color.setHsv(color.hue(), healthLevel, color.value(), color.alpha());
-    }
-
-    return rotatePixmap(renderCharacter("@", color), direction);
-}
-
