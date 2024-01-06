@@ -144,6 +144,9 @@ void GameController::executePath(std::vector<int> path, bool full) {
         }
 
         for(int move : path) {
+            if(m_gameState == State::GameOver) {
+                break;
+            }
             Direction direction = (Direction)((45 * move + 90) % 360);
 
             // Quick Delay for visualization
@@ -180,9 +183,15 @@ void GameController::executePath(std::vector<int> path, bool full) {
                     int distDoor = (doorPos - charPos).manhattanLength();
 
                     if(distObj < distDoor) {
-                        pathFinder(objPos.x(), objPos.y());
+                        if (m_gameState != State::GameOver){
+                            pathFinder(objPos.x(), objPos.y());
+                        }
+
                     }
-                    pathFinder(-1, -1);
+                    if (m_gameState != State::GameOver){
+                           pathFinder(-1, -1);
+                    }
+
                 }
             }
             characterMove(direction);
@@ -284,3 +293,6 @@ void GameController::updateGameView(View view) {
     m_view->createScene(data, renderer);
     m_gameView = view;
 }
+
+
+

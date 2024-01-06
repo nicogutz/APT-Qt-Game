@@ -375,6 +375,14 @@ void GameWindow::updatePathFindTriggerButton() {
     m_ui->path_find_trigger->setEnabled(enableButton);
 }
 
+
+void GameWindow::closeEvent(QCloseEvent *event) {
+    // Perform the same actions as quit button
+    m_controller->setState(GameController::State::GameOver);
+    QMainWindow::closeEvent(event);
+}
+
+
 // DESTRUCTOR
 
 GameWindow::~GameWindow() {

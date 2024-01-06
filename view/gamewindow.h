@@ -125,6 +125,11 @@ public slots:
      * @brief gameOver displays summary pop up message when the game is over, captures controller signal
      */
     void gameOver();
+    /**
+     * @brief closeEvent Overrides CloseEvent to make sure the process is killed when the X button is clicked
+     * @param event
+     */
+    void closeEvent(QCloseEvent *event) override;
 
     // VISUALIZATION
     /**
@@ -139,6 +144,7 @@ public slots:
      * @brief setColorView sets the UI parameters for the color visualization and calls corresponding controller method
      */
     void setColorView();
+
 
 protected:
     /**

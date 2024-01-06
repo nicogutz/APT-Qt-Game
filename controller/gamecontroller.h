@@ -103,14 +103,6 @@ public:
      */
     void dataChanged(QMap<DataRole, QVariant> objectData);
     /**
-     * @brief disconnectCurrentModel disconnects current model upon changing levels
-     */
-    void disconnectCurrentModel();
-    /**
-     * @brief connectCurrentModel connects new level model
-     */
-    void connectCurrentModel();
-    /**
      * @brief emitLevelUpdates emits changing level, health packs and enemies signals upon changing levels, signals captured by GameWindow
      */
     void emitLevelUpdates();
@@ -119,6 +111,18 @@ public:
      * @param level
      */
     void createNewLevel(int level);
+    /**
+     * @brief automaticAttack Attack function used by the pathfinder, to automatically attack enemies in the path or when the enrgy is low
+     * @param direction
+     */
+    void automaticAttack(Direction direction);
+    /**
+     * @brief executePath Executes the moves returned y the pathfinder
+     * @param path
+     * @param fully Boolean indicating whether or not to keep executing throughout new levels, so keep finding for the rest of the game
+     */
+    void executePath(std::vector<int> path, bool fully = false);
+
 
     // GETTERS AND SETTERS
     void setState(State new_state) { m_gameState = new_state; }
@@ -128,8 +132,7 @@ public:
     QSharedPointer<GameView> getView() { return m_view; } // GameView
     View getGameView() { return m_gameView; } // Visualization enum
 
-    void automaticAttack(Direction direction);
-    void executePath(std::vector<int> path, bool fully = false);
+
 signals:
     /**
      * @brief tick Emitted when a turn is complete.
@@ -140,10 +143,6 @@ signals:
      * @brief gameOver This is emitted when the game is over.
      */
     void gameOver();
-    /**
-     * @brief stateChanged This is emitted when the game state changes
-     * @param stateChanged state The new game state
-     */
     /**
      * @brief stateChanged Emitted when game switches states (Running, Paused or GameOver)
      * @param state
@@ -212,6 +211,16 @@ private:
      * @brief m_levelSize Size of the levels
      */
     QSize m_levelSize;
+
+
+    /**
+     * @brief disconnectCurrentModel disconnects current model upon changing levels
+     */
+    void disconnectCurrentModel();
+    /**
+     * @brief connectCurrentModel connects new level model
+     */
+    void connectCurrentModel();
 };
 
 #endif // GAMECONTROLLER_H
