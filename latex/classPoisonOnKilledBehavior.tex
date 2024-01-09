@@ -1,0 +1,190 @@
+\hypertarget{classPoisonOnKilledBehavior}{}\doxysection{Poison\+On\+Killed\+Behavior Class Reference}
+\label{classPoisonOnKilledBehavior}\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+
+
+The \mbox{\hyperlink{classPoisonOnKilledBehavior}{Poison\+On\+Killed\+Behavior}} class triggers the poisoning of neighbors when object dies. In the requirements, the poison enemies poison until they run out of poison. IMO this looks a bit cooler since it makes the enemies more annoying and unpredictable.  
+
+
+
+
+{\ttfamily \#include $<$poisononkilledbehavior.\+h$>$}
+
+
+
+Inheritance diagram for Poison\+On\+Killed\+Behavior\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classPoisonOnKilledBehavior__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classPoisonOnKilledBehavior_a1c9c15b280b97dd48588736c0de4f42d}{spread\+Poison}} ()
+\begin{DoxyCompactList}\small\item\em spread\+Poison main slot to handle the spreading of the poison. It will spread poison to a random amount of neigbors + offset after a random amount of ticks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPoisonOnKilledBehavior_ae5c50e66b971727938247a1b79a1eb82}{Poison\+On\+Killed\+Behavior}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ owner)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classPoisonOnKilledBehavior}{Poison\+On\+Killed\+Behavior}} Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classPoisonOnKilledBehavior_a945cf46ea0de36aac9d6e5c0e16901af}{Poison\+On\+Killed\+Behavior}} ()=delete
+\item 
+void \mbox{\hyperlink{classPoisonOnKilledBehavior_ab8bd38d0c03bb7d73d07892a42e8e7cd}{die}} () override
+\begin{DoxyCompactList}\small\item\em die overrides die from the \mbox{\hyperlink{classHealth}{Health}} interface to start the death process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{classPoisonOnKilledBehavior_ab207510d8683746a92f3a31df610b31a}{m\+\_\+next\+Poison}} = 0
+\item 
+unsigned int \mbox{\hyperlink{classPoisonOnKilledBehavior_a6ce2bd59b4af8a9e9d3a6f0790ff3003}{m\+\_\+poison\+Times}} = 0
+\item 
+unsigned int \mbox{\hyperlink{classPoisonOnKilledBehavior_a8779557cb71c1db4bd46a53694a2f42e}{m\+\_\+tick\+Count}} = 0
+\item 
+unsigned int \mbox{\hyperlink{classPoisonOnKilledBehavior_a90dd77061395c53a1405b6d36b8bae69}{m\+\_\+count}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classPoisonOnKilledBehavior}{Poison\+On\+Killed\+Behavior}} class triggers the poisoning of neighbors when object dies. In the requirements, the poison enemies poison until they run out of poison. IMO this looks a bit cooler since it makes the enemies more annoying and unpredictable. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPoisonOnKilledBehavior_ae5c50e66b971727938247a1b79a1eb82}\label{classPoisonOnKilledBehavior_ae5c50e66b971727938247a1b79a1eb82}} 
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\doxysubsubsection{\texorpdfstring{PoisonOnKilledBehavior()}{PoisonOnKilledBehavior()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Poison\+On\+Killed\+Behavior\+::\+Poison\+On\+Killed\+Behavior (\begin{DoxyParamCaption}\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classPoisonOnKilledBehavior}{Poison\+On\+Killed\+Behavior}} Default constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & poisoning \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19         : \mbox{\hyperlink{classGenericHealthBehavior_a2d65e73746657bda339d45bbe205b3eb}{GenericHealthBehavior}}(owner) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classPoisonOnKilledBehavior_a945cf46ea0de36aac9d6e5c0e16901af}\label{classPoisonOnKilledBehavior_a945cf46ea0de36aac9d6e5c0e16901af}} 
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\doxysubsubsection{\texorpdfstring{PoisonOnKilledBehavior()}{PoisonOnKilledBehavior()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Poison\+On\+Killed\+Behavior\+::\+Poison\+On\+Killed\+Behavior (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPoisonOnKilledBehavior_ab8bd38d0c03bb7d73d07892a42e8e7cd}\label{classPoisonOnKilledBehavior_ab8bd38d0c03bb7d73d07892a42e8e7cd}} 
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!die@{die}}
+\index{die@{die}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\doxysubsubsection{\texorpdfstring{die()}{die()}}
+{\footnotesize\ttfamily void Poison\+On\+Killed\+Behavior\+::die (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+die overrides die from the \mbox{\hyperlink{classHealth}{Health}} interface to start the death process. 
+
+
+
+Reimplemented from \mbox{\hyperlink{classGenericHealthBehavior_a38f1fd00edbe71b56805a93283a797dc}{Generic\+Health\+Behavior}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9                                  \{}
+\DoxyCodeLine{10     \textcolor{comment}{// Make object inert}}
+\DoxyCodeLine{11     \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>removeBehavior<\mbox{\hyperlink{classAttack}{Attack}}>();}
+\DoxyCodeLine{12     \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setBehavior<\mbox{\hyperlink{classMovement}{Movement}}>(QSharedPointer<GenericWalkableBehavior>::create(\mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}));}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{comment}{// Calculate the times to spread poison (the tile offset will be based on this)}}
+\DoxyCodeLine{15     \mbox{\hyperlink{classPoisonOnKilledBehavior_a90dd77061395c53a1405b6d36b8bae69}{m\_count}} = \mbox{\hyperlink{classPoisonOnKilledBehavior_a6ce2bd59b4af8a9e9d3a6f0790ff3003}{m\_poisonTimes}} = QRandomGenerator::global()-\/>bounded(}
+\DoxyCodeLine{16       \mbox{\hyperlink{structPoison_1_1SETTINGS_aabb5b6f07fe238ebd1052d7a6b553856}{Poison::SETTINGS::POISON\_SPREAD\_TIMES\_MIN}},}
+\DoxyCodeLine{17       \mbox{\hyperlink{structPoison_1_1SETTINGS_ab308b53adac980d1486028e5d49e4939}{Poison::SETTINGS::POISON\_SPREAD\_TIMES\_MAX}});}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \textcolor{comment}{// Calculate the poisoning ticks.}}
+\DoxyCodeLine{20     \mbox{\hyperlink{classPoisonOnKilledBehavior_ab207510d8683746a92f3a31df610b31a}{m\_nextPoison}} = QRandomGenerator::global()-\/>bounded(}
+\DoxyCodeLine{21       \mbox{\hyperlink{structPoison_1_1SETTINGS_aab57db541482abe0600433fde261ea9f}{Poison::SETTINGS::POISON\_SPREAD\_MIN\_TICKS}},}
+\DoxyCodeLine{22       \mbox{\hyperlink{structPoison_1_1SETTINGS_a6b8c5e0e726cae3b49b50e74dcc5ad2b}{Poison::SETTINGS::POISON\_SPREAD\_MAX\_TICKS}});}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     connect(\mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}, \&\mbox{\hyperlink{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}{GameObject::tick}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classPoisonOnKilledBehavior_a1c9c15b280b97dd48588736c0de4f42d}{PoisonOnKilledBehavior::spreadPoison}});}
+\DoxyCodeLine{25 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classPoisonOnKilledBehavior_a1c9c15b280b97dd48588736c0de4f42d}\label{classPoisonOnKilledBehavior_a1c9c15b280b97dd48588736c0de4f42d}} 
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!spreadPoison@{spreadPoison}}
+\index{spreadPoison@{spreadPoison}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\doxysubsubsection{\texorpdfstring{spreadPoison}{spreadPoison}}
+{\footnotesize\ttfamily void Poison\+On\+Killed\+Behavior\+::spread\+Poison (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+spread\+Poison main slot to handle the spreading of the poison. It will spread poison to a random amount of neigbors + offset after a random amount of ticks. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{27                                           \{}
+\DoxyCodeLine{28     \mbox{\hyperlink{classPoisonOnKilledBehavior_a8779557cb71c1db4bd46a53694a2f42e}{m\_tickCount}}++;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keywordflow}{if}(\mbox{\hyperlink{classPoisonOnKilledBehavior_ab207510d8683746a92f3a31df610b31a}{m\_nextPoison}} > \mbox{\hyperlink{classPoisonOnKilledBehavior_a8779557cb71c1db4bd46a53694a2f42e}{m\_tickCount}}) \{}
+\DoxyCodeLine{31         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{32     \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     \textcolor{comment}{// Poison all neighbors until the count is up. Then delete object.}}
+\DoxyCodeLine{35     \textcolor{keywordflow}{if}(\mbox{\hyperlink{classPoisonOnKilledBehavior_a90dd77061395c53a1405b6d36b8bae69}{m\_count}}) \{}
+\DoxyCodeLine{36         \mbox{\hyperlink{classPoisonOnKilledBehavior_a8779557cb71c1db4bd46a53694a2f42e}{m\_tickCount}} = 0;}
+\DoxyCodeLine{37         \mbox{\hyperlink{classPoisonOnKilledBehavior_ab207510d8683746a92f3a31df610b31a}{m\_nextPoison}} = QRandomGenerator::global()-\/>bounded(}
+\DoxyCodeLine{38           \mbox{\hyperlink{structPoison_1_1SETTINGS_aab57db541482abe0600433fde261ea9f}{Poison::SETTINGS::POISON\_SPREAD\_MIN\_TICKS}},}
+\DoxyCodeLine{39           \mbox{\hyperlink{structPoison_1_1SETTINGS_a6b8c5e0e726cae3b49b50e74dcc5ad2b}{Poison::SETTINGS::POISON\_SPREAD\_MAX\_TICKS}});}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&n : \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getAllNeighbors(\mbox{\hyperlink{classPoisonOnKilledBehavior_a6ce2bd59b4af8a9e9d3a6f0790ff3003}{m\_poisonTimes}} -\/ \mbox{\hyperlink{classPoisonOnKilledBehavior_a90dd77061395c53a1405b6d36b8bae69}{m\_count}})) \{}
+\DoxyCodeLine{42             \textcolor{keywordflow}{if}(n) \{}
+\DoxyCodeLine{43                 \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getBehavior<\mbox{\hyperlink{classPoison}{Poison}}>()-\/>poison(n);}
+\DoxyCodeLine{44             \}}
+\DoxyCodeLine{45         \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47         \mbox{\hyperlink{classPoisonOnKilledBehavior_a90dd77061395c53a1405b6d36b8bae69}{m\_count}}-\/-\/;}
+\DoxyCodeLine{48     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{49         \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(DataRole::Destroyed, \textcolor{keyword}{true});}
+\DoxyCodeLine{50         \textcolor{comment}{// Could also call the die function in health...}}
+\DoxyCodeLine{51         \textcolor{keyword}{delete} \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}};}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classPoisonOnKilledBehavior_a90dd77061395c53a1405b6d36b8bae69}\label{classPoisonOnKilledBehavior_a90dd77061395c53a1405b6d36b8bae69}} 
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!m\_count@{m\_count}}
+\index{m\_count@{m\_count}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\doxysubsubsection{\texorpdfstring{m\_count}{m\_count}}
+{\footnotesize\ttfamily unsigned int Poison\+On\+Killed\+Behavior\+::m\+\_\+count\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classPoisonOnKilledBehavior_ab207510d8683746a92f3a31df610b31a}\label{classPoisonOnKilledBehavior_ab207510d8683746a92f3a31df610b31a}} 
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!m\_nextPoison@{m\_nextPoison}}
+\index{m\_nextPoison@{m\_nextPoison}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\doxysubsubsection{\texorpdfstring{m\_nextPoison}{m\_nextPoison}}
+{\footnotesize\ttfamily unsigned int Poison\+On\+Killed\+Behavior\+::m\+\_\+next\+Poison = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classPoisonOnKilledBehavior_a6ce2bd59b4af8a9e9d3a6f0790ff3003}\label{classPoisonOnKilledBehavior_a6ce2bd59b4af8a9e9d3a6f0790ff3003}} 
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!m\_poisonTimes@{m\_poisonTimes}}
+\index{m\_poisonTimes@{m\_poisonTimes}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\doxysubsubsection{\texorpdfstring{m\_poisonTimes}{m\_poisonTimes}}
+{\footnotesize\ttfamily unsigned int Poison\+On\+Killed\+Behavior\+::m\+\_\+poison\+Times = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classPoisonOnKilledBehavior_a8779557cb71c1db4bd46a53694a2f42e}\label{classPoisonOnKilledBehavior_a8779557cb71c1db4bd46a53694a2f42e}} 
+\index{PoisonOnKilledBehavior@{PoisonOnKilledBehavior}!m\_tickCount@{m\_tickCount}}
+\index{m\_tickCount@{m\_tickCount}!PoisonOnKilledBehavior@{PoisonOnKilledBehavior}}
+\doxysubsubsection{\texorpdfstring{m\_tickCount}{m\_tickCount}}
+{\footnotesize\ttfamily unsigned int Poison\+On\+Killed\+Behavior\+::m\+\_\+tick\+Count = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/behaviors/concrete/health/\mbox{\hyperlink{poisononkilledbehavior_8h}{poisononkilledbehavior.\+h}}\item 
+model/behaviors/concrete/health/\mbox{\hyperlink{poisononkilledbehavior_8cpp}{poisononkilledbehavior.\+cpp}}\end{DoxyCompactItemize}

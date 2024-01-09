@@ -1,0 +1,106 @@
+\hypertarget{classCounterAttackBehavior}{}\doxysection{Counter\+Attack\+Behavior Class Reference}
+\label{classCounterAttackBehavior}\index{CounterAttackBehavior@{CounterAttackBehavior}}
+
+
+The \mbox{\hyperlink{classCounterAttackBehavior}{Counter\+Attack\+Behavior}} class extends the \mbox{\hyperlink{classGenericAttackBehavior}{Generic\+Attack\+Behavior}} so that the owner attacks back after being attacked.  
+
+
+
+
+{\ttfamily \#include $<$counterattackbehavior.\+h$>$}
+
+
+
+Inheritance diagram for Counter\+Attack\+Behavior\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classCounterAttackBehavior__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCounterAttackBehavior_a4eb4c18f32a17b8b41b602db5d4416cf}{Counter\+Attack\+Behavior}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ owner)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classCounterAttackBehavior}{Counter\+Attack\+Behavior}} default constructor. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCounterAttackBehavior_a2db68721ea81ad69250d7a02a04c3cdc}{get\+Attacked}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&by, int strength) override
+\begin{DoxyCompactList}\small\item\em get\+Attacked overrides the default get\+Attack to attack back. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classCounterAttackBehavior}{Counter\+Attack\+Behavior}} class extends the \mbox{\hyperlink{classGenericAttackBehavior}{Generic\+Attack\+Behavior}} so that the owner attacks back after being attacked. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCounterAttackBehavior_a4eb4c18f32a17b8b41b602db5d4416cf}\label{classCounterAttackBehavior_a4eb4c18f32a17b8b41b602db5d4416cf}} 
+\index{CounterAttackBehavior@{CounterAttackBehavior}!CounterAttackBehavior@{CounterAttackBehavior}}
+\index{CounterAttackBehavior@{CounterAttackBehavior}!CounterAttackBehavior@{CounterAttackBehavior}}
+\doxysubsubsection{\texorpdfstring{CounterAttackBehavior()}{CounterAttackBehavior()}}
+{\footnotesize\ttfamily Counter\+Attack\+Behavior\+::\+Counter\+Attack\+Behavior (\begin{DoxyParamCaption}\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classCounterAttackBehavior}{Counter\+Attack\+Behavior}} default constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & the owner of the behavior. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16         : \mbox{\hyperlink{classGenericAttackBehavior_afd436666b7bb1334bfaa7ff1a8966028}{GenericAttackBehavior}}(owner) \{\};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCounterAttackBehavior_a2db68721ea81ad69250d7a02a04c3cdc}\label{classCounterAttackBehavior_a2db68721ea81ad69250d7a02a04c3cdc}} 
+\index{CounterAttackBehavior@{CounterAttackBehavior}!getAttacked@{getAttacked}}
+\index{getAttacked@{getAttacked}!CounterAttackBehavior@{CounterAttackBehavior}}
+\doxysubsubsection{\texorpdfstring{getAttacked()}{getAttacked()}}
+{\footnotesize\ttfamily int Counter\+Attack\+Behavior\+::get\+Attacked (\begin{DoxyParamCaption}\item[{const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&}]{by,  }\item[{int}]{strength }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+get\+Attacked overrides the default get\+Attack to attack back. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em by} & source of the attack. \\
+\hline
+{\em strength} & strength of the attack taken. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+strength of the attack given. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classAttack_aa256ee1d560a29116883e67b329d74ff}{Attack}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{3                                                                                        \{}
+\DoxyCodeLine{4     \textcolor{comment}{// This is neat, the opposite angle is the angle + 180,}}
+\DoxyCodeLine{5     \textcolor{comment}{// modulo 360 makes sure it is always smaller than 360 deg.}}
+\DoxyCodeLine{6     \textcolor{keywordtype}{int} direction = target-\/>getData(\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}).toInt();}
+\DoxyCodeLine{7     \textcolor{keywordtype}{int} newDirection = (180 + direction) \% 360;}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9     \textcolor{comment}{// Move to where you got attacked and counter attack.}}
+\DoxyCodeLine{10     \textcolor{keywordflow}{if}(direction -\/ newDirection) \{}
+\DoxyCodeLine{11         \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}, newDirection);}
+\DoxyCodeLine{12     \}}
+\DoxyCodeLine{13     \mbox{\hyperlink{classGenericAttackBehavior_a619f4febb3487333cfe3c1f490236b2f}{GenericAttackBehavior::attack}}(target);}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{comment}{// Process the attack. This does mean enemies attack first when hit by an enemy but it is not noticeable.}}
+\DoxyCodeLine{16     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGenericAttackBehavior_a8e5161bf144a0797c77c0f2082e1fad1}{GenericAttackBehavior::getAttacked}}(target, strenght);}
+\DoxyCodeLine{17 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/behaviors/concrete/attack/\mbox{\hyperlink{counterattackbehavior_8h}{counterattackbehavior.\+h}}\item 
+model/behaviors/concrete/attack/\mbox{\hyperlink{counterattackbehavior_8cpp}{counterattackbehavior.\+cpp}}\end{DoxyCompactItemize}

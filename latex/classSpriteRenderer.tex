@@ -1,0 +1,446 @@
+\hypertarget{classSpriteRenderer}{}\doxysection{Sprite\+Renderer Class Reference}
+\label{classSpriteRenderer}\index{SpriteRenderer@{SpriteRenderer}}
+
+
+The \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}} class handles the conversion of data to Game\+Pixmap\+Items. It also animates behaviors not generalizable such as death, which in this view change the frame from the sprite.  
+
+
+
+
+{\ttfamily \#include $<$spriterenderer.\+h$>$}
+
+
+
+Inheritance diagram for Sprite\+Renderer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classSpriteRenderer__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structSpriteRenderer_1_1CharacterData}{Character\+Data}}
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{structSpriteRenderer_1_1CharacterData}{Character\+Data}} struct stores a pair of points for the character sprite. Since not all characters have the same size when they are alive or dead this is needed. It is usually done in a JSON file and loaded in but for small sprite sheets its fine to do in code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171}{Sprite\+Settings}} \{ \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\+\_\+\+COUNT}} = 21
+, \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}{CHAR\+\_\+\+MAX\+\_\+X}} = 10
+, \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}{CHAR\+\_\+\+MAX\+\_\+Y}} = 8
+ \}
+\begin{DoxyCompactList}\small\item\em The Sprite\+Settings enum is used to crop the sprites. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSpriteRenderer_a0064d27bc30985d8f02777f97e014819}{Sprite\+Renderer}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}} Default constructor. Calculates the size of the sprites and caches them. The caching is not strictly necessary, since QImages are shared objects so they never get copied unless explicitly asked to. The sizes do not need to be computed every time so they are calculated once. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSpriteRenderer_ad4c616dbc418f8037115067418299070}{render\+Game\+Object}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ data, \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$item) override
+\begin{DoxyCompactList}\small\item\em render\+Game\+Object Overloaded function from \mbox{\hyperlink{classRenderer}{Renderer}}. Converts the data into the appropriate Sprite. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$ \mbox{\hyperlink{classSpriteRenderer_ae29363de8d4ae5d1c34cc7c030a990ac}{render\+Game\+Object}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ data) override
+\begin{DoxyCompactList}\small\item\em render\+Game\+Object Overloaded from \mbox{\hyperlink{classRenderer}{Renderer}}. Makes a new \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and adds the appropriate sprite. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const QMap$<$ \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}, \mbox{\hyperlink{structSpriteRenderer_1_1CharacterData}{Character\+Data}} $>$ \mbox{\hyperlink{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}{m\+\_\+char\+Map}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+char\+Map Maps the Object\+Types to their respective sprite. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QImage \mbox{\hyperlink{classSpriteRenderer_a7d52cb32511a1a3269a21c4338e77cfb}{slice\+Frames}} (QImage image, QLine diagonal, QPoint frame\+Size)
+\begin{DoxyCompactList}\small\item\em slice\+Frames Function used to slice a sprite sheets into the desired frame. \end{DoxyCompactList}\item 
+QRect \mbox{\hyperlink{classSpriteRenderer_ae6c80bdd7faed7f26d9b0d5a4f9acf4f}{get\+Tile\+Rect}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ data)
+\begin{DoxyCompactList}\small\item\em get\+Tile\+Rect Returns which tile sprite to use based on the energy and TILE\+\_\+\+COUNT. \end{DoxyCompactList}\item 
+QRect \mbox{\hyperlink{classSpriteRenderer_aa3d26f384fe4c912cddd1287814630a2}{get\+Character\+Rect}} (\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} type)
+\begin{DoxyCompactList}\small\item\em get\+Character\+Rect Returns which ALIVE tile sprite to use based Object\+Type. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classSpriteRenderer_a5be8bb4ebb7f1cfadc0a4e1041043b35}{calculate\+Frame}} (QVariant direction, int POVnum)
+\begin{DoxyCompactList}\small\item\em calculate\+Frame Return the frame based on a direction and POVnum. \end{DoxyCompactList}\item 
+QProperty\+Animation $\ast$ \mbox{\hyperlink{classSpriteRenderer_ababc2b83da9daed8d5c14cdf04cd8473}{animate\+Death}} (QPoint frame)
+\begin{DoxyCompactList}\small\item\em animate\+Death Makes an animation of the death of a character. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QImage \mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\+\_\+tiles}}
+\item 
+QImage \mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\+\_\+characters}}
+\item 
+QSize \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\+\_\+char\+Size}}
+\item 
+QSize \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\+\_\+tile\+Size}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}} class handles the conversion of data to Game\+Pixmap\+Items. It also animates behaviors not generalizable such as death, which in this view change the frame from the sprite. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171}\label{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171}} 
+\index{SpriteRenderer@{SpriteRenderer}!SpriteSettings@{SpriteSettings}}
+\index{SpriteSettings@{SpriteSettings}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{SpriteSettings}{SpriteSettings}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171}{Sprite\+Renderer\+::\+Sprite\+Settings}}}
+
+
+
+The Sprite\+Settings enum is used to crop the sprites. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TILE\_COUNT@{TILE\_COUNT}!SpriteRenderer@{SpriteRenderer}}\index{SpriteRenderer@{SpriteRenderer}!TILE\_COUNT@{TILE\_COUNT}}}\mbox{\Hypertarget{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}\label{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}} 
+TILE\+\_\+\+COUNT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHAR\_MAX\_X@{CHAR\_MAX\_X}!SpriteRenderer@{SpriteRenderer}}\index{SpriteRenderer@{SpriteRenderer}!CHAR\_MAX\_X@{CHAR\_MAX\_X}}}\mbox{\Hypertarget{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}\label{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}} 
+CHAR\+\_\+\+MAX\+\_\+X&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHAR\_MAX\_Y@{CHAR\_MAX\_Y}!SpriteRenderer@{SpriteRenderer}}\index{SpriteRenderer@{SpriteRenderer}!CHAR\_MAX\_Y@{CHAR\_MAX\_Y}}}\mbox{\Hypertarget{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}\label{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}} 
+CHAR\+\_\+\+MAX\+\_\+Y&\\
+\hline
+
+\end{DoxyEnumFields}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33                         \{}
+\DoxyCodeLine{34         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}} = 21,}
+\DoxyCodeLine{35         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}{CHAR\_MAX\_X}} = 10,}
+\DoxyCodeLine{36         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}{CHAR\_MAX\_Y}} = 8,}
+\DoxyCodeLine{37     \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSpriteRenderer_a0064d27bc30985d8f02777f97e014819}\label{classSpriteRenderer_a0064d27bc30985d8f02777f97e014819}} 
+\index{SpriteRenderer@{SpriteRenderer}!SpriteRenderer@{SpriteRenderer}}
+\index{SpriteRenderer@{SpriteRenderer}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{SpriteRenderer()}{SpriteRenderer()}}
+{\footnotesize\ttfamily Sprite\+Renderer\+::\+Sprite\+Renderer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}} Default constructor. Calculates the size of the sprites and caches them. The caching is not strictly necessary, since QImages are shared objects so they never get copied unless explicitly asked to. The sizes do not need to be computed every time so they are calculated once. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22                      \{}
+\DoxyCodeLine{23         \mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}} = QImage(\textcolor{stringliteral}{"{}:/images/characters.png"{}});}
+\DoxyCodeLine{24         \mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}} = QImage(\textcolor{stringliteral}{"{}:/images/tiles.png"{}});}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\_charSize}} = QSize(\mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}{CHAR\_MAX\_X}}, \mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}}.height() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}{CHAR\_MAX\_Y}});}
+\DoxyCodeLine{27         \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\_tileSize}} = QSize(\mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}}, \mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}});}
+\DoxyCodeLine{28     \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSpriteRenderer_ababc2b83da9daed8d5c14cdf04cd8473}\label{classSpriteRenderer_ababc2b83da9daed8d5c14cdf04cd8473}} 
+\index{SpriteRenderer@{SpriteRenderer}!animateDeath@{animateDeath}}
+\index{animateDeath@{animateDeath}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{animateDeath()}{animateDeath()}}
+{\footnotesize\ttfamily QProperty\+Animation $\ast$ Sprite\+Renderer\+::animate\+Death (\begin{DoxyParamCaption}\item[{QPoint}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+animate\+Death Makes an animation of the death of a character. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & The last frame in the sprite. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+QProperty\+Animation of the tiles to change. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{95                                                              \{}
+\DoxyCodeLine{96     QPropertyAnimation *anim = \textcolor{keyword}{new} QPropertyAnimation();}
+\DoxyCodeLine{97     anim-\/>setPropertyName(\textcolor{stringliteral}{"{}frame"{}});}
+\DoxyCodeLine{98     anim-\/>setDuration(250 * frame.x());}
+\DoxyCodeLine{99     anim-\/>setStartValue(QPoint(0, 1));}
+\DoxyCodeLine{100     anim-\/>setEndValue(QPoint(frame.x(), 1));}
+\DoxyCodeLine{101     anim-\/>setLoopCount(1);}
+\DoxyCodeLine{102     \textcolor{keywordflow}{return} anim;}
+\DoxyCodeLine{103 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSpriteRenderer_a5be8bb4ebb7f1cfadc0a4e1041043b35}\label{classSpriteRenderer_a5be8bb4ebb7f1cfadc0a4e1041043b35}} 
+\index{SpriteRenderer@{SpriteRenderer}!calculateFrame@{calculateFrame}}
+\index{calculateFrame@{calculateFrame}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{calculateFrame()}{calculateFrame()}}
+{\footnotesize\ttfamily int Sprite\+Renderer\+::calculate\+Frame (\begin{DoxyParamCaption}\item[{QVariant}]{direction,  }\item[{int}]{POVnum }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+calculate\+Frame Return the frame based on a direction and POVnum. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The Direction of the \mbox{\hyperlink{classGameObject}{Game\+Object}}. \\
+\hline
+{\em num\+POVs} & The number of point of views the sprites have. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Frame number 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{92                                                                   \{}
+\DoxyCodeLine{93     \textcolor{keywordflow}{return} (((direction.toInt() / 45) + 2) \% (numPOVs + 1));}
+\DoxyCodeLine{94 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSpriteRenderer_aa3d26f384fe4c912cddd1287814630a2}\label{classSpriteRenderer_aa3d26f384fe4c912cddd1287814630a2}} 
+\index{SpriteRenderer@{SpriteRenderer}!getCharacterRect@{getCharacterRect}}
+\index{getCharacterRect@{getCharacterRect}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{getCharacterRect()}{getCharacterRect()}}
+{\footnotesize\ttfamily QRect Sprite\+Renderer\+::get\+Character\+Rect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+get\+Character\+Rect Returns which ALIVE tile sprite to use based Object\+Type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The \mbox{\hyperlink{classGameObject}{Game\+Object}} type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A rectangle to crop the character sprite with. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{80                                                       \{}
+\DoxyCodeLine{81     CharacterData data = \mbox{\hyperlink{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}{m\_charMap}}[type];}
+\DoxyCodeLine{82     \textcolor{keywordtype}{int} maxX = data.alive.x() > data.dead.x() ? data.alive.x() : data.dead.x();}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     \textcolor{keywordflow}{return} \{}
+\DoxyCodeLine{85       0,}
+\DoxyCodeLine{86       data.alive.y() * \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\_charSize}}.height(),}
+\DoxyCodeLine{87       \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\_charSize}}.width() * (maxX + 1),}
+\DoxyCodeLine{88       \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\_charSize}}.height() * 2,}
+\DoxyCodeLine{89     \};}
+\DoxyCodeLine{90 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSpriteRenderer_ae6c80bdd7faed7f26d9b0d5a4f9acf4f}\label{classSpriteRenderer_ae6c80bdd7faed7f26d9b0d5a4f9acf4f}} 
+\index{SpriteRenderer@{SpriteRenderer}!getTileRect@{getTileRect}}
+\index{getTileRect@{getTileRect}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{getTileRect()}{getTileRect()}}
+{\footnotesize\ttfamily QRect Sprite\+Renderer\+::get\+Tile\+Rect (\begin{DoxyParamCaption}\item[{QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+get\+Tile\+Rect Returns which tile sprite to use based on the energy and TILE\+\_\+\+COUNT. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & the \mbox{\hyperlink{classGameObject}{Game\+Object}} data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A rectangle to crop the tile sprite with. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{74                                                                \{}
+\DoxyCodeLine{75     \textcolor{keywordtype}{float} energyLevel = round(data[DataRole::Energy].toFloat() * 19);}
+\DoxyCodeLine{76     \textcolor{keywordtype}{int} tile = energyLevel == INFINITY ? \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}} -\/ 1 : energyLevel;}
+\DoxyCodeLine{77     \textcolor{keywordflow}{return} \{tile * \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\_tileSize}}.width(), 0, \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\_tileSize}}.width(), \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\_tileSize}}.height()\};}
+\DoxyCodeLine{78 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSpriteRenderer_ae29363de8d4ae5d1c34cc7c030a990ac}\label{classSpriteRenderer_ae29363de8d4ae5d1c34cc7c030a990ac}} 
+\index{SpriteRenderer@{SpriteRenderer}!renderGameObject@{renderGameObject}}
+\index{renderGameObject@{renderGameObject}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{renderGameObject()}{renderGameObject()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$ Sprite\+Renderer\+::render\+Game\+Object (\begin{DoxyParamCaption}\item[{QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+render\+Game\+Object Overloaded from \mbox{\hyperlink{classRenderer}{Renderer}}. Makes a new \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and adds the appropriate sprite. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The \mbox{\hyperlink{classGameObject}{Game\+Object}} data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} containing a sprite sheets for the correct \mbox{\hyperlink{classGameObject}{Game\+Object}}. This function is only run once in the \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}}. Which means that changes to the objects are applied to the same sprite. The other renderers do not have this feature since the bulk of the changes are very difficult to animate using parameters and not generalizable. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classRenderer_ac9a3073d563bc905a2d8244805f54727}{Renderer}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8                                                                               \{}
+\DoxyCodeLine{9     \textcolor{comment}{// Create the item}}
+\DoxyCodeLine{10     \textcolor{keyword}{auto} *item = \mbox{\hyperlink{classRenderer_ac9a3073d563bc905a2d8244805f54727}{Renderer::renderGameObject}}(data);}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}} type = data[DataRole::Type].value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>();}
+\DoxyCodeLine{13     \textcolor{keywordflow}{switch}(type) \{}
+\DoxyCodeLine{14     \textcolor{keywordflow}{case} ObjectType::Tile:}
+\DoxyCodeLine{15         \textcolor{comment}{// We could also save the whole tile sprite since}}
+\DoxyCodeLine{16         \textcolor{comment}{// images are shared data in Qt. I'm more partial to this.}}
+\DoxyCodeLine{17         item-\/>setSprite(\mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}}.copy(\mbox{\hyperlink{classSpriteRenderer_ae6c80bdd7faed7f26d9b0d5a4f9acf4f}{getTileRect}}(data)));}
+\DoxyCodeLine{18         item-\/>updatePixmap();}
+\DoxyCodeLine{19         \textcolor{keywordflow}{return} item;}
+\DoxyCodeLine{20     \textcolor{keywordflow}{case} ObjectType::Doorway:}
+\DoxyCodeLine{21         \textcolor{comment}{// When the frame dimension is not set it}}
+\DoxyCodeLine{22         item-\/>setSprite(QImage(\textcolor{stringliteral}{"{}:/images/doorway.png"{}}));}
+\DoxyCodeLine{23         item-\/>updatePixmap();}
+\DoxyCodeLine{24         \textcolor{keywordflow}{return} item;}
+\DoxyCodeLine{25     \textcolor{keywordflow}{case} ObjectType::HealthPack:}
+\DoxyCodeLine{26         item-\/>setSprite(QImage(\textcolor{stringliteral}{"{}:/images/health\_pack.png"{}}));}
+\DoxyCodeLine{27         item-\/>updatePixmap();}
+\DoxyCodeLine{28         \textcolor{keywordflow}{return} item;}
+\DoxyCodeLine{29     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{30         item-\/>setSprite(\mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}}.copy(\mbox{\hyperlink{classSpriteRenderer_aa3d26f384fe4c912cddd1287814630a2}{getCharacterRect}}(type)));}
+\DoxyCodeLine{31         item-\/>setFrameDimension(\mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\_charSize}});}
+\DoxyCodeLine{32         item-\/>setFrame(\{\mbox{\hyperlink{classSpriteRenderer_a5be8bb4ebb7f1cfadc0a4e1041043b35}{calculateFrame}}(data[\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}], \mbox{\hyperlink{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}{m\_charMap}}[type].alive.x()),}
+\DoxyCodeLine{33                         item-\/>frame().y()\});}
+\DoxyCodeLine{34         item-\/>updatePixmap();}
+\DoxyCodeLine{35         item-\/>addAnimation(\mbox{\hyperlink{classRenderer_a057a9baebbf1728f22e8e05df07c574f}{Renderer::animateBounce}}());}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         \textcolor{keywordflow}{if}(type == ObjectType::MovingEnemy) \{}
+\DoxyCodeLine{38             item-\/>addAnimation(\mbox{\hyperlink{classRenderer_a31ecbc569624dd691458d6f4ef6d1357}{Renderer::animateHide}}());}
+\DoxyCodeLine{39         \}}
+\DoxyCodeLine{40         \textcolor{keywordflow}{return} item;}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSpriteRenderer_ad4c616dbc418f8037115067418299070}\label{classSpriteRenderer_ad4c616dbc418f8037115067418299070}} 
+\index{SpriteRenderer@{SpriteRenderer}!renderGameObject@{renderGameObject}}
+\index{renderGameObject@{renderGameObject}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{renderGameObject()}{renderGameObject()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Sprite\+Renderer\+::render\+Game\+Object (\begin{DoxyParamCaption}\item[{QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$}]{data,  }\item[{\mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$}]{item }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+render\+Game\+Object Overloaded function from \mbox{\hyperlink{classRenderer}{Renderer}}. Converts the data into the appropriate Sprite. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The \mbox{\hyperlink{classGameObject}{Game\+Object}} data The \mbox{\hyperlink{classGameObject}{Game\+Object}} data. \\
+\hline
+{\em item} & The \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} to write the data on. This function adds animations or changes colors depending on the data. It does not actually re-\/render the sprites every time data is changed. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{classRenderer_a342fd69a2cc4865d0b5df3fe310de8b0}{Renderer}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44                                                                                          \{}
+\DoxyCodeLine{45     \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{DataRole}} change = data[DataRole::LatestChange].value<\mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{DataRole}}>();}
+\DoxyCodeLine{46     \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}} type = data[DataRole::Type].value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>();}
+\DoxyCodeLine{47     \textcolor{comment}{// Animates every time the data changes. They all run in parallel so they don't affect eachother.}}
+\DoxyCodeLine{48     \textcolor{keywordflow}{switch}(change) \{}
+\DoxyCodeLine{49     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}:}
+\DoxyCodeLine{50         item-\/>\mbox{\hyperlink{classGamePixmapItem_a1d0908e8756ddcdd9e535e2e47143237}{setFrame}}(\{\mbox{\hyperlink{classSpriteRenderer_a5be8bb4ebb7f1cfadc0a4e1041043b35}{calculateFrame}}(data[\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}], \mbox{\hyperlink{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}{m\_charMap}}[type].alive.x()),}
+\DoxyCodeLine{51                         item-\/>\mbox{\hyperlink{classGamePixmapItem_a79814c2db529d9d58a7d4ec0dadb2d69}{frame}}().y()\});}
+\DoxyCodeLine{52         \textcolor{comment}{// So they look like ghosts}}
+\DoxyCodeLine{53         \textcolor{keywordflow}{if}(data[DataRole::Type].value<ObjectType>() == ObjectType::MovingEnemy) \{}
+\DoxyCodeLine{54             item-\/>\mbox{\hyperlink{classGamePixmapItem_a610cda52bfab35fc2bf2a7a4cb1fb669}{animationGroup}}()-\/>clear();}
+\DoxyCodeLine{55             item-\/>\mbox{\hyperlink{classGamePixmapItem_adc2605d42d2bf0acab2f9de6c81070c0}{addAnimation}}(\mbox{\hyperlink{classRenderer_a31ecbc569624dd691458d6f4ef6d1357}{animateHide}}());}
+\DoxyCodeLine{56         \}}
+\DoxyCodeLine{57         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{58     \textcolor{keywordflow}{case} DataRole::Health:}
+\DoxyCodeLine{59         \textcolor{keywordflow}{if}((\textcolor{keywordtype}{int})type > 49) \{}
+\DoxyCodeLine{60             \textcolor{keywordflow}{if}(!data[DataRole::Health].toInt()) \{}
+\DoxyCodeLine{61                 item-\/>\mbox{\hyperlink{classGamePixmapItem_a610cda52bfab35fc2bf2a7a4cb1fb669}{animationGroup}}()-\/>clear();}
+\DoxyCodeLine{62                 item-\/>\mbox{\hyperlink{classGamePixmapItem_adc2605d42d2bf0acab2f9de6c81070c0}{addAnimation}}(\mbox{\hyperlink{classSpriteRenderer_ababc2b83da9daed8d5c14cdf04cd8473}{animateDeath}}(\mbox{\hyperlink{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}{m\_charMap}}[item-\/>data((\textcolor{keywordtype}{int})DataRole::Type).value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>()].dead));}
+\DoxyCodeLine{63                 item-\/>\mbox{\hyperlink{classGamePixmapItem_aadf7716dd6dc5bd3f4d0730961a9fb33}{setTint}}(\{0, 0, 0, 0\});}
+\DoxyCodeLine{64                 \textcolor{keywordflow}{return};}
+\DoxyCodeLine{65             \}}
+\DoxyCodeLine{66         \}}
+\DoxyCodeLine{67         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{68     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{69         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{70     \}}
+\DoxyCodeLine{71     \mbox{\hyperlink{classRenderer_ac9a3073d563bc905a2d8244805f54727}{Renderer::renderGameObject}}(data, item);}
+\DoxyCodeLine{72 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSpriteRenderer_a7d52cb32511a1a3269a21c4338e77cfb}\label{classSpriteRenderer_a7d52cb32511a1a3269a21c4338e77cfb}} 
+\index{SpriteRenderer@{SpriteRenderer}!sliceFrames@{sliceFrames}}
+\index{sliceFrames@{sliceFrames}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{sliceFrames()}{sliceFrames()}}
+{\footnotesize\ttfamily QImage Sprite\+Renderer\+::slice\+Frames (\begin{DoxyParamCaption}\item[{QImage}]{image,  }\item[{QLine}]{diagonal,  }\item[{QPoint}]{frame\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+slice\+Frames Function used to slice a sprite sheets into the desired frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & Image to be sliced \\
+\hline
+{\em diagonal} & The line to slice it in multiples of the frame size. \\
+\hline
+{\em frame\+Size} & Size of the frame in (x,y), all of our sprites are squares but that is not always the case. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The croped QImage 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}\label{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}} 
+\index{SpriteRenderer@{SpriteRenderer}!m\_characters@{m\_characters}}
+\index{m\_characters@{m\_characters}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{m\_characters}{m\_characters}}
+{\footnotesize\ttfamily QImage Sprite\+Renderer\+::m\+\_\+characters\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}\label{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}} 
+\index{SpriteRenderer@{SpriteRenderer}!m\_charMap@{m\_charMap}}
+\index{m\_charMap@{m\_charMap}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{m\_charMap}{m\_charMap}}
+{\footnotesize\ttfamily const QMap$<$\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}, \mbox{\hyperlink{structSpriteRenderer_1_1CharacterData}{Character\+Data}}$>$ Sprite\+Renderer\+::m\+\_\+char\+Map\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      \{ObjectType::Protagonist, \{\{7, 0\}, \{9, 1\}\}\},}
+\DoxyCodeLine{      \{ObjectType::MovingEnemy, \{\{7, 2\}, \{4, 3\}\}\},}
+\DoxyCodeLine{      \{ObjectType::PoisonEnemy, \{\{7, 4\}, \{4, 5\}\}\},}
+\DoxyCodeLine{      \{ObjectType::Enemy, \{\{7, 6\}, \{2, 7\}\}\},}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+
+
+m\+\_\+char\+Map Maps the Object\+Types to their respective sprite. 
+
+\mbox{\Hypertarget{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}\label{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}} 
+\index{SpriteRenderer@{SpriteRenderer}!m\_charSize@{m\_charSize}}
+\index{m\_charSize@{m\_charSize}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{m\_charSize}{m\_charSize}}
+{\footnotesize\ttfamily QSize Sprite\+Renderer\+::m\+\_\+char\+Size\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}\label{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}} 
+\index{SpriteRenderer@{SpriteRenderer}!m\_tiles@{m\_tiles}}
+\index{m\_tiles@{m\_tiles}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{m\_tiles}{m\_tiles}}
+{\footnotesize\ttfamily QImage Sprite\+Renderer\+::m\+\_\+tiles\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}\label{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}} 
+\index{SpriteRenderer@{SpriteRenderer}!m\_tileSize@{m\_tileSize}}
+\index{m\_tileSize@{m\_tileSize}!SpriteRenderer@{SpriteRenderer}}
+\doxysubsubsection{\texorpdfstring{m\_tileSize}{m\_tileSize}}
+{\footnotesize\ttfamily QSize Sprite\+Renderer\+::m\+\_\+tile\+Size\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+view/renderer/\mbox{\hyperlink{spriterenderer_8h}{spriterenderer.\+h}}\item 
+view/renderer/\mbox{\hyperlink{spriterenderer_8cpp}{spriterenderer.\+cpp}}\end{DoxyCompactItemize}

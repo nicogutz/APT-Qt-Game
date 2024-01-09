@@ -1,0 +1,464 @@
+\hypertarget{classGameObjectModel}{}\doxysection{Game\+Object\+Model Class Reference}
+\label{classGameObjectModel}\index{GameObjectModel@{GameObjectModel}}
+
+
+The \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} class represents the model of the game world. It holds a grid of \mbox{\hyperlink{classGameObject}{Game\+Object}} pointers, representing the game world\textquotesingle{}s layout.  
+
+
+
+
+{\ttfamily \#include $<$gameobjectmodel.\+h$>$}
+
+
+
+Inheritance diagram for Game\+Object\+Model\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classGameObjectModel__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{data\+Changed}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ object\+Data)
+\begin{DoxyCompactList}\small\item\em Signal emitted when the data of a game object changes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameObjectModel_a0724092d5eba5d4ebc4f2e6b7eff1156}{tick}} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted for each game tick. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGameObjectModel_a3b34a0bc0de84e7433c05c5f519bf1a6}{Game\+Object\+Model}} (QList$<$ QList$<$ QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$$>$$>$ world)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+base\+\_\+of$<$ Behavior, T $>$\+::value $>$\+::type $>$ }\\const QShared\+Pointer$<$ T $>$ \& \mbox{\hyperlink{classGameObjectModel_ae50619cb256b5c1ea846b747c6460f56}{get\+Behavior}} (int x, int y, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} type) const
+\begin{DoxyCompactList}\small\item\em Retrieves a behavior attached to a specific \mbox{\hyperlink{classGameObject}{Game\+Object}} in the world. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+base\+\_\+of$<$ Behavior, T $>$\+::value $>$\+::type $>$ }\\bool \mbox{\hyperlink{classGameObjectModel_ad4ba07980594e683e2d207edc0ef722b}{set\+Behavior}} (int x, int y, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} type, QShared\+Pointer$<$ T $>$ behavior)
+\begin{DoxyCompactList}\small\item\em Sets a behavior for a specific \mbox{\hyperlink{classGameObject}{Game\+Object}} in the world. \end{DoxyCompactList}\item 
+QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \mbox{\hyperlink{classGameObjectModel_a39cabead5dcf2559e3c84c2a7bd72036}{get\+Object}} (int x, int y, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} type) const
+\begin{DoxyCompactList}\small\item\em Retrieves a \mbox{\hyperlink{classGameObject}{Game\+Object}} of a specific type from a given location. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameObjectModel_a6cbcad0c06cd400c683e37125a094c10}{set\+Item}} (int x, int y, QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ object)
+\begin{DoxyCompactList}\small\item\em Sets a \mbox{\hyperlink{classGameObject}{Game\+Object}} at a specific location in the world. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}{get\+Row\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Gets the row count of the game world. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}{get\+Column\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Gets the column count of the game world. \end{DoxyCompactList}\item 
+QList$<$ QList$<$ QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ $>$ $>$ \mbox{\hyperlink{classGameObjectModel_adeeeeee1d09e5dc724852322927e6096}{get\+All\+Data}} (bool) const
+\begin{DoxyCompactList}\small\item\em Gets data for all Game\+Objects in the world. \end{DoxyCompactList}\item 
+QList$<$ QList$<$ QList$<$ QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ $>$ $>$ $>$ \mbox{\hyperlink{classGameObjectModel_a22b7dc7b9545b59428d1fdfe80778ec4}{get\+All\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Gets data for all Game\+Objects in the world. \end{DoxyCompactList}\item 
+QList$<$ QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ $>$ \mbox{\hyperlink{classGameObjectModel_a5ce981b0bca64178380d0437f78e1ce5}{get\+Object}} (\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} type) const
+\begin{DoxyCompactList}\small\item\em Retrieves all Game\+Objects of a specific type. \end{DoxyCompactList}\item 
+const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \mbox{\hyperlink{classGameObjectModel_abe6ed3239da3928ceeb7de71448ef019}{get\+Neighbor}} (QPoint location, double direction, int offset) const
+\begin{DoxyCompactList}\small\item\em get\+Neighbor Retrieves all neighbors of a tile under specific parameters \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QList$<$ QList$<$ QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ $>$ $>$ \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\+\_\+world}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+world The game world represented as a 2D list of game objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} class represents the model of the game world. It holds a grid of \mbox{\hyperlink{classGameObject}{Game\+Object}} pointers, representing the game world\textquotesingle{}s layout. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGameObjectModel_a3b34a0bc0de84e7433c05c5f519bf1a6}\label{classGameObjectModel_a3b34a0bc0de84e7433c05c5f519bf1a6}} 
+\index{GameObjectModel@{GameObjectModel}!GameObjectModel@{GameObjectModel}}
+\index{GameObjectModel@{GameObjectModel}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{GameObjectModel()}{GameObjectModel()}}
+{\footnotesize\ttfamily Game\+Object\+Model\+::\+Game\+Object\+Model (\begin{DoxyParamCaption}\item[{QList$<$ QList$<$ QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$$>$$>$}]{world }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em world} & A 2D grid of QPointer to Game\+Objects representing the game world. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19                                                               \{}
+\DoxyCodeLine{20         \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}} = world;}
+\DoxyCodeLine{21         \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&row : \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}) \{}
+\DoxyCodeLine{22             \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&tile : row) \{}
+\DoxyCodeLine{23                 tile-\/>setParent(\textcolor{keyword}{this});}
+\DoxyCodeLine{24                 connect(tile, \&\mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{GameObject::dataChanged}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}});}
+\DoxyCodeLine{25                 \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&obj : tile-\/>children()) \{}
+\DoxyCodeLine{26                     \textcolor{keyword}{auto} *gameObj = qobject\_cast<GameObject *>(obj);}
+\DoxyCodeLine{27                     connect(gameObj, \&\mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{GameObject::dataChanged}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}});}
+\DoxyCodeLine{28                     connect(\textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a0724092d5eba5d4ebc4f2e6b7eff1156}{GameObjectModel::tick}}, gameObj, \&\mbox{\hyperlink{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}{GameObject::tick}});}
+\DoxyCodeLine{29                 \}}
+\DoxyCodeLine{30             \}}
+\DoxyCodeLine{31         \}}
+\DoxyCodeLine{32     \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}\label{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}} 
+\index{GameObjectModel@{GameObjectModel}!dataChanged@{dataChanged}}
+\index{dataChanged@{dataChanged}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{dataChanged}{dataChanged}}
+{\footnotesize\ttfamily void Game\+Object\+Model\+::data\+Changed (\begin{DoxyParamCaption}\item[{QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$}]{object\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when the data of a game object changes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em object\+Data} & The changed data of the game object. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameObjectModel_a22b7dc7b9545b59428d1fdfe80778ec4}\label{classGameObjectModel_a22b7dc7b9545b59428d1fdfe80778ec4}} 
+\index{GameObjectModel@{GameObjectModel}!getAllData@{getAllData}}
+\index{getAllData@{getAllData}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{getAllData()}{getAllData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily QList$<$ QList$<$ QList$<$ QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ $>$ $>$ $>$ Game\+Object\+Model\+::get\+All\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets data for all Game\+Objects in the world. 
+
+\begin{DoxyReturn}{Returns}
+A 3D list containing data maps for each \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54                                                                                 \{}
+\DoxyCodeLine{55     \textcolor{comment}{// Probably linear time comp. makes a lot of copies so might be a bit slow with huge worlds.}}
+\DoxyCodeLine{56     QList<QList<QList<QMap<DataRole, QVariant>>>> list;}
+\DoxyCodeLine{57     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} x = 0; x < \mbox{\hyperlink{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}{getColumnCount}}(); ++x) \{}
+\DoxyCodeLine{58         list.append(QList<QList<QMap<DataRole, QVariant>>>());}
+\DoxyCodeLine{59         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} y = 0; y < \mbox{\hyperlink{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}{getRowCount}}(); ++y) \{}
+\DoxyCodeLine{60             list[x].append(\mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}[x][y]-\/>\mbox{\hyperlink{classGameObjectModel_a22b7dc7b9545b59428d1fdfe80778ec4}{getAllData}}());}
+\DoxyCodeLine{61         \}}
+\DoxyCodeLine{62     \}}
+\DoxyCodeLine{63     \textcolor{keywordflow}{return} list;}
+\DoxyCodeLine{64 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObjectModel_adeeeeee1d09e5dc724852322927e6096}\label{classGameObjectModel_adeeeeee1d09e5dc724852322927e6096}} 
+\index{GameObjectModel@{GameObjectModel}!getAllData@{getAllData}}
+\index{getAllData@{getAllData}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{getAllData()}{getAllData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily QList$<$ QList$<$ QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ $>$ $>$ Game\+Object\+Model\+::get\+All\+Data (\begin{DoxyParamCaption}\item[{bool}]{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets data for all Game\+Objects in the world. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \mbox{[}unused\mbox{]}} & An unused parameter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A 2D list of data maps for each \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43                                                                              \{}
+\DoxyCodeLine{44     QList<QList<QMap<DataRole, QVariant>>> list;}
+\DoxyCodeLine{45     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} x = 0; x < \mbox{\hyperlink{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}{getColumnCount}}(); ++x) \{}
+\DoxyCodeLine{46         list.append(QList<QMap<DataRole, QVariant>>());}
+\DoxyCodeLine{47         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} y = 0; y < \mbox{\hyperlink{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}{getRowCount}}(); ++y) \{}
+\DoxyCodeLine{48             list[x].append(\mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}[x][y]-\/>getData());}
+\DoxyCodeLine{49         \}}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51     \textcolor{keywordflow}{return} list;}
+\DoxyCodeLine{52 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObjectModel_ae50619cb256b5c1ea846b747c6460f56}\label{classGameObjectModel_ae50619cb256b5c1ea846b747c6460f56}} 
+\index{GameObjectModel@{GameObjectModel}!getBehavior@{getBehavior}}
+\index{getBehavior@{getBehavior}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{getBehavior()}{getBehavior()}}
+{\footnotesize\ttfamily template$<$typename T , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+base\+\_\+of$<$ Behavior, T $>$\+::value $>$\+::type $>$ \\
+const QShared\+Pointer$<$T$>$\& Game\+Object\+Model\+::get\+Behavior (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}}]{type }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves a behavior attached to a specific \mbox{\hyperlink{classGameObject}{Game\+Object}} in the world. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The \mbox{\hyperlink{classBehavior}{Behavior}} type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate in the world grid. \\
+\hline
+{\em y} & The y-\/coordinate in the world grid. \\
+\hline
+{\em type} & The type of \mbox{\hyperlink{classGameObject}{Game\+Object}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A shared pointer to the requested \mbox{\hyperlink{classBehavior}{Behavior}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}\label{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}} 
+\index{GameObjectModel@{GameObjectModel}!getColumnCount@{getColumnCount}}
+\index{getColumnCount@{getColumnCount}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{getColumnCount()}{getColumnCount()}}
+{\footnotesize\ttfamily int Game\+Object\+Model\+::get\+Column\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the column count of the game world. 
+
+\begin{DoxyReturn}{Returns}
+The number of columns in the world grid. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8                                           \{}
+\DoxyCodeLine{9     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}.size();}
+\DoxyCodeLine{10 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObjectModel_abe6ed3239da3928ceeb7de71448ef019}\label{classGameObjectModel_abe6ed3239da3928ceeb7de71448ef019}} 
+\index{GameObjectModel@{GameObjectModel}!getNeighbor@{getNeighbor}}
+\index{getNeighbor@{getNeighbor}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{getNeighbor()}{getNeighbor()}}
+{\footnotesize\ttfamily const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ Game\+Object\+Model\+::get\+Neighbor (\begin{DoxyParamCaption}\item[{QPoint}]{location,  }\item[{double}]{direction,  }\item[{int}]{offset }\end{DoxyParamCaption}) const}
+
+
+
+get\+Neighbor Retrieves all neighbors of a tile under specific parameters 
+
+
+\begin{DoxyParams}{Parameters}
+{\em location} & Location of the tile we want the neighbors of \\
+\hline
+{\em direction} & Direction in which we want the neighbors \\
+\hline
+{\em offset} & How further are we getting the neighbors, offset 0 = only closest immediate neighbors \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12                                                                                                            \{}
+\DoxyCodeLine{13     \textcolor{comment}{// The other method of using simple trig was causing some issues with big offsets.}}
+\DoxyCodeLine{14     \textcolor{comment}{// This might be somewhat slower but works quite well. The whole game is based on directions relative to}}
+\DoxyCodeLine{15     \textcolor{comment}{// the GameObjects since this makes behaviors very easy to program and fits well with the way objects are displayed.}}
+\DoxyCodeLine{16     qreal qoffset = \textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(offset + 1);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     QTransform tf;}
+\DoxyCodeLine{19     \textcolor{comment}{// We make a line with length 2*qoffset\string^2, since calculating the square root is slow and pointless.}}
+\DoxyCodeLine{20     \textcolor{comment}{// It just has to be longer than the biggest diagonal in a square.}}
+\DoxyCodeLine{21     \textcolor{keyword}{auto} line = tf.rotate(-\/direction).map(QLineF(\{0, 0\}, \{2 * qoffset * qoffset, 0\}));}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     QPointF pointF;}
+\DoxyCodeLine{24     QLineF bounds \{qoffset, -\/qoffset, qoffset, qoffset\};}
+\DoxyCodeLine{25     \textcolor{comment}{// We loop and check for an intersection with a line. The line is rotated until an intersection is found.}}
+\DoxyCodeLine{26     \textcolor{keywordflow}{while}(line.intersects(bounds, \&pointF) != QLineF::BoundedIntersection) \{}
+\DoxyCodeLine{27         tf.reset();}
+\DoxyCodeLine{28         bounds = tf.rotate(90).map(bounds);}
+\DoxyCodeLine{29     \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{comment}{// This intersection is the grid location relative to the object.}}
+\DoxyCodeLine{32     \textcolor{keyword}{auto} point = pointF.toPoint();}
+\DoxyCodeLine{33     \textcolor{keywordtype}{int} x = location.x() + point.x();}
+\DoxyCodeLine{34     \textcolor{keywordtype}{int} y = location.y() + point.y();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \textcolor{comment}{// No tile access allowed in the void.}}
+\DoxyCodeLine{37     \textcolor{keywordflow}{if}(0 > x || 0 > y || x >= \mbox{\hyperlink{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}{getColumnCount}}() || y >= \mbox{\hyperlink{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}{getRowCount}}()) \{}
+\DoxyCodeLine{38         \textcolor{keywordflow}{return} QPointer<GameObject>(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{39     \}}
+\DoxyCodeLine{40     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}.at(x).at(y);}
+\DoxyCodeLine{41 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObjectModel_a39cabead5dcf2559e3c84c2a7bd72036}\label{classGameObjectModel_a39cabead5dcf2559e3c84c2a7bd72036}} 
+\index{GameObjectModel@{GameObjectModel}!getObject@{getObject}}
+\index{getObject@{getObject}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{getObject()}{getObject()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ Game\+Object\+Model\+::get\+Object (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}}]{type }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves a \mbox{\hyperlink{classGameObject}{Game\+Object}} of a specific type from a given location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate in the world grid. \\
+\hline
+{\em y} & The y-\/coordinate in the world grid. \\
+\hline
+{\em type} & The type of \mbox{\hyperlink{classGameObject}{Game\+Object}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the requested \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                                                                                    \{}
+\DoxyCodeLine{67     \textcolor{keywordflow}{if}(y > \mbox{\hyperlink{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}{getRowCount}}() || x > \mbox{\hyperlink{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}{getColumnCount}}()) \{}
+\DoxyCodeLine{68         \textcolor{keywordflow}{return} QPointer<GameObject>(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{69     \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{keyword}{auto} tile = \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}[x][y];}
+\DoxyCodeLine{72     \textcolor{keywordflow}{if}(type == ObjectType::Tile) \{}
+\DoxyCodeLine{73         \textcolor{keywordflow}{return} tile;}
+\DoxyCodeLine{74     \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     \textcolor{keywordflow}{return} tile-\/>findChild(type);}
+\DoxyCodeLine{77 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObjectModel_a5ce981b0bca64178380d0437f78e1ce5}\label{classGameObjectModel_a5ce981b0bca64178380d0437f78e1ce5}} 
+\index{GameObjectModel@{GameObjectModel}!getObject@{getObject}}
+\index{getObject@{getObject}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{getObject()}{getObject()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily QList$<$ QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ $>$ Game\+Object\+Model\+::get\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}}]{type }\end{DoxyParamCaption}) const}
+
+
+
+Retrieves all Game\+Objects of a specific type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type of \mbox{\hyperlink{classGameObject}{Game\+Object}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of pointers to the requested Game\+Objects. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79                                                                             \{}
+\DoxyCodeLine{80     QList<QPointer<GameObject>> list \{\};}
+\DoxyCodeLine{81     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} x = 0; x < \mbox{\hyperlink{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}{getColumnCount}}(); ++x) \{}
+\DoxyCodeLine{82         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} y = 0; y < \mbox{\hyperlink{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}{getRowCount}}(); ++y) \{}
+\DoxyCodeLine{83             \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tile = \mbox{\hyperlink{classGameObjectModel_a39cabead5dcf2559e3c84c2a7bd72036}{getObject}}(x, y, type)) \{}
+\DoxyCodeLine{84                 list.append(tile);}
+\DoxyCodeLine{85             \}}
+\DoxyCodeLine{86         \}}
+\DoxyCodeLine{87     \}}
+\DoxyCodeLine{88     \textcolor{keywordflow}{return} list;}
+\DoxyCodeLine{89 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}\label{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}} 
+\index{GameObjectModel@{GameObjectModel}!getRowCount@{getRowCount}}
+\index{getRowCount@{getRowCount}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{getRowCount()}{getRowCount()}}
+{\footnotesize\ttfamily int Game\+Object\+Model\+::get\+Row\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the row count of the game world. 
+
+\begin{DoxyReturn}{Returns}
+The number of rows in the world grid. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4                                        \{}
+\DoxyCodeLine{5     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}[0].size();}
+\DoxyCodeLine{6 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObjectModel_ad4ba07980594e683e2d207edc0ef722b}\label{classGameObjectModel_ad4ba07980594e683e2d207edc0ef722b}} 
+\index{GameObjectModel@{GameObjectModel}!setBehavior@{setBehavior}}
+\index{setBehavior@{setBehavior}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{setBehavior()}{setBehavior()}}
+{\footnotesize\ttfamily template$<$typename T , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+base\+\_\+of$<$ Behavior, T $>$\+::value $>$\+::type $>$ \\
+bool Game\+Object\+Model\+::set\+Behavior (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}}]{type,  }\item[{QShared\+Pointer$<$ T $>$}]{behavior }\end{DoxyParamCaption})}
+
+
+
+Sets a behavior for a specific \mbox{\hyperlink{classGameObject}{Game\+Object}} in the world. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The \mbox{\hyperlink{classBehavior}{Behavior}} type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate in the world grid. \\
+\hline
+{\em y} & The y-\/coordinate in the world grid. \\
+\hline
+{\em type} & The type of \mbox{\hyperlink{classGameObject}{Game\+Object}}. \\
+\hline
+{\em behavior} & A shared pointer to the \mbox{\hyperlink{classBehavior}{Behavior}} to be set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if behavior is successfully set, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObjectModel_a6cbcad0c06cd400c683e37125a094c10}\label{classGameObjectModel_a6cbcad0c06cd400c683e37125a094c10}} 
+\index{GameObjectModel@{GameObjectModel}!setItem@{setItem}}
+\index{setItem@{setItem}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{setItem()}{setItem()}}
+{\footnotesize\ttfamily void Game\+Object\+Model\+::set\+Item (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{object }\end{DoxyParamCaption})}
+
+
+
+Sets a \mbox{\hyperlink{classGameObject}{Game\+Object}} at a specific location in the world. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate. \\
+\hline
+{\em y} & The y-\/coordinate. \\
+\hline
+{\em object} & The \mbox{\hyperlink{classGameObject}{Game\+Object}} to be placed at the specified location. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91                                                                        \{}
+\DoxyCodeLine{92     \textcolor{keywordflow}{if}(y > \mbox{\hyperlink{classGameObjectModel_aad1394b6b32ac2dec5b9d1feed9d3949}{getRowCount}}() || x > \mbox{\hyperlink{classGameObjectModel_a179e6be4b5367a33b37ce0ccf6bbf8fc}{getColumnCount}}()) \{}
+\DoxyCodeLine{93         \textcolor{keywordflow}{throw} \textcolor{stringliteral}{"{}Cannot set outside range"{}};}
+\DoxyCodeLine{94     \}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96     \textcolor{keywordflow}{if}(object-\/>getData(DataRole::Type).value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>() == ObjectType::Tile) \{}
+\DoxyCodeLine{97         \textcolor{keyword}{delete} \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}[x][y];}
+\DoxyCodeLine{98         \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}[x][y] = object;}
+\DoxyCodeLine{99         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{100     \}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     \textcolor{keywordtype}{object}-\/>setParent(\mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}[x][y]);}
+\DoxyCodeLine{103 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObjectModel_a0724092d5eba5d4ebc4f2e6b7eff1156}\label{classGameObjectModel_a0724092d5eba5d4ebc4f2e6b7eff1156}} 
+\index{GameObjectModel@{GameObjectModel}!tick@{tick}}
+\index{tick@{tick}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{tick}{tick}}
+{\footnotesize\ttfamily void Game\+Object\+Model\+::tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted for each game tick. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}\label{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}} 
+\index{GameObjectModel@{GameObjectModel}!m\_world@{m\_world}}
+\index{m\_world@{m\_world}!GameObjectModel@{GameObjectModel}}
+\doxysubsubsection{\texorpdfstring{m\_world}{m\_world}}
+{\footnotesize\ttfamily QList$<$QList$<$QPointer$<$\mbox{\hyperlink{classGameObject}{Game\+Object}}$>$ $>$ $>$ Game\+Object\+Model\+::m\+\_\+world\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+world The game world represented as a 2D list of game objects. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/\mbox{\hyperlink{gameobjectmodel_8h}{gameobjectmodel.\+h}}\item 
+model/\mbox{\hyperlink{gameobjectmodel_8cpp}{gameobjectmodel.\+cpp}}\end{DoxyCompactItemize}

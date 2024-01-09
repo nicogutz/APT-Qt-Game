@@ -28,14 +28,13 @@ public:
     /**
      * @brief Default constructor for GameObject.
      */
-   GameObject() { m_objectData = QMap<DataRole, QVariant>(); };
+    GameObject() { m_objectData = QMap<DataRole, QVariant>(); };
 
     /**
      * @brief Destructor for GameObject.
      */
     ~GameObject() {};
 
-    // Extra child getter
     /**
      * @brief Finds a child GameObject of a specified type.
      * @param type The ObjectType to find.
@@ -43,8 +42,7 @@ public:
      */
     const QPointer<GameObject> findChild(ObjectType type);
 
-
-        // Data getters and setters.
+    // Data getters and setters.
     /**
      * @brief Gets data for a specific role.
      * @param role The role for which data is requested.
@@ -101,8 +99,6 @@ public:
      * @return A pointer to the neighboring GameObject.
      */
     const QPointer<GameObject> getNeighbor(Direction direction, int offset = 0) const;
-
-
 
     // Behavior getters and setters
     /**

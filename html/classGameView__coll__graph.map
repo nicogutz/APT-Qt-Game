@@ -1,0 +1,6 @@
+<map id="GameView" name="GameView">
+<area shape="rect" id="node1" title="The GameView class is the scene where all the visuals of the world are placed." alt="" coords="122,160,401,428"/>
+<area shape="rect" id="node2" href="$classQGraphicsScene.html" title=" " alt="" coords="5,13,133,90"/>
+<area shape="rect" id="node3" title=" " alt="" coords="158,5,365,97"/>
+<area shape="rect" id="node4" title=" " alt="" coords="389,13,601,90"/>
+</map>

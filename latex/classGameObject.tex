@@ -1,0 +1,821 @@
+\hypertarget{classGameObject}{}\doxysection{Game\+Object Class Reference}
+\label{classGameObject}\index{GameObject@{GameObject}}
+
+
+The \mbox{\hyperlink{classGameObject}{Game\+Object}} class represents an individual entity within the game world, capable of various interactions and states.  
+
+
+
+
+{\ttfamily \#include $<$gameobject.\+h$>$}
+
+
+
+Inheritance diagram for Game\+Object\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classGameObject__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{data\+Changed}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ object\+Data)
+\begin{DoxyCompactList}\small\item\em Signal emitted when the data of the \mbox{\hyperlink{classGameObject}{Game\+Object}} changes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}{tick}} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted to indicate a game tick. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGameObject_a90ddcc239c4ede803384cf759d2aeb03}{Game\+Object}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ object\+Data)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classGameObject}{Game\+Object}} with initial data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGameObject_a0348e3ee2e83d56eafca7a3547f432c4}{Game\+Object}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \mbox{\hyperlink{classGameObject}{Game\+Object}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGameObject_ab82dfdb656f9051c0587e6593b2dda97}{$\sim$\+Game\+Object}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \mbox{\hyperlink{classGameObject}{Game\+Object}}. \end{DoxyCompactList}\item 
+const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \mbox{\hyperlink{classGameObject_a76c760307ca697f71f78a41500ebc1f0}{find\+Child}} (\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Finds a child \mbox{\hyperlink{classGameObject}{Game\+Object}} of a specified type. \end{DoxyCompactList}\item 
+QVariant \mbox{\hyperlink{classGameObject_aad0eea43536b5f2e3c737fe670d5e6bf}{get\+Data}} (\mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}} role) const
+\begin{DoxyCompactList}\small\item\em Gets data for a specific role. \end{DoxyCompactList}\item 
+QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ \mbox{\hyperlink{classGameObject_aacca78691e4d6fcefe51453bdac459b4}{get\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Gets all data for the \mbox{\hyperlink{classGameObject}{Game\+Object}}. \end{DoxyCompactList}\item 
+QList$<$ QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ $>$ \mbox{\hyperlink{classGameObject_a8eb2a3560c771ecd846bc94246ddc7e0}{get\+All\+Data}} (bool self=true) const
+\begin{DoxyCompactList}\small\item\em Gets all data, optionally including self. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameObject_a666684b0e530b29a54005d9269b9357d}{set\+Data}} (\mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}} role, QVariant value)
+\begin{DoxyCompactList}\small\item\em Sets data for a specific role. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameObject_aa2fd51015e45c8dc7d7ae491a9bc4b8b}{set\+Data}} (QList$<$ QPair$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$$>$ data)
+\begin{DoxyCompactList}\small\item\em Sets multiple data roles and values. \end{DoxyCompactList}\item 
+const QList$<$ QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ $>$ \mbox{\hyperlink{classGameObject_a70a665695b872802fb72b0a4fbec2476}{get\+All\+Neighbors}} (int offset=0) const
+\begin{DoxyCompactList}\small\item\em Gets all neighboring Game\+Objects. \end{DoxyCompactList}\item 
+const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \mbox{\hyperlink{classGameObject_aab13cc88e0f0ed2329f04c8f9f3f4c55}{get\+Neighbor}} (double direction, int offset=0) const
+\begin{DoxyCompactList}\small\item\em Gets a neighbor in a specific direction. \end{DoxyCompactList}\item 
+const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \mbox{\hyperlink{classGameObject_a99718a5038e320c031c4a235f1eee301}{get\+Neighbor}} (\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} direction, int offset=0) const
+\begin{DoxyCompactList}\small\item\em Gets a neighbor in a specific direction. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename  = std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Behavior, T$>$\+::value$>$\+::type$>$ }\\void \mbox{\hyperlink{classGameObject_a0ad9e839d13e9da54793255e6b2fc8c8}{set\+Behavior}} (QShared\+Pointer$<$ T $>$ behavior)
+\begin{DoxyCompactList}\small\item\em Sets a behavior for the \mbox{\hyperlink{classGameObject}{Game\+Object}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename  = std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Behavior, T$>$\+::value$>$\+::type$>$ }\\QShared\+Pointer$<$ T $>$ \mbox{\hyperlink{classGameObject_a2c754ee62dbac57705f5f418a6489040}{get\+Behavior}} () const
+\begin{DoxyCompactList}\small\item\em Gets a behavior of the \mbox{\hyperlink{classGameObject}{Game\+Object}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename  = std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Behavior, T$>$\+::value$>$\+::type$>$ }\\void \mbox{\hyperlink{classGameObject_a5fcf6597d262c1007d82a4c4cfd2dfa6}{remove\+Behavior}} ()
+\begin{DoxyCompactList}\small\item\em Removes a behavior from the \mbox{\hyperlink{classGameObject}{Game\+Object}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename  = std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Behavior, T$>$\+::value$>$\+::type$>$ }\\const QList$<$ QShared\+Pointer$<$ T $>$ $>$ \mbox{\hyperlink{classGameObject_a8d6d977b142888b16526aee4271c109b}{get\+All\+Behaviors}} () const
+\begin{DoxyCompactList}\small\item\em Gets all behaviors of the \mbox{\hyperlink{classGameObject}{Game\+Object}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGameObject_abde3e42b00f281d4ca7d601b3578a858}{event}} (QEvent $\ast$event) override
+\begin{DoxyCompactList}\small\item\em Event handler override. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameObject_a58cd63e04e71814e53ae045409e6c26c}{set\+Data}} (const QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ \&data)
+\begin{DoxyCompactList}\small\item\em Sets the \mbox{\hyperlink{classGameObject}{Game\+Object}}\textquotesingle{}s data. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGameObject_a8bfdec216a5d78b3beca4cb9d6571207}{operator==}} (\mbox{\hyperlink{classGameObject}{Game\+Object}} const \&obj) const
+\begin{DoxyCompactList}\small\item\em Equality comparison operator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGameObject_a2db21d08a13e76888d6ee93ede37824c}{operator==}} (\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} const \&type) const
+\begin{DoxyCompactList}\small\item\em Equality comparison operator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGameObject_af3ad43e7c4f998d2bc7e16be77c081f1}{has\+Child}} (\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} type) const
+\begin{DoxyCompactList}\small\item\em Checks if the \mbox{\hyperlink{classGameObject}{Game\+Object}} has a child of a specific type. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGameObject_abb83b7ef6973375c164d74b18bf58905}{has\+Child}} (QPair$<$ \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} $>$ range) const
+\begin{DoxyCompactList}\small\item\em Checks if the \mbox{\hyperlink{classGameObject}{Game\+Object}} has a child within a range of types. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classGameObject}{Game\+Object}} $\ast$ \mbox{\hyperlink{classGameObject_acb930965540496591787580d9b9e3cf1}{nearest}} (QPair$<$ \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} $>$ range) const
+\begin{DoxyCompactList}\small\item\em Finds the nearest \mbox{\hyperlink{classGameObject}{Game\+Object}} of a specific type or within a range. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classGameObject}{Game\+Object}} $\ast$ \mbox{\hyperlink{classGameObject_ab8d9bfe3c7e6370ba896a3d3abdc338d}{nearest}} (\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} type) const
+\begin{DoxyCompactList}\small\item\em Finds the nearest \mbox{\hyperlink{classGameObject}{Game\+Object}} of a specific type. \end{DoxyCompactList}\item 
+const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \mbox{\hyperlink{classGameObject_affaa1893d5294ccea43b0e611d910a67}{find\+Child}} (QPair$<$ \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} $>$ range)
+\begin{DoxyCompactList}\small\item\em Finds a child \mbox{\hyperlink{classGameObject}{Game\+Object}} within a range of types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QMap$<$ std\+::type\+\_\+index, QShared\+Pointer$<$ \mbox{\hyperlink{classBehavior}{Behavior}} $>$ $>$ \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\+\_\+behaviors}}
+\item 
+QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\+\_\+object\+Data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classGameObject}{Game\+Object}} class represents an individual entity within the game world, capable of various interactions and states. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGameObject_a90ddcc239c4ede803384cf759d2aeb03}\label{classGameObject_a90ddcc239c4ede803384cf759d2aeb03}} 
+\index{GameObject@{GameObject}!GameObject@{GameObject}}
+\index{GameObject@{GameObject}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{GameObject()}{GameObject()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}\item[{QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$}]{object\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for \mbox{\hyperlink{classGameObject}{Game\+Object}} with initial data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em object\+Data} & A map of data roles to their corresponding values. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26         : \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}(objectData) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a0348e3ee2e83d56eafca7a3547f432c4}\label{classGameObject_a0348e3ee2e83d56eafca7a3547f432c4}} 
+\index{GameObject@{GameObject}!GameObject@{GameObject}}
+\index{GameObject@{GameObject}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{GameObject()}{GameObject()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor for \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31 \{ \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}} = QMap<DataRole, QVariant>(); \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_ab82dfdb656f9051c0587e6593b2dda97}\label{classGameObject_ab82dfdb656f9051c0587e6593b2dda97}} 
+\index{GameObject@{GameObject}!````~GameObject@{$\sim$GameObject}}
+\index{````~GameObject@{$\sim$GameObject}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{$\sim$GameObject()}{~GameObject()}}
+{\footnotesize\ttfamily Game\+Object\+::$\sim$\+Game\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Destructor for \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36 \{\};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}\label{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}} 
+\index{GameObject@{GameObject}!dataChanged@{dataChanged}}
+\index{dataChanged@{dataChanged}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{dataChanged}{dataChanged}}
+{\footnotesize\ttfamily void Game\+Object\+::data\+Changed (\begin{DoxyParamCaption}\item[{QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$}]{object\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when the data of the \mbox{\hyperlink{classGameObject}{Game\+Object}} changes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em object\+Data} & The changed data of the \mbox{\hyperlink{classGameObject}{Game\+Object}}. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameObject_abde3e42b00f281d4ca7d601b3578a858}\label{classGameObject_abde3e42b00f281d4ca7d601b3578a858}} 
+\index{GameObject@{GameObject}!event@{event}}
+\index{event@{event}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{event()}{event()}}
+{\footnotesize\ttfamily bool Game\+Object\+::event (\begin{DoxyParamCaption}\item[{QEvent $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Event handler override. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The event to handle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if event was handled. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36                                     \{}
+\DoxyCodeLine{37     \textcolor{keywordflow}{if}(\mbox{\hyperlink{classGameObject_abde3e42b00f281d4ca7d601b3578a858}{event}}-\/>type() == QEvent::ParentChange) \{}
+\DoxyCodeLine{38         \textcolor{keyword}{auto} data = \mbox{\hyperlink{classGameObject_aacca78691e4d6fcefe51453bdac459b4}{getData}}();}
+\DoxyCodeLine{39         \textcolor{comment}{// Pass on the data from the parent to the view, the position is the new position after the parent change.}}
+\DoxyCodeLine{40         \textcolor{comment}{// This means that the change direction + the new position form a vector of the movement of the object.}}
+\DoxyCodeLine{41         data[DataRole::Position] = qobject\_cast<GameObject *>(parent())-\/>getData(DataRole::Position);}
+\DoxyCodeLine{42         data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(DataRole::Position);}
+\DoxyCodeLine{43         data[DataRole::ChangeDirection] = \mbox{\hyperlink{classGameObject_aacca78691e4d6fcefe51453bdac459b4}{getData}}(\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}});}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         \textcolor{comment}{// Debug for protagonist only}}
+\DoxyCodeLine{46         \textcolor{keywordflow}{if}(data[DataRole::Type].value<ObjectType>() == ObjectType::Protagonist) \{}
+\DoxyCodeLine{47             qDebug() << data[DataRole::Type].toString() << \textcolor{stringliteral}{"{}Moved To: ("{}} << data[DataRole::Position].toPoint().x() << \textcolor{stringliteral}{"{}, "{}}}
+\DoxyCodeLine{48                      << data[DataRole::Position].toPoint().y() << \textcolor{stringliteral}{"{})"{}} << data[DataRole::ChangeDirection].toString();}
+\DoxyCodeLine{49         \}}
+\DoxyCodeLine{50         emit \mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{dataChanged}}(data);}
+\DoxyCodeLine{51         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54     \textcolor{keywordflow}{return} QObject::event(\mbox{\hyperlink{classGameObject_abde3e42b00f281d4ca7d601b3578a858}{event}});}
+\DoxyCodeLine{55 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a76c760307ca697f71f78a41500ebc1f0}\label{classGameObject_a76c760307ca697f71f78a41500ebc1f0}} 
+\index{GameObject@{GameObject}!findChild@{findChild}}
+\index{findChild@{findChild}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{findChild()}{findChild()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ Game\+Object\+::find\+Child (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}}]{type }\end{DoxyParamCaption})}
+
+
+
+Finds a child \mbox{\hyperlink{classGameObject}{Game\+Object}} of a specified type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The Object\+Type to find. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the found \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{89                                                                 \{}
+\DoxyCodeLine{90     \textcolor{keyword}{auto} children = findChildren<GameObject *>();}
+\DoxyCodeLine{91     \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} child : children) \{}
+\DoxyCodeLine{92         \textcolor{keywordflow}{if}(child-\/>getData(DataRole::Type).value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>() == type) \{}
+\DoxyCodeLine{93             \textcolor{keywordflow}{return} child;}
+\DoxyCodeLine{94         \}}
+\DoxyCodeLine{95     \}}
+\DoxyCodeLine{96     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{97 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_affaa1893d5294ccea43b0e611d910a67}\label{classGameObject_affaa1893d5294ccea43b0e611d910a67}} 
+\index{GameObject@{GameObject}!findChild@{findChild}}
+\index{findChild@{findChild}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{findChild()}{findChild()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ Game\+Object\+::find\+Child (\begin{DoxyParamCaption}\item[{QPair$<$ \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} $>$}]{range }\end{DoxyParamCaption})}
+
+
+
+Finds a child \mbox{\hyperlink{classGameObject}{Game\+Object}} within a range of types. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em range} & The range of Object\+Types to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the found \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98                                                                                     \{}
+\DoxyCodeLine{99     \textcolor{comment}{// Object type can have ranges to find several objects related to eachother.}}
+\DoxyCodeLine{100     \textcolor{keyword}{auto} children = findChildren<GameObject *>();}
+\DoxyCodeLine{101     \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} child : children) \{}
+\DoxyCodeLine{102         \textcolor{keywordtype}{int} type = child-\/>getData(DataRole::Type).toInt();}
+\DoxyCodeLine{103         \textcolor{keywordflow}{if}(type >= (\textcolor{keywordtype}{int})range.first \&\& type <= (\textcolor{keywordtype}{int})range.second) \{}
+\DoxyCodeLine{104             \textcolor{keywordflow}{return} child;}
+\DoxyCodeLine{105         \}}
+\DoxyCodeLine{106     \}}
+\DoxyCodeLine{107     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{108 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a8d6d977b142888b16526aee4271c109b}\label{classGameObject_a8d6d977b142888b16526aee4271c109b}} 
+\index{GameObject@{GameObject}!getAllBehaviors@{getAllBehaviors}}
+\index{getAllBehaviors@{getAllBehaviors}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getAllBehaviors()}{getAllBehaviors()}}
+{\footnotesize\ttfamily template$<$typename T , typename  = std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Behavior, T$>$\+::value$>$\+::type$>$ \\
+const QList$<$QShared\+Pointer$<$T$>$ $>$ Game\+Object\+::get\+All\+Behaviors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets all behaviors of the \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+
+\begin{DoxyReturn}{Returns}
+A list of shared pointers to the behaviors. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{133                                                            \{}
+\DoxyCodeLine{134         \textcolor{keyword}{auto} list = QList<QSharedPointer<T>>();}
+\DoxyCodeLine{135         list.append(qSharedPointerDynamicCast<T>(\mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)]));}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137         \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} *child : findChildren<GameObject *>()) \{}
+\DoxyCodeLine{138             list.append(qSharedPointerDynamicCast<T>(child-\/>getBehavior<T>()));}
+\DoxyCodeLine{139         \}}
+\DoxyCodeLine{140         \textcolor{keywordflow}{return} list;}
+\DoxyCodeLine{141     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a8eb2a3560c771ecd846bc94246ddc7e0}\label{classGameObject_a8eb2a3560c771ecd846bc94246ddc7e0}} 
+\index{GameObject@{GameObject}!getAllData@{getAllData}}
+\index{getAllData@{getAllData}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getAllData()}{getAllData()}}
+{\footnotesize\ttfamily QList$<$ QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ $>$ Game\+Object\+::get\+All\+Data (\begin{DoxyParamCaption}\item[{bool}]{self = {\ttfamily true} }\end{DoxyParamCaption}) const}
+
+
+
+Gets all data, optionally including self. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Whether to include the \mbox{\hyperlink{classGameObject}{Game\+Object}}\textquotesingle{}s own data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of data maps. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{155                                                                       \{}
+\DoxyCodeLine{156     QList<QMap<DataRole, QVariant>> list;}
+\DoxyCodeLine{157     \textcolor{keywordflow}{if}(\textcolor{keyword}{self}) \{}
+\DoxyCodeLine{158         list.append(\mbox{\hyperlink{classGameObject_aacca78691e4d6fcefe51453bdac459b4}{getData}}());}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161     \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} child : children()) \{}
+\DoxyCodeLine{162         list.append(qobject\_cast<GameObject *>(child)-\/>\mbox{\hyperlink{classGameObject_aacca78691e4d6fcefe51453bdac459b4}{getData}}());}
+\DoxyCodeLine{163     \}}
+\DoxyCodeLine{164     \textcolor{keywordflow}{return} list;}
+\DoxyCodeLine{165 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a70a665695b872802fb72b0a4fbec2476}\label{classGameObject_a70a665695b872802fb72b0a4fbec2476}} 
+\index{GameObject@{GameObject}!getAllNeighbors@{getAllNeighbors}}
+\index{getAllNeighbors@{getAllNeighbors}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getAllNeighbors()}{getAllNeighbors()}}
+{\footnotesize\ttfamily const QList$<$ QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ $>$ Game\+Object\+::get\+All\+Neighbors (\begin{DoxyParamCaption}\item[{int}]{offset = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+Gets all neighboring Game\+Objects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offset} & The offset to consider for neighbors. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of pointers to neighboring Game\+Objects. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22                                                                               \{}
+\DoxyCodeLine{23     \textcolor{comment}{// I think this ended up looking pretty sweet.}}
+\DoxyCodeLine{24     \textcolor{keyword}{auto} list = QList<QPointer<GameObject>>();}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{comment}{// Quick reminder that int do not magically cast to doubles. The function}}
+\DoxyCodeLine{27     \textcolor{comment}{// accesses neighbors using angles, by dividing 360 deg by the offset}}
+\DoxyCodeLine{28     \textcolor{comment}{// * 8 we get a geometric increase on the number of tiles.}}
+\DoxyCodeLine{29     \textcolor{comment}{// This might? not work for big offsets, too afraid to try.}}
+\DoxyCodeLine{30     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double} i = 0; i < 360; i += 360 / (((double)offset + 1) * 8)) \{}
+\DoxyCodeLine{31         list.append(\mbox{\hyperlink{classGameObject_aab13cc88e0f0ed2329f04c8f9f3f4c55}{getNeighbor}}(i, offset));}
+\DoxyCodeLine{32     \}}
+\DoxyCodeLine{33     \textcolor{keywordflow}{return} list;}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a2c754ee62dbac57705f5f418a6489040}\label{classGameObject_a2c754ee62dbac57705f5f418a6489040}} 
+\index{GameObject@{GameObject}!getBehavior@{getBehavior}}
+\index{getBehavior@{getBehavior}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getBehavior()}{getBehavior()}}
+{\footnotesize\ttfamily template$<$typename T , typename  = std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Behavior, T$>$\+::value$>$\+::type$>$ \\
+QShared\+Pointer$<$T$>$ Game\+Object\+::get\+Behavior (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets a behavior of the \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+
+\begin{DoxyReturn}{Returns}
+A shared pointer to the requested behavior. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{117                                           \{}
+\DoxyCodeLine{118         \textcolor{keyword}{auto} behavior = \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)];}
+\DoxyCodeLine{119         \textcolor{keywordflow}{return} qSharedPointerDynamicCast<T>(behavior);}
+\DoxyCodeLine{120     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_aacca78691e4d6fcefe51453bdac459b4}\label{classGameObject_aacca78691e4d6fcefe51453bdac459b4}} 
+\index{GameObject@{GameObject}!getData@{getData}}
+\index{getData@{getData}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ Game\+Object\+::get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets all data for the \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+
+\begin{DoxyReturn}{Returns}
+A map of data roles to their values. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{151                                                    \{}
+\DoxyCodeLine{152     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}};}
+\DoxyCodeLine{153 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_aad0eea43536b5f2e3c737fe670d5e6bf}\label{classGameObject_aad0eea43536b5f2e3c737fe670d5e6bf}} 
+\index{GameObject@{GameObject}!getData@{getData}}
+\index{getData@{getData}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily QVariant Game\+Object\+::get\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}}]{role }\end{DoxyParamCaption}) const}
+
+
+
+Gets data for a specific role. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em role} & The role for which data is requested. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The data associated with the given role. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{147                                                 \{}
+\DoxyCodeLine{148     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[role];}
+\DoxyCodeLine{149 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a99718a5038e320c031c4a235f1eee301}\label{classGameObject_a99718a5038e320c031c4a235f1eee301}} 
+\index{GameObject@{GameObject}!getNeighbor@{getNeighbor}}
+\index{getNeighbor@{getNeighbor}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getNeighbor()}{getNeighbor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ Game\+Object\+::get\+Neighbor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}}}]{direction,  }\item[{int}]{offset = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+Gets a neighbor in a specific direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The direction (as enum) in which to find the neighbor. \\
+\hline
+{\em offset} & The offset to consider. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the neighboring \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                                                                         \{}
+\DoxyCodeLine{19     \textcolor{comment}{// Kept for laziness reasons.}}
+\DoxyCodeLine{20     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_aab13cc88e0f0ed2329f04c8f9f3f4c55}{getNeighbor}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(direction), offset);}
+\DoxyCodeLine{21 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_aab13cc88e0f0ed2329f04c8f9f3f4c55}\label{classGameObject_aab13cc88e0f0ed2329f04c8f9f3f4c55}} 
+\index{GameObject@{GameObject}!getNeighbor@{getNeighbor}}
+\index{getNeighbor@{getNeighbor}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getNeighbor()}{getNeighbor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ Game\+Object\+::get\+Neighbor (\begin{DoxyParamCaption}\item[{double}]{direction,  }\item[{int}]{offset = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+Gets a neighbor in a specific direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The direction in which to find the neighbor. \\
+\hline
+{\em offset} & The offset to consider. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the neighboring \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9                                                                                      \{}
+\DoxyCodeLine{10     \textcolor{comment}{// Overloaded function that takes an angle as its parameter. This function}}
+\DoxyCodeLine{11     \textcolor{comment}{// propagates itself by calling its parent until it is not a GameObject.}}
+\DoxyCodeLine{12     \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} prt = qobject\_cast<GameObject *>(parent())) \{}
+\DoxyCodeLine{13         \textcolor{keywordflow}{return} prt-\/>getNeighbor(direction, offset);}
+\DoxyCodeLine{14     \}}
+\DoxyCodeLine{15     \textcolor{comment}{// The parent of the last GameObject parent is a GameObject model, so it asks it for its neighbor, neighbor.}}
+\DoxyCodeLine{16     \textcolor{keywordflow}{return} qobject\_cast<GameObjectModel *>(parent())-\/>getNeighbor(\mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Position].toPoint(), direction, offset);}
+\DoxyCodeLine{17 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_af3ad43e7c4f998d2bc7e16be77c081f1}\label{classGameObject_af3ad43e7c4f998d2bc7e16be77c081f1}} 
+\index{GameObject@{GameObject}!hasChild@{hasChild}}
+\index{hasChild@{hasChild}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{hasChild()}{hasChild()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Game\+Object\+::has\+Child (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}}]{type }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the \mbox{\hyperlink{classGameObject}{Game\+Object}} has a child of a specific type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The Object\+Type to check for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if such a child exists. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{119                                                \{}
+\DoxyCodeLine{120     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_af3ad43e7c4f998d2bc7e16be77c081f1}{hasChild}}(\{type, type\});}
+\DoxyCodeLine{121 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_abb83b7ef6973375c164d74b18bf58905}\label{classGameObject_abb83b7ef6973375c164d74b18bf58905}} 
+\index{GameObject@{GameObject}!hasChild@{hasChild}}
+\index{hasChild@{hasChild}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{hasChild()}{hasChild()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Game\+Object\+::has\+Child (\begin{DoxyParamCaption}\item[{QPair$<$ \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} $>$}]{range }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the \mbox{\hyperlink{classGameObject}{Game\+Object}} has a child within a range of types. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em range} & The range of Object\+Types to check for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if such a child exists. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{110                                                                    \{}
+\DoxyCodeLine{111     \textcolor{keyword}{auto} children = \mbox{\hyperlink{classGameObject_a8eb2a3560c771ecd846bc94246ddc7e0}{getAllData}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113     \textcolor{keywordflow}{return} std::any\_of(children.begin(), children.end(), [\&range](\textcolor{keyword}{const} QMap<DataRole, QVariant> \&obj) \{}
+\DoxyCodeLine{114         int type = obj[DataRole::Type].toInt();}
+\DoxyCodeLine{115         return type >= (int)range.first \&\& type <= (int)range.second;}
+\DoxyCodeLine{116     \});}
+\DoxyCodeLine{117 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_ab8d9bfe3c7e6370ba896a3d3abdc338d}\label{classGameObject_ab8d9bfe3c7e6370ba896a3d3abdc338d}} 
+\index{GameObject@{GameObject}!nearest@{nearest}}
+\index{nearest@{nearest}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{nearest()}{nearest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classGameObject}{Game\+Object}} $\ast$ Game\+Object\+::nearest (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}}]{type }\end{DoxyParamCaption}) const}
+
+
+
+Finds the nearest \mbox{\hyperlink{classGameObject}{Game\+Object}} of a specific type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The Object\+Type to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the nearest \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{123                                                            \{}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_acb930965540496591787580d9b9e3cf1}{nearest}}(\{type, type\});}
+\DoxyCodeLine{125 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_acb930965540496591787580d9b9e3cf1}\label{classGameObject_acb930965540496591787580d9b9e3cf1}} 
+\index{GameObject@{GameObject}!nearest@{nearest}}
+\index{nearest@{nearest}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{nearest()}{nearest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classGameObject}{Game\+Object}} $\ast$ Game\+Object\+::nearest (\begin{DoxyParamCaption}\item[{QPair$<$ \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}}, \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} $>$}]{range }\end{DoxyParamCaption}) const}
+
+
+
+Finds the nearest \mbox{\hyperlink{classGameObject}{Game\+Object}} of a specific type or within a range. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em range} & The range of Object\+Types to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the nearest \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{127                                                                                \{}
+\DoxyCodeLine{128     \textcolor{keyword}{auto} filter = [\&range](QPointer<GameObject> obj) \{ \textcolor{keywordflow}{return} obj.isNull() ? false : obj-\/>hasChild(range); \};}
+\DoxyCodeLine{129     \textcolor{keyword}{auto} comp = [](QPointer<GameObject> a) \{ \textcolor{keywordflow}{return} a.isNull(); \};}
+\DoxyCodeLine{130     \textcolor{keywordtype}{int} i = 0;}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132     \textcolor{keywordflow}{while}(\textcolor{keyword}{true}) \{}
+\DoxyCodeLine{133         \textcolor{keyword}{auto} tiles = \mbox{\hyperlink{classGameObject_a70a665695b872802fb72b0a4fbec2476}{getAllNeighbors}}(i);}
+\DoxyCodeLine{134         \textcolor{keywordflow}{if}(std::all\_of(tiles.begin(), tiles.end(), comp)) \{}
+\DoxyCodeLine{135             \textcolor{comment}{// When the map has been exhausted do not loop any more.}}
+\DoxyCodeLine{136             \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{137         \}}
+\DoxyCodeLine{138         \textcolor{keyword}{auto} it = std::find\_if(tiles.begin(), tiles.end(), filter);}
+\DoxyCodeLine{139         \textcolor{keywordflow}{if}(it != tiles.end()) \{}
+\DoxyCodeLine{140             \textcolor{keywordflow}{return} *it;}
+\DoxyCodeLine{141         \}}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143         i++;}
+\DoxyCodeLine{144     \};}
+\DoxyCodeLine{145 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a8bfdec216a5d78b3beca4cb9d6571207}\label{classGameObject_a8bfdec216a5d78b3beca4cb9d6571207}} 
+\index{GameObject@{GameObject}!operator==@{operator==}}
+\index{operator==@{operator==}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Game\+Object\+::operator== (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGameObject}{Game\+Object}} const \&}]{obj }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equality comparison operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & The \mbox{\hyperlink{classGameObject}{Game\+Object}} to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if equal. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{161                                                  \{}
+\DoxyCodeLine{162         \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Type].value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>() == obj;}
+\DoxyCodeLine{163     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a2db21d08a13e76888d6ee93ede37824c}\label{classGameObject_a2db21d08a13e76888d6ee93ede37824c}} 
+\index{GameObject@{GameObject}!operator==@{operator==}}
+\index{operator==@{operator==}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Game\+Object\+::operator== (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{Object\+Type}} const \&}]{type }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equality comparison operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The Object\+Type to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if equal. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{171                                                   \{}
+\DoxyCodeLine{172         \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Type].value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>() == type;}
+\DoxyCodeLine{173     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a5fcf6597d262c1007d82a4c4cfd2dfa6}\label{classGameObject_a5fcf6597d262c1007d82a4c4cfd2dfa6}} 
+\index{GameObject@{GameObject}!removeBehavior@{removeBehavior}}
+\index{removeBehavior@{removeBehavior}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{removeBehavior()}{removeBehavior()}}
+{\footnotesize\ttfamily template$<$typename T , typename  = std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Behavior, T$>$\+::value$>$\+::type$>$ \\
+void Game\+Object\+::remove\+Behavior (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Removes a behavior from the \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{125                           \{}
+\DoxyCodeLine{126         \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}.remove(\textcolor{keyword}{typeid}(T));}
+\DoxyCodeLine{127     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a0ad9e839d13e9da54793255e6b2fc8c8}\label{classGameObject_a0ad9e839d13e9da54793255e6b2fc8c8}} 
+\index{GameObject@{GameObject}!setBehavior@{setBehavior}}
+\index{setBehavior@{setBehavior}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setBehavior()}{setBehavior()}}
+{\footnotesize\ttfamily template$<$typename T , typename  = std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Behavior, T$>$\+::value$>$\+::type$>$ \\
+void Game\+Object\+::set\+Behavior (\begin{DoxyParamCaption}\item[{QShared\+Pointer$<$ T $>$}]{behavior }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets a behavior for the \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em behavior} & The behavior to set. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{109                                                  \{}
+\DoxyCodeLine{110         \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)] = behavior;}
+\DoxyCodeLine{111     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a58cd63e04e71814e53ae045409e6c26c}\label{classGameObject_a58cd63e04e71814e53ae045409e6c26c}} 
+\index{GameObject@{GameObject}!setData@{setData}}
+\index{setData@{setData}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Data (\begin{DoxyParamCaption}\item[{const QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Sets the \mbox{\hyperlink{classGameObject}{Game\+Object}}\textquotesingle{}s data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The data to set. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{85                                                              \{}
+\DoxyCodeLine{86     \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}} = QMap<DataRole, QVariant>(data);}
+\DoxyCodeLine{87 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a666684b0e530b29a54005d9269b9357d}\label{classGameObject_a666684b0e530b29a54005d9269b9357d}} 
+\index{GameObject@{GameObject}!setData@{setData}}
+\index{setData@{setData}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}}]{role,  }\item[{QVariant}]{value }\end{DoxyParamCaption})}
+
+
+
+Sets data for a specific role. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em role} & The role to set data for. \\
+\hline
+{\em value} & The value to set. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57                                                       \{}
+\DoxyCodeLine{58     \textcolor{comment}{// Directions are not only angles in a plane, but can also be interpreted as directions of change.}}
+\DoxyCodeLine{59     \mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} dir = value.toFloat() > \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[role].toFloat() ? Direction::Up : Direction::Down;}
+\DoxyCodeLine{60     \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[role] = value;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62     \textcolor{keywordflow}{if}(\mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Type].value<ObjectType>() == ObjectType::Protagonist) \{}
+\DoxyCodeLine{63         qDebug() << \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Type].toString() << \textcolor{stringliteral}{"{}Data Changed: "{}} << QVariant::fromValue<DataRole>(role).toString()}
+\DoxyCodeLine{64                  << \textcolor{stringliteral}{"{} : "{}} << \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[role].toFloat() << \textcolor{stringliteral}{"{}:"{}} << QVariant::fromValue<Direction>(dir).toString();}
+\DoxyCodeLine{65     \}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \textcolor{keyword}{auto} data = \mbox{\hyperlink{classGameObject_aacca78691e4d6fcefe51453bdac459b4}{getData}}();}
+\DoxyCodeLine{68     \textcolor{keywordflow}{if}(parent() \&\& parent()-\/>inherits(\textcolor{stringliteral}{"{}GameObject"{}})) \{}
+\DoxyCodeLine{69         \textcolor{comment}{// Tiles do not have a parent that has a position.}}
+\DoxyCodeLine{70         data[DataRole::Position] = qobject\_cast<GameObject *>(parent())-\/>getData(DataRole::Position);}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72     \textcolor{comment}{// These data roles are never stored in the GameObjects}}
+\DoxyCodeLine{73     data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(role);}
+\DoxyCodeLine{74     data[DataRole::ChangeDirection] = QVariant::fromValue<Direction>(dir);}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     emit \mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{dataChanged}}(data);}
+\DoxyCodeLine{77 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_aa2fd51015e45c8dc7d7ae491a9bc4b8b}\label{classGameObject_aa2fd51015e45c8dc7d7ae491a9bc4b8b}} 
+\index{GameObject@{GameObject}!setData@{setData}}
+\index{setData@{setData}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Data (\begin{DoxyParamCaption}\item[{QList$<$ QPair$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$$>$}]{data }\end{DoxyParamCaption})}
+
+
+
+Sets multiple data roles and values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & A list of data role-\/value pairs. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79                                                               \{}
+\DoxyCodeLine{80     \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&pair : data) \{}
+\DoxyCodeLine{81         \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[pair.first] = pair.second;}
+\DoxyCodeLine{82     \}}
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}\label{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}} 
+\index{GameObject@{GameObject}!tick@{tick}}
+\index{tick@{tick}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{tick}{tick}}
+{\footnotesize\ttfamily void Game\+Object\+::tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted to indicate a game tick. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classGameObject_a92d04504c05728ddd1814a343520394b}\label{classGameObject_a92d04504c05728ddd1814a343520394b}} 
+\index{GameObject@{GameObject}!m\_behaviors@{m\_behaviors}}
+\index{m\_behaviors@{m\_behaviors}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{m\_behaviors}{m\_behaviors}}
+{\footnotesize\ttfamily QMap$<$std\+::type\+\_\+index, QShared\+Pointer$<$\mbox{\hyperlink{classBehavior}{Behavior}}$>$ $>$ Game\+Object\+::m\+\_\+behaviors\hspace{0.3cm}{\ttfamily [private]}}
+
+Map of \mbox{\hyperlink{classBehavior}{Behavior}} types to their shared pointers. \mbox{\Hypertarget{classGameObject_a367f86d728131132193d1e3c994bdb06}\label{classGameObject_a367f86d728131132193d1e3c994bdb06}} 
+\index{GameObject@{GameObject}!m\_objectData@{m\_objectData}}
+\index{m\_objectData@{m\_objectData}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{m\_objectData}{m\_objectData}}
+{\footnotesize\ttfamily QMap$<$\mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant$>$ Game\+Object\+::m\+\_\+object\+Data\hspace{0.3cm}{\ttfamily [private]}}
+
+Map of data roles to their values. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/\mbox{\hyperlink{gameobject_8h}{gameobject.\+h}}\item 
+model/\mbox{\hyperlink{gameobject_8cpp}{gameobject.\+cpp}}\end{DoxyCompactItemize}

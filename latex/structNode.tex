@@ -1,0 +1,248 @@
+\hypertarget{structNode}{}\doxysection{Node Struct Reference}
+\label{structNode}\index{Node@{Node}}
+
+
+The \mbox{\hyperlink{structNode}{Node}} class wraps the tiles from the World Library in order to make them compatible with the pathfinder.  
+
+
+
+
+{\ttfamily \#include $<$node.\+h$>$}
+
+
+
+Inheritance diagram for Node\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{structNode__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structNode_ad7a34779cad45d997bfd6d3d8043c75f}{Node}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structNode}{Node}} empty constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode_a5ff163150abffaf314500e1f7fdac672}{Node}} (int x, int y, float val)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structNode}{Node}} Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode_a46bfb6d7f730a9add965d9cb5f4da972}{Node}} (const \mbox{\hyperlink{classTile}{Tile}} \&t)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structNode}{Node}} \mbox{\hyperlink{classTile}{Tile}} copy constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode_a277918b68827f6ffd8150f450b0c12c3}{Node}} (const \mbox{\hyperlink{structNode}{Node}} \&n)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structNode}{Node}} copy constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode_adfc7844b6f3f29598de2290bf32d65cc}{Node}} (const QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ \&obj)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structNode}{Node}} \mbox{\hyperlink{classGameObject}{Game\+Object}} data constructor. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{structNode_af5e3fa79300bf5f3f2f3ecae6e795a94}{$\sim$\+Node}} ()
+\item 
+\mbox{\hyperlink{structNode}{Node}} \& \mbox{\hyperlink{structNode_a5b96939b0245042290aedff2b6de6486}{operator=}} (const \mbox{\hyperlink{structNode}{Node}} \&n)
+\begin{DoxyCompactList}\small\item\em operator = The assignment overload for Nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{structNode_ad16e9a3090431644ea3283b07c91a6a4}{f}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{structNode_a914881afe2945fb2e60eb68a6c223d30}{g}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{structNode_ab7d8a0250a536b3b221dd6d42e7630e0}{h}} = 0.\+0f
+\item 
+bool \mbox{\hyperlink{structNode_aa1bdec4e775fc578632e6a2dced9e251}{visited}} = false
+\item 
+\mbox{\hyperlink{structNode}{Node}} $\ast$ \mbox{\hyperlink{structNode_a632ea91c6a13082308f7692649a68880}{prev}} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{structNode}{Node}} class wraps the tiles from the World Library in order to make them compatible with the pathfinder. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structNode_ad7a34779cad45d997bfd6d3d8043c75f}\label{structNode_ad7a34779cad45d997bfd6d3d8043c75f}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{structNode}{Node}} empty constructor. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18         : \mbox{\hyperlink{classTile}{Tile}}(0, 0, 0) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structNode_a5ff163150abffaf314500e1f7fdac672}\label{structNode_a5ff163150abffaf314500e1f7fdac672}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{float}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{structNode}{Node}} Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The X position of the tile. \\
+\hline
+{\em y} & The Y position of the tile. \\
+\hline
+{\em val} & The energy level of the tile. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26         : \mbox{\hyperlink{classTile}{Tile}}(x, y, val) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structNode_a46bfb6d7f730a9add965d9cb5f4da972}\label{structNode_a46bfb6d7f730a9add965d9cb5f4da972}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classTile}{Tile}} \&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{structNode}{Node}} \mbox{\hyperlink{classTile}{Tile}} copy constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & the tile to copy. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32         : \mbox{\hyperlink{classTile}{Tile}}(t) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structNode_a277918b68827f6ffd8150f450b0c12c3}\label{structNode_a277918b68827f6ffd8150f450b0c12c3}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structNode}{Node}} \&}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{structNode}{Node}} copy constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & the node to copy. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38         : \mbox{\hyperlink{classTile}{Tile}}(n.getXPos(), n.getYPos(), n.getValue())}
+\DoxyCodeLine{39         , \mbox{\hyperlink{structNode_ad16e9a3090431644ea3283b07c91a6a4}{f}}(n.\mbox{\hyperlink{structNode_ad16e9a3090431644ea3283b07c91a6a4}{f}})}
+\DoxyCodeLine{40         , \mbox{\hyperlink{structNode_a914881afe2945fb2e60eb68a6c223d30}{g}}(n.\mbox{\hyperlink{structNode_a914881afe2945fb2e60eb68a6c223d30}{g}})}
+\DoxyCodeLine{41         , \mbox{\hyperlink{structNode_ab7d8a0250a536b3b221dd6d42e7630e0}{h}}(n.\mbox{\hyperlink{structNode_ab7d8a0250a536b3b221dd6d42e7630e0}{h}})}
+\DoxyCodeLine{42         , \mbox{\hyperlink{structNode_aa1bdec4e775fc578632e6a2dced9e251}{visited}}(n.\mbox{\hyperlink{structNode_aa1bdec4e775fc578632e6a2dced9e251}{visited}})}
+\DoxyCodeLine{43         , \mbox{\hyperlink{structNode_a632ea91c6a13082308f7692649a68880}{prev}}(n.\mbox{\hyperlink{structNode_a632ea91c6a13082308f7692649a68880}{prev}}) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structNode_adfc7844b6f3f29598de2290bf32d65cc}\label{structNode_adfc7844b6f3f29598de2290bf32d65cc}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}\item[{const QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ \&}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{structNode}{Node}} \mbox{\hyperlink{classGameObject}{Game\+Object}} data constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & The object data to copy. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49         : \mbox{\hyperlink{classTile}{Tile}}(obj[DataRole::Position].toPoint().x(),}
+\DoxyCodeLine{50                obj[DataRole::Position].toPoint().y(),}
+\DoxyCodeLine{51                obj.contains(DataRole::Energy) ? obj[DataRole::Energy].toFloat() : 0) \{}
+\DoxyCodeLine{52     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structNode_af5e3fa79300bf5f3f2f3ecae6e795a94}\label{structNode_af5e3fa79300bf5f3f2f3ecae6e795a94}} 
+\index{Node@{Node}!````~Node@{$\sim$Node}}
+\index{````~Node@{$\sim$Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{$\sim$Node()}{~Node()}}
+{\footnotesize\ttfamily virtual Node\+::$\sim$\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53 \{\};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structNode_a5b96939b0245042290aedff2b6de6486}\label{structNode_a5b96939b0245042290aedff2b6de6486}} 
+\index{Node@{Node}!operator=@{operator=}}
+\index{operator=@{operator=}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}\& Node\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structNode}{Node}} \&}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+operator = The assignment overload for Nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & the node on the left. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New node. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{59                                    \{}
+\DoxyCodeLine{60         \textcolor{keywordflow}{if}(\textcolor{keyword}{this} != \&n) \{}
+\DoxyCodeLine{61             Tile::operator=(n);}
+\DoxyCodeLine{62             \mbox{\hyperlink{structNode_ad16e9a3090431644ea3283b07c91a6a4}{f}} = n.\mbox{\hyperlink{structNode_ad16e9a3090431644ea3283b07c91a6a4}{f}};}
+\DoxyCodeLine{63             \mbox{\hyperlink{structNode_a914881afe2945fb2e60eb68a6c223d30}{g}} = n.\mbox{\hyperlink{structNode_a914881afe2945fb2e60eb68a6c223d30}{g}};}
+\DoxyCodeLine{64             \mbox{\hyperlink{structNode_ab7d8a0250a536b3b221dd6d42e7630e0}{h}} = n.\mbox{\hyperlink{structNode_ab7d8a0250a536b3b221dd6d42e7630e0}{h}};}
+\DoxyCodeLine{65             \mbox{\hyperlink{structNode_aa1bdec4e775fc578632e6a2dced9e251}{visited}} = n.\mbox{\hyperlink{structNode_aa1bdec4e775fc578632e6a2dced9e251}{visited}};}
+\DoxyCodeLine{66             \mbox{\hyperlink{structNode_a632ea91c6a13082308f7692649a68880}{prev}} = n.\mbox{\hyperlink{structNode_a632ea91c6a13082308f7692649a68880}{prev}};}
+\DoxyCodeLine{67         \}}
+\DoxyCodeLine{68         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{69     \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structNode_ad16e9a3090431644ea3283b07c91a6a4}\label{structNode_ad16e9a3090431644ea3283b07c91a6a4}} 
+\index{Node@{Node}!f@{f}}
+\index{f@{f}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{f}{f}}
+{\footnotesize\ttfamily float Node\+::f = 0.\+0f}
+
+\mbox{\Hypertarget{structNode_a914881afe2945fb2e60eb68a6c223d30}\label{structNode_a914881afe2945fb2e60eb68a6c223d30}} 
+\index{Node@{Node}!g@{g}}
+\index{g@{g}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{g}{g}}
+{\footnotesize\ttfamily float Node\+::g = 0.\+0f}
+
+\mbox{\Hypertarget{structNode_ab7d8a0250a536b3b221dd6d42e7630e0}\label{structNode_ab7d8a0250a536b3b221dd6d42e7630e0}} 
+\index{Node@{Node}!h@{h}}
+\index{h@{h}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{h}{h}}
+{\footnotesize\ttfamily float Node\+::h = 0.\+0f}
+
+\mbox{\Hypertarget{structNode_a632ea91c6a13082308f7692649a68880}\label{structNode_a632ea91c6a13082308f7692649a68880}} 
+\index{Node@{Node}!prev@{prev}}
+\index{prev@{prev}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{prev}{prev}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}$\ast$ Node\+::prev = nullptr}
+
+\mbox{\Hypertarget{structNode_aa1bdec4e775fc578632e6a2dced9e251}\label{structNode_aa1bdec4e775fc578632e6a2dced9e251}} 
+\index{Node@{Node}!visited@{visited}}
+\index{visited@{visited}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{visited}{visited}}
+{\footnotesize\ttfamily bool Node\+::visited = false}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{node_8h}{node.\+h}}\end{DoxyCompactItemize}

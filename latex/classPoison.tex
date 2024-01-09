@@ -1,0 +1,188 @@
+\hypertarget{classPoison}{}\doxysection{Poison Class Reference}
+\label{classPoison}\index{Poison@{Poison}}
+
+
+The \mbox{\hyperlink{classPoison}{Poison}} class is an abstract class that handles poison actions.  
+
+
+
+
+{\ttfamily \#include $<$poison.\+h$>$}
+
+
+
+Inheritance diagram for Poison\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPoison__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structPoison_1_1SETTINGS}{SETTINGS}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPoison_aa3ec5702fdf174df4c2b83b6e02b80da}{Poison}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ owner)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classPoison}{Poison}} Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classPoison_ad728676e94a47846f3cd4be163452b30}{Poison}} ()=delete
+\item 
+virtual \mbox{\hyperlink{classPoison_ac6270fa09c2edb35d3ccdbfbe3e7bbc4}{$\sim$\+Poison}} ()=0
+\item 
+\mbox{\hyperlink{classPoison}{Poison}} \& \mbox{\hyperlink{classPoison_aeb2711562d4d1e4e042a8bc4c04dddf2}{operator=}} (const \mbox{\hyperlink{classPoison}{Poison}} \&)
+\item 
+virtual int \mbox{\hyperlink{classPoison_a89e974c3da5fcb867a7cf4903347828f}{poison}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&target)
+\begin{DoxyCompactList}\small\item\em poison poison a target. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classPoison_aa169440a7d0308c42cbb6e23af1aca2a}{get\+Poisoned}} (int level)
+\begin{DoxyCompactList}\small\item\em get\+Poisoned get poisoned a ceirtain amount. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const struct \mbox{\hyperlink{structPoison_1_1SETTINGS}{Poison\+::\+SETTINGS}} \mbox{\hyperlink{classPoison_ae183843910d984a7035bf148af3428d8}{Settings}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classPoison}{Poison}} class is an abstract class that handles poison actions. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPoison_aa3ec5702fdf174df4c2b83b6e02b80da}\label{classPoison_aa3ec5702fdf174df4c2b83b6e02b80da}} 
+\index{Poison@{Poison}!Poison@{Poison}}
+\index{Poison@{Poison}!Poison@{Poison}}
+\doxysubsubsection{\texorpdfstring{Poison()}{Poison()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Poison\+::\+Poison (\begin{DoxyParamCaption}\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classPoison}{Poison}} Default constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & of the behavior \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19         : \mbox{\hyperlink{classBehavior_aab6b9945e55735c64af699fef74b23cf}{Behavior}}(owner) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classPoison_ad728676e94a47846f3cd4be163452b30}\label{classPoison_ad728676e94a47846f3cd4be163452b30}} 
+\index{Poison@{Poison}!Poison@{Poison}}
+\index{Poison@{Poison}!Poison@{Poison}}
+\doxysubsubsection{\texorpdfstring{Poison()}{Poison()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Poison\+::\+Poison (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classPoison_ac6270fa09c2edb35d3ccdbfbe3e7bbc4}\label{classPoison_ac6270fa09c2edb35d3ccdbfbe3e7bbc4}} 
+\index{Poison@{Poison}!````~Poison@{$\sim$Poison}}
+\index{````~Poison@{$\sim$Poison}!Poison@{Poison}}
+\doxysubsubsection{\texorpdfstring{$\sim$Poison()}{~Poison()}}
+{\footnotesize\ttfamily Poison\+::$\sim$\+Poison (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2 \{\};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPoison_aa169440a7d0308c42cbb6e23af1aca2a}\label{classPoison_aa169440a7d0308c42cbb6e23af1aca2a}} 
+\index{Poison@{Poison}!getPoisoned@{getPoisoned}}
+\index{getPoisoned@{getPoisoned}!Poison@{Poison}}
+\doxysubsubsection{\texorpdfstring{getPoisoned()}{getPoisoned()}}
+{\footnotesize\ttfamily int Poison\+::get\+Poisoned (\begin{DoxyParamCaption}\item[{int}]{level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+get\+Poisoned get poisoned a ceirtain amount. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & amount to be poisoned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+poison gained by object. \mbox{\hyperlink{classPoison}{Poison}} gained can be lower than level since there is a MAX\+\_\+\+POISON level. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4                                  \{}
+\DoxyCodeLine{5     QVariant poisonLevel = \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getData(DataRole::PoisonLevel);}
+\DoxyCodeLine{6     \textcolor{keywordflow}{if}(poisonLevel.isNull()) \{}
+\DoxyCodeLine{7         \textcolor{keywordflow}{throw}(\textcolor{stringliteral}{"{}Cannot change poison level of object."{}});}
+\DoxyCodeLine{8     \}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10     \textcolor{comment}{// PEnemies could get poisoned as well, their poison level is much}}
+\DoxyCodeLine{11     \textcolor{comment}{// higher than the MAX so it doesn't matter. Poison for them is "{}Good"{}}}
+\DoxyCodeLine{12     \textcolor{keywordtype}{int} newPoison = poisonLevel.toInt() + level;}
+\DoxyCodeLine{13     \textcolor{keywordflow}{if}(newPoison > \mbox{\hyperlink{classPoison_ae183843910d984a7035bf148af3428d8}{Settings}}.\mbox{\hyperlink{structPoison_1_1SETTINGS_a3dab882ceb47c6c5eb62564ffe8e90f8}{MAX\_POISON}}) \{}
+\DoxyCodeLine{14         newPoison = \mbox{\hyperlink{classPoison_ae183843910d984a7035bf148af3428d8}{Settings}}.\mbox{\hyperlink{structPoison_1_1SETTINGS_a3dab882ceb47c6c5eb62564ffe8e90f8}{MAX\_POISON}};}
+\DoxyCodeLine{15     \}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(DataRole::PoisonLevel, QVariant(newPoison));}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \textcolor{keywordflow}{return} newPoison -\/ poisonLevel.toInt();}
+\DoxyCodeLine{20 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classPoison_aeb2711562d4d1e4e042a8bc4c04dddf2}\label{classPoison_aeb2711562d4d1e4e042a8bc4c04dddf2}} 
+\index{Poison@{Poison}!operator=@{operator=}}
+\index{operator=@{operator=}!Poison@{Poison}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPoison}{Poison}}\& Poison\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPoison}{Poison}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23                                       \{}
+\DoxyCodeLine{24         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{25     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classPoison_a89e974c3da5fcb867a7cf4903347828f}\label{classPoison_a89e974c3da5fcb867a7cf4903347828f}} 
+\index{Poison@{Poison}!poison@{poison}}
+\index{poison@{poison}!Poison@{Poison}}
+\doxysubsubsection{\texorpdfstring{poison()}{poison()}}
+{\footnotesize\ttfamily virtual int Poison\+::poison (\begin{DoxyParamCaption}\item[{const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+poison poison a target. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & target to be poisoned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+poison amount. 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classGenericPoisoningBehavior_a7a29d0729e910bbab02dd95cf2b20429}{Generic\+Poisoning\+Behavior}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57                                                            \{}
+\DoxyCodeLine{58         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{59     \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classPoison_ae183843910d984a7035bf148af3428d8}\label{classPoison_ae183843910d984a7035bf148af3428d8}} 
+\index{Poison@{Poison}!Settings@{Settings}}
+\index{Settings@{Settings}!Poison@{Poison}}
+\doxysubsubsection{\texorpdfstring{Settings}{Settings}}
+{\footnotesize\ttfamily const struct \mbox{\hyperlink{structPoison_1_1SETTINGS}{Poison\+::\+SETTINGS}} Poison\+::\+Settings\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/behaviors/\mbox{\hyperlink{poison_8h}{poison.\+h}}\item 
+model/behaviors/\mbox{\hyperlink{poison_8cpp}{poison.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,11 @@
+<map id="GameController" name="GameController">
+<area shape="rect" id="node1" title="The GameController class holds all the models and the view. It directs the user input and the game st..." alt="" coords="452,204,683,765"/>
+<area shape="rect" id="node2" href="$classQGraphicsView.html" title=" " alt="" coords="5,20,127,97"/>
+<area shape="rect" id="node3" title=" " alt="" coords="151,20,205,97"/>
+<area shape="rect" id="node4" title=" " alt="" coords="253,20,292,97"/>
+<area shape="rect" id="node5" title=" " alt="" coords="315,20,539,97"/>
+<area shape="rect" id="node6" title=" " alt="" coords="563,5,763,112"/>
+<area shape="rect" id="node7" title=" " alt="" coords="787,20,846,97"/>
+<area shape="rect" id="node8" title=" " alt="" coords="870,20,1059,97"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1083,20,1139,97"/>
+</map>

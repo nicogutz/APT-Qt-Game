@@ -1,0 +1,7 @@
+<map id="PoisonOnKilledBehavior" name="PoisonOnKilledBehavior">
+<area shape="rect" id="node1" title="The PoisonOnKilledBehavior class triggers the poisoning of neighbors when object dies...." alt="" coords="11,748,229,957"/>
+<area shape="rect" id="node2" href="$classQObject.html" title=" " alt="" coords="5,571,80,649"/>
+<area shape="rect" id="node3" href="$classGenericHealthBehavior.html" title="The GenericHealthBehavior class sets the basic actions to change an objects health and death." alt="" coords="105,520,293,700"/>
+<area shape="rect" id="node4" href="$classHealth.html" title="The Health class is an abstract class that handles health behaviors. This class is abstract to avoid ..." alt="" coords="80,219,317,472"/>
+<area shape="rect" id="node5" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="104,5,293,171"/>
+</map>

@@ -1,0 +1,987 @@
+\hypertarget{classGameController}{}\doxysection{Game\+Controller Class Reference}
+\label{classGameController}\index{GameController@{GameController}}
+
+
+The \mbox{\hyperlink{classGameController}{Game\+Controller}} class holds all the models and the view. It directs the user input and the game state.  
+
+
+
+
+{\ttfamily \#include $<$gamecontroller.\+h$>$}
+
+
+
+Inheritance diagram for Game\+Controller\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classGameController__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} \{ \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008a5bda814c4aedb126839228f1a3d92f09}{Running}}
+, \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008ae99180abf47a8b3a856e0bcb2656990a}{Paused}}
+, \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008a8f347bc7cebca9fa6d97e70c6bc29eb3}{Game\+Over}}
+ \}
+\begin{DoxyCompactList}\small\item\em The State enum, Game states can be Running, Paused or Game\+Over. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} \{ \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa9dffbf69ffba8bc38bc4e01abf4b1675}{Text}}
+, \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa51f2b7b14433aa22c67d1f4fc18943cd}{Sprite}}
+, \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aacb5feb1b7314637725a2e73bdc9f7295}{Color}}
+ \}
+\begin{DoxyCompactList}\small\item\em The View enum, Game visualizations can be Text, Color or Sprites. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classGameController_a3f4073cbb82f746edff117c0ab230d5b}{path\+Finder}} (int x=-\/1, int y=-\/1)
+\begin{DoxyCompactList}\small\item\em path\+Finder automatically routes the protagonist to given position using the algorithm for the shortest path. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classGameController_ad1f97b1326b012f47a1554a632a4df8c}{tick}} ()
+\begin{DoxyCompactList}\small\item\em tick Emitted when a turn is complete. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a39ea35f344f2d5d794566992622e0190}{game\+Over}} ()
+\begin{DoxyCompactList}\small\item\em game\+Over This is emitted when the game is over. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_afe1e5d8bc12980a887614605637a3baf}{energy\+Updated}} (int energy)
+\begin{DoxyCompactList}\small\item\em energy\+Updated Emitted whenever the protagonist energy level changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_acf37aad7d4bf2cf5ad5e9ef33a19ddca}{health\+Updated}} (int health)
+\begin{DoxyCompactList}\small\item\em health\+Updated Emitted whenever the protagonist health level changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a7b222fd2209a36d9eff9e5af5083c269}{enemies\+Updated}} (int enemies)
+\begin{DoxyCompactList}\small\item\em enemies\+Updated Emitted when the level of the game changes and thus the number of enemies for that level, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a6cbccba776343a18f22b6b947497a579}{health\+Packs\+Updated}} (int health\+\_\+packs)
+\begin{DoxyCompactList}\small\item\em health\+Packs\+Updated Emitted when the level of the game changes and thus the number of health packs for that level, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ab35fc801d7a66c1a6ff2fd82fba3ec1b}{level\+Updated}} (int level)
+\begin{DoxyCompactList}\small\item\em level\+Updated Emitted when the level of the game changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGameController_aa47bf72c824e4c3c1170ad826c0bf0d8}{Game\+Controller}} (QSize size=\{40, 25\})
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classGameController}{Game\+Controller}} controls the state of the game, has instance of the model data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a8f30ab3ff471ac0a5c8b88dc7fea45f4}{start\+Game}} ()
+\begin{DoxyCompactList}\small\item\em start\+Game starts the game at level 1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a64608a1c7a700164f7ef6bd8cbde817d}{update\+Energy}} ()
+\begin{DoxyCompactList}\small\item\em update\+Energy retrieves lastest protagonist energy level upon data change and triggers corresponding slot in the \mbox{\hyperlink{classGameWindow}{Game\+Window}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_aa0a11370d64f5d500690f9af50d3c4f3}{update\+Health}} ()
+\begin{DoxyCompactList}\small\item\em update\+Health retrieves lastest protagonist health level upon data change and triggers corresponding slot in the \mbox{\hyperlink{classGameWindow}{Game\+Window}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ab6e0c43525c62ae352a0775be01bf389}{character\+Move}} (\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} to)
+\begin{DoxyCompactList}\small\item\em character\+Move call model behavior to move the protagonist. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_aacc7d99afe11e00f1ab352d97c8c2b8b}{character\+Attack}} ()
+\begin{DoxyCompactList}\small\item\em character\+Atttack attacks enemy in current protagonist direction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ae018941f9f2526233acee3e128a9b1ed}{update\+Level}} (\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} direction)
+\begin{DoxyCompactList}\small\item\em update\+Level handles going up and down the levels (upon stepping on doorways), captures data change in the model and triggers \mbox{\hyperlink{classGameWindow}{Game\+Window}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a6a8cde78a3a68f178cc4d1fbe2aed338}{update\+Game\+View}} (\mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} view)
+\begin{DoxyCompactList}\small\item\em update\+Game\+View calls the new visualization renderer of the scene upon switching views, captures data change in the model and triggers \mbox{\hyperlink{classGameWindow}{Game\+Window}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ab39b82fa89135c209151738911d2dc5d}{data\+Changed}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ object\+Data)
+\begin{DoxyCompactList}\small\item\em data\+Changed captures any model changes and filters to call corresponding methods. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a231321ac86d25e3c307e2c6a00546f66}{emit\+Level\+Updates}} ()
+\begin{DoxyCompactList}\small\item\em emit\+Level\+Updates emits changing level, health packs and enemies signals upon changing levels, signals captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a34cbdcbd10284103b963a0b3de449d32}{create\+New\+Level}} (int level)
+\begin{DoxyCompactList}\small\item\em create\+New\+Level creates new level upon going up levels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ad3471a5cf092b33a4b890a28cb9f51b1}{automatic\+Attack}} ()
+\begin{DoxyCompactList}\small\item\em automatic\+Attack \mbox{\hyperlink{classAttack}{Attack}} function used by the pathfinder, to automatically attack enemies in the path or when the enrgy is low. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a864fe37458306e9956eb023d6ddb6cea}{execute\+Path}} (std\+::vector$<$ int $>$ path, bool fully=false)
+\begin{DoxyCompactList}\small\item\em execute\+Path Executes the moves returned y the pathfinder. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a3f35bf7c9b399ad12ab584cc6e4c021d}{set\+State}} (\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} new\+\_\+state)
+\item 
+void \mbox{\hyperlink{classGameController_af09a892ccc90ebb5bd67bc093db92fde}{set\+View}} (QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$ view)
+\item 
+\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} \mbox{\hyperlink{classGameController_ace9f3965a3c03ec38e03e5ae86822584}{get\+State}} ()
+\item 
+QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$ \mbox{\hyperlink{classGameController_ae195431684531ae10bcfb4988135ef98}{get\+View}} ()
+\item 
+\mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} \mbox{\hyperlink{classGameController_a285e4524bfbebe69aabf45d9b7c76c55}{get\+Game\+View}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classGameController_a2148e50c6ef23d1f16c7db448a84e1a7}{disconnect\+Current\+Model}} ()
+\begin{DoxyCompactList}\small\item\em disconnect\+Current\+Model disconnects current model upon changing levels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ad57c31609ee0a2cb9fa44c6a30bf5595}{connect\+Current\+Model}} ()
+\begin{DoxyCompactList}\small\item\em connect\+Current\+Model connects new level model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QList$<$ QPair$<$ \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} $\ast$, std\+::vector$<$ \mbox{\hyperlink{structNode}{Node}} $>$ $>$ $>$ \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\+\_\+models}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+model List of the different game models for different levels, holds all game data and logic. \end{DoxyCompactList}\item 
+QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$ \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\+\_\+view}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+view The scene of the controller. \end{DoxyCompactList}\item 
+QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\+\_\+protagonist}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+character The protagonist of the game. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\+\_\+game\+Level}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+game\+Level current game level. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\+\_\+game\+State}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+game\+State current game state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} \mbox{\hyperlink{classGameController_a0813a389b2d8de62738b143e85cfdcf0}{m\+\_\+game\+View}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+game\+View current game visualization (Text, Color, Sprite). \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGameController_a319336ac7807c6a46397e6bf9596396f}{m\+\_\+health\+\_\+packs}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+health\+\_\+packs Number of current health packs in the game. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGameController_a43933b5d9d2d1a5bf91028df281b955b}{m\+\_\+enemies}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+enemies Number of current enemies in the game. \end{DoxyCompactList}\item 
+QSize \mbox{\hyperlink{classGameController_a449e29b37a909aac5896f30d020547fb}{m\+\_\+level\+Size}}
+\begin{DoxyCompactList}\small\item\em m\+\_\+level\+Size Size of the levels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classGameController}{Game\+Controller}} class holds all the models and the view. It directs the user input and the game state. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classGameController_a4c909f028df5384a8579fc5cbca86008}\label{classGameController_a4c909f028df5384a8579fc5cbca86008}} 
+\index{GameController@{GameController}!State@{State}}
+\index{State@{State}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{Game\+Controller\+::\+State}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+The State enum, Game states can be Running, Paused or Game\+Over. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Running@{Running}!GameController@{GameController}}\index{GameController@{GameController}!Running@{Running}}}\mbox{\Hypertarget{classGameController_a4c909f028df5384a8579fc5cbca86008a5bda814c4aedb126839228f1a3d92f09}\label{classGameController_a4c909f028df5384a8579fc5cbca86008a5bda814c4aedb126839228f1a3d92f09}} 
+Running&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Paused@{Paused}!GameController@{GameController}}\index{GameController@{GameController}!Paused@{Paused}}}\mbox{\Hypertarget{classGameController_a4c909f028df5384a8579fc5cbca86008ae99180abf47a8b3a856e0bcb2656990a}\label{classGameController_a4c909f028df5384a8579fc5cbca86008ae99180abf47a8b3a856e0bcb2656990a}} 
+Paused&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GameOver@{GameOver}!GameController@{GameController}}\index{GameController@{GameController}!GameOver@{GameOver}}}\mbox{\Hypertarget{classGameController_a4c909f028df5384a8579fc5cbca86008a8f347bc7cebca9fa6d97e70c6bc29eb3}\label{classGameController_a4c909f028df5384a8579fc5cbca86008a8f347bc7cebca9fa6d97e70c6bc29eb3}} 
+Game\+Over&\\
+\hline
+
+\end{DoxyEnumFields}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35                      \{}
+\DoxyCodeLine{36         Running,}
+\DoxyCodeLine{37         Paused,}
+\DoxyCodeLine{38         GameOver,}
+\DoxyCodeLine{39     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}\label{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}} 
+\index{GameController@{GameController}!View@{View}}
+\index{View@{View}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{View}{View}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{Game\+Controller\+::\+View}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+The View enum, Game visualizations can be Text, Color or Sprites. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Text@{Text}!GameController@{GameController}}\index{GameController@{GameController}!Text@{Text}}}\mbox{\Hypertarget{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa9dffbf69ffba8bc38bc4e01abf4b1675}\label{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa9dffbf69ffba8bc38bc4e01abf4b1675}} 
+Text&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sprite@{Sprite}!GameController@{GameController}}\index{GameController@{GameController}!Sprite@{Sprite}}}\mbox{\Hypertarget{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa51f2b7b14433aa22c67d1f4fc18943cd}\label{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa51f2b7b14433aa22c67d1f4fc18943cd}} 
+Sprite&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Color@{Color}!GameController@{GameController}}\index{GameController@{GameController}!Color@{Color}}}\mbox{\Hypertarget{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aacb5feb1b7314637725a2e73bdc9f7295}\label{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aacb5feb1b7314637725a2e73bdc9f7295}} 
+Color&\\
+\hline
+
+\end{DoxyEnumFields}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43                     \{}
+\DoxyCodeLine{44         Text,}
+\DoxyCodeLine{45         Sprite,}
+\DoxyCodeLine{46         Color,}
+\DoxyCodeLine{47     \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGameController_aa47bf72c824e4c3c1170ad826c0bf0d8}\label{classGameController_aa47bf72c824e4c3c1170ad826c0bf0d8}} 
+\index{GameController@{GameController}!GameController@{GameController}}
+\index{GameController@{GameController}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{GameController()}{GameController()}}
+{\footnotesize\ttfamily Game\+Controller\+::\+Game\+Controller (\begin{DoxyParamCaption}\item[{QSize}]{size = {\ttfamily \{40,~25\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classGameController}{Game\+Controller}} controls the state of the game, has instance of the model data. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                                 \{40, 25\})}
+\DoxyCodeLine{27         : \mbox{\hyperlink{classQGraphicsView}{QGraphicsView}}()}
+\DoxyCodeLine{28         , \mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}(0)}
+\DoxyCodeLine{29         , \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}}(\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008a5bda814c4aedb126839228f1a3d92f09}{State::Running}})}
+\DoxyCodeLine{30         , \mbox{\hyperlink{classGameController_a0813a389b2d8de62738b143e85cfdcf0}{m\_gameView}}(\mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa51f2b7b14433aa22c67d1f4fc18943cd}{View::Sprite}})}
+\DoxyCodeLine{31         , \mbox{\hyperlink{classGameController_a449e29b37a909aac5896f30d020547fb}{m\_levelSize}}(size) \{\};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGameController_ad3471a5cf092b33a4b890a28cb9f51b1}\label{classGameController_ad3471a5cf092b33a4b890a28cb9f51b1}} 
+\index{GameController@{GameController}!automaticAttack@{automaticAttack}}
+\index{automaticAttack@{automaticAttack}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{automaticAttack()}{automaticAttack()}}
+{\footnotesize\ttfamily void Game\+Controller\+::automatic\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+automatic\+Attack \mbox{\hyperlink{classAttack}{Attack}} function used by the pathfinder, to automatically attack enemies in the path or when the enrgy is low. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124                                      \{}
+\DoxyCodeLine{125     \textcolor{comment}{// Find the enemy and attack it until it dies.}}
+\DoxyCodeLine{126     \textcolor{keyword}{auto} target = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getNeighbor(\mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getData(\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}).toDouble())}
+\DoxyCodeLine{127                     -\/>findChild(\{ObjectType::\_ENEMIES\_START, ObjectType::\_ENEMIES\_END\});}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129     \textcolor{keywordflow}{while}(\mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} != \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008a8f347bc7cebca9fa6d97e70c6bc29eb3}{State::GameOver}} \&\& target \&\& target-\/>getData(DataRole::Health).toInt()) \{}
+\DoxyCodeLine{130         QTime time = QTime::currentTime().addMSecs(200);}
+\DoxyCodeLine{131         \textcolor{keywordflow}{while}(QTime::currentTime() < time) \{}
+\DoxyCodeLine{132             QCoreApplication::processEvents(QEventLoop::AllEvents, 200);}
+\DoxyCodeLine{133         \}}
+\DoxyCodeLine{134         \mbox{\hyperlink{classGameController_aacc7d99afe11e00f1ab352d97c8c2b8b}{characterAttack}}();}
+\DoxyCodeLine{135     \}}
+\DoxyCodeLine{136 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_aacc7d99afe11e00f1ab352d97c8c2b8b}\label{classGameController_aacc7d99afe11e00f1ab352d97c8c2b8b}} 
+\index{GameController@{GameController}!characterAttack@{characterAttack}}
+\index{characterAttack@{characterAttack}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{characterAttack()}{characterAttack()}}
+{\footnotesize\ttfamily void Game\+Controller\+::character\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+character\+Atttack attacks enemy in current protagonist direction. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{262                                      \{}
+\DoxyCodeLine{263     \textcolor{keywordflow}{while}(\mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} == \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008ae99180abf47a8b3a856e0bcb2656990a}{State::Paused}})}
+\DoxyCodeLine{264         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);}
+\DoxyCodeLine{265 }
+\DoxyCodeLine{266     \textcolor{keywordflow}{if}(\mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} == \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008a5bda814c4aedb126839228f1a3d92f09}{State::Running}}) \{}
+\DoxyCodeLine{267         \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} attack = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getBehavior<\mbox{\hyperlink{classAttack}{Attack}}>()) \{}
+\DoxyCodeLine{268             attack-\/>attack();}
+\DoxyCodeLine{269             emit \mbox{\hyperlink{classGameController_ad1f97b1326b012f47a1554a632a4df8c}{tick}}();}
+\DoxyCodeLine{270         \}}
+\DoxyCodeLine{271     \}}
+\DoxyCodeLine{272 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_ab6e0c43525c62ae352a0775be01bf389}\label{classGameController_ab6e0c43525c62ae352a0775be01bf389}} 
+\index{GameController@{GameController}!characterMove@{characterMove}}
+\index{characterMove@{characterMove}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{characterMove()}{characterMove()}}
+{\footnotesize\ttfamily void Game\+Controller\+::character\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}}}]{to }\end{DoxyParamCaption})}
+
+
+
+character\+Move call model behavior to move the protagonist. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em to.} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{250                                                \{}
+\DoxyCodeLine{251     \textcolor{keywordflow}{while}(\mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} == \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008ae99180abf47a8b3a856e0bcb2656990a}{State::Paused}})}
+\DoxyCodeLine{252         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254     \textcolor{keywordflow}{if}(\mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} == \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008a5bda814c4aedb126839228f1a3d92f09}{State::Running}}) \{}
+\DoxyCodeLine{255         \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} move = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getBehavior<\mbox{\hyperlink{classMovement}{Movement}}>()) \{}
+\DoxyCodeLine{256             move-\/>stepOn(to);}
+\DoxyCodeLine{257             emit \mbox{\hyperlink{classGameController_ad1f97b1326b012f47a1554a632a4df8c}{tick}}();}
+\DoxyCodeLine{258         \}}
+\DoxyCodeLine{259     \}}
+\DoxyCodeLine{260 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_ad57c31609ee0a2cb9fa44c6a30bf5595}\label{classGameController_ad57c31609ee0a2cb9fa44c6a30bf5595}} 
+\index{GameController@{GameController}!connectCurrentModel@{connectCurrentModel}}
+\index{connectCurrentModel@{connectCurrentModel}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{connectCurrentModel()}{connectCurrentModel()}}
+{\footnotesize\ttfamily void Game\+Controller\+::connect\+Current\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+connect\+Current\+Model connects new level model. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{85                                          \{}
+\DoxyCodeLine{86     \textcolor{keyword}{auto} *model = \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}].first;}
+\DoxyCodeLine{87     connect(model, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}}, \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}.get(), \&\mbox{\hyperlink{classGameView_a910d07857d706e405f3fc28e8d4eb2a8}{GameView::dataChanged}});}
+\DoxyCodeLine{88     connect(\textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameController_ad1f97b1326b012f47a1554a632a4df8c}{GameController::tick}}, model, \&\mbox{\hyperlink{classGameObjectModel_a0724092d5eba5d4ebc4f2e6b7eff1156}{GameObjectModel::tick}});}
+\DoxyCodeLine{89     connect(model, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameController_ab39b82fa89135c209151738911d2dc5d}{GameController::dataChanged}});}
+\DoxyCodeLine{90 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a34cbdcbd10284103b963a0b3de449d32}\label{classGameController_a34cbdcbd10284103b963a0b3de449d32}} 
+\index{GameController@{GameController}!createNewLevel@{createNewLevel}}
+\index{createNewLevel@{createNewLevel}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{createNewLevel()}{createNewLevel()}}
+{\footnotesize\ttfamily void Game\+Controller\+::create\+New\+Level (\begin{DoxyParamCaption}\item[{int}]{level }\end{DoxyParamCaption})}
+
+
+
+create\+New\+Level creates new level upon going up levels. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & the level number. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54                                              \{}
+\DoxyCodeLine{55     \textcolor{comment}{// Set the level parameters}}
+\DoxyCodeLine{56     \textcolor{keywordtype}{int} tiles = \mbox{\hyperlink{classGameController_a449e29b37a909aac5896f30d020547fb}{m\_levelSize}}.width() * \mbox{\hyperlink{classGameController_a449e29b37a909aac5896f30d020547fb}{m\_levelSize}}.height();}
+\DoxyCodeLine{57     \mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}} = level;}
+\DoxyCodeLine{58     \mbox{\hyperlink{classGameController_a43933b5d9d2d1a5bf91028df281b955b}{m\_enemies}} = tiles / 20 + (level + 1) * sqrt(tiles) / 10;}
+\DoxyCodeLine{59     \mbox{\hyperlink{classGameController_a319336ac7807c6a46397e6bf9596396f}{m\_health\_packs}} = sqrt(tiles) / 4 -\/ (level / 5);}
+\DoxyCodeLine{60     \textcolor{comment}{// Call the model factory to generate model}}
+\DoxyCodeLine{61     \textcolor{keyword}{auto} model = \mbox{\hyperlink{classObjectModelFactory_afab5a76e60acd1db5bfb936f5024ad23}{ObjectModelFactory::createModel}}(\mbox{\hyperlink{classGameController_a43933b5d9d2d1a5bf91028df281b955b}{m\_enemies}}, \mbox{\hyperlink{classGameController_a319336ac7807c6a46397e6bf9596396f}{m\_health\_packs}}, 0.5f, \mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}},}
+\DoxyCodeLine{62                                                  \mbox{\hyperlink{classGameController_a449e29b37a909aac5896f30d020547fb}{m\_levelSize}}.height(), \mbox{\hyperlink{classGameController_a449e29b37a909aac5896f30d020547fb}{m\_levelSize}}.width());}
+\DoxyCodeLine{63     \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}.append(model);}
+\DoxyCodeLine{64     model.first-\/>setParent(\textcolor{keyword}{this});}
+\DoxyCodeLine{65     \textcolor{comment}{// Set the character aka protagonist}}
+\DoxyCodeLine{66     \textcolor{keyword}{auto} oldCharacter = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}};}
+\DoxyCodeLine{67     \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}} = model.first-\/>getObject(ObjectType::Protagonist).at(0);}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keywordflow}{if}(oldCharacter) \{}
+\DoxyCodeLine{70         \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>setData(oldCharacter-\/>getAllData().at(0));}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{comment}{// Create new scene}}
+\DoxyCodeLine{74     \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}-\/>createScene(model.first-\/>getAllData());}
+\DoxyCodeLine{75     \mbox{\hyperlink{classGameController_ad57c31609ee0a2cb9fa44c6a30bf5595}{connectCurrentModel}}(); \textcolor{comment}{// Reconnect new model}}
+\DoxyCodeLine{76     \mbox{\hyperlink{classGameController_a231321ac86d25e3c307e2c6a00546f66}{emitLevelUpdates}}(); \textcolor{comment}{// Signal changes to the window}}
+\DoxyCodeLine{77 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_ab39b82fa89135c209151738911d2dc5d}\label{classGameController_ab39b82fa89135c209151738911d2dc5d}} 
+\index{GameController@{GameController}!dataChanged@{dataChanged}}
+\index{dataChanged@{dataChanged}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{dataChanged()}{dataChanged()}}
+{\footnotesize\ttfamily void Game\+Controller\+::data\+Changed (\begin{DoxyParamCaption}\item[{QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$}]{object\+Data }\end{DoxyParamCaption})}
+
+
+
+data\+Changed captures any model changes and filters to call corresponding methods. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em object\+Data} & the data that changed. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98                                                                     \{}
+\DoxyCodeLine{99     \textcolor{comment}{// Filter the changes based on their type}}
+\DoxyCodeLine{100     \textcolor{keywordflow}{switch}(objectData[DataRole::Type].value<ObjectType>()) \{}
+\DoxyCodeLine{101     \textcolor{keywordflow}{case} ObjectType::Protagonist:}
+\DoxyCodeLine{102         \textcolor{keywordflow}{if}(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Energy) \{}
+\DoxyCodeLine{103             \mbox{\hyperlink{classGameController_a64608a1c7a700164f7ef6bd8cbde817d}{updateEnergy}}();}
+\DoxyCodeLine{104         \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106         \textcolor{keywordflow}{if}(objectData[DataRole::LatestChange].value<DataRole>() == DataRole::Health) \{}
+\DoxyCodeLine{107             \mbox{\hyperlink{classGameController_aa0a11370d64f5d500690f9af50d3c4f3}{updateHealth}}();}
+\DoxyCodeLine{108         \}}
+\DoxyCodeLine{109         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{110     \textcolor{keywordflow}{case} ObjectType::Doorway:}
+\DoxyCodeLine{111         \textcolor{keywordflow}{if}(objectData[\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}].value<Direction>() == Direction::Down) \{}
+\DoxyCodeLine{112             \textcolor{keywordflow}{if}(\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}} != 0) \{}
+\DoxyCodeLine{113                 \mbox{\hyperlink{classGameController_ae018941f9f2526233acee3e128a9b1ed}{updateLevel}}(Direction::Down); \textcolor{comment}{// go down a level}}
+\DoxyCodeLine{114             \}}
+\DoxyCodeLine{115         \}}
+\DoxyCodeLine{116         \textcolor{keywordflow}{if}(objectData[\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}].value<Direction>() == Direction::Up) \{}
+\DoxyCodeLine{117             \mbox{\hyperlink{classGameController_ae018941f9f2526233acee3e128a9b1ed}{updateLevel}}(Direction::Up); \textcolor{comment}{// go up a level}}
+\DoxyCodeLine{118         \}}
+\DoxyCodeLine{119         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{120     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{121         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{122     \}}
+\DoxyCodeLine{123 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a2148e50c6ef23d1f16c7db448a84e1a7}\label{classGameController_a2148e50c6ef23d1f16c7db448a84e1a7}} 
+\index{GameController@{GameController}!disconnectCurrentModel@{disconnectCurrentModel}}
+\index{disconnectCurrentModel@{disconnectCurrentModel}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{disconnectCurrentModel()}{disconnectCurrentModel()}}
+{\footnotesize\ttfamily void Game\+Controller\+::disconnect\+Current\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+disconnect\+Current\+Model disconnects current model upon changing levels. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79                                             \{}
+\DoxyCodeLine{80     \textcolor{keyword}{auto} *model = \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}].first;}
+\DoxyCodeLine{81     disconnect(model, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}}, \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}.get(), \&\mbox{\hyperlink{classGameView_a910d07857d706e405f3fc28e8d4eb2a8}{GameView::dataChanged}});}
+\DoxyCodeLine{82     disconnect(\textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameController_ad1f97b1326b012f47a1554a632a4df8c}{GameController::tick}}, model, \&\mbox{\hyperlink{classGameObjectModel_a0724092d5eba5d4ebc4f2e6b7eff1156}{GameObjectModel::tick}});}
+\DoxyCodeLine{83     disconnect(model, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameController_ab39b82fa89135c209151738911d2dc5d}{GameController::dataChanged}});}
+\DoxyCodeLine{84 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a231321ac86d25e3c307e2c6a00546f66}\label{classGameController_a231321ac86d25e3c307e2c6a00546f66}} 
+\index{GameController@{GameController}!emitLevelUpdates@{emitLevelUpdates}}
+\index{emitLevelUpdates@{emitLevelUpdates}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{emitLevelUpdates()}{emitLevelUpdates()}}
+{\footnotesize\ttfamily void Game\+Controller\+::emit\+Level\+Updates (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+emit\+Level\+Updates emits changing level, health packs and enemies signals upon changing levels, signals captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}}. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{92                                       \{}
+\DoxyCodeLine{93     emit \mbox{\hyperlink{classGameController_a7b222fd2209a36d9eff9e5af5083c269}{enemiesUpdated}}(\mbox{\hyperlink{classGameController_a43933b5d9d2d1a5bf91028df281b955b}{m\_enemies}});}
+\DoxyCodeLine{94     emit \mbox{\hyperlink{classGameController_a6cbccba776343a18f22b6b947497a579}{healthPacksUpdated}}(\mbox{\hyperlink{classGameController_a319336ac7807c6a46397e6bf9596396f}{m\_health\_packs}});}
+\DoxyCodeLine{95     emit \mbox{\hyperlink{classGameController_ab35fc801d7a66c1a6ff2fd82fba3ec1b}{levelUpdated}}(\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}});}
+\DoxyCodeLine{96 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a7b222fd2209a36d9eff9e5af5083c269}\label{classGameController_a7b222fd2209a36d9eff9e5af5083c269}} 
+\index{GameController@{GameController}!enemiesUpdated@{enemiesUpdated}}
+\index{enemiesUpdated@{enemiesUpdated}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{enemiesUpdated}{enemiesUpdated}}
+{\footnotesize\ttfamily void Game\+Controller\+::enemies\+Updated (\begin{DoxyParamCaption}\item[{int}]{enemies }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+enemies\+Updated Emitted when the level of the game changes and thus the number of enemies for that level, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enemies} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameController_afe1e5d8bc12980a887614605637a3baf}\label{classGameController_afe1e5d8bc12980a887614605637a3baf}} 
+\index{GameController@{GameController}!energyUpdated@{energyUpdated}}
+\index{energyUpdated@{energyUpdated}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{energyUpdated}{energyUpdated}}
+{\footnotesize\ttfamily void Game\+Controller\+::energy\+Updated (\begin{DoxyParamCaption}\item[{int}]{energy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+energy\+Updated Emitted whenever the protagonist energy level changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em energy} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameController_a864fe37458306e9956eb023d6ddb6cea}\label{classGameController_a864fe37458306e9956eb023d6ddb6cea}} 
+\index{GameController@{GameController}!executePath@{executePath}}
+\index{executePath@{executePath}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{executePath()}{executePath()}}
+{\footnotesize\ttfamily void Game\+Controller\+::execute\+Path (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$}]{path,  }\item[{bool}]{fully = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+execute\+Path Executes the moves returned y the pathfinder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & to take. \\
+\hline
+{\em fully} & Boolean indicating whether or not to keep executing throughout new levels, so keep finding for the rest of the game. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{138                                                                \{}
+\DoxyCodeLine{139     \textcolor{comment}{// Tile at the start position}}
+\DoxyCodeLine{140     \textcolor{keyword}{auto} first\_tile = qobject\_cast<GameObject *>(\mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>parent());}
+\DoxyCodeLine{141     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} move : path) \{}
+\DoxyCodeLine{142         \textcolor{comment}{// Assign the path tiles to DataRole Path}}
+\DoxyCodeLine{143         first\_tile = first\_tile-\/>getNeighbor(((45 * move + 90) \% 360));}
+\DoxyCodeLine{144         first\_tile-\/>setData(DataRole::Path, \textcolor{keyword}{true});}
+\DoxyCodeLine{145     \}}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} move : path) \{}
+\DoxyCodeLine{148         \mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} direction = (\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}})((45 * move + 90) \% 360);}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150         \textcolor{comment}{// Quick Delay for visualization}}
+\DoxyCodeLine{151         QTime dieTime = QTime::currentTime().addMSecs(100);}
+\DoxyCodeLine{152         \textcolor{keywordflow}{while}(QTime::currentTime() < dieTime)}
+\DoxyCodeLine{153             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155         \textcolor{keywordflow}{if}(direction != \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getData(\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}).value<\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}}>()) \{}
+\DoxyCodeLine{156             \mbox{\hyperlink{classGameController_ab6e0c43525c62ae352a0775be01bf389}{characterMove}}(direction);}
+\DoxyCodeLine{157         \}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159         \textcolor{comment}{// Check whether enemy is on the way of the path and attack it}}
+\DoxyCodeLine{160         \textcolor{keywordflow}{if}(\textcolor{keyword}{auto} tile = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getNeighbor(direction)) \{}
+\DoxyCodeLine{161             \textcolor{keywordflow}{if}(tile-\/>hasChild(\{ObjectType::\_ENEMIES\_START, ObjectType::\_ENEMIES\_END\})) \{}
+\DoxyCodeLine{162                 \mbox{\hyperlink{classGameController_ad3471a5cf092b33a4b890a28cb9f51b1}{automaticAttack}}();}
+\DoxyCodeLine{163             \}}
+\DoxyCodeLine{164         \}}
+\DoxyCodeLine{165         \textcolor{comment}{// Play fully automatic}}
+\DoxyCodeLine{166         \textcolor{keywordflow}{if}(full) \{}
+\DoxyCodeLine{167             QPointer<const GameObject> obj;}
+\DoxyCodeLine{168             \textcolor{comment}{// Find enemy or healthpack if energy or health too low. Number is sort of arbitrary}}
+\DoxyCodeLine{169             \textcolor{keywordflow}{if}(\mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getData(DataRole::Energy).toInt() < 80 || \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getData(DataRole::PoisonLevel).toInt() > 15) \{}
+\DoxyCodeLine{170                 obj = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>nearest(\{ObjectType::\_ENEMIES\_START, ObjectType::\_ENEMIES\_END\});}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getData(DataRole::Health).toInt() < 80) \{}
+\DoxyCodeLine{173                 obj = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>nearest(ObjectType::HealthPack);}
+\DoxyCodeLine{174             \}}
+\DoxyCodeLine{175             \textcolor{comment}{// Can be that there are no HP or enemies left.}}
+\DoxyCodeLine{176             \textcolor{keywordflow}{if}(obj) \{}
+\DoxyCodeLine{177                 QPoint objPos = obj-\/>getData(DataRole::Position).toPoint();}
+\DoxyCodeLine{178                 QPoint charPos = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getData(DataRole::Position).toPoint();}
+\DoxyCodeLine{179                 QPoint doorPos(\mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}].first-\/>getColumnCount(),}
+\DoxyCodeLine{180                                \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}].first-\/>getRowCount());}
+\DoxyCodeLine{181                 \textcolor{keywordtype}{int} distObj = (objPos -\/ charPos).manhattanLength();}
+\DoxyCodeLine{182                 \textcolor{keywordtype}{int} distDoor = (doorPos -\/ charPos).manhattanLength();}
+\DoxyCodeLine{183                 \textcolor{comment}{// Check if the distance to the door is smaller than the distance to the object.}}
+\DoxyCodeLine{184                 \textcolor{keywordflow}{if}(distObj < distDoor) \{}
+\DoxyCodeLine{185                     \mbox{\hyperlink{classGameController_a3f4073cbb82f746edff117c0ab230d5b}{pathFinder}}(objPos.x(), objPos.y());}
+\DoxyCodeLine{186                 \}}
+\DoxyCodeLine{187                 \textcolor{comment}{// After we go to the object, return to the pathfinder function that called this.}}
+\DoxyCodeLine{188                 \textcolor{comment}{// That function will schedule itself after this function finishes.}}
+\DoxyCodeLine{189                 \textcolor{keywordflow}{return};}
+\DoxyCodeLine{190             \}}
+\DoxyCodeLine{191         \}}
+\DoxyCodeLine{192         \mbox{\hyperlink{classGameController_ab6e0c43525c62ae352a0775be01bf389}{characterMove}}(direction);}
+\DoxyCodeLine{193     \}}
+\DoxyCodeLine{194 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a39ea35f344f2d5d794566992622e0190}\label{classGameController_a39ea35f344f2d5d794566992622e0190}} 
+\index{GameController@{GameController}!gameOver@{gameOver}}
+\index{gameOver@{gameOver}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{gameOver}{gameOver}}
+{\footnotesize\ttfamily void Game\+Controller\+::game\+Over (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+game\+Over This is emitted when the game is over. 
+
+\mbox{\Hypertarget{classGameController_a285e4524bfbebe69aabf45d9b7c76c55}\label{classGameController_a285e4524bfbebe69aabf45d9b7c76c55}} 
+\index{GameController@{GameController}!getGameView@{getGameView}}
+\index{getGameView@{getGameView}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{getGameView()}{getGameView()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} Game\+Controller\+::get\+Game\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{109 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a0813a389b2d8de62738b143e85cfdcf0}{m\_gameView}}; \} \textcolor{comment}{// Visualization enum}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_ace9f3965a3c03ec38e03e5ae86822584}\label{classGameController_ace9f3965a3c03ec38e03e5ae86822584}} 
+\index{GameController@{GameController}!getState@{getState}}
+\index{getState@{getState}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{getState()}{getState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} Game\+Controller\+::get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}}; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_ae195431684531ae10bcfb4988135ef98}\label{classGameController_ae195431684531ae10bcfb4988135ef98}} 
+\index{GameController@{GameController}!getView@{getView}}
+\index{getView@{getView}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{getView()}{getView()}}
+{\footnotesize\ttfamily QShared\+Pointer$<$\mbox{\hyperlink{classGameView}{Game\+View}}$>$ Game\+Controller\+::get\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{108 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}; \} \textcolor{comment}{// GameView}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a6cbccba776343a18f22b6b947497a579}\label{classGameController_a6cbccba776343a18f22b6b947497a579}} 
+\index{GameController@{GameController}!healthPacksUpdated@{healthPacksUpdated}}
+\index{healthPacksUpdated@{healthPacksUpdated}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{healthPacksUpdated}{healthPacksUpdated}}
+{\footnotesize\ttfamily void Game\+Controller\+::health\+Packs\+Updated (\begin{DoxyParamCaption}\item[{int}]{health\+\_\+packs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+health\+Packs\+Updated Emitted when the level of the game changes and thus the number of health packs for that level, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em health\+\_\+packs} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameController_acf37aad7d4bf2cf5ad5e9ef33a19ddca}\label{classGameController_acf37aad7d4bf2cf5ad5e9ef33a19ddca}} 
+\index{GameController@{GameController}!healthUpdated@{healthUpdated}}
+\index{healthUpdated@{healthUpdated}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{healthUpdated}{healthUpdated}}
+{\footnotesize\ttfamily void Game\+Controller\+::health\+Updated (\begin{DoxyParamCaption}\item[{int}]{health }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+health\+Updated Emitted whenever the protagonist health level changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em health} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameController_ab35fc801d7a66c1a6ff2fd82fba3ec1b}\label{classGameController_ab35fc801d7a66c1a6ff2fd82fba3ec1b}} 
+\index{GameController@{GameController}!levelUpdated@{levelUpdated}}
+\index{levelUpdated@{levelUpdated}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{levelUpdated}{levelUpdated}}
+{\footnotesize\ttfamily void Game\+Controller\+::level\+Updated (\begin{DoxyParamCaption}\item[{int}]{level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+level\+Updated Emitted when the level of the game changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameController_a3f4073cbb82f746edff117c0ab230d5b}\label{classGameController_a3f4073cbb82f746edff117c0ab230d5b}} 
+\index{GameController@{GameController}!pathFinder@{pathFinder}}
+\index{pathFinder@{pathFinder}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{pathFinder}{pathFinder}}
+{\footnotesize\ttfamily void Game\+Controller\+::path\+Finder (\begin{DoxyParamCaption}\item[{int}]{x = {\ttfamily -\/1},  }\item[{int}]{y = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+path\+Finder automatically routes the protagonist to given position using the algorithm for the shortest path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & coordinate of the world grid. \\
+\hline
+{\em y} & coordinate of the world grid. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{196                                             \{}
+\DoxyCodeLine{197     \textcolor{keywordtype}{bool} full = (x == -\/1 \&\& y == -\/1);}
+\DoxyCodeLine{198     \textcolor{keyword}{auto} nodes = \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}].second; \textcolor{comment}{// Node class for the pathfinder}}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200     \textcolor{keywordtype}{int} rows = \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}].first-\/>getRowCount();}
+\DoxyCodeLine{201     \textcolor{keywordtype}{int} cols = \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}].first-\/>getColumnCount();}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203     \textcolor{comment}{// Get protagonist position in the world = start position of the pathfinder}}
+\DoxyCodeLine{204     \textcolor{keyword}{auto} pos = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classGameObject}{GameObject}} *\textcolor{keyword}{>}(\mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>parent())-\/>getData(DataRole::Position).toPoint();}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206     Comparator<Node> comp = [](\textcolor{keyword}{const} \mbox{\hyperlink{structNode}{Node}} \&a, \textcolor{keyword}{const} \mbox{\hyperlink{structNode}{Node}} \&b) \{}
+\DoxyCodeLine{207         \textcolor{keywordflow}{return} a.\mbox{\hyperlink{structNode_ab7d8a0250a536b3b221dd6d42e7630e0}{h}} > b.h;}
+\DoxyCodeLine{208     \};}
+\DoxyCodeLine{209     \textcolor{comment}{// Check for non valid input position}}
+\DoxyCodeLine{210     \textcolor{keywordflow}{if}(x >= cols || y >= rows || x < 0 || y < 0) \{}
+\DoxyCodeLine{211         y = rows -\/ 1;}
+\DoxyCodeLine{212         x = cols -\/ 1;}
+\DoxyCodeLine{213     \}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215     \textcolor{keyword}{auto} *start = \&nodes[cols * pos.y() + pos.x()];}
+\DoxyCodeLine{216     \textcolor{keyword}{auto} *dest = \&nodes[cols * y + x];}
+\DoxyCodeLine{217     PathFinder<Node, Node> \mbox{\hyperlink{classGameController_a3f4073cbb82f746edff117c0ab230d5b}{pathFinder}}(nodes, start, dest, comp, cols, 0.001f);}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219     \textcolor{comment}{// Call the algorithm}}
+\DoxyCodeLine{220     \textcolor{keyword}{auto} path = \mbox{\hyperlink{classGameController_a3f4073cbb82f746edff117c0ab230d5b}{pathFinder}}.A\_star();}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222     \mbox{\hyperlink{classGameController_a864fe37458306e9956eb023d6ddb6cea}{executePath}}(path, full);}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224     \textcolor{comment}{// Run the method again in the next event loop if the game is on full auto.}}
+\DoxyCodeLine{225     \textcolor{keywordflow}{if}(full) \{}
+\DoxyCodeLine{226         QMetaObject::invokeMethod(\textcolor{keyword}{this}, \textcolor{stringliteral}{"{}pathFinder"{}}, Qt::QueuedConnection, -\/1, -\/1);}
+\DoxyCodeLine{227     \}}
+\DoxyCodeLine{228 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a3f35bf7c9b399ad12ab584cc6e4c021d}\label{classGameController_a3f35bf7c9b399ad12ab584cc6e4c021d}} 
+\index{GameController@{GameController}!setState@{setState}}
+\index{setState@{setState}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{setState()}{setState()}}
+{\footnotesize\ttfamily void Game\+Controller\+::set\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}}}]{new\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{105 \{ \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} = new\_state; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_af09a892ccc90ebb5bd67bc093db92fde}\label{classGameController_af09a892ccc90ebb5bd67bc093db92fde}} 
+\index{GameController@{GameController}!setView@{setView}}
+\index{setView@{setView}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{setView()}{setView()}}
+{\footnotesize\ttfamily void Game\+Controller\+::set\+View (\begin{DoxyParamCaption}\item[{QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$}]{view }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106 \{ \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}} = view; \} \textcolor{comment}{// GameView}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a8f30ab3ff471ac0a5c8b88dc7fea45f4}\label{classGameController_a8f30ab3ff471ac0a5c8b88dc7fea45f4}} 
+\index{GameController@{GameController}!startGame@{startGame}}
+\index{startGame@{startGame}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{startGame()}{startGame()}}
+{\footnotesize\ttfamily void Game\+Controller\+::start\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+start\+Game starts the game at level 1. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12                                \{}
+\DoxyCodeLine{13     \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}} = QSharedPointer<GameView>::create(\textcolor{keyword}{this}); \textcolor{comment}{// Instantiate the GameView}}
+\DoxyCodeLine{14     \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}-\/>setRenderer(QSharedPointer<SpriteRenderer>::create()); \textcolor{comment}{// Instantiate and set the default renderer}}
+\DoxyCodeLine{15     \mbox{\hyperlink{classGameController_a34cbdcbd10284103b963a0b3de449d32}{createNewLevel}}(\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}); \textcolor{comment}{// Create first level}}
+\DoxyCodeLine{16     this-\/>show();}
+\DoxyCodeLine{17 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_ad1f97b1326b012f47a1554a632a4df8c}\label{classGameController_ad1f97b1326b012f47a1554a632a4df8c}} 
+\index{GameController@{GameController}!tick@{tick}}
+\index{tick@{tick}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{tick}{tick}}
+{\footnotesize\ttfamily void Game\+Controller\+::tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+tick Emitted when a turn is complete. 
+
+\mbox{\Hypertarget{classGameController_a64608a1c7a700164f7ef6bd8cbde817d}\label{classGameController_a64608a1c7a700164f7ef6bd8cbde817d}} 
+\index{GameController@{GameController}!updateEnergy@{updateEnergy}}
+\index{updateEnergy@{updateEnergy}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{updateEnergy()}{updateEnergy()}}
+{\footnotesize\ttfamily void Game\+Controller\+::update\+Energy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+update\+Energy retrieves lastest protagonist energy level upon data change and triggers corresponding slot in the \mbox{\hyperlink{classGameWindow}{Game\+Window}}. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{230                                   \{}
+\DoxyCodeLine{231     \textcolor{keywordtype}{int} protagonistEnergy = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getData(DataRole::Energy).toInt();}
+\DoxyCodeLine{232     emit \mbox{\hyperlink{classGameController_afe1e5d8bc12980a887614605637a3baf}{energyUpdated}}(protagonistEnergy);}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234     \textcolor{keywordflow}{if}(protagonistEnergy == 0) \{}
+\DoxyCodeLine{235         \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} = \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008a8f347bc7cebca9fa6d97e70c6bc29eb3}{State::GameOver}};}
+\DoxyCodeLine{236         emit \mbox{\hyperlink{classGameController_a39ea35f344f2d5d794566992622e0190}{gameOver}}();}
+\DoxyCodeLine{237     \}}
+\DoxyCodeLine{238 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_a6a8cde78a3a68f178cc4d1fbe2aed338}\label{classGameController_a6a8cde78a3a68f178cc4d1fbe2aed338}} 
+\index{GameController@{GameController}!updateGameView@{updateGameView}}
+\index{updateGameView@{updateGameView}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{updateGameView()}{updateGameView()}}
+{\footnotesize\ttfamily void Game\+Controller\+::update\+Game\+View (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}}}]{view }\end{DoxyParamCaption})}
+
+
+
+update\+Game\+View calls the new visualization renderer of the scene upon switching views, captures data change in the model and triggers \mbox{\hyperlink{classGameWindow}{Game\+Window}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em view} & Text, Color or Sprite. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{274                                              \{}
+\DoxyCodeLine{275     \textcolor{keyword}{auto} data = \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}}].first-\/>getAllData();}
+\DoxyCodeLine{276     QSharedPointer<Renderer> renderer;}
+\DoxyCodeLine{277 }
+\DoxyCodeLine{278     \textcolor{keywordflow}{switch}(view) \{}
+\DoxyCodeLine{279     \textcolor{keywordflow}{case} \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa51f2b7b14433aa22c67d1f4fc18943cd}{View::Sprite}}:}
+\DoxyCodeLine{280         renderer = QSharedPointer<SpriteRenderer>::create();}
+\DoxyCodeLine{281         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{282     \textcolor{keywordflow}{case} \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aacb5feb1b7314637725a2e73bdc9f7295}{View::Color}}:}
+\DoxyCodeLine{283         renderer = QSharedPointer<ColorRenderer>::create();}
+\DoxyCodeLine{284         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{285     \textcolor{keywordflow}{case} \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aa9dffbf69ffba8bc38bc4e01abf4b1675}{View::Text}}:}
+\DoxyCodeLine{286         renderer = QSharedPointer<TextRenderer>::create();}
+\DoxyCodeLine{287         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{288     \}}
+\DoxyCodeLine{289 }
+\DoxyCodeLine{290     \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}-\/>createScene(data, renderer);}
+\DoxyCodeLine{291     \mbox{\hyperlink{classGameController_a0813a389b2d8de62738b143e85cfdcf0}{m\_gameView}} = view;}
+\DoxyCodeLine{292 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_aa0a11370d64f5d500690f9af50d3c4f3}\label{classGameController_aa0a11370d64f5d500690f9af50d3c4f3}} 
+\index{GameController@{GameController}!updateHealth@{updateHealth}}
+\index{updateHealth@{updateHealth}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{updateHealth()}{updateHealth()}}
+{\footnotesize\ttfamily void Game\+Controller\+::update\+Health (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+update\+Health retrieves lastest protagonist health level upon data change and triggers corresponding slot in the \mbox{\hyperlink{classGameWindow}{Game\+Window}}. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{240                                   \{}
+\DoxyCodeLine{241     \textcolor{keywordtype}{int} protagonistHealth = \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}}-\/>getData(DataRole::Health).toInt();}
+\DoxyCodeLine{242     emit \mbox{\hyperlink{classGameController_acf37aad7d4bf2cf5ad5e9ef33a19ddca}{healthUpdated}}(protagonistHealth);}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244     \textcolor{keywordflow}{if}(protagonistHealth == 0) \{}
+\DoxyCodeLine{245         \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} = \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008a8f347bc7cebca9fa6d97e70c6bc29eb3}{State::GameOver}};}
+\DoxyCodeLine{246         emit \mbox{\hyperlink{classGameController_a39ea35f344f2d5d794566992622e0190}{gameOver}}();}
+\DoxyCodeLine{247     \}}
+\DoxyCodeLine{248 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGameController_ae018941f9f2526233acee3e128a9b1ed}\label{classGameController_ae018941f9f2526233acee3e128a9b1ed}} 
+\index{GameController@{GameController}!updateLevel@{updateLevel}}
+\index{updateLevel@{updateLevel}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{updateLevel()}{updateLevel()}}
+{\footnotesize\ttfamily void Game\+Controller\+::update\+Level (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}}}]{direction }\end{DoxyParamCaption})}
+
+
+
+update\+Level handles going up and down the levels (upon stepping on doorways), captures data change in the model and triggers \mbox{\hyperlink{classGameWindow}{Game\+Window}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & UP to go to next level, DOWN to go to previous level, parameter passed from data change. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19                                                     \{}
+\DoxyCodeLine{20     \textcolor{keywordtype}{int} newLevel = (direction == Direction::Up) ? \mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}} + 1 : \mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}} -\/ 1; \textcolor{comment}{// Check whether we go level up or level down}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{comment}{// Invalid level}}
+\DoxyCodeLine{23     \textcolor{keywordflow}{if}(newLevel < 0 || newLevel > \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}.size()) \{}
+\DoxyCodeLine{24         qDebug() << \textcolor{stringliteral}{"{}Invalid level change request. Current Level: "{}} << \mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}} << \textcolor{stringliteral}{"{}, Requested Level: "{}} << newLevel;}
+\DoxyCodeLine{25         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{26     \}}
+\DoxyCodeLine{27     \mbox{\hyperlink{classGameController_a2148e50c6ef23d1f16c7db448a84e1a7}{disconnectCurrentModel}}();}
+\DoxyCodeLine{28     \textcolor{comment}{// Determine whether to create a new model or use an existing one}}
+\DoxyCodeLine{29     \textcolor{keywordflow}{if}(newLevel + 1 > \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}.size()) \{}
+\DoxyCodeLine{30         qDebug() << \textcolor{stringliteral}{"{}Creating new model for level "{}} << newLevel;}
+\DoxyCodeLine{31         \mbox{\hyperlink{classGameController_a34cbdcbd10284103b963a0b3de449d32}{createNewLevel}}(newLevel);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{34         qDebug() << \textcolor{stringliteral}{"{}Switching to existing model for level "{}} << newLevel;}
+\DoxyCodeLine{35         \textcolor{keyword}{auto} *model = \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\_models}}[newLevel].first;}
+\DoxyCodeLine{36         \textcolor{keywordflow}{if}(!model) \{}
+\DoxyCodeLine{37             qDebug() << \textcolor{stringliteral}{"{}Error: Model is null at level "{}} << newLevel;}
+\DoxyCodeLine{38             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{39         \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         \mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}} = newLevel;}
+\DoxyCodeLine{42         \mbox{\hyperlink{classGameController_a43933b5d9d2d1a5bf91028df281b955b}{m\_enemies}} = 10 * (\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}} + 1) + 25;}
+\DoxyCodeLine{43         \mbox{\hyperlink{classGameController_a319336ac7807c6a46397e6bf9596396f}{m\_health\_packs}} = 5 -\/ (\mbox{\hyperlink{classGameController_a81bd9177125a14cb2485065fafa1e9ec}{m\_gameLevel}} / 3);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         \mbox{\hyperlink{classGameController_a536c54418d05915b25df27a5fe2b813c}{m\_protagonist}} = model-\/>getObject(ObjectType::Protagonist).at(0);}
+\DoxyCodeLine{46         \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}-\/>createScene(model-\/>getAllData());}
+\DoxyCodeLine{47         \mbox{\hyperlink{classGameController_ad57c31609ee0a2cb9fa44c6a30bf5595}{connectCurrentModel}}();}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \textcolor{comment}{// Signal changes to the window}}
+\DoxyCodeLine{51     \mbox{\hyperlink{classGameController_a231321ac86d25e3c307e2c6a00546f66}{emitLevelUpdates}}();}
+\DoxyCodeLine{52 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classGameController_a43933b5d9d2d1a5bf91028df281b955b}\label{classGameController_a43933b5d9d2d1a5bf91028df281b955b}} 
+\index{GameController@{GameController}!m\_enemies@{m\_enemies}}
+\index{m\_enemies@{m\_enemies}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_enemies}{m\_enemies}}
+{\footnotesize\ttfamily int Game\+Controller\+::m\+\_\+enemies\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+enemies Number of current enemies in the game. 
+
+\mbox{\Hypertarget{classGameController_a81bd9177125a14cb2485065fafa1e9ec}\label{classGameController_a81bd9177125a14cb2485065fafa1e9ec}} 
+\index{GameController@{GameController}!m\_gameLevel@{m\_gameLevel}}
+\index{m\_gameLevel@{m\_gameLevel}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_gameLevel}{m\_gameLevel}}
+{\footnotesize\ttfamily int Game\+Controller\+::m\+\_\+game\+Level\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+game\+Level current game level. 
+
+\mbox{\Hypertarget{classGameController_a7608b587849e253e44da2d5705f836b3}\label{classGameController_a7608b587849e253e44da2d5705f836b3}} 
+\index{GameController@{GameController}!m\_gameState@{m\_gameState}}
+\index{m\_gameState@{m\_gameState}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_gameState}{m\_gameState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} Game\+Controller\+::m\+\_\+game\+State\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+game\+State current game state. 
+
+\mbox{\Hypertarget{classGameController_a0813a389b2d8de62738b143e85cfdcf0}\label{classGameController_a0813a389b2d8de62738b143e85cfdcf0}} 
+\index{GameController@{GameController}!m\_gameView@{m\_gameView}}
+\index{m\_gameView@{m\_gameView}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_gameView}{m\_gameView}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} Game\+Controller\+::m\+\_\+game\+View\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+game\+View current game visualization (Text, Color, Sprite). 
+
+\mbox{\Hypertarget{classGameController_a319336ac7807c6a46397e6bf9596396f}\label{classGameController_a319336ac7807c6a46397e6bf9596396f}} 
+\index{GameController@{GameController}!m\_health\_packs@{m\_health\_packs}}
+\index{m\_health\_packs@{m\_health\_packs}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_health\_packs}{m\_health\_packs}}
+{\footnotesize\ttfamily int Game\+Controller\+::m\+\_\+health\+\_\+packs\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+health\+\_\+packs Number of current health packs in the game. 
+
+\mbox{\Hypertarget{classGameController_a449e29b37a909aac5896f30d020547fb}\label{classGameController_a449e29b37a909aac5896f30d020547fb}} 
+\index{GameController@{GameController}!m\_levelSize@{m\_levelSize}}
+\index{m\_levelSize@{m\_levelSize}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_levelSize}{m\_levelSize}}
+{\footnotesize\ttfamily QSize Game\+Controller\+::m\+\_\+level\+Size\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+level\+Size Size of the levels. 
+
+\mbox{\Hypertarget{classGameController_aab58e3c1ae1b93c1203e177adecb8392}\label{classGameController_aab58e3c1ae1b93c1203e177adecb8392}} 
+\index{GameController@{GameController}!m\_models@{m\_models}}
+\index{m\_models@{m\_models}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_models}{m\_models}}
+{\footnotesize\ttfamily QList$<$QPair$<$\mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} $\ast$, std\+::vector$<$\mbox{\hyperlink{structNode}{Node}}$>$ $>$ $>$ Game\+Controller\+::m\+\_\+models\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+model List of the different game models for different levels, holds all game data and logic. 
+
+\mbox{\Hypertarget{classGameController_a536c54418d05915b25df27a5fe2b813c}\label{classGameController_a536c54418d05915b25df27a5fe2b813c}} 
+\index{GameController@{GameController}!m\_protagonist@{m\_protagonist}}
+\index{m\_protagonist@{m\_protagonist}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_protagonist}{m\_protagonist}}
+{\footnotesize\ttfamily QPointer$<$\mbox{\hyperlink{classGameObject}{Game\+Object}}$>$ Game\+Controller\+::m\+\_\+protagonist\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+character The protagonist of the game. 
+
+\mbox{\Hypertarget{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}\label{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}} 
+\index{GameController@{GameController}!m\_view@{m\_view}}
+\index{m\_view@{m\_view}!GameController@{GameController}}
+\doxysubsubsection{\texorpdfstring{m\_view}{m\_view}}
+{\footnotesize\ttfamily QShared\+Pointer$<$\mbox{\hyperlink{classGameView}{Game\+View}}$>$ Game\+Controller\+::m\+\_\+view\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+m\+\_\+view The scene of the controller. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+controller/\mbox{\hyperlink{gamecontroller_8h}{gamecontroller.\+h}}\item 
+controller/\mbox{\hyperlink{gamecontroller_8cpp}{gamecontroller.\+cpp}}\end{DoxyCompactItemize}

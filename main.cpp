@@ -25,7 +25,6 @@ int main(int argc, char *argv[]) {
     QObject::connect(w.getUI()->quit_game, &QPushButton::clicked, &app, [&w] {
         w.getController()->setState(GameController::State::GameOver);
         QCoreApplication::quit();
-
     });
 
     QObject::connect(w.getUI()->rerun_game_2, &QPushButton::clicked, [] {

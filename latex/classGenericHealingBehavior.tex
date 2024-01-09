@@ -1,0 +1,120 @@
+\hypertarget{classGenericHealingBehavior}{}\doxysection{Generic\+Healing\+Behavior Class Reference}
+\label{classGenericHealingBehavior}\index{GenericHealingBehavior@{GenericHealingBehavior}}
+
+
+The \mbox{\hyperlink{classGenericHealingBehavior}{Generic\+Healing\+Behavior}} class handles behavior of objects that heal others.  
+
+
+
+
+{\ttfamily \#include $<$generichealingbehavior.\+h$>$}
+
+
+
+Inheritance diagram for Generic\+Healing\+Behavior\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classGenericHealingBehavior__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGenericHealingBehavior_a3918b7b27e5201457b74f603e3405472}{Generic\+Healing\+Behavior}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ owner)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classGenericHealingBehavior}{Generic\+Healing\+Behavior}} default constructor for GHB. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGenericHealingBehavior_a85c7a0d81bee8c2ce6b9c51de7512a55}{Generic\+Healing\+Behavior}} ()=delete
+\item 
+int \mbox{\hyperlink{classGenericHealingBehavior_a878308dcc22196c03615a72a93e65a08}{heal}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&target) override
+\begin{DoxyCompactList}\small\item\em heal heals target by an amount and cures it of poison. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classGenericHealingBehavior}{Generic\+Healing\+Behavior}} class handles behavior of objects that heal others. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGenericHealingBehavior_a3918b7b27e5201457b74f603e3405472}\label{classGenericHealingBehavior_a3918b7b27e5201457b74f603e3405472}} 
+\index{GenericHealingBehavior@{GenericHealingBehavior}!GenericHealingBehavior@{GenericHealingBehavior}}
+\index{GenericHealingBehavior@{GenericHealingBehavior}!GenericHealingBehavior@{GenericHealingBehavior}}
+\doxysubsubsection{\texorpdfstring{GenericHealingBehavior()}{GenericHealingBehavior()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Generic\+Healing\+Behavior\+::\+Generic\+Healing\+Behavior (\begin{DoxyParamCaption}\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classGenericHealingBehavior}{Generic\+Healing\+Behavior}} default constructor for GHB. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & the owner of the behavior. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17         : \mbox{\hyperlink{classHealth_ab93e9d9ae81196519765e03a748bbfe3}{Health}}(owner) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGenericHealingBehavior_a85c7a0d81bee8c2ce6b9c51de7512a55}\label{classGenericHealingBehavior_a85c7a0d81bee8c2ce6b9c51de7512a55}} 
+\index{GenericHealingBehavior@{GenericHealingBehavior}!GenericHealingBehavior@{GenericHealingBehavior}}
+\index{GenericHealingBehavior@{GenericHealingBehavior}!GenericHealingBehavior@{GenericHealingBehavior}}
+\doxysubsubsection{\texorpdfstring{GenericHealingBehavior()}{GenericHealingBehavior()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Generic\+Healing\+Behavior\+::\+Generic\+Healing\+Behavior (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGenericHealingBehavior_a878308dcc22196c03615a72a93e65a08}\label{classGenericHealingBehavior_a878308dcc22196c03615a72a93e65a08}} 
+\index{GenericHealingBehavior@{GenericHealingBehavior}!heal@{heal}}
+\index{heal@{heal}!GenericHealingBehavior@{GenericHealingBehavior}}
+\doxysubsubsection{\texorpdfstring{heal()}{heal()}}
+{\footnotesize\ttfamily int Generic\+Healing\+Behavior\+::heal (\begin{DoxyParamCaption}\item[{const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+heal heals target by an amount and cures it of poison. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & target to heal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+amount healed. This will heal the target using as much health as the owner has. If the owner has less health than the target can be healed, it is destroyed after healing. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classHealth_a94f3395c37c1cbe938be776fd62bdbae}{Health}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4                                                                    \{}
+\DoxyCodeLine{5     \textcolor{keywordtype}{int} availableHealing = \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getData(DataRole::Health).toInt();}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7     \textcolor{keyword}{auto} h\_behavior = target-\/>getBehavior<\mbox{\hyperlink{classHealth}{Health}}>();}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9     \textcolor{comment}{// Do not heal if there is no behavior to heal. Do cure the poison even if the}}
+\DoxyCodeLine{10     \textcolor{comment}{// health is maxed out. If the poison enemies can move at some point this will not work.}}
+\DoxyCodeLine{11     \textcolor{keywordtype}{int} healAmount = h\_behavior ? h\_behavior-\/>\mbox{\hyperlink{classHealth_a5b64418057c4aa2c5b53f4671c8b9433}{getHealthChanged}}(availableHealing) : 0;}
+\DoxyCodeLine{12     target-\/>setData(DataRole::PoisonLevel, \mbox{\hyperlink{structPoison_1_1SETTINGS_a1757b044e954f00d5b9080f2323a46fd}{Poison::SETTINGS::MIN\_POISON}});}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keywordflow}{if}(!healAmount) \{}
+\DoxyCodeLine{15         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{16     \}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(DataRole::Health, availableHealing -\/ healAmount);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{comment}{// Destroy HP if it is empty}}
+\DoxyCodeLine{21     \textcolor{keywordflow}{if}(healAmount >= availableHealing) \{}
+\DoxyCodeLine{22         \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(DataRole::Destroyed, \textcolor{keyword}{true});}
+\DoxyCodeLine{23         \textcolor{keyword}{delete} \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}};}
+\DoxyCodeLine{24     \}}
+\DoxyCodeLine{25     \textcolor{keywordflow}{return} healAmount;}
+\DoxyCodeLine{26 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/behaviors/concrete/health/\mbox{\hyperlink{generichealingbehavior_8h}{generichealingbehavior.\+h}}\item 
+model/behaviors/concrete/health/\mbox{\hyperlink{generichealingbehavior_8cpp}{generichealingbehavior.\+cpp}}\end{DoxyCompactItemize}

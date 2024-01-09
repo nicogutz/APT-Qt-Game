@@ -1,0 +1,9 @@
+<map id="HealOnStepBehavior" name="HealOnStepBehavior">
+<area shape="rect" id="node1" title="The HealOnStepBehavior class calls the heal function from the owner on the source." alt="" coords="97,905,298,1085"/>
+<area shape="rect" id="node2" href="$classGenericWalkableBehavior.html" title="The GenericWalkableBehavior class simply returns true on the function isSteppable." alt="" coords="95,691,299,856"/>
+<area shape="rect" id="node3" href="$classMovement.html" title="The Movement class handles the actions of moving. It is an abstract class. All the functions return f..." alt="" coords="88,359,307,641"/>
+<area shape="rect" id="node4" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="9,145,191,296"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,5,195,83"/>
+<area shape="rect" id="node6" href="$structMovement_1_1SETTINGS.html" title=" " alt="" coords="215,182,379,259"/>
+<area shape="rect" id="node7" title=" " alt="" coords="278,5,317,83"/>
+</map>

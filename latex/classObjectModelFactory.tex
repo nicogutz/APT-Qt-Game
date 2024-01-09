@@ -1,0 +1,201 @@
+\hypertarget{classObjectModelFactory}{}\doxysection{Object\+Model\+Factory Class Reference}
+\label{classObjectModelFactory}\index{ObjectModelFactory@{ObjectModelFactory}}
+
+
+The \mbox{\hyperlink{classObjectModelFactory}{Object\+Model\+Factory}} class is responsible for creating and populating the game world model. It includes methods to generate the game world grid and pathfinding nodes.  
+
+
+
+
+{\ttfamily \#include $<$modelfactory.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static QPair$<$ \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} $\ast$, std\+::vector$<$ \mbox{\hyperlink{structNode}{Node}} $>$ $>$ \mbox{\hyperlink{classObjectModelFactory_afab5a76e60acd1db5bfb936f5024ad23}{create\+Model}} (unsigned int nr\+Of\+Enemies, unsigned int nr\+Of\+Healthpacks, float p\+Ratio, int level, int rows=30, int columns=40)
+\begin{DoxyCompactList}\small\item\em Creates a game model consisting of a grid of Game\+Objects and pathfinding nodes. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classObjectModelFactory_a992c700faf308a1ea8bb852c7464220c}{create\+World}} (int width, int height, double difficulty=1.\+0)
+\begin{DoxyCompactList}\small\item\em Generates a world image based on Perlin noise to simulate terrain. Used in world creation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classObjectModelFactory}{Object\+Model\+Factory}} class is responsible for creating and populating the game world model. It includes methods to generate the game world grid and pathfinding nodes. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classObjectModelFactory_afab5a76e60acd1db5bfb936f5024ad23}\label{classObjectModelFactory_afab5a76e60acd1db5bfb936f5024ad23}} 
+\index{ObjectModelFactory@{ObjectModelFactory}!createModel@{createModel}}
+\index{createModel@{createModel}!ObjectModelFactory@{ObjectModelFactory}}
+\doxysubsubsection{\texorpdfstring{createModel()}{createModel()}}
+{\footnotesize\ttfamily QPair$<$ \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} $\ast$, std\+::vector$<$ \mbox{\hyperlink{structNode}{Node}} $>$ $>$ Object\+Model\+Factory\+::create\+Model (\begin{DoxyParamCaption}\item[{unsigned int}]{nr\+Of\+Enemies,  }\item[{unsigned int}]{nr\+Of\+Healthpacks,  }\item[{float}]{p\+Ratio,  }\item[{int}]{level,  }\item[{int}]{rows = {\ttfamily 30},  }\item[{int}]{columns = {\ttfamily 40} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a game model consisting of a grid of Game\+Objects and pathfinding nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nr\+Of\+Enemies} & The number of enemies to create. \\
+\hline
+{\em nr\+Of\+Healthpacks} & The number of health packs to create. \\
+\hline
+{\em p\+Ratio} & The poison ratio, affects the generation of poison tiles/enemies. \\
+\hline
+{\em level} & The current game level, affects the world generation difficulty. \\
+\hline
+{\em rows} & The number of rows in the game world grid. \\
+\hline
+{\em columns} & The number of columns in the game world grid. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pair consisting of a pointer to the generated \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} and a vector of Nodes for pathfinding. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11                                                   \{}
+\DoxyCodeLine{12     std::vector<Node> nodes; \textcolor{comment}{// Node class for the pathfinder}}
+\DoxyCodeLine{13     World m\_world;}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \mbox{\hyperlink{classObjectModelFactory_a992c700faf308a1ea8bb852c7464220c}{createWorld}}(columns, rows, (\textcolor{keywordtype}{double})(level + 1) / 20.0);}
+\DoxyCodeLine{16     m\_world.createWorld(\textcolor{stringliteral}{"{}./world.png"{}}, nrOfEnemies, nrOfHealthpacks, pRatio);}
+\DoxyCodeLine{17     QFile::remove(\textcolor{stringliteral}{"{}./world.png"{}});}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     QList<QList<QPointer<GameObject>>> worldGrid(columns); \textcolor{comment}{// instantiate gameObjectModel aka the worldgrid}}
+\DoxyCodeLine{20     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < columns; ++i) \{}
+\DoxyCodeLine{21         worldGrid[i] = QList<QPointer<GameObject>>(rows);}
+\DoxyCodeLine{22     \}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{comment}{// insert tiles into model}}
+\DoxyCodeLine{25     \textcolor{keyword}{auto} tiles = m\_world.getTiles();}
+\DoxyCodeLine{26     \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&tile : tiles) \{}
+\DoxyCodeLine{27         nodes.emplace\_back(tile-\/>getXPos(), tile-\/>getYPos(), tile-\/>getValue());}
+\DoxyCodeLine{28         \textcolor{keyword}{auto} *obj = \textcolor{keyword}{new} \mbox{\hyperlink{classGameObject}{GameObject}}(\{}
+\DoxyCodeLine{29           \{DataRole::Energy, tile-\/>getValue()\},}
+\DoxyCodeLine{30           \{DataRole::Position, QPoint(tile-\/>getXPos(), tile-\/>getYPos())\},}
+\DoxyCodeLine{31         \});}
+\DoxyCodeLine{32         \mbox{\hyperlink{classGameObjectSettings_a031334994fe7f361f050d726db4250fe}{GameObjectSettings::getFunction}}(ObjectType::Tile)(obj);}
+\DoxyCodeLine{33         worldGrid[tile-\/>getXPos()][tile-\/>getYPos()] = obj;}
+\DoxyCodeLine{34     \}}
+\DoxyCodeLine{35     \textcolor{comment}{// Process doorways}}
+\DoxyCodeLine{36     \textcolor{keywordflow}{if}(level) \{}
+\DoxyCodeLine{37         \textcolor{keyword}{auto} *entryDoor = \textcolor{keyword}{new} \mbox{\hyperlink{classGameObject}{GameObject}}(\{}
+\DoxyCodeLine{38           \{\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}, QVariant::fromValue<Direction>(Direction::Down)\},}
+\DoxyCodeLine{39         \});}
+\DoxyCodeLine{40         \mbox{\hyperlink{classGameObjectSettings_a031334994fe7f361f050d726db4250fe}{GameObjectSettings::getFunction}}(ObjectType::Doorway)(entryDoor);}
+\DoxyCodeLine{41         entryDoor-\/>setParent(worldGrid[0][0]);}
+\DoxyCodeLine{42     \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{keyword}{auto} *exitDoor = \textcolor{keyword}{new} \mbox{\hyperlink{classGameObject}{GameObject}}(\{}
+\DoxyCodeLine{45       \{\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}, QVariant::fromValue<Direction>(Direction::Up)\},}
+\DoxyCodeLine{46     \});}
+\DoxyCodeLine{47     \mbox{\hyperlink{classGameObjectSettings_a031334994fe7f361f050d726db4250fe}{GameObjectSettings::getFunction}}(ObjectType::Doorway)(exitDoor);}
+\DoxyCodeLine{48     exitDoor-\/>setParent(worldGrid[columns -\/ 1][rows -\/ 1]);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \textcolor{comment}{// Process protagonist}}
+\DoxyCodeLine{51     \textcolor{keyword}{auto} protagonist = m\_world.getProtagonist();}
+\DoxyCodeLine{52     \textcolor{keyword}{auto} *proObj = \textcolor{keyword}{new} \mbox{\hyperlink{classGameObject}{GameObject}}();}
+\DoxyCodeLine{53     \mbox{\hyperlink{classGameObjectSettings_a031334994fe7f361f050d726db4250fe}{GameObjectSettings::getFunction}}(ObjectType::Protagonist)(proObj);}
+\DoxyCodeLine{54     proObj-\/>setParent(worldGrid[protagonist-\/>getXPos()][protagonist-\/>getYPos()]);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \textcolor{comment}{// Process Health Packs}}
+\DoxyCodeLine{57     \textcolor{keyword}{auto} healthPacks = m\_world.getHealthPacks();}
+\DoxyCodeLine{58     \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&hp : healthPacks) \{}
+\DoxyCodeLine{59         \textcolor{keyword}{auto} *hpObj = \textcolor{keyword}{new} \mbox{\hyperlink{classGameObject}{GameObject}}();}
+\DoxyCodeLine{60         \mbox{\hyperlink{classGameObjectSettings_a031334994fe7f361f050d726db4250fe}{GameObjectSettings::getFunction}}(ObjectType::HealthPack)(hpObj);}
+\DoxyCodeLine{61         nodes[hp-\/>getYPos() * columns + hp-\/>getXPos()].setValue(0.01);}
+\DoxyCodeLine{62         hpObj-\/>setParent(worldGrid[hp-\/>getXPos()][hp-\/>getYPos()]);}
+\DoxyCodeLine{63     \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{comment}{// Process Enemies and Poison Enemies}}
+\DoxyCodeLine{66     \textcolor{keyword}{auto} enemies = m\_world.getEnemies();}
+\DoxyCodeLine{67     \textcolor{keywordtype}{int} enemyLocations[columns][rows];}
+\DoxyCodeLine{68     memset(enemyLocations, 0, \textcolor{keyword}{sizeof}(enemyLocations));}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70     \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&enemy : enemies) \{}
+\DoxyCodeLine{71         \textcolor{keywordtype}{int} enemyX = enemy-\/>getXPos();}
+\DoxyCodeLine{72         \textcolor{keywordtype}{int} enemyY = enemy-\/>getYPos();}
+\DoxyCodeLine{73         enemyLocations[enemyX -\/ 1][enemyY -\/ 1] = 1;}
+\DoxyCodeLine{74         \textcolor{keywordflow}{if}((enemyX == columns -\/ 1 \&\& enemyY == rows -\/ 1) || (enemyX == 0 \&\& enemyY == 0)) \{}
+\DoxyCodeLine{75             enemyX = columns -\/ 2;}
+\DoxyCodeLine{76             enemyY = rows -\/ 2; \textcolor{comment}{// make sure no enemies on the doorway}}
+\DoxyCodeLine{77         \}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79         nodes[enemyY * columns + enemyX].setValue(0.8);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81         \mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}} type = \textcolor{keyword}{dynamic\_cast<}PEnemy *\textcolor{keyword}{>}(enemy.get()) ? ObjectType::PoisonEnemy : ObjectType::Enemy;}
+\DoxyCodeLine{82         \textcolor{keyword}{auto} *enemyObj = \textcolor{keyword}{new} \mbox{\hyperlink{classGameObject}{GameObject}}();}
+\DoxyCodeLine{83         \mbox{\hyperlink{classGameObjectSettings_a031334994fe7f361f050d726db4250fe}{GameObjectSettings::getFunction}}(type)(enemyObj);}
+\DoxyCodeLine{84         enemyObj-\/>setData(\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}, QRandomGenerator::global()-\/>bounded(0, 7) * 45);}
+\DoxyCodeLine{85         enemyObj-\/>setParent(worldGrid[enemyX][enemyY]);}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     \textcolor{comment}{// Moving enemies not placed in the same place as other enemies.}}
+\DoxyCodeLine{89     \textcolor{keywordtype}{int} movingEnemies = 5;}
+\DoxyCodeLine{90     \textcolor{keywordflow}{while}(movingEnemies) \{}
+\DoxyCodeLine{91         \textcolor{keyword}{auto} *enemyObj = \textcolor{keyword}{new} \mbox{\hyperlink{classGameObject}{GameObject}}();}
+\DoxyCodeLine{92         \mbox{\hyperlink{classGameObjectSettings_a031334994fe7f361f050d726db4250fe}{GameObjectSettings::getFunction}}(ObjectType::MovingEnemy)(enemyObj);}
+\DoxyCodeLine{93         \textcolor{keywordtype}{int} x = 0, y = 0;}
+\DoxyCodeLine{94         \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{95             x = QRandomGenerator::global()-\/>bounded(1, columns -\/ 2);}
+\DoxyCodeLine{96             y = QRandomGenerator::global()-\/>bounded(1, rows -\/ 2);}
+\DoxyCodeLine{97         \} \textcolor{keywordflow}{while}(!enemyLocations[x][y]);}
+\DoxyCodeLine{98         enemyObj-\/>setParent(worldGrid[x][y]);}
+\DoxyCodeLine{99         movingEnemies-\/-\/;}
+\DoxyCodeLine{100     \}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     \textcolor{keyword}{auto} *model = \textcolor{keyword}{new} \mbox{\hyperlink{classGameObjectModel}{GameObjectModel}}(worldGrid);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104     \textcolor{keywordflow}{return} \{model, nodes\};}
+\DoxyCodeLine{105 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classObjectModelFactory_a992c700faf308a1ea8bb852c7464220c}\label{classObjectModelFactory_a992c700faf308a1ea8bb852c7464220c}} 
+\index{ObjectModelFactory@{ObjectModelFactory}!createWorld@{createWorld}}
+\index{createWorld@{createWorld}!ObjectModelFactory@{ObjectModelFactory}}
+\doxysubsubsection{\texorpdfstring{createWorld()}{createWorld()}}
+{\footnotesize\ttfamily void Object\+Model\+Factory\+::create\+World (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height,  }\item[{double}]{difficulty = {\ttfamily 1.0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Generates a world image based on Perlin noise to simulate terrain. Used in world creation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & The width of the world (image) to generate. \\
+\hline
+{\em height} & The height of the world (image) to generate. \\
+\hline
+{\em difficulty} & The difficulty factor, influencing the generation of the Perlin noise terrain. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107                                                                              \{}
+\DoxyCodeLine{108     QImage image(width, height, QImage::Format\_Grayscale8);}
+\DoxyCodeLine{109     \textcolor{keywordtype}{int} seed = floor(QRandomGenerator::global()-\/>bounded(1, 1000));}
+\DoxyCodeLine{110     \mbox{\hyperlink{classPerlinNoise}{PerlinNoise}} pn(seed);}
+\DoxyCodeLine{111     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < height; ++i) \{ \textcolor{comment}{// y}}
+\DoxyCodeLine{112         \textcolor{keyword}{auto} pLine = image.scanLine(i);}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0; j < width; ++j) \{ \textcolor{comment}{// x}}
+\DoxyCodeLine{115             \textcolor{keywordtype}{double} x = (double)j / ((\textcolor{keywordtype}{double})width);}
+\DoxyCodeLine{116             \textcolor{keywordtype}{double} y = (double)i / ((\textcolor{keywordtype}{double})height);}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118             \textcolor{comment}{// This makes it look a bit better, at least the noise is slightly stretched.}}
+\DoxyCodeLine{119             \textcolor{keywordtype}{double} n = 4 * pn.noise(x * width / 15, y * height / 30, 0.8);}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121             \textcolor{comment}{// Map the values to around the [0, 255] interval, will eventually be higher}}
+\DoxyCodeLine{122             *pLine++ = floor(255 * n * difficulty);}
+\DoxyCodeLine{123         \}}
+\DoxyCodeLine{124     \}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126     image.save(\textcolor{stringliteral}{"{}./world.png"{}}, \textcolor{stringliteral}{"{}png"{}}, -\/1);}
+\DoxyCodeLine{127 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/\mbox{\hyperlink{modelfactory_8h}{modelfactory.\+h}}\item 
+model/\mbox{\hyperlink{modelfactory_8cpp}{modelfactory.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,217 @@
+\hypertarget{classGenericAttackBehavior}{}\doxysection{Generic\+Attack\+Behavior Class Reference}
+\label{classGenericAttackBehavior}\index{GenericAttackBehavior@{GenericAttackBehavior}}
+
+
+The \mbox{\hyperlink{classGenericAttackBehavior}{Generic\+Attack\+Behavior}} class handles the basic actions of a class that can attack or be attacked.  
+
+
+
+
+{\ttfamily \#include $<$genericattackbehavior.\+h$>$}
+
+
+
+Inheritance diagram for Generic\+Attack\+Behavior\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classGenericAttackBehavior__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGenericAttackBehavior_ab384dd46aa76a1a66ade48638a19e01c}{Generic\+Attack\+Behavior}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ owner)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classGenericAttackBehavior}{Generic\+Attack\+Behavior}} constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGenericAttackBehavior_afd436666b7bb1334bfaa7ff1a8966028}{Generic\+Attack\+Behavior}} ()=delete
+\item 
+int \mbox{\hyperlink{classGenericAttackBehavior_a94fd29737127d2eeddbcdd7561f30c47}{attack}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&target) override
+\begin{DoxyCompactList}\small\item\em attack this attacks the target with a random strength between 1 and the object strength. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGenericAttackBehavior_ad4f45b163593a3545c9bcdd51fc48f22}{attack}} (\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} direction) override
+\begin{DoxyCompactList}\small\item\em attack overloaded function, attacks on a direction relative to the owner. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGenericAttackBehavior_a619f4febb3487333cfe3c1f490236b2f}{attack}} () override
+\begin{DoxyCompactList}\small\item\em attack overloaded, attacks on the current direction the owner is facing. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGenericAttackBehavior_a8e5161bf144a0797c77c0f2082e1fad1}{get\+Attacked}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&by, int strength) override
+\begin{DoxyCompactList}\small\item\em get\+Attacked handles the attack by decreasing the health of the object if it has it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classGenericAttackBehavior}{Generic\+Attack\+Behavior}} class handles the basic actions of a class that can attack or be attacked. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGenericAttackBehavior_ab384dd46aa76a1a66ade48638a19e01c}\label{classGenericAttackBehavior_ab384dd46aa76a1a66ade48638a19e01c}} 
+\index{GenericAttackBehavior@{GenericAttackBehavior}!GenericAttackBehavior@{GenericAttackBehavior}}
+\index{GenericAttackBehavior@{GenericAttackBehavior}!GenericAttackBehavior@{GenericAttackBehavior}}
+\doxysubsubsection{\texorpdfstring{GenericAttackBehavior()}{GenericAttackBehavior()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Generic\+Attack\+Behavior\+::\+Generic\+Attack\+Behavior (\begin{DoxyParamCaption}\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classGenericAttackBehavior}{Generic\+Attack\+Behavior}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & the owner of the behavior. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16         : \mbox{\hyperlink{classAttack_ac439d984cd34274602b28edf8a954fce}{Attack}}(owner) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGenericAttackBehavior_afd436666b7bb1334bfaa7ff1a8966028}\label{classGenericAttackBehavior_afd436666b7bb1334bfaa7ff1a8966028}} 
+\index{GenericAttackBehavior@{GenericAttackBehavior}!GenericAttackBehavior@{GenericAttackBehavior}}
+\index{GenericAttackBehavior@{GenericAttackBehavior}!GenericAttackBehavior@{GenericAttackBehavior}}
+\doxysubsubsection{\texorpdfstring{GenericAttackBehavior()}{GenericAttackBehavior()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Generic\+Attack\+Behavior\+::\+Generic\+Attack\+Behavior (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGenericAttackBehavior_a619f4febb3487333cfe3c1f490236b2f}\label{classGenericAttackBehavior_a619f4febb3487333cfe3c1f490236b2f}} 
+\index{GenericAttackBehavior@{GenericAttackBehavior}!attack@{attack}}
+\index{attack@{attack}!GenericAttackBehavior@{GenericAttackBehavior}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily int Generic\+Attack\+Behavior\+::attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+attack overloaded, attacks on the current direction the owner is facing. 
+
+\begin{DoxyReturn}{Returns}
+the health lost of target. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classAttack_aa64577a5b760b6c89370df954c7fb40b}{Attack}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                                   \{}
+\DoxyCodeLine{38     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGenericAttackBehavior_a619f4febb3487333cfe3c1f490236b2f}{attack}}(\mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getData(\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{DataRole::Direction}}).value<\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}}>());}
+\DoxyCodeLine{39 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGenericAttackBehavior_a94fd29737127d2eeddbcdd7561f30c47}\label{classGenericAttackBehavior_a94fd29737127d2eeddbcdd7561f30c47}} 
+\index{GenericAttackBehavior@{GenericAttackBehavior}!attack@{attack}}
+\index{attack@{attack}!GenericAttackBehavior@{GenericAttackBehavior}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily int Generic\+Attack\+Behavior\+::attack (\begin{DoxyParamCaption}\item[{const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+attack this attacks the target with a random strength between 1 and the object strength. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & the target to attack, can be a tile or a character. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the health lost by target and all its children. It simply gets all behaviors from the target and calls the getattacked function. If the target itself is not attackable but any of its children are, it will work. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classAttack_a7f50af344480fcdc7021247dfda1950e}{Attack}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7                                                                     \{}
+\DoxyCodeLine{8     \textcolor{comment}{// Get the strength of the object and calculate the attack}}
+\DoxyCodeLine{9     \textcolor{comment}{// strength randomly.}}
+\DoxyCodeLine{10     \textcolor{keywordtype}{float} strenght = \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getData(DataRole::Strength).toFloat();}
+\DoxyCodeLine{11     \textcolor{keywordtype}{int} attackStrength = QRandomGenerator::global()-\/>bounded(1, (\textcolor{keywordtype}{int})strenght);}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keywordtype}{int} damage = 0;}
+\DoxyCodeLine{14     \textcolor{comment}{// The attack has to propagate through all the children of the GameObject}}
+\DoxyCodeLine{15     \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&bh : target-\/>getAllBehaviors<\mbox{\hyperlink{classAttack}{Attack}}>()) \{}
+\DoxyCodeLine{16         \textcolor{keyword}{auto} at = qSharedPointerDynamicCast<Attack>(bh);}
+\DoxyCodeLine{17         \textcolor{keywordflow}{if}(!bh.isNull()) \{}
+\DoxyCodeLine{18             \textcolor{keywordtype}{int} healthChange = at-\/>getAttacked(\mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}, attackStrength);}
+\DoxyCodeLine{19             \textcolor{keywordflow}{if}(healthChange + attackStrength > 0) \{}
+\DoxyCodeLine{20                 \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(DataRole::Energy, \mbox{\hyperlink{structMovement_1_1SETTINGS_a5bfd2645de28427ed05b532bef14a4c0}{Movement::SETTINGS::MAX\_ENERGY}});}
+\DoxyCodeLine{21             \}}
+\DoxyCodeLine{22             damage += healthChange;}
+\DoxyCodeLine{23             \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(DataRole::Strength, strenght + 0.1);}
+\DoxyCodeLine{24         \}}
+\DoxyCodeLine{25     \};}
+\DoxyCodeLine{26     \textcolor{comment}{// Health change will be negative, we want the positive.}}
+\DoxyCodeLine{27     \textcolor{keywordflow}{return} -\/damage;}
+\DoxyCodeLine{28 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGenericAttackBehavior_ad4f45b163593a3545c9bcdd51fc48f22}\label{classGenericAttackBehavior_ad4f45b163593a3545c9bcdd51fc48f22}} 
+\index{GenericAttackBehavior@{GenericAttackBehavior}!attack@{attack}}
+\index{attack@{attack}!GenericAttackBehavior@{GenericAttackBehavior}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily int Generic\+Attack\+Behavior\+::attack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}}}]{direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+attack overloaded function, attacks on a direction relative to the owner. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & the direction to attack. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the health lost by target. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classAttack_adebc3f42c4e60f7c72e024ba3ee164a3}{Attack}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30                                                      \{}
+\DoxyCodeLine{31     \textcolor{keyword}{auto} neighbor = \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getNeighbor(direction);}
+\DoxyCodeLine{32     \textcolor{keywordflow}{if}(!neighbor) \{}
+\DoxyCodeLine{33         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{34     \}}
+\DoxyCodeLine{35     \textcolor{keywordflow}{return} \mbox{\hyperlink{classGenericAttackBehavior_a619f4febb3487333cfe3c1f490236b2f}{attack}}(neighbor);}
+\DoxyCodeLine{36 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGenericAttackBehavior_a8e5161bf144a0797c77c0f2082e1fad1}\label{classGenericAttackBehavior_a8e5161bf144a0797c77c0f2082e1fad1}} 
+\index{GenericAttackBehavior@{GenericAttackBehavior}!getAttacked@{getAttacked}}
+\index{getAttacked@{getAttacked}!GenericAttackBehavior@{GenericAttackBehavior}}
+\doxysubsubsection{\texorpdfstring{getAttacked()}{getAttacked()}}
+{\footnotesize\ttfamily int Generic\+Attack\+Behavior\+::get\+Attacked (\begin{DoxyParamCaption}\item[{const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&}]{by,  }\item[{int}]{strength }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+get\+Attacked handles the attack by decreasing the health of the object if it has it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em by} & The source of the attack. \\
+\hline
+{\em strength} & The amount of health to loose. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the amount of health lost. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classAttack_aa256ee1d560a29116883e67b329d74ff}{Attack}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{41                                                                                  \{}
+\DoxyCodeLine{42     \textcolor{comment}{// This is a cheaty way of showing the attacks in the view. It kinda makes sense though.}}
+\DoxyCodeLine{43     \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(DataRole::Strength, \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getData()[DataRole::Strength].toFloat() -\/ 0.1);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     \textcolor{keyword}{auto} behavior = \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getBehavior<\mbox{\hyperlink{classHealth}{Health}}>();}
+\DoxyCodeLine{46     \textcolor{keywordflow}{return} behavior.isNull() ? 0 : behavior-\/>\mbox{\hyperlink{classHealth_a5b64418057c4aa2c5b53f4671c8b9433}{getHealthChanged}}(-\/strength);}
+\DoxyCodeLine{47 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/behaviors/concrete/attack/\mbox{\hyperlink{genericattackbehavior_8h}{genericattackbehavior.\+h}}\item 
+model/behaviors/concrete/attack/\mbox{\hyperlink{genericattackbehavior_8cpp}{genericattackbehavior.\+cpp}}\end{DoxyCompactItemize}

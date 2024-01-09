@@ -1,0 +1,73 @@
+\hypertarget{structGameObjectSettings_1_1MovingEnemySettings}{}\doxysection{Game\+Object\+Settings\+::Moving\+Enemy\+Settings Struct Reference}
+\label{structGameObjectSettings_1_1MovingEnemySettings}\index{GameObjectSettings::MovingEnemySettings@{GameObjectSettings::MovingEnemySettings}}
+
+
+Settings for Moving\+Enemy \mbox{\hyperlink{classGameObject}{Game\+Object}}.  
+
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{structGameObjectSettings_1_1MovingEnemySettings_ae2951dba9c8aaf5e28856357aa0970a5}{set\+Object}} (\mbox{\hyperlink{classGameObject}{Game\+Object}} $\ast$obj)
+\begin{DoxyCompactList}\small\item\em Set up a \mbox{\hyperlink{classGameObject}{Game\+Object}} as a Moving\+Enemy with predefined settings and behaviors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const QList$<$ QPair$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ $>$ \mbox{\hyperlink{structGameObjectSettings_1_1MovingEnemySettings_a2d59f1293be9f2002f5abb794147b3b6}{default\+Data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Settings for Moving\+Enemy \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structGameObjectSettings_1_1MovingEnemySettings_ae2951dba9c8aaf5e28856357aa0970a5}\label{structGameObjectSettings_1_1MovingEnemySettings_ae2951dba9c8aaf5e28856357aa0970a5}} 
+\index{GameObjectSettings::MovingEnemySettings@{GameObjectSettings::MovingEnemySettings}!setObject@{setObject}}
+\index{setObject@{setObject}!GameObjectSettings::MovingEnemySettings@{GameObjectSettings::MovingEnemySettings}}
+\doxysubsubsection{\texorpdfstring{setObject()}{setObject()}}
+{\footnotesize\ttfamily static void Game\+Object\+Settings\+::\+Moving\+Enemy\+Settings\+::set\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGameObject}{Game\+Object}} $\ast$}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Set up a \mbox{\hyperlink{classGameObject}{Game\+Object}} as a Moving\+Enemy with predefined settings and behaviors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & Pointer to the \mbox{\hyperlink{classGameObject}{Game\+Object}} to be set up. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{169                                                \{}
+\DoxyCodeLine{170             obj-\/>\mbox{\hyperlink{classGameObject_a666684b0e530b29a54005d9269b9357d}{setData}}(\mbox{\hyperlink{structGameObjectSettings_1_1MovingEnemySettings_a2d59f1293be9f2002f5abb794147b3b6}{defaultData}});}
+\DoxyCodeLine{171             obj-\/>\mbox{\hyperlink{classGameObject_a0ad9e839d13e9da54793255e6b2fc8c8}{setBehavior}}<\mbox{\hyperlink{classAttack}{Attack}}>(QSharedPointer<CounterAttackBehavior>::create(obj));}
+\DoxyCodeLine{172             obj-\/>\mbox{\hyperlink{classGameObject_a0ad9e839d13e9da54793255e6b2fc8c8}{setBehavior}}<\mbox{\hyperlink{classHealth}{Health}}>(QSharedPointer<GenericHealthBehavior>::create(obj));}
+\DoxyCodeLine{173             obj-\/>\mbox{\hyperlink{classGameObject_a0ad9e839d13e9da54793255e6b2fc8c8}{setBehavior}}<\mbox{\hyperlink{classMovement}{Movement}}>(QSharedPointer<RandomMovementBehavior>::create(obj));}
+\DoxyCodeLine{174         \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structGameObjectSettings_1_1MovingEnemySettings_a2d59f1293be9f2002f5abb794147b3b6}\label{structGameObjectSettings_1_1MovingEnemySettings_a2d59f1293be9f2002f5abb794147b3b6}} 
+\index{GameObjectSettings::MovingEnemySettings@{GameObjectSettings::MovingEnemySettings}!defaultData@{defaultData}}
+\index{defaultData@{defaultData}!GameObjectSettings::MovingEnemySettings@{GameObjectSettings::MovingEnemySettings}}
+\doxysubsubsection{\texorpdfstring{defaultData}{defaultData}}
+{\footnotesize\ttfamily const QList$<$QPair$<$\mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant$>$ $>$ Game\+Object\+Settings\+::\+Moving\+Enemy\+Settings\+::default\+Data\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{          \{DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::MovingEnemy)\},}
+\DoxyCodeLine{          \{DataRole::Health, \mbox{\hyperlink{structHealth_1_1SETTINGS_aac94cc993d54a8e488dc4a64ffebf78f}{Health::SETTINGS::MAX\_HEALTH}}\},}
+\DoxyCodeLine{          \{DataRole::Strength, \mbox{\hyperlink{structAttack_1_1SETTINGS_a312cbfa3dd810c7c2554d5c0e49809f7}{Attack::SETTINGS::ENEMY\_STRENGTH}}\},}
+\DoxyCodeLine{          \{DataRole::Energy, \mbox{\hyperlink{structMovement_1_1SETTINGS_a5bfd2645de28427ed05b532bef14a4c0}{Movement::SETTINGS::MAX\_ENERGY}} * 10\},}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \}}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+model/\mbox{\hyperlink{gameobjectsettings_8h}{gameobjectsettings.\+h}}\end{DoxyCompactItemize}

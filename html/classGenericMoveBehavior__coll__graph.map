@@ -1,0 +1,8 @@
+<map id="GenericMoveBehavior" name="GenericMoveBehavior">
+<area shape="rect" id="node1" title="The GenericMoveBehavior class handles movement actions." alt="" coords="107,691,288,900"/>
+<area shape="rect" id="node2" href="$classMovement.html" title="The Movement class handles the actions of moving. It is an abstract class. All the functions return f..." alt="" coords="88,359,307,641"/>
+<area shape="rect" id="node3" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="9,145,191,296"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,5,195,83"/>
+<area shape="rect" id="node5" href="$structMovement_1_1SETTINGS.html" title=" " alt="" coords="215,182,379,259"/>
+<area shape="rect" id="node6" title=" " alt="" coords="278,5,317,83"/>
+</map>

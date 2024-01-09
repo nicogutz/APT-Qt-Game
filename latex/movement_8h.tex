@@ -1,0 +1,26 @@
+\hypertarget{movement_8h}{}\doxysection{model/behaviors/movement.h File Reference}
+\label{movement_8h}\index{model/behaviors/movement.h@{model/behaviors/movement.h}}
+{\ttfamily \#include \char`\"{}behavior.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$model/gameobject.\+h$>$}\newline
+{\ttfamily \#include $<$QShared\+Pointer$>$}\newline
+Include dependency graph for movement.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movement_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movement_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classMovement}{Movement}}
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classMovement}{Movement}} class handles the actions of moving. It is an abstract class. All the functions return false by default so that objects that can move cannot be walked through by default, and objects that can be stepped on cannot be moved. Also, some objects can be stepped on by enemies but not trigger their behaviors. E.\+G. Doorways can be stepped on by enemies (so they return true on is\+Steppable and get\+Stepped\+On) but do not start a new level. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structMovement_1_1SETTINGS}{Movement\+::\+SETTINGS}}
+\end{DoxyCompactItemize}

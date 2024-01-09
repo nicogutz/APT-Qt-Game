@@ -1,0 +1,205 @@
+\hypertarget{classAttack}{}\doxysection{Attack Class Reference}
+\label{classAttack}\index{Attack@{Attack}}
+
+
+The \mbox{\hyperlink{classAttack}{Attack}} interface handles all the actions related to attacking and getting attacked.  
+
+
+
+
+{\ttfamily \#include $<$attack.\+h$>$}
+
+
+
+Inheritance diagram for Attack\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classAttack__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structAttack_1_1SETTINGS}{SETTINGS}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classAttack_a7e031fae5500343c3e330a95248cf0d3}{Attack}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ owner)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classAttack}{Attack}} default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAttack_ac439d984cd34274602b28edf8a954fce}{Attack}} ()=delete
+\item 
+virtual \mbox{\hyperlink{classAttack_a535c589e4de583455686216365fa5246}{$\sim$\+Attack}} ()=0
+\item 
+\mbox{\hyperlink{classAttack}{Attack}} \& \mbox{\hyperlink{classAttack_a6ed05879f951f4a6df58d630523c098c}{operator=}} (const \mbox{\hyperlink{classAttack}{Attack}} \&)
+\item 
+virtual int \mbox{\hyperlink{classAttack_a7f50af344480fcdc7021247dfda1950e}{attack}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&target)=0
+\begin{DoxyCompactList}\small\item\em attack owner attacks the target. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classAttack_adebc3f42c4e60f7c72e024ba3ee164a3}{attack}} (\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} direction)=0
+\begin{DoxyCompactList}\small\item\em attack overloaded function to attack in a direction relative to owner. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classAttack_aa64577a5b760b6c89370df954c7fb40b}{attack}} ()=0
+\begin{DoxyCompactList}\small\item\em attack in the direction the owner is facing. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classAttack_aa256ee1d560a29116883e67b329d74ff}{get\+Attacked}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&by, int strength)=0
+\begin{DoxyCompactList}\small\item\em get\+Attacked this is called by the attack function whenever owner attacks target. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const struct \mbox{\hyperlink{structAttack_1_1SETTINGS}{Attack\+::\+SETTINGS}} \mbox{\hyperlink{classAttack_a1dac055c3d52c468c92128f46d224ec5}{Settings}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classAttack}{Attack}} interface handles all the actions related to attacking and getting attacked. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classAttack_a7e031fae5500343c3e330a95248cf0d3}\label{classAttack_a7e031fae5500343c3e330a95248cf0d3}} 
+\index{Attack@{Attack}!Attack@{Attack}}
+\index{Attack@{Attack}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{Attack()}{Attack()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Attack\+::\+Attack (\begin{DoxyParamCaption}\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classAttack}{Attack}} default constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & the object to which this behavior applies. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18         : \mbox{\hyperlink{classBehavior_aab6b9945e55735c64af699fef74b23cf}{Behavior}}(owner) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classAttack_ac439d984cd34274602b28edf8a954fce}\label{classAttack_ac439d984cd34274602b28edf8a954fce}} 
+\index{Attack@{Attack}!Attack@{Attack}}
+\index{Attack@{Attack}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{Attack()}{Attack()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Attack\+::\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classAttack_a535c589e4de583455686216365fa5246}\label{classAttack_a535c589e4de583455686216365fa5246}} 
+\index{Attack@{Attack}!````~Attack@{$\sim$Attack}}
+\index{````~Attack@{$\sim$Attack}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{$\sim$Attack()}{~Attack()}}
+{\footnotesize\ttfamily Attack\+::$\sim$\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2 \{\};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAttack_aa64577a5b760b6c89370df954c7fb40b}\label{classAttack_aa64577a5b760b6c89370df954c7fb40b}} 
+\index{Attack@{Attack}!attack@{attack}}
+\index{attack@{attack}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily virtual int Attack\+::attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+attack in the direction the owner is facing. 
+
+\begin{DoxyReturn}{Returns}
+attack damage. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classGenericAttackBehavior_a619f4febb3487333cfe3c1f490236b2f}{Generic\+Attack\+Behavior}}.
+
+\mbox{\Hypertarget{classAttack_a7f50af344480fcdc7021247dfda1950e}\label{classAttack_a7f50af344480fcdc7021247dfda1950e}} 
+\index{Attack@{Attack}!attack@{attack}}
+\index{attack@{attack}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily virtual int Attack\+::attack (\begin{DoxyParamCaption}\item[{const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+attack owner attacks the target. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & to attack. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+attack damage. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classGenericAttackBehavior_a94fd29737127d2eeddbcdd7561f30c47}{Generic\+Attack\+Behavior}}.
+
+\mbox{\Hypertarget{classAttack_adebc3f42c4e60f7c72e024ba3ee164a3}\label{classAttack_adebc3f42c4e60f7c72e024ba3ee164a3}} 
+\index{Attack@{Attack}!attack@{attack}}
+\index{attack@{attack}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{attack()}{attack()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily virtual int Attack\+::attack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}}}]{direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+attack overloaded function to attack in a direction relative to owner. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & to attack. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+attack damage. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classGenericAttackBehavior_ad4f45b163593a3545c9bcdd51fc48f22}{Generic\+Attack\+Behavior}}.
+
+\mbox{\Hypertarget{classAttack_aa256ee1d560a29116883e67b329d74ff}\label{classAttack_aa256ee1d560a29116883e67b329d74ff}} 
+\index{Attack@{Attack}!getAttacked@{getAttacked}}
+\index{getAttacked@{getAttacked}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{getAttacked()}{getAttacked()}}
+{\footnotesize\ttfamily virtual int Attack\+::get\+Attacked (\begin{DoxyParamCaption}\item[{const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&}]{by,  }\item[{int}]{strength }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get\+Attacked this is called by the attack function whenever owner attacks target. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em strength} & the amount it is being attacked with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the health loss. This function can be implemented differently for things that cannot be attacked or that behave differently when attacked. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classGenericAttackBehavior_a8e5161bf144a0797c77c0f2082e1fad1}{Generic\+Attack\+Behavior}}, and \mbox{\hyperlink{classCounterAttackBehavior_a2db68721ea81ad69250d7a02a04c3cdc}{Counter\+Attack\+Behavior}}.
+
+\mbox{\Hypertarget{classAttack_a6ed05879f951f4a6df58d630523c098c}\label{classAttack_a6ed05879f951f4a6df58d630523c098c}} 
+\index{Attack@{Attack}!operator=@{operator=}}
+\index{operator=@{operator=}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAttack}{Attack}}\& Attack\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classAttack}{Attack}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23 \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classAttack_a1dac055c3d52c468c92128f46d224ec5}\label{classAttack_a1dac055c3d52c468c92128f46d224ec5}} 
+\index{Attack@{Attack}!Settings@{Settings}}
+\index{Settings@{Settings}!Attack@{Attack}}
+\doxysubsubsection{\texorpdfstring{Settings}{Settings}}
+{\footnotesize\ttfamily const struct \mbox{\hyperlink{structAttack_1_1SETTINGS}{Attack\+::\+SETTINGS}} Attack\+::\+Settings\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/behaviors/\mbox{\hyperlink{attack_8h}{attack.\+h}}\item 
+model/behaviors/\mbox{\hyperlink{attack_8cpp}{attack.\+cpp}}\end{DoxyCompactItemize}

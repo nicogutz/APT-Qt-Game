@@ -1,0 +1,138 @@
+\hypertarget{classRandomMovementBehavior}{}\doxysection{Random\+Movement\+Behavior Class Reference}
+\label{classRandomMovementBehavior}\index{RandomMovementBehavior@{RandomMovementBehavior}}
+
+
+The \mbox{\hyperlink{classRandomMovementBehavior}{Random\+Movement\+Behavior}} class makes an object move randomly every tick.  
+
+
+
+
+{\ttfamily \#include $<$randommovementbehavior.\+h$>$}
+
+
+
+Inheritance diagram for Random\+Movement\+Behavior\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classRandomMovementBehavior__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classRandomMovementBehavior_aaec71f58766779c5d4fc7852778b9c59}{move\+Randomly}} ()
+\begin{DoxyCompactList}\small\item\em move\+Randomly make a random movement in a direction. The directions are all multiples of 45 degrees so the owner can move to all eight neighbors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRandomMovementBehavior_a5c9e8d54beda1d9fa7ce4446aebe3784}{Random\+Movement\+Behavior}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ owner)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classRandomMovementBehavior}{Random\+Movement\+Behavior}} connects the owner\textquotesingle{}s tick to the move\+Randomly function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRandomMovementBehavior_afae5ac1858298978e2690339053760fd}{Random\+Movement\+Behavior}} ()=delete
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classRandomMovementBehavior}{Random\+Movement\+Behavior}} class makes an object move randomly every tick. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRandomMovementBehavior_a5c9e8d54beda1d9fa7ce4446aebe3784}\label{classRandomMovementBehavior_a5c9e8d54beda1d9fa7ce4446aebe3784}} 
+\index{RandomMovementBehavior@{RandomMovementBehavior}!RandomMovementBehavior@{RandomMovementBehavior}}
+\index{RandomMovementBehavior@{RandomMovementBehavior}!RandomMovementBehavior@{RandomMovementBehavior}}
+\doxysubsubsection{\texorpdfstring{RandomMovementBehavior()}{RandomMovementBehavior()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Random\+Movement\+Behavior\+::\+Random\+Movement\+Behavior (\begin{DoxyParamCaption}\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classRandomMovementBehavior}{Random\+Movement\+Behavior}} connects the owner\textquotesingle{}s tick to the move\+Randomly function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & of the behavior \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18         : \mbox{\hyperlink{classGenericMoveBehavior_a5f92dc2281f9cb43b5f795ee87fec7b6}{GenericMoveBehavior}}(owner) \{}
+\DoxyCodeLine{19         connect(owner, \&\mbox{\hyperlink{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}{GameObject::tick}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classRandomMovementBehavior_aaec71f58766779c5d4fc7852778b9c59}{RandomMovementBehavior::moveRandomly}});}
+\DoxyCodeLine{20     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classRandomMovementBehavior_afae5ac1858298978e2690339053760fd}\label{classRandomMovementBehavior_afae5ac1858298978e2690339053760fd}} 
+\index{RandomMovementBehavior@{RandomMovementBehavior}!RandomMovementBehavior@{RandomMovementBehavior}}
+\index{RandomMovementBehavior@{RandomMovementBehavior}!RandomMovementBehavior@{RandomMovementBehavior}}
+\doxysubsubsection{\texorpdfstring{RandomMovementBehavior()}{RandomMovementBehavior()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Random\+Movement\+Behavior\+::\+Random\+Movement\+Behavior (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classRandomMovementBehavior_aaec71f58766779c5d4fc7852778b9c59}\label{classRandomMovementBehavior_aaec71f58766779c5d4fc7852778b9c59}} 
+\index{RandomMovementBehavior@{RandomMovementBehavior}!moveRandomly@{moveRandomly}}
+\index{moveRandomly@{moveRandomly}!RandomMovementBehavior@{RandomMovementBehavior}}
+\doxysubsubsection{\texorpdfstring{moveRandomly}{moveRandomly}}
+{\footnotesize\ttfamily void Random\+Movement\+Behavior\+::move\+Randomly (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+move\+Randomly make a random movement in a direction. The directions are all multiples of 45 degrees so the owner can move to all eight neighbors. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5                                           \{}
+\DoxyCodeLine{6     \textcolor{keywordtype}{bool} steppable = \textcolor{keyword}{true};}
+\DoxyCodeLine{7     \textcolor{keywordtype}{float} energy = 0;}
+\DoxyCodeLine{8     \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&neighbor : \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getAllNeighbors()) \{}
+\DoxyCodeLine{9         \textcolor{keywordflow}{if}(!neighbor) \{}
+\DoxyCodeLine{10             \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{11         \}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13         \textcolor{comment}{// AND the steppability of every neighbor, if any is not steppable result will be false.}}
+\DoxyCodeLine{14         steppable \&= neighbor-\/>getBehavior<\mbox{\hyperlink{classMovement}{Movement}}>()-\/>\mbox{\hyperlink{classMovement_a81d99c6849438e1495b57109df45285e}{isSteppable}}();}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{comment}{// Check if there is a protagonist in the neigbor. TODO: Put this in the game object.}}
+\DoxyCodeLine{17         \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&data : neighbor-\/>getAllData()) \{}
+\DoxyCodeLine{18             \textcolor{keywordflow}{if}(data[DataRole::Type].value<ObjectType>() == ObjectType::Protagonist) \{}
+\DoxyCodeLine{19                 \textcolor{keywordflow}{return};}
+\DoxyCodeLine{20             \}}
+\DoxyCodeLine{21         \}}
+\DoxyCodeLine{22         \textcolor{comment}{// Get the energy of the tile around it, if it is infinite, make it very big.}}
+\DoxyCodeLine{23         \textcolor{keywordtype}{float} neighborEnergy = neighbor-\/>getData(DataRole::Energy).toFloat();}
+\DoxyCodeLine{24         neighborEnergy = neighborEnergy == INFINITY ? 1000000000 : neighborEnergy;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{comment}{// Save the biggest energy of all neighbors.}}
+\DoxyCodeLine{27         energy = neighborEnergy > energy ? neighborEnergy : energy;}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{comment}{// If no neigbors are steppable or the energy is lower than the highest neighbor stop moving.}}
+\DoxyCodeLine{31     \textcolor{comment}{// Enemies should have large energies, I don't like it that much when they stop moving.}}
+\DoxyCodeLine{32     \textcolor{keywordflow}{if}(!steppable || energy > \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>getData(DataRole::Energy).toFloat()) \{}
+\DoxyCodeLine{33         \mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}-\/>setData(DataRole::Energy, 0);}
+\DoxyCodeLine{34         disconnect(\mbox{\hyperlink{classBehavior_abe74f58cf2f890c3270ef06aa68d3c24}{m\_owner}}, \&\mbox{\hyperlink{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}{GameObject::tick}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classRandomMovementBehavior_aaec71f58766779c5d4fc7852778b9c59}{RandomMovementBehavior::moveRandomly}});}
+\DoxyCodeLine{35         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{36     \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{comment}{// Declares a uniform distribution from 0 to 7. Much more natural looking than the default}}
+\DoxyCodeLine{39     \textcolor{comment}{// RandomGenerator (they don't aggregate in corners).}}
+\DoxyCodeLine{40     std::uniform\_int\_distribution<> dist(0, 7);}
+\DoxyCodeLine{41     \textcolor{keywordtype}{int} direction, count = 0;}
+\DoxyCodeLine{42     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{43         \textcolor{comment}{// Ensure it is uniquely seeded by using the global static method of QRandomGenerator.}}
+\DoxyCodeLine{44         direction = dist(*QRandomGenerator::global()) * 45;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46         \textcolor{comment}{// If it can't move it is probably stuck, exit.}}
+\DoxyCodeLine{47         \textcolor{keywordflow}{if}(count > 7) \{}
+\DoxyCodeLine{48             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{49         \}}
+\DoxyCodeLine{50         count++;}
+\DoxyCodeLine{51     \} \textcolor{keywordflow}{while}(!\mbox{\hyperlink{classGenericMoveBehavior_aa653e8918e98a56557d1af89f1ab34e5}{GenericMoveBehavior::stepOn}}(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}}\textcolor{keyword}{>}(direction)));}
+\DoxyCodeLine{52 \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/behaviors/concrete/movement/\mbox{\hyperlink{randommovementbehavior_8h}{randommovementbehavior.\+h}}\item 
+model/behaviors/concrete/movement/\mbox{\hyperlink{randommovementbehavior_8cpp}{randommovementbehavior.\+cpp}}\end{DoxyCompactItemize}

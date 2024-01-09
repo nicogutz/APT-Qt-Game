@@ -1,0 +1,201 @@
+\hypertarget{classHealth}{}\doxysection{Health Class Reference}
+\label{classHealth}\index{Health@{Health}}
+
+
+The \mbox{\hyperlink{classHealth}{Health}} class is an abstract class that handles health behaviors. This class is abstract to avoid repeating the same things for all the behaviors that extend it. Most objects that have health do not have all the actions. For example, enemies do not heal but they need to get their health decreased through attacks.  
+
+
+
+
+{\ttfamily \#include $<$health.\+h$>$}
+
+
+
+Inheritance diagram for Health\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classHealth__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structHealth_1_1SETTINGS}{SETTINGS}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classHealth_aa24527c105cd32770324ff26a78f021d}{Health}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ owner)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classHealth}{Health}} default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classHealth_ab93e9d9ae81196519765e03a748bbfe3}{Health}} ()=delete
+\item 
+virtual \mbox{\hyperlink{classHealth_a49e15d252f909f0908e77bc175b65a82}{$\sim$\+Health}} ()=0
+\item 
+\mbox{\hyperlink{classHealth}{Health}} \& \mbox{\hyperlink{classHealth_abe7ce3300f45e6a5ed8eff34c2812223}{operator=}} (const \mbox{\hyperlink{classHealth}{Health}} \&)
+\item 
+virtual int \mbox{\hyperlink{classHealth_a94f3395c37c1cbe938be776fd62bdbae}{heal}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&target)
+\begin{DoxyCompactList}\small\item\em heal heals an object. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classHealth_a5b64418057c4aa2c5b53f4671c8b9433}{get\+Health\+Changed}} (int amount)
+\begin{DoxyCompactList}\small\item\em get\+Health\+Change change the health of the owner. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classHealth_abe25a43ec1eed80d1f8e62de9daca895}{die}} ()
+\begin{DoxyCompactList}\small\item\em die handles the death of the owner \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const struct \mbox{\hyperlink{structHealth_1_1SETTINGS}{Health\+::\+SETTINGS}} \mbox{\hyperlink{classHealth_ad62e0beaed81a07526ead044ade5058f}{Settings}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classHealth}{Health}} class is an abstract class that handles health behaviors. This class is abstract to avoid repeating the same things for all the behaviors that extend it. Most objects that have health do not have all the actions. For example, enemies do not heal but they need to get their health decreased through attacks. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classHealth_aa24527c105cd32770324ff26a78f021d}\label{classHealth_aa24527c105cd32770324ff26a78f021d}} 
+\index{Health@{Health}!Health@{Health}}
+\index{Health@{Health}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{Health()}{Health()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Health\+::\+Health (\begin{DoxyParamCaption}\item[{QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classHealth}{Health}} default constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & the owner of the behavior. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21         : \mbox{\hyperlink{classBehavior_aab6b9945e55735c64af699fef74b23cf}{Behavior}}(owner) \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classHealth_ab93e9d9ae81196519765e03a748bbfe3}\label{classHealth_ab93e9d9ae81196519765e03a748bbfe3}} 
+\index{Health@{Health}!Health@{Health}}
+\index{Health@{Health}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{Health()}{Health()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Health\+::\+Health (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classHealth_a49e15d252f909f0908e77bc175b65a82}\label{classHealth_a49e15d252f909f0908e77bc175b65a82}} 
+\index{Health@{Health}!````~Health@{$\sim$Health}}
+\index{````~Health@{$\sim$Health}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{$\sim$Health()}{~Health()}}
+{\footnotesize\ttfamily Health\+::$\sim$\+Health (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2 \{\};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classHealth_abe25a43ec1eed80d1f8e62de9daca895}\label{classHealth_abe25a43ec1eed80d1f8e62de9daca895}} 
+\index{Health@{Health}!die@{die}}
+\index{die@{die}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{die()}{die()}}
+{\footnotesize\ttfamily virtual void Health\+::die (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+die handles the death of the owner 
+
+
+
+Reimplemented in \mbox{\hyperlink{classPoisonOnKilledBehavior_ab8bd38d0c03bb7d73d07892a42e8e7cd}{Poison\+On\+Killed\+Behavior}}, and \mbox{\hyperlink{classGenericHealthBehavior_a38f1fd00edbe71b56805a93283a797dc}{Generic\+Health\+Behavior}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63                        \{}
+\DoxyCodeLine{64         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{65     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classHealth_a5b64418057c4aa2c5b53f4671c8b9433}\label{classHealth_a5b64418057c4aa2c5b53f4671c8b9433}} 
+\index{Health@{Health}!getHealthChanged@{getHealthChanged}}
+\index{getHealthChanged@{getHealthChanged}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{getHealthChanged()}{getHealthChanged()}}
+{\footnotesize\ttfamily virtual int Health\+::get\+Health\+Changed (\begin{DoxyParamCaption}\item[{int}]{amount }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+get\+Health\+Change change the health of the owner. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & amount to change the health, can be negative. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+amount of health changed. 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classGenericHealthBehavior_ac04d2b1978cccd56a4985efd5df51c64}{Generic\+Health\+Behavior}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{56                                              \{}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{58     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classHealth_a94f3395c37c1cbe938be776fd62bdbae}\label{classHealth_a94f3395c37c1cbe938be776fd62bdbae}} 
+\index{Health@{Health}!heal@{heal}}
+\index{heal@{heal}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{heal()}{heal()}}
+{\footnotesize\ttfamily virtual int Health\+::heal (\begin{DoxyParamCaption}\item[{const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+heal heals an object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & object to heal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+amount healed. It is important to differentiate a simple health change and healing. Healing can involve more than simply changing health. For example, it can remove poison on the target, it can decrease the health of the owner, etc. 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classGenericHealingBehavior_a878308dcc22196c03615a72a93e65a08}{Generic\+Healing\+Behavior}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48                                                          \{}
+\DoxyCodeLine{49         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{50     \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classHealth_abe7ce3300f45e6a5ed8eff34c2812223}\label{classHealth_abe7ce3300f45e6a5ed8eff34c2812223}} 
+\index{Health@{Health}!operator=@{operator=}}
+\index{operator=@{operator=}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHealth}{Health}}\& Health\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHealth}{Health}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                                       \{}
+\DoxyCodeLine{27         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{28     \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classHealth_ad62e0beaed81a07526ead044ade5058f}\label{classHealth_ad62e0beaed81a07526ead044ade5058f}} 
+\index{Health@{Health}!Settings@{Settings}}
+\index{Settings@{Settings}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{Settings}{Settings}}
+{\footnotesize\ttfamily const struct \mbox{\hyperlink{structHealth_1_1SETTINGS}{Health\+::\+SETTINGS}} Health\+::\+Settings\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+model/behaviors/\mbox{\hyperlink{health_8h}{health.\+h}}\item 
+model/behaviors/\mbox{\hyperlink{health_8cpp}{health.\+cpp}}\end{DoxyCompactItemize}

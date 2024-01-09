@@ -1,0 +1,62 @@
+\hypertarget{main_8cpp}{}\doxysection{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include $<$QApplication$>$}\newline
+{\ttfamily \#include $<$QProcess$>$}\newline
+{\ttfamily \#include $<$QFile$>$}\newline
+{\ttfamily \#include \char`\"{}ui\+\_\+gamewindow.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}view/gamewindow.\+h\char`\"{}}\newline
+Include dependency graph for main.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8                                  \{}
+\DoxyCodeLine{9     QApplication app(argc, argv);}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11     \textcolor{comment}{// Set Dark Mode}}
+\DoxyCodeLine{12     QFile f(\textcolor{stringliteral}{"{}:qdarkstyle/dark/darkstyle.qss"{}});}
+\DoxyCodeLine{13     f.open(QFile::ReadOnly | QFile::Text);}
+\DoxyCodeLine{14     QTextStream ts(\&f);}
+\DoxyCodeLine{15     qApp-\/>setStyleSheet(ts.readAll());}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{comment}{// Make qDebug output function and line}}
+\DoxyCodeLine{18     qSetMessagePattern(\textcolor{stringliteral}{"{}\%\{function\}(\%\{line\}): \%\{message\}"{}});}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{comment}{// Create the main classes of the game: GameWindow, GameView, GameController}}
+\DoxyCodeLine{21     \mbox{\hyperlink{classGameWindow}{GameWindow}} w;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{comment}{// connect quit and rerun game}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     QObject::connect(w.\mbox{\hyperlink{classGameWindow_ae78391ca4ad1cb769fc4deb4d4d9b021}{getUI}}()-\/>quit\_game, \&QPushButton::clicked, \&app, [\&w] \{}
+\DoxyCodeLine{26         w.getController()-\/>setState(GameController::State::GameOver);}
+\DoxyCodeLine{27         QCoreApplication::quit();}
+\DoxyCodeLine{28     \});}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     QObject::connect(w.\mbox{\hyperlink{classGameWindow_ae78391ca4ad1cb769fc4deb4d4d9b021}{getUI}}()-\/>rerun\_game\_2, \&QPushButton::clicked, [] \{}
+\DoxyCodeLine{31         QCoreApplication::quit();}
+\DoxyCodeLine{32         QProcess::startDetached(qApp-\/>arguments()[0], qApp-\/>arguments());}
+\DoxyCodeLine{33     \});}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     w.show();}
+\DoxyCodeLine{36     \textcolor{keywordflow}{return} app.exec();}
+\DoxyCodeLine{37 \}}
+
+\end{DoxyCode}
