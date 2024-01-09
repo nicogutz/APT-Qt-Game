@@ -38,7 +38,7 @@ public:
     ~GameWindow();
 
     // GETTERS
-    QSharedPointer<GameController> getController() { return m_controller; }
+    QPointer<GameController> getController() { return m_controller; }
     Ui::GameWindow *getUI() { return m_ui; }
     QTimer *getTimer() { return m_timer; }
 
@@ -69,7 +69,7 @@ private:
     /**
      * @brief m_controller GameController inherits from QGraphicsView.
      */
-    QSharedPointer<GameController> m_controller;
+    QPointer<GameController> m_controller;
     /**
      * @brief m_timer counts time as long as the window is open.
      */

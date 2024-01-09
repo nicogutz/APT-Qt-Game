@@ -38,7 +38,8 @@ bool GenericMoveBehavior::stepOn(QPointer<GameObject> target) {
     // This event is the Qt way of notifying a parent change, the view is unaware of
     // the difference, but since there is no position stored in most objects, we cannot change it to notify.
     // The GameObject will send a DataChanged signal with the position of its parent. But will not store it.
-    m_owner->event(new QEvent(QEvent::ParentChange));
+    QEvent ev(QEvent::ParentChange);
+    m_owner->event(&ev);
     m_owner->setData(DataRole::Energy, energy - targetEnergy);
 
     return true;

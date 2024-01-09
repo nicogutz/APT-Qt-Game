@@ -126,75 +126,70 @@ void GameController::automaticAttack() {
     auto target = m_protagonist->getNeighbor(m_protagonist->getData(DataRole::Direction).toDouble())
                     ->findChild({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
 
-    while(target && target->getData(DataRole::Health).toInt()) {
+    while(m_gameState != State::GameOver && target && target->getData(DataRole::Health).toInt()) {
         QTime time = QTime::currentTime().addMSecs(200);
         while(QTime::currentTime() < time) {
             QCoreApplication::processEvents(QEventLoop::AllEvents, 200);
         }
-        characterAtttack();
+        characterAttack();
     }
 }
 
 void GameController::executePath(std::vector<int> path, bool full) {
-    if(m_gameState == State::Running) {
-        // Tile at the start position
-        auto first_tile = qobject_cast<GameObject *>(m_protagonist->parent());
-        for(int move : path) {
-            // Assign the path tiles to DataRole Path
-            first_tile = first_tile->getNeighbor(((45 * move + 90) % 360));
-            first_tile->setData(DataRole::Path, true);
-        }
+    // Tile at the start position
+    auto first_tile = qobject_cast<GameObject *>(m_protagonist->parent());
+    for(int move : path) {
+        // Assign the path tiles to DataRole Path
+        first_tile = first_tile->getNeighbor(((45 * move + 90) % 360));
+        first_tile->setData(DataRole::Path, true);
+    }
 
-        for(int move : path) {
-            if(m_gameState == State::GameOver) {
-                break;
-            }
-            Direction direction = (Direction)((45 * move + 90) % 360);
+    for(int move : path) {
+        Direction direction = (Direction)((45 * move + 90) % 360);
 
-            // Quick Delay for visualization
-            QTime dieTime = QTime::currentTime().addMSecs(100);
-            while(QTime::currentTime() < dieTime)
-                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        // Quick Delay for visualization
+        QTime dieTime = QTime::currentTime().addMSecs(100);
+        while(QTime::currentTime() < dieTime)
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
-            if(direction != m_protagonist->getData(DataRole::Direction).value<Direction>()) {
-                characterMove(direction);
-            }
-
-            // Check whether enemy is on the way of the path and attack it
-            if(auto tile = m_protagonist->getNeighbor(direction)) {
-                if(tile->hasChild({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END})) {
-                    automaticAttack();
-                }
-            }
-            // Play fully automatic
-            if(full) {
-                QPointer<const GameObject> obj;
-                // Find enemy or healthpack if energy or health too low. Number is sort of arbitrary
-                if(m_protagonist->getData(DataRole::Energy).toInt() < 80 || m_protagonist->getData(DataRole::PoisonLevel).toInt() > 15) {
-                    obj = m_protagonist->nearest({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
-
-                } else if(m_protagonist->getData(DataRole::Health).toInt() < 80) {
-                    obj = m_protagonist->nearest(ObjectType::HealthPack);
-                }
-                // Can be that there are no HP or enemies left.
-                if(obj) {
-                    QPoint objPos = obj->getData(DataRole::Position).toPoint();
-                    QPoint charPos = m_protagonist->getData(DataRole::Position).toPoint();
-                    QPoint doorPos(m_models[m_gameLevel].first->getColumnCount(),
-                                   m_models[m_gameLevel].first->getRowCount());
-                    int distObj = (objPos - charPos).manhattanLength();
-                    int distDoor = (doorPos - charPos).manhattanLength();
-                    // Check if the distance to the door is smaller than the distance to the object.
-                    if(distObj < distDoor) {
-                        pathFinder(objPos.x(), objPos.y());
-                    }
-                    // After we go to the object, return to the pathfinder function that called this.
-                    // That function will be schedule itself after this function finishes.
-                    return;
-                }
-            }
+        if(direction != m_protagonist->getData(DataRole::Direction).value<Direction>()) {
             characterMove(direction);
         }
+
+        // Check whether enemy is on the way of the path and attack it
+        if(auto tile = m_protagonist->getNeighbor(direction)) {
+            if(tile->hasChild({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END})) {
+                automaticAttack();
+            }
+        }
+        // Play fully automatic
+        if(full) {
+            QPointer<const GameObject> obj;
+            // Find enemy or healthpack if energy or health too low. Number is sort of arbitrary
+            if(m_protagonist->getData(DataRole::Energy).toInt() < 80 || m_protagonist->getData(DataRole::PoisonLevel).toInt() > 15) {
+                obj = m_protagonist->nearest({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
+
+            } else if(m_protagonist->getData(DataRole::Health).toInt() < 80) {
+                obj = m_protagonist->nearest(ObjectType::HealthPack);
+            }
+            // Can be that there are no HP or enemies left.
+            if(obj) {
+                QPoint objPos = obj->getData(DataRole::Position).toPoint();
+                QPoint charPos = m_protagonist->getData(DataRole::Position).toPoint();
+                QPoint doorPos(m_models[m_gameLevel].first->getColumnCount(),
+                               m_models[m_gameLevel].first->getRowCount());
+                int distObj = (objPos - charPos).manhattanLength();
+                int distDoor = (doorPos - charPos).manhattanLength();
+                // Check if the distance to the door is smaller than the distance to the object.
+                if(distObj < distDoor) {
+                    pathFinder(objPos.x(), objPos.y());
+                }
+                // After we go to the object, return to the pathfinder function that called this.
+                // That function will schedule itself after this function finishes.
+                return;
+            }
+        }
+        characterMove(direction);
     }
 }
 
@@ -223,9 +218,8 @@ void GameController::pathFinder(int x, int y) {
 
     // Call the algorithm
     auto path = pathFinder.A_star();
-    if(m_gameState != State::GameOver) {
-        executePath(path, full);
-    }
+
+    executePath(path, full);
 
     // Run the method again in the next event loop if the game is on full auto.
     if(full) {
@@ -254,7 +248,10 @@ void GameController::updateHealth() {
 }
 
 void GameController::characterMove(Direction to) {
-    if(m_gameState == State::Running && m_gameState != State::GameOver) {
+    while(m_gameState == State::Paused)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+    if(m_gameState == State::Running) {
         if(auto move = m_protagonist->getBehavior<Movement>()) {
             move->stepOn(to);
             emit tick();
@@ -262,7 +259,10 @@ void GameController::characterMove(Direction to) {
     }
 }
 
-void GameController::characterAtttack() {
+void GameController::characterAttack() {
+    while(m_gameState == State::Paused)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
     if(m_gameState == State::Running) {
         if(auto attack = m_protagonist->getBehavior<Attack>()) {
             attack->attack();

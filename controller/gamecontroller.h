@@ -50,15 +50,6 @@ public:
      */
     void startGame();
     /**
-     * @brief characterMove call model behavior to move the protagonist.
-     * @param to.
-     */
-    void characterMove(Direction to);
-    /**
-     * @brief characterAtttack attacks enemy in current protagonist direction.
-     */
-    void characterAtttack();
-    /**
      * @brief updateEnergy retrieves lastest protagonist energy level upon data change and triggers corresponding slot in the GameWindow.
      */
     void updateEnergy();
@@ -66,6 +57,15 @@ public:
      * @brief updateHealth retrieves lastest protagonist health level upon data change and triggers corresponding slot in the GameWindow.
      */
     void updateHealth();
+    /**
+     * @brief characterMove call model behavior to move the protagonist.
+     * @param to.
+     */
+    void characterMove(Direction to);
+    /**
+     * @brief characterAtttack attacks enemy in current protagonist direction.
+     */
+    void characterAttack();
     /**
      * @brief updateLevel handles going up and down the levels (upon stepping on doorways), captures data change in the model and triggers GameWindow.
      * @param direction UP to go to next level, DOWN to go to previous level, parameter passed from data change.

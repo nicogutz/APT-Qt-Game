@@ -36,7 +36,7 @@ GameWindow::GameWindow(QWidget *parent)
 
     if(dialog.exec() == QDialog::Accepted) {
         // START GAME
-        m_controller = QSharedPointer<GameController>(new GameController({
+        m_controller = QPointer<GameController>(new GameController({
           colSpinBox->cleanText().toInt(),
           rowSpinBox->cleanText().toInt(),
         }));
@@ -139,7 +139,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event) {
             m_controller->characterMove(Direction::Right);
             break;
         case Qt::Key_Space:
-            m_controller->characterAtttack();
+            m_controller->characterAttack();
             break;
         default:
             QMainWindow::keyPressEvent(event);
@@ -153,7 +153,7 @@ void GameWindow::initializeCommands() {
     moveCommands["r"] = {[this]() { m_controller->characterMove(Direction::Right); }, "Move Right"};
     moveCommands["u"] = {[this]() { m_controller->characterMove(Direction::Up); }, "Move Up"};
     moveCommands["d"] = {[this]() { m_controller->characterMove(Direction::Down); }, "Move Down"};
-    moveCommands["a"] = {[this]() { m_controller->characterAtttack(); }, "Attack"};
+    moveCommands["a"] = {[this]() { m_controller->characterAttack(); }, "Attack"};
 
     // View commands
     viewCommands["t"] = {[this]() { setTextualView(); }, "Switch to Textual View"};
@@ -375,13 +375,11 @@ void GameWindow::updatePathFindTriggerButton() {
     m_ui->path_find_trigger->setEnabled(enableButton);
 }
 
-
 void GameWindow::closeEvent(QCloseEvent *event) {
     // Perform the same actions as quit button
     m_controller->setState(GameController::State::GameOver);
     QMainWindow::closeEvent(event);
 }
-
 
 // DESTRUCTOR
 
