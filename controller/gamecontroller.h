@@ -59,12 +59,6 @@ public:
      */
     void characterAtttack();
     /**
-     * @brief pathFinder automatically routes the protagonist to given position using the algorithm for the shortest path.
-     * @param x coordinate of the world grid.
-     * @param y coordinate of the world grid.
-     */
-    void pathFinder(int x, int y);
-    /**
      * @brief updateEnergy retrieves lastest protagonist energy level upon data change and triggers corresponding slot in the GameWindow.
      */
     void updateEnergy();
@@ -113,6 +107,13 @@ public:
     State getState() { return m_gameState; }
     QSharedPointer<GameView> getView() { return m_view; } // GameView
     View getGameView() { return m_gameView; } // Visualization enum
+public slots:
+    /**
+     * @brief pathFinder automatically routes the protagonist to given position using the algorithm for the shortest path.
+     * @param x coordinate of the world grid.
+     * @param y coordinate of the world grid.
+     */
+    void pathFinder(int x = -1, int y = -1);
 
 signals:
     /**

@@ -186,13 +186,11 @@ void GameController::executePath(std::vector<int> path, bool full) {
                     int distDoor = (doorPos - charPos).manhattanLength();
                     // Check if the distance to the door is smaller than the distance to the object.
                     if(distObj < distDoor) {
-                        if(m_gameState != State::GameOver) {
-                            pathFinder(objPos.x(), objPos.y());
-                        }
+                        pathFinder(objPos.x(), objPos.y());
                     }
-                    if(m_gameState != State::GameOver) {
-                        pathFinder(-1, -1);
-                    }
+                    // After we go to the object, return to the pathfinder function that called this.
+                    // That function will be schedule itself after this function finishes.
+                    return;
                 }
             }
             characterMove(direction);
@@ -202,39 +200,37 @@ void GameController::executePath(std::vector<int> path, bool full) {
 
 void GameController::pathFinder(int x, int y) {
     bool full = (x == -1 && y == -1);
-    do {
-        auto nodes = m_models[m_gameLevel].second; // Node class for the pathfinder
+    auto nodes = m_models[m_gameLevel].second; // Node class for the pathfinder
 
-        int rows = m_models[m_gameLevel].first->getRowCount();
-        int cols = m_models[m_gameLevel].first->getColumnCount();
+    int rows = m_models[m_gameLevel].first->getRowCount();
+    int cols = m_models[m_gameLevel].first->getColumnCount();
 
-        // Get protagonist position in the world = start position of the pathfinder
-        auto pos = static_cast<GameObject *>(m_protagonist->parent())->getData(DataRole::Position).toPoint();
+    // Get protagonist position in the world = start position of the pathfinder
+    auto pos = static_cast<GameObject *>(m_protagonist->parent())->getData(DataRole::Position).toPoint();
 
-        Comparator<Node> comp = [](const Node &a, const Node &b) {
-            return a.h > b.h;
-        };
-        // Check for non valid input position
-        if(x >= cols || y >= rows || x < 0 || y < 0) {
-            y = rows - 1;
-            x = cols - 1;
-        }
+    Comparator<Node> comp = [](const Node &a, const Node &b) {
+        return a.h > b.h;
+    };
+    // Check for non valid input position
+    if(x >= cols || y >= rows || x < 0 || y < 0) {
+        y = rows - 1;
+        x = cols - 1;
+    }
 
-        auto *start = &nodes[cols * pos.y() + pos.x()];
-        auto *dest = &nodes[cols * y + x];
-        PathFinder<Node, Node> pathFinder(nodes, start, dest, comp, cols, 0.001f);
+    auto *start = &nodes[cols * pos.y() + pos.x()];
+    auto *dest = &nodes[cols * y + x];
+    PathFinder<Node, Node> pathFinder(nodes, start, dest, comp, cols, 0.001f);
 
-        // Call the algorithm
-        auto path = pathFinder.A_star();
-        if(m_gameState != State::GameOver) {
-            executePath(path, full);
-        }
+    // Call the algorithm
+    auto path = pathFinder.A_star();
+    if(m_gameState != State::GameOver) {
+        executePath(path, full);
+    }
 
-        if(m_gameState == State::GameOver) {
-            break;
-        }
-
-    } while(full);
+    // Run the method again in the next event loop if the game is on full auto.
+    if(full) {
+        QMetaObject::invokeMethod(this, "pathFinder", Qt::QueuedConnection, -1, -1);
+    }
 }
 
 void GameController::updateEnergy() {
