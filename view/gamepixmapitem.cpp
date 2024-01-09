@@ -51,7 +51,7 @@ void GamePixmapItem::updateOverlay() {
     }
 
     if(child == nullptr) {
-        child = new QGraphicsPixmapItem(overlay);
+        child = new QGraphicsPixmapItem();
         child->setData((int)DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Overlay));
     }
     child->setParentItem(this);

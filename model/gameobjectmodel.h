@@ -1,6 +1,3 @@
-
-
-
 #pragma once
 #ifndef GAMEOBJECTMODEL_H
 #define GAMEOBJECTMODEL_H
@@ -10,7 +7,7 @@
 
 /**
  * @brief The GameObjectModel class represents the model of the game world.
- *        It holds a grid of GameObject pointers, representing the game world's layout.
+ * It holds a grid of GameObject pointers, representing the game world's layout.
  */
 class GameObjectModel : public QObject {
     Q_OBJECT
@@ -113,7 +110,6 @@ public:
      * @return
      */
     const QPointer<GameObject> getNeighbor(QPoint location, double direction, int offset) const;
-
 
 private:
     /**

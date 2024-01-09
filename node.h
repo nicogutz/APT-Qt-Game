@@ -1,39 +1,61 @@
-
 #ifndef NODE_H
 #define NODE_H
 
-#include "publicenums.h"
-#include <world.h>
 #include <QMap>
 #include <QVariant>
 
+#include "world.h"
+#include "publicenums.h"
+
+/**
+ * @brief The Node class wraps the tiles from the World Library in order to make them compatible with the pathfinder.
+ */
 struct Node : public Tile {
-    float f = 0.0f, g = 0.0f, h = 0.0f;
-    bool visited = false;
-    Node *prev = nullptr;
+    /**
+     * @brief Node empty constructor.
+     */
+    Node()
+        : Tile(0, 0, 0) {};
+    /**
+     * @brief Node Constructor.
+     * @param x The X position of the tile.
+     * @param y The Y position of the tile.
+     * @param val The energy level of the tile.
+     */
     Node(int x, int y, float val)
-        : Tile(x, y, val) { }
+        : Tile(x, y, val) {};
+    /**
+     * @brief Node Tile copy constructor.
+     * @param t the tile to copy.
+     */
     Node(const Tile &t)
         : Tile(t) {};
+    /**
+     * @brief Node copy constructor.
+     * @param n the node to copy.
+     */
     Node(const Node &n)
         : Tile(n.getXPos(), n.getYPos(), n.getValue())
         , f(n.f)
         , g(n.g)
         , h(n.h)
         , visited(n.visited)
-        , prev(n.prev) { }
-
-    Node()
-        : Tile(0, 0, 0) { }
-
+        , prev(n.prev) {};
+    /**
+     * @brief Node GameObject data constructor.
+     * @param obj The object data to copy.
+     */
     Node(const QMap<DataRole, QVariant> &obj)
         : Tile(obj[DataRole::Position].toPoint().x(),
                obj[DataRole::Position].toPoint().y(),
                obj.contains(DataRole::Energy) ? obj[DataRole::Energy].toFloat() : 0) {
     }
-
-    virtual ~Node() { }
-
+    virtual ~Node() {};
+    /**
+     * @brief operator = The assignment overload for Nodes.
+     * @param n the node on the left.
+     * @return New node.
+     */
     Node &operator=(const Node &n) {
         if(this != &n) {
             Tile::operator=(n);
@@ -45,6 +67,10 @@ struct Node : public Tile {
         }
         return *this;
     }
+    // Variables required for the pathfindedr
+    float f = 0.0f, g = 0.0f, h = 0.0f;
+    bool visited = false;
+    Node *prev = nullptr;
 };
 
 #endif // NODE_H

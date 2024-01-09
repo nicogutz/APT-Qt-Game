@@ -4,6 +4,7 @@
 #include "model/modelfactory.h"
 #include "model/behaviors/attack.h"
 #include "model/behaviors/movement.h"
+#include "pathfinder_class.h"
 #include "view/renderer/spriterenderer.h"
 #include "view/renderer/textrenderer.h"
 #include "view/renderer/colorrenderer.h"

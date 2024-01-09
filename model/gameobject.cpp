@@ -27,7 +27,7 @@ const QList<QPointer<GameObject>> GameObject::getAllNeighbors(int offset) const 
     // accesses neighbors using angles, by dividing 360 deg by the offset
     // * 8 we get a geometric increase on the number of tiles.
     // This might? not work for big offsets, too afraid to try.
-    for(float i = 0; i < 360; i += 360 / (((double)offset + 1) * 8)) {
+    for(double i = 0; i < 360; i += 360 / (((double)offset + 1) * 8)) {
         list.append(getNeighbor(i, offset));
     }
     return list;

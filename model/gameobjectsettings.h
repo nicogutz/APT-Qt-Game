@@ -1,5 +1,3 @@
-
-
 #ifndef GAMEOBJECTSETTINGS_H
 #define GAMEOBJECTSETTINGS_H
 
@@ -18,7 +16,7 @@
 
 /**
  * @brief GameObjectSettings class provides configurations for different types of GameObjects.
- *        It contains nested structures for each GameObject type, defining their default data and behaviors.
+ * It contains nested structures for each GameObject type, defining their default data and behaviors.
  */
 class GameObjectSettings {
     /**
@@ -30,14 +28,14 @@ class GameObjectSettings {
          * @brief Default data for Protagonist.
          */
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
-                                                                         {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
-                                                                         {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
-                                                                         {DataRole::Energy, Movement::SETTINGS::MAX_ENERGY},
-                                                                         {DataRole::Strength, (float)Attack::SETTINGS::PLAYER_STRENGTH},
-                                                                         {DataRole::PoisonLevel, Poison::SETTINGS::MIN_POISON},
-                                                                         {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Down)},
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Protagonist)},
+          {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
+          {DataRole::Energy, Movement::SETTINGS::MAX_ENERGY},
+          {DataRole::Strength, (float)Attack::SETTINGS::PLAYER_STRENGTH},
+          {DataRole::PoisonLevel, Poison::SETTINGS::MIN_POISON},
+          {DataRole::Direction, QVariant::fromValue<Direction>(Direction::Down)},
 
-                                                                         };
+        };
         /**
          * @brief Set up a GameObject as a Protagonist with predefined settings and behaviors.
          * @param obj Pointer to the GameObject to be set up.
@@ -56,9 +54,9 @@ class GameObjectSettings {
      */
     struct TileSettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
-                                                                         {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Tile)},
-                                                                         {DataRole::PoisonLevel, Poison::SETTINGS::MIN_POISON},
-                                                                         };
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Tile)},
+          {DataRole::PoisonLevel, Poison::SETTINGS::MIN_POISON},
+        };
         /**
          * @brief Set up a GameObject as a Tile with predefined settings and behaviors.
          * @param obj Pointer to the GameObject to be set up.
@@ -71,15 +69,14 @@ class GameObjectSettings {
         };
     };
 
-
     /**
      * @brief Settings for Doorway GameObject.
      */
 
     struct DoorSettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
-                                                                         {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Doorway)},
-                                                                         };
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Doorway)},
+        };
         /**
          * @brief Set up a GameObject as a Doorway with predefined settings and behaviors.
          * @param obj Pointer to the GameObject to be set up.
@@ -90,16 +87,15 @@ class GameObjectSettings {
         };
     };
 
-
     /**
      * @brief Settings for HealthPack GameObject.
      */
 
     struct HealthPackSettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
-                                                                         {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::HealthPack)},
-                                                                         {DataRole::Health, Health::SETTINGS::HEALTH_PACK_AMOUNT},
-                                                                         };
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::HealthPack)},
+          {DataRole::Health, Health::SETTINGS::HEALTH_PACK_AMOUNT},
+        };
         /**
          * @brief Set up a GameObject as a HealthPack with predefined settings and behaviors.
          * @param obj Pointer to the GameObject to be set up.
@@ -117,10 +113,10 @@ class GameObjectSettings {
 
     struct EnemySettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
-                                                                         {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Enemy)},
-                                                                         {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
-                                                                         {DataRole::Strength, (float)Attack::SETTINGS::ENEMY_STRENGTH},
-                                                                         };
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::Enemy)},
+          {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
+          {DataRole::Strength, (float)Attack::SETTINGS::ENEMY_STRENGTH},
+        };
         /**
          * @brief Set up a GameObject as an Enemy with predefined settings and behaviors.
          * @param obj Pointer to the GameObject to be set up.
@@ -138,11 +134,11 @@ class GameObjectSettings {
 
     struct PoisonEnemySettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
-                                                                         {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::PoisonEnemy)},
-                                                                         {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
-                                                                         {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
-                                                                         {DataRole::PoisonLevel, Poison::SETTINGS::PENEMY_POISON_LEVEL},
-                                                                         };
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::PoisonEnemy)},
+          {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
+          {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
+          {DataRole::PoisonLevel, Poison::SETTINGS::PENEMY_POISON_LEVEL},
+        };
         /**
          * @brief Set up a GameObject as a PoisonEnemy with predefined settings and behaviors.
          * @param obj Pointer to the GameObject to be set up.
@@ -160,12 +156,12 @@ class GameObjectSettings {
      */
     struct MovingEnemySettings {
         inline static const QList<QPair<DataRole, QVariant>> defaultData {
-                                                                         {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::MovingEnemy)},
-                                                                         {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
-                                                                         {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
-                                                                         {DataRole::Energy, Movement::SETTINGS::MAX_ENERGY * 10},
+          {DataRole::Type, QVariant::fromValue<ObjectType>(ObjectType::MovingEnemy)},
+          {DataRole::Health, Health::SETTINGS::MAX_HEALTH},
+          {DataRole::Strength, Attack::SETTINGS::ENEMY_STRENGTH},
+          {DataRole::Energy, Movement::SETTINGS::MAX_ENERGY * 10},
 
-                                                                         };
+        };
         /**
          * @brief Set up a GameObject as a MovingEnemy with predefined settings and behaviors.
          * @param obj Pointer to the GameObject to be set up.
@@ -178,7 +174,6 @@ class GameObjectSettings {
         };
     };
 
-
 public:
     /**
      * @brief Gets the setup function for a specific type of GameObject.
@@ -186,26 +181,25 @@ public:
      * @return A function to set up the GameObject with its specific settings and behaviors.
      */
     static std::function<void(GameObject *)> getFunction(ObjectType type) {
-                switch(type) {
-                case ObjectType::Tile:
-                    return TileSettings::setObject;
-                case ObjectType::Doorway:
-                    return DoorSettings::setObject;
-                case ObjectType::HealthPack:
-                    return HealthPackSettings::setObject;
-                case ObjectType::Protagonist:
-                    return ProtagonistSettings::setObject;
-                case ObjectType::Enemy:
-                    return EnemySettings::setObject;
-                case ObjectType::PoisonEnemy:
-                    return PoisonEnemySettings::setObject;
-                case ObjectType::MovingEnemy:
-                    return MovingEnemySettings::setObject;
-                default:
-                    return EnemySettings::setObject;
-                }
-            }
+        switch(type) {
+        case ObjectType::Tile:
+            return TileSettings::setObject;
+        case ObjectType::Doorway:
+            return DoorSettings::setObject;
+        case ObjectType::HealthPack:
+            return HealthPackSettings::setObject;
+        case ObjectType::Protagonist:
+            return ProtagonistSettings::setObject;
+        case ObjectType::Enemy:
+            return EnemySettings::setObject;
+        case ObjectType::PoisonEnemy:
+            return PoisonEnemySettings::setObject;
+        case ObjectType::MovingEnemy:
+            return MovingEnemySettings::setObject;
+        default:
+            return EnemySettings::setObject;
+        }
+    }
 };
 
 #endif // GAMEOBJECTSETTINGS_H
-

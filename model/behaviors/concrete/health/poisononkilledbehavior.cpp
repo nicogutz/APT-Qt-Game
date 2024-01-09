@@ -7,12 +7,14 @@
 #include <model/behaviors/concrete/movement/genericwalkablebehavior.h>
 
 void PoisonOnKilledBehavior::die() {
-    //    m_owner->getBehavior()
-    m_poisonCount = Poison::SETTINGS::POISON_SPREAD_TIMES;
+    m_count = m_poisonTimes = QRandomGenerator::global()->bounded(
+      Poison::SETTINGS::POISON_SPREAD_TIMES_MIN,
+      Poison::SETTINGS::POISON_SPREAD_TIMES_MAX);
+
     m_owner->removeBehavior<Attack>();
     m_owner->setBehavior<Movement>(QSharedPointer<GenericWalkableBehavior>::create(m_owner));
 
-    m_ticksToPoison = QRandomGenerator::global()->bounded(
+    m_nextPoison = QRandomGenerator::global()->bounded(
       Poison::SETTINGS::POISON_SPREAD_MIN_TICKS,
       Poison::SETTINGS::POISON_SPREAD_MAX_TICKS);
 
@@ -20,25 +22,25 @@ void PoisonOnKilledBehavior::die() {
 }
 
 void PoisonOnKilledBehavior::spreadPoison() {
-    if(m_poisonCount) {
-        m_tickCount++;
+    m_tickCount++;
 
-        if(m_ticksToPoison > m_tickCount) {
-            return;
-        }
+    if(m_nextPoison > m_tickCount) {
+        return;
+    }
 
-        m_ticksToPoison = QRandomGenerator::global()->bounded(
+    if(m_count) {
+        m_tickCount = 0;
+        m_nextPoison = QRandomGenerator::global()->bounded(
           Poison::SETTINGS::POISON_SPREAD_MIN_TICKS,
           Poison::SETTINGS::POISON_SPREAD_MAX_TICKS);
-        m_tickCount = 0;
 
-        for(const auto &n : m_owner->getAllNeighbors(Poison::SETTINGS::POISON_SPREAD_TIMES - m_poisonCount)) {
+        for(const auto &n : m_owner->getAllNeighbors(m_poisonTimes - m_count)) {
             if(n) {
                 m_owner->getBehavior<Poison>()->poison(n);
             }
         }
 
-        m_poisonCount--;
+        m_count--;
     } else {
         m_owner->setData(DataRole::Destroyed, true);
         delete m_owner;

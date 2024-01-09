@@ -4,13 +4,25 @@
 #include <QPointer>
 #include <QSharedPointer>
 
+// Foward declaration of GameObject
 class GameObject;
+
+/**
+ * @brief The Behavior class is a marker interface (abstract class) that all the behaviors have to extend.
+ * This is not a pure interface since it does store one reference to the owner of the behavior.
+ */
 class Behavior {
 public:
+    /**
+     * @brief Behavior default constructor.
+     * @param owner the owner of the behavior.
+     */
     Behavior(QPointer<GameObject> owner)
         : m_owner(owner) {};
 
+    // Make it abstract.
     virtual ~Behavior() = 0;
+    Behavior() = delete;
     Behavior &operator=(const Behavior &) {
         return *this;
     };

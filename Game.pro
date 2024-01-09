@@ -26,7 +26,6 @@ SOURCES += \
     model/behaviors/concrete/poison/genericpoisonablebehavior.cpp \
     model/behaviors/concrete/health/poisononkilledbehavior.cpp \
     model/behaviors/concrete/poison/genericpoisoningbehavior.cpp \
-    model/behaviors/fire.cpp \
     model/behaviors/health.cpp \
     model/behaviors/movement.cpp \
     model/behaviors/poison.cpp \
@@ -59,7 +58,6 @@ HEADERS += \
     model/behaviors/concrete/poison/genericpoisonablebehavior.h \
     model/behaviors/concrete/health/poisononkilledbehavior.h \
     model/behaviors/concrete/poison/genericpoisoningbehavior.h \
-    model/behaviors/fire.h \
     model/behaviors/health.h \
     model/behaviors/movement.h \
     model/behaviors/poison.h \

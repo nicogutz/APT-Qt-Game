@@ -14,8 +14,7 @@ public:
     /**
      * @brief ~Renderer virtual destructor
      */
-    virtual ~Renderer() {
-    }
+    virtual ~Renderer() {};
 
     /**
      * @brief renderGameObjects renders the initial state of the world

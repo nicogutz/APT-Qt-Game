@@ -2,8 +2,7 @@
 Poison::~Poison() {};
 
 int Poison::getPoisoned(int level) {
-    QVariant poisonLevel
-      = m_owner->getData(DataRole::PoisonLevel);
+    QVariant poisonLevel = m_owner->getData(DataRole::PoisonLevel);
     if(poisonLevel.isNull()) {
         throw("Cannot change poison level of object.");
     }
@@ -15,5 +14,5 @@ int Poison::getPoisoned(int level) {
 
     m_owner->setData(DataRole::PoisonLevel, QVariant(newPoison));
 
-    return newPoison;
+    return newPoison - poisonLevel.toInt();
 }
