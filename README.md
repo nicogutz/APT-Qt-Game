@@ -1,6 +1,5 @@
-
-# [APT Game Full Documentation](nicogutz.github.io)
-### [nicogutz.github.io](nicogutz.github.io)
+# [APT Game Full Documentation](https://nicogutz.github.io/)
+### [nicogutz.github.io](https://nicogutz.github.io/)
 <br>
 
 # APT Game Project
