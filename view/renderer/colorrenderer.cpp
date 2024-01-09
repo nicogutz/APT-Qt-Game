@@ -2,6 +2,7 @@
 #include "colorrenderer.h"
 
 void ColorRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) {
+    // It is very difficult to generalize these.
     switch(data[DataRole::Type].value<ObjectType>()) {
     case ObjectType::Tile:
         item->setSprite(renderTile(data).toImage());

@@ -10,7 +10,8 @@ int GenericAttackBehavior::attack(const QPointer<GameObject> &target) {
     float strenght = m_owner->getData(DataRole::Strength).toFloat();
     int attackStrength = QRandomGenerator::global()->bounded(1, (int)strenght);
 
-    int attacks = 0;
+    int damage = 0;
+    // The attack has to propagate through all the children of the GameObject
     for(const auto &bh : target->getAllBehaviors<Attack>()) {
         auto at = qSharedPointerDynamicCast<Attack>(bh);
         if(!bh.isNull()) {
@@ -18,11 +19,12 @@ int GenericAttackBehavior::attack(const QPointer<GameObject> &target) {
             if(healthChange + attackStrength > 0) {
                 m_owner->setData(DataRole::Energy, Movement::SETTINGS::MAX_ENERGY);
             }
-            attacks += healthChange;
+            damage += healthChange;
             m_owner->setData(DataRole::Strength, strenght + 0.1);
         }
     };
-    return -attacks;
+    // Health change will be negative, we want the positive.
+    return -damage;
 }
 
 int GenericAttackBehavior::attack(Direction direction) {
@@ -37,8 +39,8 @@ int GenericAttackBehavior::attack() {
 }
 
 int GenericAttackBehavior::getAttacked(const QPointer<GameObject> &, int strength) {
-    m_owner->setData(DataRole::Strength,
-                     m_owner->getData()[DataRole::Strength].toFloat() - 0.1);
+    // This is a cheaty way of showing the attacks in the view. It kinda makes sense though.
+    m_owner->setData(DataRole::Strength, m_owner->getData()[DataRole::Strength].toFloat() - 0.1);
 
     auto behavior = m_owner->getBehavior<Health>();
     return behavior.isNull() ? 0 : behavior->getHealthChanged(-strength);

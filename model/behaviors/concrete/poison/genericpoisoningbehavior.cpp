@@ -13,7 +13,7 @@ int GenericPoisoningBehavior::poison(const QPointer<GameObject> &target) {
             if(currentLevel <= 0) {
                 continue;
             }
-
+            // This makes it more fun, otherwise the player just mops up all the poison in the tiles.
             int poisonAmount = QRandomGenerator::global()->bounded(
               Poison::SETTINGS::MIN_POISON_PER_ACTION, Poison::SETTINGS::MAX_POISON_PER_ACTION);
 

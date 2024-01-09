@@ -6,6 +6,7 @@
 /**
  * @brief The GenericPoisonableBehavior class handles actions from objects that can be harmed by poison.
  * All objects that have a poison behavior can get poisoned, but not all of them get harmed by poison.
+ * Probably a bad class name but do not want to change. HurtByPoisonBehavior?
  */
 class GenericPoisonableBehavior : public QObject, public Poison {
     Q_OBJECT

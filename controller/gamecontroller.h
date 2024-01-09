@@ -98,9 +98,8 @@ public:
     void createNewLevel(int level);
     /**
      * @brief automaticAttack Attack function used by the pathfinder, to automatically attack enemies in the path or when the enrgy is low.
-     * @param direction to attack.
      */
-    void automaticAttack(Direction direction);
+    void automaticAttack();
     /**
      * @brief executePath Executes the moves returned y the pathfinder.
      * @param path to take.

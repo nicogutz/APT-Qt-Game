@@ -29,12 +29,11 @@ public:
     /**
      * @brief Generates a world image based on Perlin noise to simulate terrain. Used in world creation.
      *
-     * @param level The current game level, affects the file name of the saved world image.
      * @param width The width of the world (image) to generate.
      * @param height The height of the world (image) to generate.
      * @param difficulty The difficulty factor, influencing the generation of the Perlin noise terrain.
      */
-    static void createWorld(int level, int width, int height, double difficulty = 1.0);
+    static void createWorld(int width, int height, double difficulty = 1.0);
 };
 
 #endif // MODELFACTORY_H

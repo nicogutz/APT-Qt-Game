@@ -44,32 +44,29 @@ GamePixmapItem *SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data) 
 void SpriteRenderer::renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) {
     DataRole change = data[DataRole::LatestChange].value<DataRole>();
     ObjectType type = data[DataRole::Type].value<ObjectType>();
-    if(item->isActive()) {
-        // Animates every time the data changes. They all run in parallel so they don't affect eachother.
-        switch(change) {
-        case DataRole::Direction:
-            item->setFrame({calculateFrame(data[DataRole::Direction], m_charMap[type].alive.x()),
-                            item->frame().y()});
-            // So they look like ghosts
-            if(data[DataRole::Type].value<ObjectType>() == ObjectType::MovingEnemy) {
-                item->animationGroup()->clear();
-                item->addAnimation(animateHide());
-            }
-            return;
-        case DataRole::Health:
-            if((int)type > 49) {
-                if(data[DataRole::Health].toInt()) {
-                    break;
-                } else {
-                    item->animationGroup()->clear();
-                    item->addAnimation(animateDeath(m_charMap[item->data((int)DataRole::Type).value<ObjectType>()].dead));
-                    item->setTint({0, 0, 0, 0});
-                }
-            }
-            return;
-        default:
-            break;
+    // Animates every time the data changes. They all run in parallel so they don't affect eachother.
+    switch(change) {
+    case DataRole::Direction:
+        item->setFrame({calculateFrame(data[DataRole::Direction], m_charMap[type].alive.x()),
+                        item->frame().y()});
+        // So they look like ghosts
+        if(data[DataRole::Type].value<ObjectType>() == ObjectType::MovingEnemy) {
+            item->animationGroup()->clear();
+            item->addAnimation(animateHide());
         }
+        break;
+    case DataRole::Health:
+        if((int)type > 49) {
+            if(!data[DataRole::Health].toInt()) {
+                item->animationGroup()->clear();
+                item->addAnimation(animateDeath(m_charMap[item->data((int)DataRole::Type).value<ObjectType>()].dead));
+                item->setTint({0, 0, 0, 0});
+                return;
+            }
+        }
+        break;
+    default:
+        break;
     }
     Renderer::renderGameObject(data, item);
 }

@@ -7,6 +7,8 @@ int Poison::getPoisoned(int level) {
         throw("Cannot change poison level of object.");
     }
 
+    // PEnemies could get poisoned as well, their poison level is much
+    // higher than the MAX so it doesn't matter. Poison for them is "Good"
     int newPoison = poisonLevel.toInt() + level;
     if(newPoison > Settings.MAX_POISON) {
         newPoison = Settings.MAX_POISON;

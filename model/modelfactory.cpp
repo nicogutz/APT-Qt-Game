@@ -12,9 +12,9 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
     std::vector<Node> nodes; // Node class for the pathfinder
     World m_world;
 
-    createWorld(level, columns, rows, (double)(level + 1) / 20.0);
-    m_world.createWorld(QStringLiteral("./world_%1.png").arg(level), nrOfEnemies, nrOfHealthpacks, pRatio);
-    QFile::remove(QStringLiteral("./world_%1.png").arg(level));
+    createWorld(columns, rows, (double)(level + 1) / 20.0);
+    m_world.createWorld("./world.png", nrOfEnemies, nrOfHealthpacks, pRatio);
+    QFile::remove("./world.png");
 
     QList<QList<QPointer<GameObject>>> worldGrid(columns); // instantiate gameObjectModel aka the worldgrid
     for(int i = 0; i < columns; ++i) {
@@ -104,7 +104,7 @@ QPair<GameObjectModel *, std::vector<Node>> ObjectModelFactory::createModel(
     return {model, nodes};
 }
 
-void ObjectModelFactory::createWorld(int level, int width, int height, double difficulty) {
+void ObjectModelFactory::createWorld(int width, int height, double difficulty) {
     QImage image(width, height, QImage::Format_Grayscale8);
     int seed = floor(QRandomGenerator::global()->bounded(1, 1000));
     PerlinNoise pn(seed);
@@ -115,12 +115,13 @@ void ObjectModelFactory::createWorld(int level, int width, int height, double di
             double x = (double)j / ((double)width);
             double y = (double)i / ((double)height);
 
+            // This makes it look a bit better, at least the noise is slightly stretched.
             double n = 4 * pn.noise(x * width / 15, y * height / 30, 0.8);
 
-            // Map the values to the [0, 255] interval
+            // Map the values to around the [0, 255] interval, will eventually be higher
             *pLine++ = floor(255 * n * difficulty);
         }
     }
 
-    image.save(QStringLiteral("./world_%1.png").arg(level), "png", -1);
+    image.save("./world.png", "png", -1);
 }

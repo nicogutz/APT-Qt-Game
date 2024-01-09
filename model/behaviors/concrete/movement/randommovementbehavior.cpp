@@ -19,7 +19,7 @@ void RandomMovementBehavior::moveRandomly() {
                 return;
             }
         }
-        // Get the energu of the tile around it, if it is infinite, make it very big.
+        // Get the energy of the tile around it, if it is infinite, make it very big.
         float neighborEnergy = neighbor->getData(DataRole::Energy).toFloat();
         neighborEnergy = neighborEnergy == INFINITY ? 1000000000 : neighborEnergy;
 

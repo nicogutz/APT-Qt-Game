@@ -10,6 +10,7 @@ QColor GamePixmapItem::getTint() const {
 }
 void GamePixmapItem::setTint(const QColor &newTint, bool onParent) {
     if(onParent) {
+        // this will tint the base pixmap.
         updatePixmap();
         auto pixmap = this->pixmap();
         QPainter painter(&pixmap);
@@ -31,6 +32,7 @@ void GamePixmapItem::setTint(const QColor &newTint) {
 }
 
 void GamePixmapItem::updateOverlay() {
+    // Some things require an overlay so the color can turn back to normal once the animation is over.
     QPixmap currentPixmap = this->pixmap();
     QPixmap overlay(currentPixmap.size());
     overlay.fill(Qt::transparent);

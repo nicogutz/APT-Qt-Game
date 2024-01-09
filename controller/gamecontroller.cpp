@@ -121,15 +121,16 @@ void GameController::dataChanged(QMap<DataRole, QVariant> objectData) {
         break;
     }
 }
-void GameController::automaticAttack(Direction direction) {
-    auto target = m_protagonist->getNeighbor(direction)
+void GameController::automaticAttack() {
+    // Find the enemy and attack it until it dies.
+    auto target = m_protagonist->getNeighbor(m_protagonist->getData(DataRole::Direction).toDouble())
                     ->findChild({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
 
     while(target && target->getData(DataRole::Health).toInt()) {
         QTime time = QTime::currentTime().addMSecs(200);
-        while(QTime::currentTime() < time)
+        while(QTime::currentTime() < time) {
             QCoreApplication::processEvents(QEventLoop::AllEvents, 200);
-
+        }
         characterAtttack();
     }
 }
@@ -162,19 +163,20 @@ void GameController::executePath(std::vector<int> path, bool full) {
             // Check whether enemy is on the way of the path and attack it
             if(auto tile = m_protagonist->getNeighbor(direction)) {
                 if(tile->hasChild({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END})) {
-                    automaticAttack(direction);
+                    automaticAttack();
                 }
             }
-
+            // Play fully automatic
             if(full) {
                 QPointer<const GameObject> obj;
+                // Find enemy or healthpack if energy or health too low. Number is sort of arbitrary
                 if(m_protagonist->getData(DataRole::Energy).toInt() < 80 || m_protagonist->getData(DataRole::PoisonLevel).toInt() > 15) {
                     obj = m_protagonist->nearest({ObjectType::_ENEMIES_START, ObjectType::_ENEMIES_END});
 
                 } else if(m_protagonist->getData(DataRole::Health).toInt() < 80) {
                     obj = m_protagonist->nearest(ObjectType::HealthPack);
                 }
-
+                // Can be that there are no HP or enemies left.
                 if(obj) {
                     QPoint objPos = obj->getData(DataRole::Position).toPoint();
                     QPoint charPos = m_protagonist->getData(DataRole::Position).toPoint();
@@ -182,17 +184,15 @@ void GameController::executePath(std::vector<int> path, bool full) {
                                    m_models[m_gameLevel].first->getRowCount());
                     int distObj = (objPos - charPos).manhattanLength();
                     int distDoor = (doorPos - charPos).manhattanLength();
-
+                    // Check if the distance to the door is smaller than the distance to the object.
                     if(distObj < distDoor) {
-                        if (m_gameState != State::GameOver){
+                        if(m_gameState != State::GameOver) {
                             pathFinder(objPos.x(), objPos.y());
                         }
-
                     }
-                    if (m_gameState != State::GameOver){
-                           pathFinder(-1, -1);
+                    if(m_gameState != State::GameOver) {
+                        pathFinder(-1, -1);
                     }
-
                 }
             }
             characterMove(direction);
@@ -294,6 +294,3 @@ void GameController::updateGameView(View view) {
     m_view->createScene(data, renderer);
     m_gameView = view;
 }
-
-
-

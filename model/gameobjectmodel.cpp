@@ -52,6 +52,7 @@ QList<QList<QMap<DataRole, QVariant>>> GameObjectModel::getAllData(bool) const {
 }
 
 QList<QList<QList<QMap<DataRole, QVariant>>>> GameObjectModel::getAllData() const {
+    // Probably linear time comp. makes a lot of copies so might be a bit slow with huge worlds.
     QList<QList<QList<QMap<DataRole, QVariant>>>> list;
     for(int x = 0; x < getColumnCount(); ++x) {
         list.append(QList<QList<QMap<DataRole, QVariant>>>());

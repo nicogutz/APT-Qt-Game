@@ -36,6 +36,8 @@ const QList<QPointer<GameObject>> GameObject::getAllNeighbors(int offset) const 
 bool GameObject::event(QEvent *event) {
     if(event->type() == QEvent::ParentChange) {
         auto data = getData();
+        // Pass on the data from the parent to the view, the position is the new position after the parent change.
+        // This means that the change direction + the new position form a vector of the movement of the object.
         data[DataRole::Position] = qobject_cast<GameObject *>(parent())->getData(DataRole::Position);
         data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(DataRole::Position);
         data[DataRole::ChangeDirection] = getData(DataRole::Direction);
@@ -53,6 +55,7 @@ bool GameObject::event(QEvent *event) {
 }
 
 void GameObject::setData(DataRole role, QVariant value) {
+    // Directions are not only angles in a plane, but can also be interpreted as directions of change.
     Direction dir = value.toFloat() > m_objectData[role].toFloat() ? Direction::Up : Direction::Down;
     m_objectData[role] = value;
 
@@ -63,8 +66,10 @@ void GameObject::setData(DataRole role, QVariant value) {
 
     auto data = getData();
     if(parent() && parent()->inherits("GameObject")) {
+        // Tiles do not have a parent that has a position.
         data[DataRole::Position] = qobject_cast<GameObject *>(parent())->getData(DataRole::Position);
     }
+    // These data roles are never stored in the GameObjects
     data[DataRole::LatestChange] = QVariant::fromValue<DataRole>(role);
     data[DataRole::ChangeDirection] = QVariant::fromValue<Direction>(dir);
 
@@ -91,6 +96,7 @@ const QPointer<GameObject> GameObject::findChild(ObjectType type) {
     return nullptr;
 }
 const QPointer<GameObject> GameObject::findChild(QPair<ObjectType, ObjectType> range) {
+    // Object type can have ranges to find several objects related to eachother.
     auto children = findChildren<GameObject *>();
     for(auto child : children) {
         int type = child->getData(DataRole::Type).toInt();
@@ -126,6 +132,7 @@ const GameObject *GameObject::nearest(QPair<ObjectType, ObjectType> range) const
     while(true) {
         auto tiles = getAllNeighbors(i);
         if(std::all_of(tiles.begin(), tiles.end(), comp)) {
+            // When the map has been exhausted do not loop any more.
             return nullptr;
         }
         auto it = std::find_if(tiles.begin(), tiles.end(), filter);
