@@ -1,8 +1,0 @@
-<map id="GenericHealingBehavior" name="GenericHealingBehavior">
-<area shape="rect" id="node1" title="The GenericHealingBehavior class handles behavior of objects that heal others." alt="" coords="93,676,288,856"/>
-<area shape="rect" id="node2" href="$classHealth.html" title="The Health class is an abstract class that handles health behaviors. This class is abstract to avoid ..." alt="" coords="72,388,309,627"/>
-<area shape="rect" id="node3" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="9,175,191,325"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,5,195,83"/>
-<area shape="rect" id="node5" href="$structHealth_1_1SETTINGS.html" title=" " alt="" coords="215,211,353,289"/>
-<area shape="rect" id="node6" title=" " alt="" coords="265,5,303,83"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="SpriteRenderer" name="SpriteRenderer">
-<area shape="rect" id="node1" title="The SpriteRenderer class handles the conversion of data to GamePixmapItems. It also animates behavior..." alt="" coords="362,740,613,1125"/>
-<area shape="rect" id="node2" href="$classRenderer.html" title="The Renderer class is a base class for the renderers that use different visualizations for objects." alt="" coords="5,145,289,663"/>
-<area shape="rect" id="node3" title=" " alt="" coords="128,5,167,83"/>
-<area shape="rect" id="node4" title=" " alt="" coords="314,351,517,457"/>
-<area shape="rect" id="node5" title=" " alt="" coords="541,365,615,443"/>
-<area shape="rect" id="node6" title=" " alt="" coords="658,365,717,443"/>
-</map>

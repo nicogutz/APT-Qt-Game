@@ -1,7 +1,0 @@
-<map id="Poison" name="Poison">
-<area shape="rect" id="node1" title="The Poison class is an abstract class that handles poison actions." alt="" coords="72,505,309,729"/>
-<area shape="rect" id="node2" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="9,292,191,443"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,195,83"/>
-<area shape="rect" id="node4" href="$structPoison_1_1SETTINGS.html" title=" " alt="" coords="215,329,353,406"/>
-<area shape="rect" id="node5" title=" " alt="" coords="265,5,303,83"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="Attack" name="Attack">
-<area shape="rect" id="node1" title="The Attack interface handles all the actions related to attacking and getting attacked." alt="" coords="75,373,311,656"/>
-<area shape="rect" id="node2" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="11,160,194,311"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,195,83"/>
-<area shape="rect" id="node4" href="$structAttack_1_1SETTINGS.html" title=" " alt="" coords="223,197,359,274"/>
-<area shape="rect" id="node5" title=" " alt="" coords="219,5,365,83"/>
-</map>

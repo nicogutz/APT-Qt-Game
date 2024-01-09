@@ -1,6 +1,0 @@
-<map id="PoisonOnStepBehavior" name="PoisonOnStepBehavior">
-<area shape="rect" id="node1" title="The PoisonOnStepBehavior class makes the object poison the source if it has any poison." alt="" coords="14,792,215,972"/>
-<area shape="rect" id="node2" href="$classGenericWalkableBehavior.html" title="The GenericWalkableBehavior class simply returns true on the function isSteppable." alt="" coords="13,579,217,744"/>
-<area shape="rect" id="node3" href="$classMovement.html" title="The Movement class handles the actions of moving. It is an abstract class. All the functions return f..." alt="" coords="5,219,224,531"/>
-<area shape="rect" id="node4" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="20,5,209,171"/>
-</map>

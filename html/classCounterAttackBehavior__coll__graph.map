@@ -1,9 +1,0 @@
-<map id="CounterAttackBehavior" name="CounterAttackBehavior">
-<area shape="rect" id="node1" title="The CounterAttackBehavior class extends the GenericAttackBehavior so that the owner attacks back afte..." alt="" coords="99,1037,287,1203"/>
-<area shape="rect" id="node2" href="$classGenericAttackBehavior.html" title="The GenericAttackBehavior class handles the basic actions of a class that can attack or be attacked." alt="" coords="94,705,293,988"/>
-<area shape="rect" id="node3" href="$classAttack.html" title="The Attack interface handles all the actions related to attacking and getting attacked." alt="" coords="75,373,311,656"/>
-<area shape="rect" id="node4" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="11,160,194,311"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,5,195,83"/>
-<area shape="rect" id="node6" href="$structAttack_1_1SETTINGS.html" title=" " alt="" coords="223,197,359,274"/>
-<area shape="rect" id="node7" title=" " alt="" coords="219,5,365,83"/>
-</map>
