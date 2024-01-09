@@ -1,10 +1,16 @@
-************************************************* APT Game Project *****************************************************
 
---Project Summary--
+# [APT Game Full Documentation](nicogutz.github.io)
+### [nicogutz.github.io](nicogutz.github.io)
+<br>
+
+# APT Game Project
+
+
+## Project Summary
 
 APT is a dynamic, interactive game developed using C++ and the Qt framework. The game combines strategic movement, attack mechanisms, and various behavior models to create a unique gaming experience.
 
---Contributors--
+## Contributors
 
     • Nicolas Gutrierrez: Implemented the model and the behaviors (GameObject, GameObjectModel, GamePixmapItem, publicEnums, GameObjectSettings, + all the behaviors)
 
@@ -13,11 +19,11 @@ APT is a dynamic, interactive game developed using C++ and the Qt framework. The
     • Salma Loukili: Implemented the controller and the UI (ModelFactory, GameController, GameWindow, GameWindow.ui, Node.h)
     
 
---Main Classes--
+## Main Classes
 
 GameWindow, GameController, GameView, GameObject, GameObjectModel + Renderers & Behaviors
 
---Game Features Overview--
+## Game Features Overview
 
     • Three different visualizations (Color, Text and Sprites)
 
@@ -68,7 +74,7 @@ GameWindow, GameController, GameView, GameObject, GameObjectModel + Renderers & 
     • Level, number of enemies and number of health packs displayed
     
 
---Weekly Progress Log--
+## Weekly Progress Log
 
     • Week 6-11: Architecture of the game and UML
     • Week 10-12: Basic implementations and experimenting with QT
