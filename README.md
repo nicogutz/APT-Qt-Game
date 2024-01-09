@@ -6,7 +6,7 @@ APT is a dynamic, interactive game developed using C++ and the Qt framework. The
 
 --Contributors--
 
-    • Nicolas Gutrierrez: Implemented the model and the behaviors (GameObject, GameObjectModel, GamePixmapItem, publicEnums, GameObjectSettings, PerlinNoise + all the behaviors)
+    • Nicolas Gutrierrez: Implemented the model and the behaviors (GameObject, GameObjectModel, GamePixmapItem, publicEnums, GameObjectSettings, + all the behaviors)
 
     • Nur Alda: Implemented the views and the renderers (GameView, Renderer, TextRenderer, ColorRenderer, SpriteRenderer)
 
@@ -28,6 +28,8 @@ GameWindow, GameController, GameView, GameObject, GameObjectModel + Renderers & 
     • Take Health packs to gain health
 
     • Enemies, Poison Enemies and Moving Enemies
+    
+    • Enemies attack back, custom death animations per view
 
     • Attack Enemies to gain Energy (but costs health)
 
@@ -35,15 +37,19 @@ GameWindow, GameController, GameView, GameObject, GameObjectModel + Renderers & 
 
     • Poisoned tiles after killing poison enemy
 
+    • Random poisoning of the world by PEnemy
+
     • Variable world size, chosen by the user at the beginning of the game
 
     • Automatic router to any position in world
 
     • Infinite automatic router 
+    
+    • Automatic healthpack grabbing and enemy attacking on low Health/Energy 
 
     • Path Visualization of the autorouter
 
-    • Automatically generated levels with increasing difficulty
+    • Procedurally generated levels with increasing difficulty
 
     • Game over if out of health or energy
 
