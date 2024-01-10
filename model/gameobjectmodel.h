@@ -8,19 +8,19 @@
 /**
  * @brief The GameObjectModel class represents the model of the game world.
  * It holds a grid of GameObject pointers, representing the game world's layout.
+ * It connects all of its child objects to a signal. This makes it very convinient to connect
+ * and disconnect levels as they change throughout the game since the GameObjects can be simply
+ * connected to their parent GameObject, which is then connected to the GameObjectModel
+ * for that level, and then it itself is connected to the view/controller to handle
+ * the changes in data as needed. As soon as the level is no longer needed a single
+ * disconnect has to be done. This does not cause any overhead since the ticks
+ * (which work the same way on the opposite direction) are also disconnected.
  */
 class GameObjectModel : public QObject {
     Q_OBJECT
 public:
     /**
-     * @brief Constructor for GameObjectModel. It connects all of its child objects
-     * to a signal. This makes it very convinient to connect and disconnect levels
-     * as they change throughout the game since the GameObjects can be simply
-     * connected to their parent GameObject, which is then connected to the GameObjectModel
-     * for that level, and then it itself is connected to the view/controller to handle
-     * the changes in data as needed. As soon as the level is no longer needed a single
-     * disconnect has to be done. This does not cause any overhead since the ticks
-     * (which work the same way on the opposite direction) are also disconnected.
+     * @brief Constructor for GameObjectModel.
      * @param world A 2D grid of QPointer to GameObjects representing the game world.
      */
     GameObjectModel(QList<QList<QPointer<GameObject>>> world) {

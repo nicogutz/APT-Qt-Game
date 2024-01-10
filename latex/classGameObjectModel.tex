@@ -2,7 +2,7 @@
 \label{classGameObjectModel}\index{GameObjectModel@{GameObjectModel}}
 
 
-The \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} class represents the model of the game world. It holds a grid of \mbox{\hyperlink{classGameObject}{Game\+Object}} pointers, representing the game world\textquotesingle{}s layout.  
+The \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} class represents the model of the game world. It holds a grid of \mbox{\hyperlink{classGameObject}{Game\+Object}} pointers, representing the game world\textquotesingle{}s layout. It connects all of its child objects to a signal. This makes it very convinient to connect and disconnect levels as they change throughout the game since the Game\+Objects can be simply connected to their parent \mbox{\hyperlink{classGameObject}{Game\+Object}}, which is then connected to the \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} for that level, and then it itself is connected to the view/controller to handle the changes in data as needed. As soon as the level is no longer needed a single disconnect has to be done. This does not cause any overhead since the ticks (which work the same way on the opposite direction) are also disconnected.  
 
 
 
@@ -58,7 +58,7 @@ QList$<$ QList$<$ QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $
 
 
 \doxysubsection{Detailed Description}
-The \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} class represents the model of the game world. It holds a grid of \mbox{\hyperlink{classGameObject}{Game\+Object}} pointers, representing the game world\textquotesingle{}s layout. 
+The \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} class represents the model of the game world. It holds a grid of \mbox{\hyperlink{classGameObject}{Game\+Object}} pointers, representing the game world\textquotesingle{}s layout. It connects all of its child objects to a signal. This makes it very convinient to connect and disconnect levels as they change throughout the game since the Game\+Objects can be simply connected to their parent \mbox{\hyperlink{classGameObject}{Game\+Object}}, which is then connected to the \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} for that level, and then it itself is connected to the view/controller to handle the changes in data as needed. As soon as the level is no longer needed a single disconnect has to be done. This does not cause any overhead since the ticks (which work the same way on the opposite direction) are also disconnected. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classGameObjectModel_a3b34a0bc0de84e7433c05c5f519bf1a6}\label{classGameObjectModel_a3b34a0bc0de84e7433c05c5f519bf1a6}} 
@@ -78,20 +78,20 @@ Constructor for \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}}.
 \end{DoxyParams}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{19                                                               \{}
-\DoxyCodeLine{20         \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}} = world;}
-\DoxyCodeLine{21         \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&row : \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}) \{}
-\DoxyCodeLine{22             \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&tile : row) \{}
-\DoxyCodeLine{23                 tile-\/>setParent(\textcolor{keyword}{this});}
-\DoxyCodeLine{24                 connect(tile, \&\mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{GameObject::dataChanged}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}});}
-\DoxyCodeLine{25                 \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&obj : tile-\/>children()) \{}
-\DoxyCodeLine{26                     \textcolor{keyword}{auto} *gameObj = qobject\_cast<GameObject *>(obj);}
-\DoxyCodeLine{27                     connect(gameObj, \&\mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{GameObject::dataChanged}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}});}
-\DoxyCodeLine{28                     connect(\textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a0724092d5eba5d4ebc4f2e6b7eff1156}{GameObjectModel::tick}}, gameObj, \&\mbox{\hyperlink{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}{GameObject::tick}});}
-\DoxyCodeLine{29                 \}}
-\DoxyCodeLine{30             \}}
-\DoxyCodeLine{31         \}}
-\DoxyCodeLine{32     \};}
+\DoxyCodeLine{26                                                               \{}
+\DoxyCodeLine{27         \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}} = world;}
+\DoxyCodeLine{28         \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&row : \mbox{\hyperlink{classGameObjectModel_a36127ff922594b2b3f7085209f0fb806}{m\_world}}) \{}
+\DoxyCodeLine{29             \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&tile : row) \{}
+\DoxyCodeLine{30                 tile-\/>setParent(\textcolor{keyword}{this});}
+\DoxyCodeLine{31                 connect(tile, \&\mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{GameObject::dataChanged}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}});}
+\DoxyCodeLine{32                 \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto} \&obj : tile-\/>children()) \{}
+\DoxyCodeLine{33                     \textcolor{keyword}{auto} *gameObj = qobject\_cast<GameObject *>(obj);}
+\DoxyCodeLine{34                     connect(gameObj, \&\mbox{\hyperlink{classGameObject_a804af99d55508c0ee4eaed5f0ead440b}{GameObject::dataChanged}}, \textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a2a0443fb4f67ce26f68a1cc7d294a77a}{GameObjectModel::dataChanged}});}
+\DoxyCodeLine{35                     connect(\textcolor{keyword}{this}, \&\mbox{\hyperlink{classGameObjectModel_a0724092d5eba5d4ebc4f2e6b7eff1156}{GameObjectModel::tick}}, gameObj, \&\mbox{\hyperlink{classGameObject_a88feb2e3a638cedcebaf3ba8614f908f}{GameObject::tick}});}
+\DoxyCodeLine{36                 \}}
+\DoxyCodeLine{37             \}}
+\DoxyCodeLine{38         \}}
+\DoxyCodeLine{39     \};}
 
 \end{DoxyCode}
 

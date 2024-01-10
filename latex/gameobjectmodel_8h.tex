@@ -20,7 +20,7 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}}
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} class represents the model of the game world. It holds a grid of \mbox{\hyperlink{classGameObject}{Game\+Object}} pointers, representing the game world\textquotesingle{}s layout. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} class represents the model of the game world. It holds a grid of \mbox{\hyperlink{classGameObject}{Game\+Object}} pointers, representing the game world\textquotesingle{}s layout. It connects all of its child objects to a signal. This makes it very convinient to connect and disconnect levels as they change throughout the game since the Game\+Objects can be simply connected to their parent \mbox{\hyperlink{classGameObject}{Game\+Object}}, which is then connected to the \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} for that level, and then it itself is connected to the view/controller to handle the changes in data as needed. As soon as the level is no longer needed a single disconnect has to be done. This does not cause any overhead since the ticks (which work the same way on the opposite direction) are also disconnected. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 

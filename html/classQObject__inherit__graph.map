@@ -1,9 +1,0 @@
-<map id="QObject" name="QObject">
-<area shape="rect" id="node1" title=" " alt="" coords="781,5,856,83"/>
-<area shape="rect" id="node2" href="$classGameObject.html" title="The GameObject class represents an individual entity within the game world, capable of various intera..." alt="" coords="5,131,261,1103"/>
-<area shape="rect" id="node3" href="$classGameObjectModel.html" title="The GameObjectModel class represents the model of the game world. It holds a grid of GameObject point..." alt="" coords="286,343,527,890"/>
-<area shape="rect" id="node4" href="$classGamePixmapItem.html" title="The GamePixmapItem class is the custom child class of QGraphicsPixmapItem. to define and store animat..." alt="" coords="551,285,811,949"/>
-<area shape="rect" id="node5" href="$classGenericPoisonableBehavior.html" title="The GenericPoisonableBehavior class handles actions from objects that can be harmed by poison...." alt="" coords="836,549,1079,685"/>
-<area shape="rect" id="node6" href="$classPoisonOnKilledBehavior.html" title="The PoisonOnKilledBehavior class triggers the poisoning of neighbors when object dies...." alt="" coords="1103,512,1321,721"/>
-<area shape="rect" id="node7" href="$classRandomMovementBehavior.html" title="The RandomMovementBehavior class makes an object move randomly every tick." alt="" coords="1345,541,1564,692"/>
-</map>

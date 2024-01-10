@@ -22,14 +22,14 @@ Inheritance diagram for Text\+Renderer\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classTextRenderer_ac2feef553c1113c6cdb83032cb9fcaf2}{render\+Game\+Object}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ data, \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$item) override
-\begin{DoxyCompactList}\small\item\em render\+Game\+Object Makes the ASCII text images from the given data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em render\+Game\+Object Makes the ASCII text images from the given data. Since the changes done by this renderer are difficult to animate, the items that change are re rendered every time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 QImage \mbox{\hyperlink{classTextRenderer_aae6f330fa705681019b0674dafc208bb}{render\+Tile}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ data)
 \begin{DoxyCompactList}\small\item\em render\+Tile The only complex rendered text image. \end{DoxyCompactList}\item 
 QImage \mbox{\hyperlink{classTextRenderer_abea223d0d4a37e5cbbbd3a8be120e95d}{render\+Character}} (QString str, QColor color, int direction=0)
-\begin{DoxyCompactList}\small\item\em render\+Character Generalized rendering of objects \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em render\+Character Generalized rendering of objects Since not all characters are oriented in the same way, some need to rotate relative to the 0 deg of the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -45,7 +45,7 @@ QImage \mbox{\hyperlink{classTextRenderer_abea223d0d4a37e5cbbbd3a8be120e95d}{ren
 
 
 
-render\+Character Generalized rendering of objects 
+render\+Character Generalized rendering of objects Since not all characters are oriented in the same way, some need to rotate relative to the 0 deg of the game. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -57,7 +57,7 @@ render\+Character Generalized rendering of objects
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-QImage The image based on the characters in str. Since not all characters are oriented in the same way, some need to rotate relative to the 0 deg of the game. 
+QImage The image based on the characters in str. 
 \end{DoxyReturn}
 
 \begin{DoxyCode}{0}
@@ -93,13 +93,13 @@ QImage The image based on the characters in str. Since not all characters are or
 
 
 
-render\+Game\+Object Makes the ASCII text images from the given data. 
+render\+Game\+Object Makes the ASCII text images from the given data. Since the changes done by this renderer are difficult to animate, the items that change are re rendered every time. 
 
 
 \begin{DoxyParams}{Parameters}
 {\em data} & The \mbox{\hyperlink{classGameObject}{Game\+Object}} data \\
 \hline
-{\em item} & The Pixmap item Since the changes done by this renderer are difficult to animate, the items that change are re rendered every time. \\
+{\em item} & The Pixmap item \\
 \hline
 \end{DoxyParams}
 

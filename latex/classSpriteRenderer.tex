@@ -11,8 +11,7 @@ The \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}} class handles the c
 
 
 
-Inheritance diagram for Sprite\+Renderer\+:
-\nopagebreak
+Inheritance diagram for Sprite\+Renderer\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -66,11 +65,15 @@ QProperty\+Animation $\ast$ \mbox{\hyperlink{classSpriteRenderer_ababc2b83da9dae
 QImage \mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\+\_\+tiles}}
 \begin{DoxyCompactList}\small\item\em Cached images for tiles and characters. \end{DoxyCompactList}\item 
 QImage \mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\+\_\+characters}}
-\begin{DoxyCompactList}\small\item\em Cached images for tiles and characters. \end{DoxyCompactList}\item 
-QSize \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\+\_\+char\+Size}}
-\begin{DoxyCompactList}\small\item\em \}@ \end{DoxyCompactList}\item 
-QSize \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\+\_\+tile\+Size}}
 \begin{DoxyCompactList}\small\item\em Cached images for tiles and characters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+QSize \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\+\_\+char\+Size}}
+\begin{DoxyCompactList}\small\item\em Cached Cached sizes for the images. \end{DoxyCompactList}\item 
+QSize \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\+\_\+tile\+Size}}
+\begin{DoxyCompactList}\small\item\em Cached Cached sizes for the images. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 \doxysubsection*{Additional Inherited Members}
 
@@ -105,11 +108,11 @@ CHAR\+\_\+\+MAX\+\_\+Y&\\
 \end{DoxyEnumFields}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{33                         \{}
-\DoxyCodeLine{34         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}} = 21,}
-\DoxyCodeLine{35         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}{CHAR\_MAX\_X}} = 10,}
-\DoxyCodeLine{36         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}{CHAR\_MAX\_Y}} = 8,}
-\DoxyCodeLine{37     \};}
+\DoxyCodeLine{32                         \{}
+\DoxyCodeLine{33         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}} = 21,}
+\DoxyCodeLine{34         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}{CHAR\_MAX\_X}} = 10,}
+\DoxyCodeLine{35         \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}{CHAR\_MAX\_Y}} = 8,}
+\DoxyCodeLine{36     \};}
 
 \end{DoxyCode}
 
@@ -130,10 +133,9 @@ CHAR\+\_\+\+MAX\+\_\+Y&\\
 \DoxyCodeLine{22                      \{}
 \DoxyCodeLine{23         \mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}} = QImage(\textcolor{stringliteral}{"{}:/images/characters.png"{}});}
 \DoxyCodeLine{24         \mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}} = QImage(\textcolor{stringliteral}{"{}:/images/tiles.png"{}});}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26         \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\_charSize}} = QSize(\mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}{CHAR\_MAX\_X}}, \mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}}.height() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}{CHAR\_MAX\_Y}});}
-\DoxyCodeLine{27         \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\_tileSize}} = QSize(\mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}}, \mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}});}
-\DoxyCodeLine{28     \}}
+\DoxyCodeLine{25         \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\_charSize}} = QSize(\mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7aa3a010569edc6d5e7f9996bb51ff4a}{CHAR\_MAX\_X}}, \mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\_characters}}.height() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171aa151fb96926dd5c99c666aeb0acb2e29}{CHAR\_MAX\_Y}});}
+\DoxyCodeLine{26         \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\_tileSize}} = QSize(\mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}}, \mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\_tiles}}.width() / \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171a7b3e4dbb386842de9803d178bc68408a}{TILE\_COUNT}});}
+\DoxyCodeLine{27     \}}
 
 \end{DoxyCode}
 
@@ -435,9 +437,9 @@ m\+\_\+char\+Map Maps the Object\+Types to their respective sprite.
 
 
 
-\}@ 
+Cached Cached sizes for the images. 
 
-Cached Cached sizes for the images. \mbox{\Hypertarget{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}\label{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}} 
+\mbox{\Hypertarget{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}\label{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}} 
 \index{SpriteRenderer@{SpriteRenderer}!m\_tiles@{m\_tiles}}
 \index{m\_tiles@{m\_tiles}!SpriteRenderer@{SpriteRenderer}}
 \doxysubsubsection{\texorpdfstring{m\_tiles}{m\_tiles}}
@@ -455,7 +457,7 @@ Cached images for tiles and characters.
 
 
 
-Cached images for tiles and characters. 
+Cached Cached sizes for the images. 
 
 
 

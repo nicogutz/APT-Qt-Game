@@ -1,5 +1,0 @@
-<map id="ObstacleBehavior" name="ObstacleBehavior">
-<area shape="rect" id="node1" title=" " alt="" coords="5,579,243,744"/>
-<area shape="rect" id="node2" href="$classMovement.html" title="The Movement class handles the actions of moving. It is an abstract class. All the functions return f..." alt="" coords="15,219,233,531"/>
-<area shape="rect" id="node3" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="29,5,219,171"/>
-</map>
