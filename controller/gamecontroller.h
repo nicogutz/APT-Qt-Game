@@ -100,13 +100,16 @@ public:
      * @param fully Boolean indicating whether or not to keep executing throughout new levels, so keep finding for the rest of the game.
      */
     void executePath(std::vector<int> path, bool fully = false);
-
-    // GETTERS AND SETTERS
+    ///@{
+    /**
+     * @brief Getters and setters
+     **/
     void setState(State new_state) { m_gameState = new_state; }
     void setView(QSharedPointer<GameView> view) { m_view = view; } // GameView
     State getState() { return m_gameState; }
     QSharedPointer<GameView> getView() { return m_view; } // GameView
     View getGameView() { return m_gameView; } // Visualization enum
+    ///@}
 public slots:
     /**
      * @brief pathFinder automatically routes the protagonist to given position using the algorithm for the shortest path.
@@ -187,7 +190,6 @@ private:
      * @brief m_levelSize Size of the levels.
      */
     QSize m_levelSize;
-
     /**
      * @brief disconnectCurrentModel disconnects current model upon changing levels.
      */

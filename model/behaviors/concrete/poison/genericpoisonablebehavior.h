@@ -13,8 +13,8 @@ class GenericPoisonableBehavior : public QObject, public Poison {
 public:
     /**
      * @brief GenericPoisonableBehavior default constructor.
-     * @param owner the owner of the behavior.
      * This behavior connects the tick signal of its owner to its poisonEffect slot.
+     * @param owner the owner of the behavior.
      */
     GenericPoisonableBehavior(QPointer<GameObject> owner)
         : Poison(owner) {

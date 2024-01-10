@@ -1,0 +1,4 @@
+<map id="ColorRenderer" name="ColorRenderer">
+<area shape="rect" id="node1" title="The ColorRenderer class makes shapes filled with colors to represent the world." alt="" coords="28,585,267,1029"/>
+<area shape="rect" id="node2" href="$classRenderer.html" title="The Renderer class is a base class for the renderers that use different visualizations for objects." alt="" coords="5,5,289,537"/>
+</map>

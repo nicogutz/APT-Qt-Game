@@ -26,7 +26,7 @@ Inheritance diagram for Generic\+Health\+Behavior\+:\nopagebreak
 \mbox{\hyperlink{classGenericHealthBehavior_a2d65e73746657bda339d45bbe205b3eb}{Generic\+Health\+Behavior}} ()=delete
 \item 
 int \mbox{\hyperlink{classGenericHealthBehavior_ac04d2b1978cccd56a4985efd5df51c64}{get\+Health\+Changed}} (int amount) override
-\begin{DoxyCompactList}\small\item\em get\+Health\+Changed changes the health of an object by a specified amount. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get\+Health\+Changed changes the health of an object by a specified amount. This function will change the health up to the MAX\+\_\+\+HEALTH and MIN\+\_\+\+HEALTH. If the amount to change makes the health lower than MIN\+\_\+\+HEALTH, it will cause the object to die. If it makes it bigger than MAX\+\_\+\+HEALTH, it will cause the object to heal to the max and returns the difference between current health (before healing) and MAX\+\_\+\+HEALTH. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classGenericHealthBehavior_a38f1fd00edbe71b56805a93283a797dc}{die}} () override
 \begin{DoxyCompactList}\small\item\em die kills an object, deletes them. Since the health = 0 is set in the get\+Health\+Changed function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
@@ -100,7 +100,7 @@ Reimplemented in \mbox{\hyperlink{classPoisonOnKilledBehavior_ab8bd38d0c03bb7d73
 
 
 
-get\+Health\+Changed changes the health of an object by a specified amount. 
+get\+Health\+Changed changes the health of an object by a specified amount. This function will change the health up to the MAX\+\_\+\+HEALTH and MIN\+\_\+\+HEALTH. If the amount to change makes the health lower than MIN\+\_\+\+HEALTH, it will cause the object to die. If it makes it bigger than MAX\+\_\+\+HEALTH, it will cause the object to heal to the max and returns the difference between current health (before healing) and MAX\+\_\+\+HEALTH. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -108,7 +108,7 @@ get\+Health\+Changed changes the health of an object by a specified amount.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the health changed. This function will change the health up to the MAX\+\_\+\+HEALTH and MIN\+\_\+\+HEALTH. If the amount to change makes the health lower than MIN\+\_\+\+HEALTH, it will cause the object to die. If it makes it bigger than MAX\+\_\+\+HEALTH, it will cause the object to heal to the max and returns the difference between current health (before healing) and MAX\+\_\+\+HEALTH. 
+the health changed. 
 \end{DoxyReturn}
 
 

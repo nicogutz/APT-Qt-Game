@@ -11,7 +11,8 @@ The \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}} class handles the c
 
 
 
-Inheritance diagram for Sprite\+Renderer\+:\nopagebreak
+Inheritance diagram for Sprite\+Renderer\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -37,9 +38,9 @@ enum \mbox{\hyperlink{classSpriteRenderer_aba39a325f77669c8e0494bfd97f91171}{Spr
 \mbox{\hyperlink{classSpriteRenderer_a0064d27bc30985d8f02777f97e014819}{Sprite\+Renderer}} ()
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}} Default constructor. Calculates the size of the sprites and caches them. The caching is not strictly necessary, since QImages are shared objects so they never get copied unless explicitly asked to. The sizes do not need to be computed every time so they are calculated once. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classSpriteRenderer_ad4c616dbc418f8037115067418299070}{render\+Game\+Object}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ data, \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$item) override
-\begin{DoxyCompactList}\small\item\em render\+Game\+Object Overloaded function from \mbox{\hyperlink{classRenderer}{Renderer}}. Converts the data into the appropriate Sprite. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em render\+Game\+Object Overloaded function from \mbox{\hyperlink{classRenderer}{Renderer}}. Converts the data into the appropriate Sprite. This function adds animations or changes colors depending on the data. It does not actually re-\/render the sprites every time data is changed. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$ \mbox{\hyperlink{classSpriteRenderer_ae29363de8d4ae5d1c34cc7c030a990ac}{render\+Game\+Object}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ data) override
-\begin{DoxyCompactList}\small\item\em render\+Game\+Object Overloaded from \mbox{\hyperlink{classRenderer}{Renderer}}. Makes a new \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and adds the appropriate sprite. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em render\+Game\+Object Overloaded from \mbox{\hyperlink{classRenderer}{Renderer}}. Makes a new \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and adds the appropriate sprite. This function is only run once in the \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}}. Which means that changes to the objects are applied to the same sprite. The other renderers do not have this feature since the bulk of the changes are very difficult to animate using parameters and not generalizable. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -59,16 +60,18 @@ int \mbox{\hyperlink{classSpriteRenderer_a5be8bb4ebb7f1cfadc0a4e1041043b35}{calc
 QProperty\+Animation $\ast$ \mbox{\hyperlink{classSpriteRenderer_ababc2b83da9daed8d5c14cdf04cd8473}{animate\+Death}} (QPoint frame)
 \begin{DoxyCompactList}\small\item\em animate\+Death Makes an animation of the death of a character. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
+\textbf{ }\par
 \begin{DoxyCompactItemize}
 \item 
 QImage \mbox{\hyperlink{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}{m\+\_\+tiles}}
-\item 
+\begin{DoxyCompactList}\small\item\em Cached images for tiles and characters. \end{DoxyCompactList}\item 
 QImage \mbox{\hyperlink{classSpriteRenderer_afe7be8b7fb831574f3c2d78ac3a33f13}{m\+\_\+characters}}
-\item 
+\begin{DoxyCompactList}\small\item\em Cached images for tiles and characters. \end{DoxyCompactList}\item 
 QSize \mbox{\hyperlink{classSpriteRenderer_a54100f341345a0cb646e8bdfb38382dd}{m\+\_\+char\+Size}}
-\item 
+\begin{DoxyCompactList}\small\item\em \}@ \end{DoxyCompactList}\item 
 QSize \mbox{\hyperlink{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}{m\+\_\+tile\+Size}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Cached images for tiles and characters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -262,7 +265,7 @@ A rectangle to crop the tile sprite with.
 
 
 
-render\+Game\+Object Overloaded from \mbox{\hyperlink{classRenderer}{Renderer}}. Makes a new \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and adds the appropriate sprite. 
+render\+Game\+Object Overloaded from \mbox{\hyperlink{classRenderer}{Renderer}}. Makes a new \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and adds the appropriate sprite. This function is only run once in the \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}}. Which means that changes to the objects are applied to the same sprite. The other renderers do not have this feature since the bulk of the changes are very difficult to animate using parameters and not generalizable. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -270,7 +273,7 @@ render\+Game\+Object Overloaded from \mbox{\hyperlink{classRenderer}{Renderer}}.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} containing a sprite sheets for the correct \mbox{\hyperlink{classGameObject}{Game\+Object}}. This function is only run once in the \mbox{\hyperlink{classSpriteRenderer}{Sprite\+Renderer}}. Which means that changes to the objects are applied to the same sprite. The other renderers do not have this feature since the bulk of the changes are very difficult to animate using parameters and not generalizable. 
+A \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} containing a sprite sheets for the correct \mbox{\hyperlink{classGameObject}{Game\+Object}}. 
 \end{DoxyReturn}
 
 
@@ -323,13 +326,13 @@ Reimplemented from \mbox{\hyperlink{classRenderer_ac9a3073d563bc905a2d8244805f54
 
 
 
-render\+Game\+Object Overloaded function from \mbox{\hyperlink{classRenderer}{Renderer}}. Converts the data into the appropriate Sprite. 
+render\+Game\+Object Overloaded function from \mbox{\hyperlink{classRenderer}{Renderer}}. Converts the data into the appropriate Sprite. This function adds animations or changes colors depending on the data. It does not actually re-\/render the sprites every time data is changed. 
 
 
 \begin{DoxyParams}{Parameters}
 {\em data} & The \mbox{\hyperlink{classGameObject}{Game\+Object}} data The \mbox{\hyperlink{classGameObject}{Game\+Object}} data. \\
 \hline
-{\em item} & The \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} to write the data on. This function adds animations or changes colors depending on the data. It does not actually re-\/render the sprites every time data is changed. \\
+{\em item} & The \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} to write the data on. \\
 \hline
 \end{DoxyParams}
 
@@ -400,6 +403,10 @@ The croped QImage
 \doxysubsubsection{\texorpdfstring{m\_characters}{m\_characters}}
 {\footnotesize\ttfamily QImage Sprite\+Renderer\+::m\+\_\+characters\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Cached images for tiles and characters. 
+
 \mbox{\Hypertarget{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}\label{classSpriteRenderer_af6b42d18fda9e5ecf3fcf636cb4eb059}} 
 \index{SpriteRenderer@{SpriteRenderer}!m\_charMap@{m\_charMap}}
 \index{m\_charMap@{m\_charMap}!SpriteRenderer@{SpriteRenderer}}
@@ -426,17 +433,29 @@ m\+\_\+char\+Map Maps the Object\+Types to their respective sprite.
 \doxysubsubsection{\texorpdfstring{m\_charSize}{m\_charSize}}
 {\footnotesize\ttfamily QSize Sprite\+Renderer\+::m\+\_\+char\+Size\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}\label{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}} 
+
+
+\}@ 
+
+Cached Cached sizes for the images. \mbox{\Hypertarget{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}\label{classSpriteRenderer_a4439edda91bad79faa952ef8d32cb663}} 
 \index{SpriteRenderer@{SpriteRenderer}!m\_tiles@{m\_tiles}}
 \index{m\_tiles@{m\_tiles}!SpriteRenderer@{SpriteRenderer}}
 \doxysubsubsection{\texorpdfstring{m\_tiles}{m\_tiles}}
 {\footnotesize\ttfamily QImage Sprite\+Renderer\+::m\+\_\+tiles\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Cached images for tiles and characters. 
 
 \mbox{\Hypertarget{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}\label{classSpriteRenderer_aedb48410d0443aee1efec9eab1be401d}} 
 \index{SpriteRenderer@{SpriteRenderer}!m\_tileSize@{m\_tileSize}}
 \index{m\_tileSize@{m\_tileSize}!SpriteRenderer@{SpriteRenderer}}
 \doxysubsubsection{\texorpdfstring{m\_tileSize}{m\_tileSize}}
 {\footnotesize\ttfamily QSize Sprite\+Renderer\+::m\+\_\+tile\+Size\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Cached images for tiles and characters. 
 
 
 

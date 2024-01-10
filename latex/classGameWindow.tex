@@ -49,11 +49,11 @@ void \mbox{\hyperlink{classGameWindow_af653f0583990226a1e87f80cba037be5}{set\+Co
 \mbox{\hyperlink{classGameWindow_a55b071c0390e45c064a160c1e6baaa08}{$\sim$\+Game\+Window}} ()
 \item 
 QPointer$<$ \mbox{\hyperlink{classGameController}{Game\+Controller}} $>$ \mbox{\hyperlink{classGameWindow_a3fa54fa03c0cfc36a06cf500a49280ea}{get\+Controller}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Getter for controller. \end{DoxyCompactList}\item 
 Ui\+::\+Game\+Window $\ast$ \mbox{\hyperlink{classGameWindow_ae78391ca4ad1cb769fc4deb4d4d9b021}{get\+UI}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Getter for the UI. \end{DoxyCompactList}\item 
 QTimer $\ast$ \mbox{\hyperlink{classGameWindow_aeb4113601fad39a5340971263d7533f1}{get\+Timer}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Getter for the timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -358,8 +358,12 @@ game\+Over displays summary pop up message when the game is over, captures contr
 {\footnotesize\ttfamily QPointer$<$\mbox{\hyperlink{classGameController}{Game\+Controller}}$>$ Game\+Window\+::get\+Controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+Getter for controller. 
+
+
 \begin{DoxyCode}{0}
-\DoxyCodeLine{41 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameWindow_ae702455e54ba62e577d5c612c74bd57a}{m\_controller}}; \}}
+\DoxyCodeLine{42 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameWindow_ae702455e54ba62e577d5c612c74bd57a}{m\_controller}}; \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameWindow_aeb4113601fad39a5340971263d7533f1}\label{classGameWindow_aeb4113601fad39a5340971263d7533f1}} 
@@ -369,8 +373,12 @@ game\+Over displays summary pop up message when the game is over, captures contr
 {\footnotesize\ttfamily QTimer$\ast$ Game\+Window\+::get\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+Getter for the timer. 
+
+
 \begin{DoxyCode}{0}
-\DoxyCodeLine{43 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameWindow_ad3df2e435ee17f3fd669b7aca1501758}{m\_timer}}; \}}
+\DoxyCodeLine{50 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameWindow_ad3df2e435ee17f3fd669b7aca1501758}{m\_timer}}; \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameWindow_ae78391ca4ad1cb769fc4deb4d4d9b021}\label{classGameWindow_ae78391ca4ad1cb769fc4deb4d4d9b021}} 
@@ -380,8 +388,12 @@ game\+Over displays summary pop up message when the game is over, captures contr
 {\footnotesize\ttfamily Ui\+::\+Game\+Window$\ast$ Game\+Window\+::get\+UI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+Getter for the UI. 
+
+
 \begin{DoxyCode}{0}
-\DoxyCodeLine{42 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameWindow_ad0010c00d627fea54734002e209f74eb}{m\_ui}}; \}}
+\DoxyCodeLine{46 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameWindow_ad0010c00d627fea54734002e209f74eb}{m\_ui}}; \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameWindow_aae0d95d51328149fcb56f2db7f53ad89}\label{classGameWindow_aae0d95d51328149fcb56f2db7f53ad89}} 

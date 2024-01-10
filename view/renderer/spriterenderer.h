@@ -22,7 +22,6 @@ public:
     SpriteRenderer() {
         m_characters = QImage(":/images/characters.png");
         m_tiles = QImage(":/images/tiles.png");
-
         m_charSize = QSize(m_characters.width() / CHAR_MAX_X, m_characters.height() / CHAR_MAX_Y);
         m_tileSize = QSize(m_tiles.width() / TILE_COUNT, m_tiles.width() / TILE_COUNT);
     }
@@ -58,20 +57,20 @@ public:
 
     /**
      * @brief renderGameObject Overloaded function from Renderer. Converts the data into the appropriate Sprite.
-     * @param data The GameObject data The GameObject data.
-     * @param item The GamePixmapItem to write the data on.
      * This function adds animations or changes colors depending on the data. It does not actually re-render
      * the sprites every time data is changed.
+     * @param data The GameObject data The GameObject data.
+     * @param item The GamePixmapItem to write the data on.
      */
     void renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) override;
 
     /**
      * @brief renderGameObject Overloaded from Renderer. Makes a new GamePixmapItem and adds the appropriate sprite.
-     * @param data The GameObject data
-     * @return A GamePixmapItem containing a sprite sheets for the correct GameObject.
      * This function is only run once in the SpriteRenderer. Which means that changes to the objects are
      * applied to the same sprite. The other renderers do not have this feature since the bulk of the changes
      * are very difficult to animate using parameters and not generalizable.
+     * @param data The GameObject data
+     * @return A GamePixmapItem containing a sprite sheets for the correct GameObject.
      */
     GamePixmapItem *renderGameObject(QMap<DataRole, QVariant> data) override;
 
@@ -114,11 +113,19 @@ private:
      */
     QPropertyAnimation *animateDeath(QPoint frame);
 
-    // Cached images for tiles and characters.
+    ///@{
+    /**
+     * @brief  Cached images for tiles and characters.
+     */
     QImage m_tiles, m_characters;
+    ///@}
 
-    // Cached sizes for the images.
+    ///@{
+    /**
+     * @brief  Cached Cached sizes for the images.
+     */
     QSize m_charSize, m_tileSize;
+    ///@}
 };
 
 #endif // SPRITERENDERER_H

@@ -25,17 +25,17 @@ public:
 
     /**
      * @brief renderGameObject creates GamePixmapItem and sets the objectData on it
+     * This function is overloaded in some child classes of Renderer
      * @param objectData The GameObject data to set on the item
      * @param item The GamePixmapItem which is teh separate tile in the world
-     * This function is overloaded in some child classes of Renderer
      */
     virtual GamePixmapItem *renderGameObject(QMap<DataRole, QVariant> objectData);
 
     /**
      * @brief renderGameObject applies latest change to the object visually to show change of the state
+     * Gets overloaded in Renderer's child classes
      * @param objectData the data of the item
      * @param item the item to animate changes of
-     * Gets overloaded in Renderer's child classes
      */
     virtual void renderGameObject(QMap<DataRole, QVariant> objectData, GamePixmapItem *item);
 

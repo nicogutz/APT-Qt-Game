@@ -10,10 +10,10 @@ class TextRenderer : public Renderer {
 public:
     /**
      * @brief renderGameObject Makes the ASCII text images from the given data.
-     * @param data The GameObject data
-     * @param item The Pixmap item
      * Since the changes done by this renderer are difficult to animate, the
      * items that change are re rendered every time.
+     * @param data The GameObject data
+     * @param item The Pixmap item
      */
     void renderGameObject(QMap<DataRole, QVariant> data, GamePixmapItem *item) override;
 
@@ -27,12 +27,12 @@ private:
 
     /**
      * @brief renderCharacter Generalized rendering of objects
+     * Since not all characters are oriented in the same way,
+     * some need to rotate relative to the 0 deg of the game.
      * @param str The string representing the object
      * @param color RGB Color to show the image
      * @param direction The direction to rotate the pixmap.
      * @return QImage The image based on the characters in str.
-     * Since not all characters are oriented in the same way,
-     * some need to rotate relative to the 0 deg of the game.
      */
     QImage renderCharacter(QString str, QColor color, int direction = 0);
 };

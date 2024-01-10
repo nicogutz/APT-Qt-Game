@@ -1,0 +1,5 @@
+<map id="GenericHealingBehavior" name="GenericHealingBehavior">
+<area shape="rect" id="node1" title="The GenericHealingBehavior class handles behavior of objects that heal others." alt="" coords="27,520,221,700"/>
+<area shape="rect" id="node2" href="$classHealth.html" title="The Health class is an abstract class that handles health behaviors. This class is abstract to avoid ..." alt="" coords="5,219,243,472"/>
+<area shape="rect" id="node3" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="29,5,219,171"/>
+</map>

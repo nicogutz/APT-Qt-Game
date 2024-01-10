@@ -28,6 +28,9 @@ public:
     };
 
 protected:
+    /**
+     * @brief m_owner the GameObject this behavior belongs to.
+     */
     QPointer<GameObject> m_owner;
 };
 #endif // BEHAVIOR_H

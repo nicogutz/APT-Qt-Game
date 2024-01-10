@@ -8,13 +8,12 @@
 
 /**
  * @brief The ObjectModelFactory class is responsible for creating and populating the game world model.
- *        It includes methods to generate the game world grid and pathfinding nodes.
+ * It includes methods to generate the game world grid and pathfinding nodes.
  */
 class ObjectModelFactory {
 public:
     /**
      * @brief Creates a game model consisting of a grid of GameObjects and pathfinding nodes.
-     *
      * @param nrOfEnemies The number of enemies to create.
      * @param nrOfHealthpacks The number of health packs to create.
      * @param pRatio The poison ratio, affects the generation of poison tiles/enemies.
@@ -28,7 +27,6 @@ public:
 
     /**
      * @brief Generates a world image based on Perlin noise to simulate terrain. Used in world creation.
-     *
      * @param width The width of the world (image) to generate.
      * @param height The height of the world (image) to generate.
      * @param difficulty The difficulty factor, influencing the generation of the Perlin noise terrain.

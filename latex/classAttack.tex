@@ -22,7 +22,7 @@ Inheritance diagram for Attack\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structAttack_1_1SETTINGS}{SETTINGS}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Settings of the \mbox{\hyperlink{classAttack}{Attack}} \mbox{\hyperlink{classBehavior}{Behavior}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -41,7 +41,7 @@ virtual int \mbox{\hyperlink{classAttack_adebc3f42c4e60f7c72e024ba3ee164a3}{atta
 virtual int \mbox{\hyperlink{classAttack_aa64577a5b760b6c89370df954c7fb40b}{attack}} ()=0
 \begin{DoxyCompactList}\small\item\em attack in the direction the owner is facing. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classAttack_aa256ee1d560a29116883e67b329d74ff}{get\+Attacked}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&by, int strength)=0
-\begin{DoxyCompactList}\small\item\em get\+Attacked this is called by the attack function whenever owner attacks target. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em get\+Attacked this is called by the attack function whenever owner attacks target. This function can be implemented differently for things that cannot be attacked or that behave differently when attacked. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -163,7 +163,7 @@ Implemented in \mbox{\hyperlink{classGenericAttackBehavior_ad4f45b163593a3545c9b
 
 
 
-get\+Attacked this is called by the attack function whenever owner attacks target. 
+get\+Attacked this is called by the attack function whenever owner attacks target. This function can be implemented differently for things that cannot be attacked or that behave differently when attacked. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -171,7 +171,7 @@ get\+Attacked this is called by the attack function whenever owner attacks targe
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the health loss. This function can be implemented differently for things that cannot be attacked or that behave differently when attacked. 
+the health loss. 
 \end{DoxyReturn}
 
 

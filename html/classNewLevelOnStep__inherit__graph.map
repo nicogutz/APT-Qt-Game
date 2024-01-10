@@ -1,0 +1,6 @@
+<map id="NewLevelOnStep" name="NewLevelOnStep">
+<area shape="rect" id="node1" title="The NewLevelOnStep class handles the stepping on objects that move the protagonist to a new level." alt="" coords="9,792,220,943"/>
+<area shape="rect" id="node2" href="$classGenericWalkableBehavior.html" title="The GenericWalkableBehavior class simply returns true on the function isSteppable." alt="" coords="13,579,217,744"/>
+<area shape="rect" id="node3" href="$classMovement.html" title="The Movement class handles the actions of moving. It is an abstract class. All the functions return f..." alt="" coords="5,219,224,531"/>
+<area shape="rect" id="node4" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="20,5,209,171"/>
+</map>

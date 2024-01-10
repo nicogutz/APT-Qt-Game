@@ -22,11 +22,17 @@ public:
     virtual ~Attack() = 0;
     Attack &operator=(const Attack &) { return *this; };
 
-    // Settings for the Attack Behavior
+    /**
+     * @brief Settings of the Attack Behavior
+     **/
     static const struct SETTINGS {
-        // These decide the upper range for the attack strength randint.
+        ///@{
+        /**
+         * @brief These decide the upper range for the attack strength randint.
+         */
         static constexpr int PLAYER_STRENGTH = 30;
         static constexpr int ENEMY_STRENGTH = 5;
+        ///@}
     } Settings;
 
     /**
@@ -48,10 +54,10 @@ public:
     virtual int attack() = 0;
     /**
      * @brief getAttacked this is called by the attack function whenever owner attacks target.
-     * @param strength the amount it is being attacked with.
-     * @return the health loss.
      * This function can be implemented differently for things that cannot be attacked or that
      * behave differently when attacked.
+     * @param strength the amount it is being attacked with.
+     * @return the health loss.
      */
     virtual int getAttacked(const QPointer<GameObject> &by, int strength) = 0;
 };

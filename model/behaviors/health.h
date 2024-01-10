@@ -39,11 +39,11 @@ public:
 
     /**
      * @brief heal heals an object.
-     * @param target object to heal.
-     * @return amount healed.
      * It is important to differentiate a simple health change and healing.
      * Healing can involve more than simply changing health. For example,
      * it can remove poison on the target, it can decrease the health of the owner, etc.
+     * @param target object to heal.
+     * @return amount healed.
      */
     virtual int heal(const QPointer<GameObject> &target) {
         return 0;

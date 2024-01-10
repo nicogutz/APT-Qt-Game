@@ -26,7 +26,7 @@ Inheritance diagram for Generic\+Attack\+Behavior\+:\nopagebreak
 \mbox{\hyperlink{classGenericAttackBehavior_afd436666b7bb1334bfaa7ff1a8966028}{Generic\+Attack\+Behavior}} ()=delete
 \item 
 int \mbox{\hyperlink{classGenericAttackBehavior_a94fd29737127d2eeddbcdd7561f30c47}{attack}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&target) override
-\begin{DoxyCompactList}\small\item\em attack this attacks the target with a random strength between 1 and the object strength. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em attack this attacks the target with a random strength between 1 and the object strength. It simply gets all behaviors from the target and calls the getattacked function. If the target itself is not attackable but any of its children are, it will work. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classGenericAttackBehavior_ad4f45b163593a3545c9bcdd51fc48f22}{attack}} (\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} direction) override
 \begin{DoxyCompactList}\small\item\em attack overloaded function, attacks on a direction relative to the owner. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classGenericAttackBehavior_a619f4febb3487333cfe3c1f490236b2f}{attack}} () override
@@ -101,7 +101,7 @@ Implements \mbox{\hyperlink{classAttack_aa64577a5b760b6c89370df954c7fb40b}{Attac
 
 
 
-attack this attacks the target with a random strength between 1 and the object strength. 
+attack this attacks the target with a random strength between 1 and the object strength. It simply gets all behaviors from the target and calls the getattacked function. If the target itself is not attackable but any of its children are, it will work. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -109,7 +109,7 @@ attack this attacks the target with a random strength between 1 and the object s
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the health lost by target and all its children. It simply gets all behaviors from the target and calls the getattacked function. If the target itself is not attackable but any of its children are, it will work. 
+the health lost by target and all its children. 
 \end{DoxyReturn}
 
 

@@ -31,28 +31,6 @@ enum class \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56
 , \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56aacb5feb1b7314637725a2e73bdc9f7295}{Color}}
  \}
 \begin{DoxyCompactList}\small\item\em The View enum, Game visualizations can be Text, Color or Sprites. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Slots}
-\begin{DoxyCompactItemize}
-\item 
-void \mbox{\hyperlink{classGameController_a3f4073cbb82f746edff117c0ab230d5b}{path\+Finder}} (int x=-\/1, int y=-\/1)
-\begin{DoxyCompactList}\small\item\em path\+Finder automatically routes the protagonist to given position using the algorithm for the shortest path. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Signals}
-\begin{DoxyCompactItemize}
-\item 
-void \mbox{\hyperlink{classGameController_ad1f97b1326b012f47a1554a632a4df8c}{tick}} ()
-\begin{DoxyCompactList}\small\item\em tick Emitted when a turn is complete. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classGameController_a39ea35f344f2d5d794566992622e0190}{game\+Over}} ()
-\begin{DoxyCompactList}\small\item\em game\+Over This is emitted when the game is over. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classGameController_afe1e5d8bc12980a887614605637a3baf}{energy\+Updated}} (int energy)
-\begin{DoxyCompactList}\small\item\em energy\+Updated Emitted whenever the protagonist energy level changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classGameController_acf37aad7d4bf2cf5ad5e9ef33a19ddca}{health\+Updated}} (int health)
-\begin{DoxyCompactList}\small\item\em health\+Updated Emitted whenever the protagonist health level changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classGameController_a7b222fd2209a36d9eff9e5af5083c269}{enemies\+Updated}} (int enemies)
-\begin{DoxyCompactList}\small\item\em enemies\+Updated Emitted when the level of the game changes and thus the number of enemies for that level, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classGameController_a6cbccba776343a18f22b6b947497a579}{health\+Packs\+Updated}} (int health\+\_\+packs)
-\begin{DoxyCompactList}\small\item\em health\+Packs\+Updated Emitted when the level of the game changes and thus the number of health packs for that level, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classGameController_ab35fc801d7a66c1a6ff2fd82fba3ec1b}{level\+Updated}} (int level)
-\begin{DoxyCompactList}\small\item\em level\+Updated Emitted when the level of the game changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -81,25 +59,7 @@ void \mbox{\hyperlink{classGameController_a34cbdcbd10284103b963a0b3de449d32}{cre
 void \mbox{\hyperlink{classGameController_ad3471a5cf092b33a4b890a28cb9f51b1}{automatic\+Attack}} ()
 \begin{DoxyCompactList}\small\item\em automatic\+Attack \mbox{\hyperlink{classAttack}{Attack}} function used by the pathfinder, to automatically attack enemies in the path or when the enrgy is low. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classGameController_a864fe37458306e9956eb023d6ddb6cea}{execute\+Path}} (std\+::vector$<$ int $>$ path, bool fully=false)
-\begin{DoxyCompactList}\small\item\em execute\+Path Executes the moves returned y the pathfinder. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classGameController_a3f35bf7c9b399ad12ab584cc6e4c021d}{set\+State}} (\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} new\+\_\+state)
-\item 
-void \mbox{\hyperlink{classGameController_af09a892ccc90ebb5bd67bc093db92fde}{set\+View}} (QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$ view)
-\item 
-\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} \mbox{\hyperlink{classGameController_ace9f3965a3c03ec38e03e5ae86822584}{get\+State}} ()
-\item 
-QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$ \mbox{\hyperlink{classGameController_ae195431684531ae10bcfb4988135ef98}{get\+View}} ()
-\item 
-\mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} \mbox{\hyperlink{classGameController_a285e4524bfbebe69aabf45d9b7c76c55}{get\+Game\+View}} ()
-\end{DoxyCompactItemize}
-\doxysubsection*{Private Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-void \mbox{\hyperlink{classGameController_a2148e50c6ef23d1f16c7db448a84e1a7}{disconnect\+Current\+Model}} ()
-\begin{DoxyCompactList}\small\item\em disconnect\+Current\+Model disconnects current model upon changing levels. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classGameController_ad57c31609ee0a2cb9fa44c6a30bf5595}{connect\+Current\+Model}} ()
-\begin{DoxyCompactList}\small\item\em connect\+Current\+Model connects new level model. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Private Attributes}
+\begin{DoxyCompactList}\small\item\em execute\+Path Executes the moves returned y the pathfinder. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \begin{DoxyCompactItemize}
 \item 
 QList$<$ QPair$<$ \mbox{\hyperlink{classGameObjectModel}{Game\+Object\+Model}} $\ast$, std\+::vector$<$ \mbox{\hyperlink{structNode}{Node}} $>$ $>$ $>$ \mbox{\hyperlink{classGameController_aab58e3c1ae1b93c1203e177adecb8392}{m\+\_\+models}}
@@ -119,7 +79,37 @@ int \mbox{\hyperlink{classGameController_a319336ac7807c6a46397e6bf9596396f}{m\+\
 int \mbox{\hyperlink{classGameController_a43933b5d9d2d1a5bf91028df281b955b}{m\+\_\+enemies}}
 \begin{DoxyCompactList}\small\item\em m\+\_\+enemies Number of current enemies in the game. \end{DoxyCompactList}\item 
 QSize \mbox{\hyperlink{classGameController_a449e29b37a909aac5896f30d020547fb}{m\+\_\+level\+Size}}
-\begin{DoxyCompactList}\small\item\em m\+\_\+level\+Size Size of the levels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em m\+\_\+level\+Size Size of the levels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a3f35bf7c9b399ad12ab584cc6e4c021d}{set\+State}} (\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} new\+\_\+state)
+\begin{DoxyCompactList}\small\item\em Getters and setters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_af09a892ccc90ebb5bd67bc093db92fde}{set\+View}} (QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$ view)
+\begin{DoxyCompactList}\small\item\em m\+\_\+model List of the different game models for different levels, holds all game data and logic. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} \mbox{\hyperlink{classGameController_ace9f3965a3c03ec38e03e5ae86822584}{get\+State}} ()
+\begin{DoxyCompactList}\small\item\em m\+\_\+model List of the different game models for different levels, holds all game data and logic. \end{DoxyCompactList}\item 
+QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$ \mbox{\hyperlink{classGameController_ae195431684531ae10bcfb4988135ef98}{get\+View}} ()
+\begin{DoxyCompactList}\small\item\em m\+\_\+model List of the different game models for different levels, holds all game data and logic. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} \mbox{\hyperlink{classGameController_a285e4524bfbebe69aabf45d9b7c76c55}{get\+Game\+View}} ()
+\begin{DoxyCompactList}\small\item\em m\+\_\+model List of the different game models for different levels, holds all game data and logic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a3f4073cbb82f746edff117c0ab230d5b}{path\+Finder}} (int x=-\/1, int y=-\/1)
+\begin{DoxyCompactList}\small\item\em \}@ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ad1f97b1326b012f47a1554a632a4df8c}{tick}} ()
+\begin{DoxyCompactList}\small\item\em tick Emitted when a turn is complete. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a39ea35f344f2d5d794566992622e0190}{game\+Over}} ()
+\begin{DoxyCompactList}\small\item\em game\+Over This is emitted when the game is over. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_afe1e5d8bc12980a887614605637a3baf}{energy\+Updated}} (int energy)
+\begin{DoxyCompactList}\small\item\em energy\+Updated Emitted whenever the protagonist energy level changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_acf37aad7d4bf2cf5ad5e9ef33a19ddca}{health\+Updated}} (int health)
+\begin{DoxyCompactList}\small\item\em health\+Updated Emitted whenever the protagonist health level changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a7b222fd2209a36d9eff9e5af5083c269}{enemies\+Updated}} (int enemies)
+\begin{DoxyCompactList}\small\item\em enemies\+Updated Emitted when the level of the game changes and thus the number of enemies for that level, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a6cbccba776343a18f22b6b947497a579}{health\+Packs\+Updated}} (int health\+\_\+packs)
+\begin{DoxyCompactList}\small\item\em health\+Packs\+Updated Emitted when the level of the game changes and thus the number of health packs for that level, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ab35fc801d7a66c1a6ff2fd82fba3ec1b}{level\+Updated}} (int level)
+\begin{DoxyCompactList}\small\item\em level\+Updated Emitted when the level of the game changes, captured by \mbox{\hyperlink{classGameWindow}{Game\+Window}} to be displayed in the UI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_a2148e50c6ef23d1f16c7db448a84e1a7}{disconnect\+Current\+Model}} ()
+\begin{DoxyCompactList}\small\item\em disconnect\+Current\+Model disconnects current model upon changing levels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameController_ad57c31609ee0a2cb9fa44c6a30bf5595}{connect\+Current\+Model}} ()
+\begin{DoxyCompactList}\small\item\em connect\+Current\+Model connects new level model. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -572,8 +562,12 @@ game\+Over This is emitted when the game is over.
 {\footnotesize\ttfamily \mbox{\hyperlink{classGameController_a6bfff5b5f6dc78b5eb805045300aa56a}{View}} Game\+Controller\+::get\+Game\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+m\+\_\+model List of the different game models for different levels, holds all game data and logic. 
+
+
 \begin{DoxyCode}{0}
-\DoxyCodeLine{109 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a0813a389b2d8de62738b143e85cfdcf0}{m\_gameView}}; \} \textcolor{comment}{// Visualization enum}}
+\DoxyCodeLine{111 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a0813a389b2d8de62738b143e85cfdcf0}{m\_gameView}}; \} \textcolor{comment}{// Visualization enum}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameController_ace9f3965a3c03ec38e03e5ae86822584}\label{classGameController_ace9f3965a3c03ec38e03e5ae86822584}} 
@@ -583,8 +577,12 @@ game\+Over This is emitted when the game is over.
 {\footnotesize\ttfamily \mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}} Game\+Controller\+::get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+m\+\_\+model List of the different game models for different levels, holds all game data and logic. 
+
+
 \begin{DoxyCode}{0}
-\DoxyCodeLine{107 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}}; \}}
+\DoxyCodeLine{109 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}}; \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameController_ae195431684531ae10bcfb4988135ef98}\label{classGameController_ae195431684531ae10bcfb4988135ef98}} 
@@ -594,8 +592,12 @@ game\+Over This is emitted when the game is over.
 {\footnotesize\ttfamily QShared\+Pointer$<$\mbox{\hyperlink{classGameView}{Game\+View}}$>$ Game\+Controller\+::get\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+m\+\_\+model List of the different game models for different levels, holds all game data and logic. 
+
+
 \begin{DoxyCode}{0}
-\DoxyCodeLine{108 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}; \} \textcolor{comment}{// GameView}}
+\DoxyCodeLine{110 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}}; \} \textcolor{comment}{// GameView}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameController_a6cbccba776343a18f22b6b947497a579}\label{classGameController_a6cbccba776343a18f22b6b947497a579}} 
@@ -651,9 +653,9 @@ level\+Updated Emitted when the level of the game changes, captured by \mbox{\hy
 
 
 
+\}@ 
+
 path\+Finder automatically routes the protagonist to given position using the algorithm for the shortest path. 
-
-
 \begin{DoxyParams}{Parameters}
 {\em x} & coordinate of the world grid. \\
 \hline
@@ -704,8 +706,12 @@ path\+Finder automatically routes the protagonist to given position using the al
 {\footnotesize\ttfamily void Game\+Controller\+::set\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGameController_a4c909f028df5384a8579fc5cbca86008}{State}}}]{new\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+Getters and setters. 
+
+
 \begin{DoxyCode}{0}
-\DoxyCodeLine{105 \{ \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} = new\_state; \}}
+\DoxyCodeLine{107 \{ \mbox{\hyperlink{classGameController_a7608b587849e253e44da2d5705f836b3}{m\_gameState}} = new\_state; \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameController_af09a892ccc90ebb5bd67bc093db92fde}\label{classGameController_af09a892ccc90ebb5bd67bc093db92fde}} 
@@ -715,8 +721,12 @@ path\+Finder automatically routes the protagonist to given position using the al
 {\footnotesize\ttfamily void Game\+Controller\+::set\+View (\begin{DoxyParamCaption}\item[{QShared\+Pointer$<$ \mbox{\hyperlink{classGameView}{Game\+View}} $>$}]{view }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+m\+\_\+model List of the different game models for different levels, holds all game data and logic. 
+
+
 \begin{DoxyCode}{0}
-\DoxyCodeLine{106 \{ \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}} = view; \} \textcolor{comment}{// GameView}}
+\DoxyCodeLine{108 \{ \mbox{\hyperlink{classGameController_a9b08579f7ec275fcf5a94b2fbd34c107}{m\_view}} = view; \} \textcolor{comment}{// GameView}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameController_a8f30ab3ff471ac0a5c8b88dc7fea45f4}\label{classGameController_a8f30ab3ff471ac0a5c8b88dc7fea45f4}} 

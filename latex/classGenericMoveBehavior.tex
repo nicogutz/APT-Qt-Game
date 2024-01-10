@@ -26,7 +26,7 @@ Inheritance diagram for Generic\+Move\+Behavior\+:\nopagebreak
 \mbox{\hyperlink{classGenericMoveBehavior_a5f92dc2281f9cb43b5f795ee87fec7b6}{Generic\+Move\+Behavior}} ()=delete
 \item 
 bool \mbox{\hyperlink{classGenericMoveBehavior_aa653e8918e98a56557d1af89f1ab34e5}{step\+On}} (QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ target) override
-\begin{DoxyCompactList}\small\item\em step\+On moves on top of a target. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em step\+On moves on top of a target. The step\+On function checks if everything in the target has a \mbox{\hyperlink{classMovement}{Movement}} behavior, and if it does it checks that everything is steppable. If either is false, it will not step on the target. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classGenericMoveBehavior_a5bd2223e2156404c8efa2b928ef9cf8e}{step\+On}} (\mbox{\hyperlink{namespace__pub_aceb36dd0edefc86835061a00052d3ae0}{Direction}} direction) override
 \begin{DoxyCompactList}\small\item\em step\+On overrides the step\+On function on a direction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
@@ -114,7 +114,7 @@ Reimplemented from \mbox{\hyperlink{classMovement_aa5b2cde0d02fd20fe14906504541e
 
 
 
-step\+On moves on top of a target. 
+step\+On moves on top of a target. The step\+On function checks if everything in the target has a \mbox{\hyperlink{classMovement}{Movement}} behavior, and if it does it checks that everything is steppable. If either is false, it will not step on the target. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -122,7 +122,7 @@ step\+On moves on top of a target.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-true if it was able to. The step\+On function checks if everything in the target has a \mbox{\hyperlink{classMovement}{Movement}} behavior, and if it does it checks that everything is steppable. If either is false, it will not step on the target. 
+true if it was able to. 
 \end{DoxyReturn}
 
 

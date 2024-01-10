@@ -16,11 +16,11 @@ public:
     GenericMoveBehavior() = delete;
     /**
      * @brief stepOn moves on top of a target.
-     * @param target to step on.
-     * @return true if it was able to.
      * The stepOn function checks if everything in the target has a Movement behavior,
      * and if it does it checks that everything is steppable. If either is false,
      * it will not step on the target.
+     * @param target to step on.
+     * @return true if it was able to.
      */
     bool stepOn(QPointer<GameObject> target) override;
     /**

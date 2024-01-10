@@ -31,8 +31,9 @@ public:
         return *this;
     };
 
-    // Movement settings
+    /// Movement settings
     static const struct SETTINGS {
+        /// Max energy for a GameObject
         static constexpr int MAX_ENERGY = 100;
     } Settings;
 

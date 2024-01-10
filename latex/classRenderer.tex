@@ -11,7 +11,8 @@ The \mbox{\hyperlink{classRenderer}{Renderer}} class is a base class for the ren
 
 
 
-Inheritance diagram for Renderer\+:\nopagebreak
+Inheritance diagram for Renderer\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -26,9 +27,9 @@ virtual \mbox{\hyperlink{classRenderer_aba42b60392775e4a492c4d14d4fff29f}{$\sim$
 \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$ \mbox{\hyperlink{classRenderer_ab760d69bc781781e29c4249721dfb487}{render\+Game\+Objects}} (QList$<$ QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$$>$ object\+Data)
 \begin{DoxyCompactList}\small\item\em render\+Game\+Objects renders the initial state of the world \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$ \mbox{\hyperlink{classRenderer_ac9a3073d563bc905a2d8244805f54727}{render\+Game\+Object}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ object\+Data)
-\begin{DoxyCompactList}\small\item\em render\+Game\+Object creates \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and sets the object\+Data on it \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em render\+Game\+Object creates \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and sets the object\+Data on it This function is overloaded in some child classes of \mbox{\hyperlink{classRenderer}{Renderer}} \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classRenderer_a342fd69a2cc4865d0b5df3fe310de8b0}{render\+Game\+Object}} (QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ object\+Data, \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} $\ast$item)
-\begin{DoxyCompactList}\small\item\em render\+Game\+Object applies latest change to the object visually to show change of the state \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em render\+Game\+Object applies latest change to the object visually to show change of the state Gets overloaded in \mbox{\hyperlink{classRenderer}{Renderer}}\textquotesingle{}s child classes \end{DoxyCompactList}\item 
 QPixmap \mbox{\hyperlink{classRenderer_a408a89554240661033564b849d64bcac}{rotate\+Pixmap}} (const QPixmap \&original\+Pixmap, int direction)
 \begin{DoxyCompactList}\small\item\em rotate\+Pixmap rotated the pixmap based on direction \end{DoxyCompactList}\item 
 QImage \mbox{\hyperlink{classRenderer_acd5de2ac3858e3b4610359c028c99f2e}{rotate\+Image}} (const QImage \&image, int direction)
@@ -278,13 +279,13 @@ QProperty\+Animation
 
 
 
-render\+Game\+Object creates \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and sets the object\+Data on it 
+render\+Game\+Object creates \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} and sets the object\+Data on it This function is overloaded in some child classes of \mbox{\hyperlink{classRenderer}{Renderer}} 
 
 
 \begin{DoxyParams}{Parameters}
 {\em object\+Data} & The \mbox{\hyperlink{classGameObject}{Game\+Object}} data to set on the item \\
 \hline
-{\em item} & The \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} which is teh separate tile in the world This function is overloaded in some child classes of \mbox{\hyperlink{classRenderer}{Renderer}} \\
+{\em item} & The \mbox{\hyperlink{classGamePixmapItem}{Game\+Pixmap\+Item}} which is teh separate tile in the world \\
 \hline
 \end{DoxyParams}
 
@@ -308,13 +309,13 @@ Reimplemented in \mbox{\hyperlink{classSpriteRenderer_ae29363de8d4ae5d1c34cc7c03
 
 
 
-render\+Game\+Object applies latest change to the object visually to show change of the state 
+render\+Game\+Object applies latest change to the object visually to show change of the state Gets overloaded in \mbox{\hyperlink{classRenderer}{Renderer}}\textquotesingle{}s child classes 
 
 
 \begin{DoxyParams}{Parameters}
 {\em object\+Data} & the data of the item \\
 \hline
-{\em item} & the item to animate changes of Gets overloaded in \mbox{\hyperlink{classRenderer}{Renderer}}\textquotesingle{}s child classes \\
+{\em item} & the item to animate changes of \\
 \hline
 \end{DoxyParams}
 

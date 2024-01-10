@@ -76,7 +76,6 @@ public:
      */
     void setData(QList<QPair<DataRole, QVariant>> data);
 
-    // Neighbors getters and setters.
     /**
      * @brief Gets all neighboring GameObjects.
      * @param offset The offset to consider for neighbors.
@@ -99,8 +98,6 @@ public:
      * @return A pointer to the neighboring GameObject.
      */
     const QPointer<GameObject> getNeighbor(Direction direction, int offset = 0) const;
-
-    // Behavior getters and setters
     /**
      * @brief Sets a behavior for the GameObject.
      * @param behavior The behavior to set.
@@ -125,6 +122,7 @@ public:
     void removeBehavior() {
         m_behaviors.remove(typeid(T));
     }
+
     /**
      * @brief Gets all behaviors of the GameObject.
      * @return A list of shared pointers to the behaviors.
@@ -208,8 +206,14 @@ public:
     const QPointer<GameObject> findChild(QPair<ObjectType, ObjectType> range);
 
 private:
-    QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors; /**< Map of Behavior types to their shared pointers. */
-    QMap<DataRole, QVariant> m_objectData; /**< Map of data roles to their values. */
+    /**
+     * @brief m_behaviors Map of Behavior std::type_index to their shared pointers.
+     */
+    QMap<std::type_index, QSharedPointer<Behavior>> m_behaviors;
+    /**
+     * @brief m_behaviors Map of DataRole to their values QVariant.
+     */
+    QMap<DataRole, QVariant> m_objectData;
 
 signals:
     /**
@@ -217,7 +221,6 @@ signals:
      * @param objectData The changed data of the GameObject.
      */
     void dataChanged(QMap<DataRole, QVariant> objectData);
-
     /**
      * @brief Signal emitted to indicate a game tick.
      */

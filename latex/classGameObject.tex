@@ -82,9 +82,9 @@ const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \mbox{\hy
 \begin{DoxyCompactItemize}
 \item 
 QMap$<$ std\+::type\+\_\+index, QShared\+Pointer$<$ \mbox{\hyperlink{classBehavior}{Behavior}} $>$ $>$ \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\+\_\+behaviors}}
-\item 
+\begin{DoxyCompactList}\small\item\em m\+\_\+behaviors Map of \mbox{\hyperlink{classBehavior}{Behavior}} std\+::type\+\_\+index to their shared pointers. \end{DoxyCompactList}\item 
 QMap$<$ \mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant $>$ \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\+\_\+object\+Data}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em m\+\_\+behaviors Map of Data\+Role to their values QVariant. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -281,15 +281,15 @@ A list of shared pointers to the behaviors.
 \end{DoxyReturn}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{133                                                            \{}
-\DoxyCodeLine{134         \textcolor{keyword}{auto} list = QList<QSharedPointer<T>>();}
-\DoxyCodeLine{135         list.append(qSharedPointerDynamicCast<T>(\mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)]));}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{137         \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} *child : findChildren<GameObject *>()) \{}
-\DoxyCodeLine{138             list.append(qSharedPointerDynamicCast<T>(child-\/>getBehavior<T>()));}
-\DoxyCodeLine{139         \}}
-\DoxyCodeLine{140         \textcolor{keywordflow}{return} list;}
-\DoxyCodeLine{141     \};}
+\DoxyCodeLine{132                                                            \{}
+\DoxyCodeLine{133         \textcolor{keyword}{auto} list = QList<QSharedPointer<T>>();}
+\DoxyCodeLine{134         list.append(qSharedPointerDynamicCast<T>(\mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)]));}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136         \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} *child : findChildren<GameObject *>()) \{}
+\DoxyCodeLine{137             list.append(qSharedPointerDynamicCast<T>(child-\/>getBehavior<T>()));}
+\DoxyCodeLine{138         \}}
+\DoxyCodeLine{139         \textcolor{keywordflow}{return} list;}
+\DoxyCodeLine{140     \};}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameObject_a8eb2a3560c771ecd846bc94246ddc7e0}\label{classGameObject_a8eb2a3560c771ecd846bc94246ddc7e0}} 
@@ -376,10 +376,10 @@ A shared pointer to the requested behavior.
 \end{DoxyReturn}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{117                                           \{}
-\DoxyCodeLine{118         \textcolor{keyword}{auto} behavior = \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)];}
-\DoxyCodeLine{119         \textcolor{keywordflow}{return} qSharedPointerDynamicCast<T>(behavior);}
-\DoxyCodeLine{120     \}}
+\DoxyCodeLine{115                                           \{}
+\DoxyCodeLine{116         \textcolor{keyword}{auto} behavior = \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)];}
+\DoxyCodeLine{117         \textcolor{keywordflow}{return} qSharedPointerDynamicCast<T>(behavior);}
+\DoxyCodeLine{118     \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameObject_aacca78691e4d6fcefe51453bdac459b4}\label{classGameObject_aacca78691e4d6fcefe51453bdac459b4}} 
@@ -629,9 +629,9 @@ True if equal.
 \end{DoxyReturn}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{161                                                  \{}
-\DoxyCodeLine{162         \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Type].value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>() == obj;}
-\DoxyCodeLine{163     \}}
+\DoxyCodeLine{160                                                  \{}
+\DoxyCodeLine{161         \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Type].value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>() == obj;}
+\DoxyCodeLine{162     \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameObject_a2db21d08a13e76888d6ee93ede37824c}\label{classGameObject_a2db21d08a13e76888d6ee93ede37824c}} 
@@ -654,9 +654,9 @@ True if equal.
 \end{DoxyReturn}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{171                                                   \{}
-\DoxyCodeLine{172         \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Type].value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>() == type;}
-\DoxyCodeLine{173     \}}
+\DoxyCodeLine{170                                                   \{}
+\DoxyCodeLine{171         \textcolor{keywordflow}{return} \mbox{\hyperlink{classGameObject_a367f86d728131132193d1e3c994bdb06}{m\_objectData}}[DataRole::Type].value<\mbox{\hyperlink{namespace__pub_aa1125206fd6742212fbe0423e12c9dbb}{ObjectType}}>() == type;}
+\DoxyCodeLine{172     \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameObject_a5fcf6597d262c1007d82a4c4cfd2dfa6}\label{classGameObject_a5fcf6597d262c1007d82a4c4cfd2dfa6}} 
@@ -672,9 +672,9 @@ Removes a behavior from the \mbox{\hyperlink{classGameObject}{Game\+Object}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{125                           \{}
-\DoxyCodeLine{126         \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}.remove(\textcolor{keyword}{typeid}(T));}
-\DoxyCodeLine{127     \}}
+\DoxyCodeLine{123                           \{}
+\DoxyCodeLine{124         \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}.remove(\textcolor{keyword}{typeid}(T));}
+\DoxyCodeLine{125     \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameObject_a0ad9e839d13e9da54793255e6b2fc8c8}\label{classGameObject_a0ad9e839d13e9da54793255e6b2fc8c8}} 
@@ -695,9 +695,9 @@ Sets a behavior for the \mbox{\hyperlink{classGameObject}{Game\+Object}}.
 \end{DoxyParams}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{109                                                  \{}
-\DoxyCodeLine{110         \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)] = behavior;}
-\DoxyCodeLine{111     \}}
+\DoxyCodeLine{107                                                  \{}
+\DoxyCodeLine{108         \mbox{\hyperlink{classGameObject_a92d04504c05728ddd1814a343520394b}{m\_behaviors}}[\textcolor{keyword}{typeid}(T)] = behavior;}
+\DoxyCodeLine{109     \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classGameObject_a58cd63e04e71814e53ae045409e6c26c}\label{classGameObject_a58cd63e04e71814e53ae045409e6c26c}} 
@@ -807,13 +807,21 @@ Signal emitted to indicate a game tick.
 \doxysubsubsection{\texorpdfstring{m\_behaviors}{m\_behaviors}}
 {\footnotesize\ttfamily QMap$<$std\+::type\+\_\+index, QShared\+Pointer$<$\mbox{\hyperlink{classBehavior}{Behavior}}$>$ $>$ Game\+Object\+::m\+\_\+behaviors\hspace{0.3cm}{\ttfamily [private]}}
 
-Map of \mbox{\hyperlink{classBehavior}{Behavior}} types to their shared pointers. \mbox{\Hypertarget{classGameObject_a367f86d728131132193d1e3c994bdb06}\label{classGameObject_a367f86d728131132193d1e3c994bdb06}} 
+
+
+m\+\_\+behaviors Map of \mbox{\hyperlink{classBehavior}{Behavior}} std\+::type\+\_\+index to their shared pointers. 
+
+\mbox{\Hypertarget{classGameObject_a367f86d728131132193d1e3c994bdb06}\label{classGameObject_a367f86d728131132193d1e3c994bdb06}} 
 \index{GameObject@{GameObject}!m\_objectData@{m\_objectData}}
 \index{m\_objectData@{m\_objectData}!GameObject@{GameObject}}
 \doxysubsubsection{\texorpdfstring{m\_objectData}{m\_objectData}}
 {\footnotesize\ttfamily QMap$<$\mbox{\hyperlink{namespace__pub_a4b113076a0d9baa622ddf9a4e4b35c19}{Data\+Role}}, QVariant$>$ Game\+Object\+::m\+\_\+object\+Data\hspace{0.3cm}{\ttfamily [private]}}
 
-Map of data roles to their values. 
+
+
+m\+\_\+behaviors Map of Data\+Role to their values QVariant. 
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

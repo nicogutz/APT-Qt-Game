@@ -26,7 +26,7 @@ Inheritance diagram for Generic\+Healing\+Behavior\+:\nopagebreak
 \mbox{\hyperlink{classGenericHealingBehavior_a85c7a0d81bee8c2ce6b9c51de7512a55}{Generic\+Healing\+Behavior}} ()=delete
 \item 
 int \mbox{\hyperlink{classGenericHealingBehavior_a878308dcc22196c03615a72a93e65a08}{heal}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&target) override
-\begin{DoxyCompactList}\small\item\em heal heals target by an amount and cures it of poison. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em heal heals target by an amount and cures it of poison. This will heal the target using as much health as the owner has. If the owner has less health than the target can be healed, it is destroyed after healing. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -71,7 +71,7 @@ The \mbox{\hyperlink{classGenericHealingBehavior}{Generic\+Healing\+Behavior}} c
 
 
 
-heal heals target by an amount and cures it of poison. 
+heal heals target by an amount and cures it of poison. This will heal the target using as much health as the owner has. If the owner has less health than the target can be healed, it is destroyed after healing. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -79,7 +79,7 @@ heal heals target by an amount and cures it of poison.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-amount healed. This will heal the target using as much health as the owner has. If the owner has less health than the target can be healed, it is destroyed after healing. 
+amount healed. 
 \end{DoxyReturn}
 
 

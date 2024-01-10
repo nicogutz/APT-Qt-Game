@@ -22,7 +22,6 @@ class GameObjectSettings {
     /**
      * @brief Settings for Protagonist GameObject.
      */
-
     struct ProtagonistSettings {
         /**
          * @brief Default data for Protagonist.

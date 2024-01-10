@@ -36,10 +36,17 @@ public:
      */
     GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
-
-    // GETTERS
+    /**
+     * @brief Getter for controller.
+     */
     QPointer<GameController> getController() { return m_controller; }
+    /**
+     * @brief Getter for the UI.
+     */
     Ui::GameWindow *getUI() { return m_ui; }
+    /**
+     * @brief Getter for the timer.
+     */
     QTimer *getTimer() { return m_timer; }
 
 private:

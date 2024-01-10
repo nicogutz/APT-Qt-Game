@@ -1,0 +1,7 @@
+<map id="RandomMovementBehavior" name="RandomMovementBehavior">
+<area shape="rect" id="node1" title="The RandomMovementBehavior class makes an object move randomly every tick." alt="" coords="9,836,228,987"/>
+<area shape="rect" id="node2" href="$classQObject.html" title=" " alt="" coords="5,645,80,722"/>
+<area shape="rect" id="node3" href="$classGenericMoveBehavior.html" title="The GenericMoveBehavior class handles movement actions." alt="" coords="104,579,285,788"/>
+<area shape="rect" id="node4" href="$classMovement.html" title="The Movement class handles the actions of moving. It is an abstract class. All the functions return f..." alt="" coords="85,219,304,531"/>
+<area shape="rect" id="node5" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="100,5,289,171"/>
+</map>

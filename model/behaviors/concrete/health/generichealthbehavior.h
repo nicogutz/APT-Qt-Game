@@ -17,13 +17,13 @@ public:
     GenericHealthBehavior() = delete;
     /**
      * @brief getHealthChanged changes the health of an object by a specified amount.
-     * @param amount the amount to change, can be negative.
-     * @return the health changed.
      * This function will change the health up to the MAX_HEALTH and MIN_HEALTH.
      * If the amount to change makes the health lower than MIN_HEALTH, it will
      * cause the object to die. If it makes it bigger than MAX_HEALTH, it will
      * cause the object to heal to the max and returns the difference between
      * current health (before healing) and MAX_HEALTH.
+     * @param amount the amount to change, can be negative.
+     * @return the health changed.
      */
     int getHealthChanged(int amount) override;
     /**

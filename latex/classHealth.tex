@@ -35,7 +35,7 @@ virtual \mbox{\hyperlink{classHealth_a49e15d252f909f0908e77bc175b65a82}{$\sim$\+
 \mbox{\hyperlink{classHealth}{Health}} \& \mbox{\hyperlink{classHealth_abe7ce3300f45e6a5ed8eff34c2812223}{operator=}} (const \mbox{\hyperlink{classHealth}{Health}} \&)
 \item 
 virtual int \mbox{\hyperlink{classHealth_a94f3395c37c1cbe938be776fd62bdbae}{heal}} (const QPointer$<$ \mbox{\hyperlink{classGameObject}{Game\+Object}} $>$ \&target)
-\begin{DoxyCompactList}\small\item\em heal heals an object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em heal heals an object. It is important to differentiate a simple health change and healing. Healing can involve more than simply changing health. For example, it can remove poison on the target, it can decrease the health of the owner, etc. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classHealth_a5b64418057c4aa2c5b53f4671c8b9433}{get\+Health\+Changed}} (int amount)
 \begin{DoxyCompactList}\small\item\em get\+Health\+Change change the health of the owner. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classHealth_abe25a43ec1eed80d1f8e62de9daca895}{die}} ()
@@ -150,7 +150,7 @@ Reimplemented in \mbox{\hyperlink{classGenericHealthBehavior_ac04d2b1978cccd56a4
 
 
 
-heal heals an object. 
+heal heals an object. It is important to differentiate a simple health change and healing. Healing can involve more than simply changing health. For example, it can remove poison on the target, it can decrease the health of the owner, etc. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -158,7 +158,7 @@ heal heals an object.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-amount healed. It is important to differentiate a simple health change and healing. Healing can involve more than simply changing health. For example, it can remove poison on the target, it can decrease the health of the owner, etc. 
+amount healed. 
 \end{DoxyReturn}
 
 

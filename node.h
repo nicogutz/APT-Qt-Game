@@ -67,9 +67,19 @@ struct Node : public Tile {
         }
         return *this;
     }
-    // Variables required for the pathfindedr
+    ///@{
+    /**
+     * @brief (f, g, h) the weights for the model.
+     */
     float f = 0.0f, g = 0.0f, h = 0.0f;
+    ///@}
+    /**
+     * @brief visited if this Node has been visited.
+     */
     bool visited = false;
+    /**
+     * @brief prev pointer to the previous Node.
+     */
     Node *prev = nullptr;
 };
 
