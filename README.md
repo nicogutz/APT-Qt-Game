@@ -1,5 +1,5 @@
 # [APT Game Full Documentation](https://nicogutz.github.io/)
-### [nicogutz.github.io](https://nicogutz.github.io/)
+[nicogutz.github.io](https://nicogutz.github.io/)
 <br>
 
 # APT Game Project
@@ -13,7 +13,7 @@ APT is a dynamic, interactive game developed using C++ and the Qt framework. The
 
     • Nicolas Gutrierrez: Implemented the model and the behaviors (GameObject, GameObjectModel, GamePixmapItem, publicEnums, GameObjectSettings, + all the behaviors)
 
-    • Nur Alda: Implemented the views and the renderers (GameView, Renderer, TextRenderer, ColorRenderer, SpriteRenderer)
+    • Nur Alda-Onggar: Implemented the views and the renderers (GameView, Renderer, TextRenderer, ColorRenderer, SpriteRenderer)
 
     • Salma Loukili: Implemented the controller and the UI (ModelFactory, GameController, GameWindow, GameWindow.ui, Node.h)
     
