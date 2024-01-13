@@ -365,7 +365,7 @@ AUTOLINK_SUPPORT       = YES
 # diagrams that involve STL classes more complete and accurate.
 # The default value is: NO.
 
-BUILTIN_STL_SUPPORT    = NO
+BUILTIN_STL_SUPPORT    = YES
 
 # If you use Microsoft's C++/CLI language, you should set this option to YES to
 # enable parsing support.
@@ -846,13 +846,13 @@ WARN_AS_ERROR          = NO
 # FILE_VERSION_FILTER)
 # The default value is: $file:$line: $text.
 
-WARN_FORMAT            = "$file:$line: $text"
+WARN_FORMAT            = "$line: $text"
 
 # The WARN_LOGFILE tag can be used to specify a file to which warning and error
 # messages should be written. If left blank the output is written to standard
 # error (stderr).
 
-WARN_LOGFILE           =
+WARN_LOGFILE           = errors.log
 
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
@@ -1005,7 +1005,7 @@ EXAMPLE_RECURSIVE      = NO
 # that contain images that are to be included in the documentation (see the
 # \image command).
 
-IMAGE_PATH             =
+IMAGE_PATH             = docs
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -1074,13 +1074,13 @@ USE_MDFILE_AS_MAINPAGE = README.md
 # also VERBATIM_HEADERS is set to NO.
 # The default value is: NO.
 
-SOURCE_BROWSER         = NO
+SOURCE_BROWSER         = YES
 
 # Setting the INLINE_SOURCES tag to YES will include the body of functions,
 # classes and enums directly into the documentation.
 # The default value is: NO.
 
-INLINE_SOURCES         = YES
+INLINE_SOURCES         = NO
 
 # Setting the STRIP_CODE_COMMENTS tag to YES will instruct doxygen to hide any
 # special comment blocks from generated source code fragments. Normal C, C++ and
@@ -1147,7 +1147,7 @@ USE_HTAGS              = NO
 # See also: Section \class.
 # The default value is: YES.
 
-VERBATIM_HEADERS       = YES
+VERBATIM_HEADERS       = NO
 
 # If the CLANG_ASSISTED_PARSING tag is set to YES then doxygen will use the
 # clang parser (see:

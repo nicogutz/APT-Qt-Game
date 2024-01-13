@@ -1,13 +1,65 @@
-# [APT Game Full Documentation](https://nicogutz.github.io/)
-[nicogutz.github.io](https://nicogutz.github.io/)
-<br>
-
 # APT Game Project
-
-
-## Project Summary
-
 APT is a dynamic, interactive game developed using C++ and the Qt framework. The game combines strategic movement, attack mechanisms, and various behavior models to create a unique gaming experience.
+
+## Full Documentation - https://nicogutz.github.io
+
+
+* [Home](https://nicogutz.github.io)   
+    * [Architecture](docs/ARCH.md)
+    * [General Notes](docs/NOTES.md)
+
+
+## Class Structure    
+(Most important classes marked with *)
+
+```{cpp}
+Project
+├── controller
+│   └── GameController*
+├── view
+│   ├── renderer
+│   │   ├── Renderer*
+│   │   ├── SpriteRenderer
+│   │   ├── TextRenderer
+│   │   └── ColorRenderer
+│   ├── GamePixmapItem
+│   ├── GameView*
+│   └── GameWindow*
+├── model
+│   ├── behaviors
+│   │   ├── concrete*
+│   │   │   ├── attack
+│   │   │   │   ├── CounterAttackBehavior
+│   │   │   │   └── GenericAttackBehavior
+│   │   │   ├── healing
+│   │   │   ├── health
+│   │   │   │   ├── GenericHealingBehavior
+│   │   │   │   ├── GenericHealthBehavior
+│   │   │   │   └── PoisonOnKilledBehavior
+│   │   │   ├── movement
+│   │   │   │   ├── GenericMoveBehavior
+│   │   │   │   ├── GenericWalkableBehavior
+│   │   │   │   ├── HealOnStepBehavior
+│   │   │   │   ├── NewLevelOnStep
+│   │   │   │   ├── ObstacleBehavior
+│   │   │   │   ├── PoisonOnKilledBehavior
+│   │   │   │   └── RandomMovementBehavior
+│   │   │   ├── poison
+│   │   │   │   ├── GenericPoisonableBehavior
+│   │   │   │   └── GenericPoisoningBehavior
+│   │   ├── Attack
+│   │   ├── Behavior
+│   │   ├── Health
+│   │   ├── Movement
+│   │   └── Poison
+│   ├── noise
+│   │   └── PerlinNoise
+│   ├── GameObject*
+│   ├── GameObjectModel*
+│   ├── GameObjectSettings
+│   └── ObjectModelFactory
+├── Node
+```
 
 ## Contributors
 
@@ -17,11 +69,6 @@ APT is a dynamic, interactive game developed using C++ and the Qt framework. The
 
     • Salma Loukili: Implemented the controller and the UI (ModelFactory, GameController, GameWindow, GameWindow.ui, Node.h)
     
-
-## Main Classes
-
-GameWindow, GameController, GameView, GameObject, GameObjectModel + Renderers & Behaviors
-
 ## Game Features Overview
 
     • Three different visualizations (Color, Text and Sprites)

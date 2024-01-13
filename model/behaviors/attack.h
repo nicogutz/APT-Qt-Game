@@ -16,12 +16,12 @@ public:
      */
     Attack(QPointer<GameObject> owner)
         : Behavior(owner) {};
-
-    // Interface without default constructor
+    ///@{
+    /// Interface without default constructor
     Attack() = delete;
     virtual ~Attack() = 0;
     Attack &operator=(const Attack &) { return *this; };
-
+    ///@}
     /**
      * @brief Settings of the Attack Behavior
      **/

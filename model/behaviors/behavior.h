@@ -20,13 +20,14 @@ public:
     Behavior(QPointer<GameObject> owner)
         : m_owner(owner) {};
 
-    // Make it abstract.
+    ///@{
+    /// Interface without default constructor
     virtual ~Behavior() = 0;
     Behavior() = delete;
     Behavior &operator=(const Behavior &) {
         return *this;
     };
-
+    ///@}
 protected:
     /**
      * @brief m_owner the GameObject this behavior belongs to.

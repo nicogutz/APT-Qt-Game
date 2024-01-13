@@ -59,7 +59,7 @@ public:
     void updateHealth();
     /**
      * @brief characterMove call model behavior to move the protagonist.
-     * @param to.
+     * @param to in which direction to move.
      */
     void characterMove(Direction to);
     /**
@@ -129,22 +129,22 @@ signals:
     void gameOver();
     /**
      * @brief energyUpdated Emitted whenever the protagonist energy level changes, captured by GameWindow to be displayed in the UI.
-     * @param energy
+     * @param energy amount of energy
      */
     void energyUpdated(int energy);
     /**
      * @brief healthUpdated Emitted whenever the protagonist health level changes, captured by GameWindow to be displayed in the UI.
-     * @param health
+     * @param health amount of health
      */
     void healthUpdated(int health);
     /**
      * @brief enemiesUpdated Emitted when the level of the game changes and thus the number of enemies for that level, captured by GameWindow to be displayed in the UI.
-     * @param enemies
+     * @param enemies number of enemies
      */
     void enemiesUpdated(int enemies);
     /**
      * @brief healthPacksUpdated Emitted when the level of the game changes and thus the number of health packs for that level, captured by GameWindow to be displayed in the UI.
-     * @param health_packs
+     * @param health_packs number of health packs
      */
     void healthPacksUpdated(int health_packs);
     /**
