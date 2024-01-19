@@ -70,56 +70,94 @@ Project
     • Salma Loukili: Implemented the controller and the UI (ModelFactory, GameController, GameWindow, GameWindow.ui, Node.h)
     
 ## Game Features Overview
+### Subtask A
+- [x] **Task 1: World Visualization**
+  - Each tile has a fixed dimension in pixels and is colored based on its value.
+  - Instead of using color, each tile can have an associated image.
+  - The world is visualized as a scaled version of the image used to create it, zooming.
 
-    • Three different visualizations (Color, Text and Sprites)
+- [x] **Task 2: Object Visualization**
+  - Protagonist, enemies, and health packs have specific visualizations matching tile dimensions.
+  - Different enemy types have distinct visualizations; defeated enemies should be visually distinct.
+  - Enemies gradually poison (random time) while poisoning the surrounding area, animated visually.
 
-    • Seemless switch between visualizations during any point of the game
+- [x] **Task 3: Actions Visualization**
+  - Most actions (attack, health pack use, poison, movement, death) are animated.
 
-    • Moving protagonist in a large world grid with Tiles of different values
+- [x] **Task 4: Protagonist Control**
+  - Control the protagonist with simple movements (up, right, down, left).
+  - **Attack can be controlled (extra).** 
 
-    • Take Health packs to gain health
+- [x] **Task 5: Autoplay Path Visualization**
+  - Can visualize the path followed by the protagonist during autoplay.
 
-    • Enemies, Poison Enemies and Moving Enemies
-    
-    • Enemies attack back, custom death animations per view
+- [x] **Task 7: Extensibility**
+  - The architecture of the game is fully extensible. 
 
-    • Attack Enemies to gain Energy (but costs health)
+### Subtask B
+- [x] **Task 1: ASCII Art-like World Visualization**
+  - The world has an ASCII art-like, string-based visualization.
 
-    • Doorways leading to next/previous levels
+- [x] **Task 2: Integrated Text Visualization in UI**
+  - The text visualization is integrated into the UI.
+  - The user can easily switch between 'Graphical View' and 'Text View'.
 
-    • Poisoned tiles after killing poison enemy
+- [x] **Task 3: Protagonist Actions in Text Mode**
+  - Protagonist actions are visualized in text mode.
+  - **Enemy actions are visualized in text mode (extra).**
 
-    • Random poisoning of the world by PEnemy
+- [x] **Task 4: Text-based Protagonist Interaction**
+  - Interaction with the protagonist is done through text commands rather than mouse clicks.
+  - Commands are extensible.
+  - ~~Commands should be understood as soon as they are unique.~~
 
-    • Variable world size, chosen by the user at the beginning of the game
+### Subtask C
+_We took a different approach in our game since the worlds are procedural. Adding an image on top of a procedural world did not make much sense. The Sprite View makes a world using tile sprites based on the energy of the tiles. They look like different biomes (eventually it looks like a fever dream). The architecture pretty much completely separates the data layer from the visualization layer._
 
-    • Automatic router to any position in world
+- [X] **Task 1: Separation of Concerns**
+  - The visualization can differ from the data layer, allowing for varied appearances based on tile values.
 
-    • Infinite automatic router 
-    
-    • Automatic healthpack grabbing and enemy attacking on low Health/Energy 
+- [ ] **Task 2: Image as Top Layer**
+  - ~~Utilize a different image as a top layer, with tiles "behind" it forming a data layer with information.~~
+  - ~~Entering specific areas like the door of a house triggers the loading of a new map.~~
+  - ~~Maintain correlation between the top layer and the data layer when zooming in, ensuring the solution can handle this effectively.~~
 
-    • Path Visualization of the autorouter
+### Subtask C
 
-    • Procedurally generated levels with increasing difficulty
+- [x] **Task 1: Special Tiles and Map Loading**
+  - The protagonist can move to special tiles, triggering the loading of a different map.
+  - Loading new worlds should be efficient and occur in a short time.
 
-    • Game over if out of health or energy
+- [x] **Task 2: Map Caching for Optimization**
+  - Implement a map caching mechanism to optimize memory management.
 
-    • Pause / Resume / Restart / Quit game
+- [ ] **Task 3: Linking Various Levels**
 
-    • Zoom in/out the world grid
+_We make all the levels so there is no need for the user to create them._
+  - ~~Devise a convenient method for users to create levels and indicate connections between them.~~
 
-    • Timer display
+### Bonus Features
+- **Gameplay**
+  - Added Health to enemies and the protagonist, protagonist gains energy by killing enemies.
+  - Enemies counter attack.
+  - Pause / Resume / Restart / Quit Game
+  - Timer
+- **Visualizations**
+  - Three separate visualizations for the world (Sprite, Text, Color).
+  - All of them have generic animations that work regardless of the underlying Pixmap. 
+  - Color visualizations have only simple shapes and change their color as health/energy goes down.
+  - Seamless switch between the three at any point in the game.
+  - Animations of scale, overlays, opacity, tint, using QParallelAnimation.
 
-    • User text input commands when in Text view
+- **World Generation**
+  - Infinite procedural world generation using Perlin Noise.
+  - Variable game size, increasing energy of tiles as levels increase.
 
-    • Animations for: Protagonist moving, attacking enemies, stepping on poisoned tile and Enemy being attacked, dying and moving
-
-    • Health and energy of protagonist displayed
-
-    • Level, number of enemies and number of health packs displayed
-    
-
+- **Autoplay**
+  - User can decide to go to a location with the Autorouter or set the Autoplayer (-1, -1) to go until it dies.
+  - Autoplay goes for health packs when it runs out of health or is poisoned. Kills enemies when low on health.
+  - Can start at any point of the game.
+ 
 ## Weekly Progress Log
 
     • Week 6-11: Architecture of the game and UML
