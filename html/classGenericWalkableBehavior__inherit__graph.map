@@ -1,0 +1,8 @@
+<map id="GenericWalkableBehavior" name="GenericWalkableBehavior">
+<area shape="rect" id="node1" title="The GenericWalkableBehavior class simply returns true on the function isSteppable." alt="" coords="235,637,439,803"/>
+<area shape="rect" id="node4" href="$classHealOnStepBehavior.html" title="The HealOnStepBehavior class calls the heal function from the owner on the source." alt="" coords="5,851,207,1031"/>
+<area shape="rect" id="node5" href="$classNewLevelOnStep.html" title="The NewLevelOnStep class handles the stepping on objects that move the protagonist to a new level." alt="" coords="231,865,442,1016"/>
+<area shape="rect" id="node6" href="$classPoisonOnStepBehavior.html" title="The PoisonOnStepBehavior class makes the object poison the source if it has any poison." alt="" coords="467,851,668,1031"/>
+<area shape="rect" id="node2" href="$classMovement.html" title="The Movement class handles the actions of moving. It is an abstract class. All the functions return f..." alt="" coords="227,277,446,589"/>
+<area shape="rect" id="node3" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="242,5,431,229"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Renderer" name="Renderer">
+<area shape="rect" id="node1" title="The Renderer class is a base class for the renderers that use different visualizations for objects." alt="" coords="252,5,536,537"/>
+<area shape="rect" id="node2" href="$classColorRenderer.html" title="The ColorRenderer class makes shapes filled with colors to represent the world." alt="" coords="5,629,244,1073"/>
+<area shape="rect" id="node3" href="$classSpriteRenderer.html" title="The SpriteRenderer class handles the conversion of data to GamePixmapItems. It also animates behavior..." alt="" coords="269,585,519,1117"/>
+<area shape="rect" id="node4" href="$classTextRenderer.html" title="TextRenderer Performs rendering of the objects for the text view." alt="" coords="544,747,748,956"/>
+</map>

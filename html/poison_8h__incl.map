@@ -1,0 +1,12 @@
+<map id="model/behaviors/poison.h" name="model/behaviors/poison.h">
+<area shape="rect" id="node1" title=" " alt="" coords="91,5,282,32"/>
+<area shape="rect" id="node2" href="$behavior_8h.html" title=" " alt="" coords="64,155,155,181"/>
+<area shape="rect" id="node5" href="$gameobject_8h.html" title=" " alt="" coords="186,80,342,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="153,229,231,256"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,229,128,256"/>
+<area shape="rect" id="node6" title=" " alt="" coords="229,155,299,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="323,155,402,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="426,155,513,181"/>
+<area shape="rect" id="node9" href="$publicenums_8h.html" title=" " alt="" coords="537,155,655,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="559,229,633,256"/>
+</map>

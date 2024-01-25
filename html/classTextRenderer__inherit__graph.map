@@ -1,0 +1,4 @@
+<map id="TextRenderer" name="TextRenderer">
+<area shape="rect" id="node1" title="TextRenderer Performs rendering of the objects for the text view." alt="" coords="45,585,249,795"/>
+<area shape="rect" id="node2" href="$classRenderer.html" title="The Renderer class is a base class for the renderers that use different visualizations for objects." alt="" coords="5,5,289,537"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="view/gameview.h" name="view/gameview.h">
+<area shape="rect" id="node1" title=" " alt="" coords="135,5,271,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,133,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="139,229,213,256"/>
+<area shape="rect" id="node4" title=" " alt="" coords="209,80,263,107"/>
+<area shape="rect" id="node5" href="$renderer_8h.html" title=" " alt="" coords="295,80,478,107"/>
+<area shape="rect" id="node6" href="$publicenums_8h.html" title=" " alt="" coords="208,155,325,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="349,155,440,181"/>
+<area shape="rect" id="node8" href="$gamepixmapitem_8h.html" title=" " alt="" coords="465,155,650,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="237,229,424,256"/>
+<area shape="rect" id="node10" title=" " alt="" coords="449,229,655,256"/>
+<area shape="rect" id="node11" title=" " alt="" coords="680,229,835,256"/>
+<area shape="rect" id="node12" title=" " alt="" coords="859,229,938,256"/>
+<area shape="rect" id="node13" title=" " alt="" coords="962,229,1089,256"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="GenericPoisonableBehavior" name="GenericPoisonableBehavior">
+<area shape="rect" id="node1" title="The GenericPoisonableBehavior class handles actions from objects that can be harmed by poison...." alt="" coords="11,564,253,700"/>
+<area shape="rect" id="node2" href="$classQObject.html" title=" " alt="" coords="5,358,80,435"/>
+<area shape="rect" id="node3" href="$classPoison.html" title="The Poison class is an abstract class that handles poison actions." alt="" coords="104,277,341,516"/>
+<area shape="rect" id="node4" href="$classBehavior.html" title="The Behavior class is a marker interface (abstract class) that all the behaviors have to extend...." alt="" coords="128,5,317,229"/>
+</map>

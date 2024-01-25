@@ -1,0 +1,8 @@
+<map id="model/behaviors/concrete/health/generichealthbehavior.h" name="model/behaviors/concrete/health/generichealthbehavior.h">
+<area shape="rect" id="node1" title=" " alt="" coords="275,5,503,47"/>
+<area shape="rect" id="node2" href="$generichealthbehavior_8cpp.html" title=" " alt="" coords="5,95,248,136"/>
+<area shape="rect" id="node3" href="$poisononkilledbehavior_8h.html" title=" " alt="" coords="272,95,507,136"/>
+<area shape="rect" id="node5" href="$gameobjectsettings_8h.html" title=" " alt="" coords="440,191,648,218"/>
+<area shape="rect" id="node4" href="$poisononkilledbehavior_8cpp.html" title=" " alt="" coords="166,184,415,225"/>
+<area shape="rect" id="node6" href="$modelfactory_8cpp.html" title=" " alt="" coords="455,273,633,300"/>
+</map>
