@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['damage_5fper_5ftick_666',['DAMAGE_PER_TICK',['../structPoison_1_1SETTINGS.html#a59e0966c9e89b6b533427fac9d24ed85',1,'Poison::SETTINGS']]],
+  ['dead_667',['dead',['../structSpriteRenderer_1_1CharacterData.html#acb51bdfa6a41579c92fcbbbce667cd30',1,'SpriteRenderer::CharacterData']]],
+  ['defaultdata_668',['defaultData',['../structGameObjectSettings_1_1ProtagonistSettings.html#a6c2b32eadb657966cbf8f4f705dc1f47',1,'GameObjectSettings::ProtagonistSettings::defaultData()'],['../structGameObjectSettings_1_1TileSettings.html#ad8521640235f71b88969184b51ff22cd',1,'GameObjectSettings::TileSettings::defaultData()'],['../structGameObjectSettings_1_1DoorSettings.html#ae2a23e72acdb6ffe881a9bb2e7fa68c3',1,'GameObjectSettings::DoorSettings::defaultData()'],['../structGameObjectSettings_1_1HealthPackSettings.html#ae92ede125aa3573097cf6c7382b258ee',1,'GameObjectSettings::HealthPackSettings::defaultData()'],['../structGameObjectSettings_1_1EnemySettings.html#aa342901ee210aa79eb0b536f6689c577',1,'GameObjectSettings::EnemySettings::defaultData()'],['../structGameObjectSettings_1_1PoisonEnemySettings.html#a6c947ec89caf9e97993302864d4e8096',1,'GameObjectSettings::PoisonEnemySettings::defaultData()'],['../structGameObjectSettings_1_1MovingEnemySettings.html#a2d59f1293be9f2002f5abb794147b3b6',1,'GameObjectSettings::MovingEnemySettings::defaultData()']]]
+];

@@ -1,0 +1,31 @@
+45: warning: argument 'target' of command @param is not found in the argument list of Attack::attack(Direction direction)=0
+49: warning: The following parameter of Attack::attack(Direction direction)=0 is not documented:
+  parameter 'direction'
+62: warning: The following parameter of Attack::getAttacked(const QPointer< GameObject > &by, int strength)=0 is not documented:
+  parameter 'by'
+22: warning: argument 'data' of command @param is not found in the argument list of ColorRenderer::renderGameObject(QMap< DataRole, QVariant > objectData, GamePixmapItem *item)
+26: warning: The following parameter of ColorRenderer::renderGameObject(QMap< DataRole, QVariant > objectData, GamePixmapItem *item) is not documented:
+  parameter 'objectData'
+94: warning: argument 'unused' of command @param is not found in the argument list of GameObjectModel::getAllData(bool) const
+106: warning: argument 'newScaling.' of command @param is not found in the argument list of GamePixmapItem::setScaling(QPointF newScaling)
+109: warning: The following parameter of GamePixmapItem::setScaling(QPointF newScaling) is not documented:
+  parameter 'newScaling'
+134: warning: argument 'event.' of command @param is not found in the argument list of GameWindow::closeEvent(QCloseEvent *event)
+137: warning: The following parameter of GameWindow::closeEvent(QCloseEvent *event) is not documented:
+  parameter 'event'
+54: warning: argument 'watched.' of command @param is not found in the argument list of GameWindow::eventFilter(QObject *watched, QEvent *event)
+54: warning: argument 'event.' of command @param is not found in the argument list of GameWindow::eventFilter(QObject *watched, QEvent *event)
+59: warning: The following parameters of GameWindow::eventFilter(QObject *watched, QEvent *event) are not documented:
+  parameter 'watched'
+  parameter 'event'
+155: warning: argument 'event.' of command @param is not found in the argument list of GameWindow::keyPressEvent(QKeyEvent *event)
+158: warning: The following parameter of GameWindow::keyPressEvent(QKeyEvent *event) is not documented:
+  parameter 'event'
+27: warning: argument 'item' of command @param is not found in the argument list of Renderer::renderGameObject(QMap< DataRole, QVariant > objectData)
+102: warning: argument 'numPOVs' of command @param is not found in the argument list of SpriteRenderer::calculateFrame(QVariant direction, int POVnum)
+107: warning: The following parameter of SpriteRenderer::calculateFrame(QVariant direction, int POVnum) is not documented:
+  parameter 'POVnum'
+8: warning: unable to resolve reference to '/home/nicogusuarez/Documents/team-a1-fa/docs/ARCH.md' for \ref command
+9: warning: unable to resolve reference to '/home/nicogusuarez/Documents/team-a1-fa/docs/NOTES.md' for \ref command
+8: warning: unable to resolve reference to '/home/nicogusuarez/Documents/team-a1-fa/docs/ARCH.md' for \ref command
+9: warning: unable to resolve reference to '/home/nicogusuarez/Documents/team-a1-fa/docs/NOTES.md' for \ref command
